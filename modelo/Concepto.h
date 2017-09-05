@@ -1,7 +1,11 @@
 #pragma once
 
+// stl
+#include <vector>
+
 // modelo
 #include <modelo/IEntidad.h>
+#include <modelo/Termino.h>
 
 namespace visualizador
 {
@@ -13,6 +17,10 @@ class Concepto : public IEntidad
 public:
 	Concepto();
 	virtual ~Concepto();
+
+private:
+
+	std::vector<Termino> terminos;
 };
 
 };
