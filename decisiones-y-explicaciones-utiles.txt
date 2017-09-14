@@ -1,0 +1,14 @@
+IENTIDAD
+
+Representa a todo contenido de la aplicacion que tenga un ID, ETIQUETA, CONTENIDO y GRUPO.
+
+- ID: identificador de clase del contenido. Habra un identificador distinto para los contenidos de una misma clase. Es decir, ID no representa un identificador unico dentro de toda la aplicacion, sino dentro de un grupo (que sera la clase). Debe haber un encargado de crear el ID para cada clase. Para obtener un identificador unico se concatena 'GRUPO+ID'.
+
+- ETIQUETA: nombre del contenido. descripcion de 1 o 2 palabras del contenido.
+
+- CONTENIDO: contenido en si. La idea representarlo con un json que contenga los atributos de objeto.
+
+- GRUPO: identificador de clase/grupo. cada clase tiene su identificador.
+
+La idea es que el IAdmin use esta interfaz para crear los objetos que se almacenaran en la base de datos.
+Desde la interfaz cada pantalla setea los valores propios de cada clase de un objeto. Estos valores deberan quedar almacenados en CONTENIDO. Debe haber un encargado de crear el CONTENIDO de las clases.

@@ -1,18 +1,21 @@
 #pragma once
 
 // modelo
-#include <modelo/IEntidad.h>
+#include <modelo/Reporte.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class Grafico : public IEntidad
+class Grafico : public Reporte
 {
 public:
 	Grafico();
 	virtual ~Grafico();
+
+	virtual void crearContenido();
+
 };
 
 };

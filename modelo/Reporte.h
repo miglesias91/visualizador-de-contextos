@@ -1,5 +1,6 @@
 #pragma once
 
+
 // modelo
 #include <modelo/IEntidad.h>
 
@@ -8,16 +9,11 @@ namespace visualizador
 namespace modelo
 {
 
-class Seccion : public IEntidad
+class Reporte : public IEntidad
 {
 public:
-	Seccion();
-	virtual ~Seccion();
-
-	// METODOS
-
-	virtual void crearContenido();
-
+	Reporte();
+	virtual ~Reporte();
 };
 
 };

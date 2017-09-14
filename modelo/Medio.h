@@ -8,11 +8,14 @@ namespace visualizador
 namespace modelo
 {
 
-class Medios : public IEntidad
+class Medio : public IEntidad
 {
 public:
-	Medios();
-	virtual ~Medios();
+	Medio();
+	virtual ~Medio();
+
+	virtual void crearContenido();
+
 };
 
 };

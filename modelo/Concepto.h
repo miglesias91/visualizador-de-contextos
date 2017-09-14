@@ -18,6 +18,19 @@ public:
 	Concepto();
 	virtual ~Concepto();
 
+	// GETTERS
+
+	std::vector<Termino> getTerminos();
+
+	// SETTERS
+
+	void agregarTermino(Termino termino_nuevo);
+
+	// METODOS
+
+	virtual void crearContenido();
+
+
 private:
 
 	std::vector<Termino> terminos;
