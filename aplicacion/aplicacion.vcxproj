@@ -93,6 +93,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -106,6 +107,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -114,10 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AdministracionAplicacionLocal.h" />
+    <ClInclude Include="ConfiguracionAplicacion.h" />
     <ClInclude Include="IAdministracionAplicacion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdministracionAplicacionLocal.cpp" />
+    <ClCompile Include="ConfiguracionAplicacion.cpp" />
     <ClCompile Include="IAdministracionAplicacion.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

@@ -14,6 +14,8 @@ public:
 
 	// CONSTRUCTORES
 	IEntidad();
+	IEntidad(std::string id, std::string etiqueta, std::string grupo, std::string contenido = "" );
+
 	virtual ~IEntidad();
 
 	// GETTERS

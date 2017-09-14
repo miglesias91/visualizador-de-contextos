@@ -6,6 +6,10 @@ IEntidad::IEntidad()
 {
 }
 
+IEntidad::IEntidad(std::string id, std::string etiqueta, std::string contenido, std::string grupo) : id(id), etiqueta(etiqueta), contenido(contenido), grupo(grupo)
+{
+}
+
 IEntidad::~IEntidad()
 {
 }
