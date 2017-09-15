@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="Concepto.h" />
     <ClInclude Include="Consulta.h" />
+    <ClInclude Include="Fecha.h" />
     <ClInclude Include="Grafico.h" />
     <ClInclude Include="IEntidad.h" />
     <ClInclude Include="Medio.h" />
@@ -128,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Concepto.cpp" />
     <ClCompile Include="Consulta.cpp" />
+    <ClCompile Include="Fecha.cpp" />
     <ClCompile Include="Grafico.cpp" />
     <ClCompile Include="IEntidad.cpp" />
     <ClCompile Include="Medio.cpp" />

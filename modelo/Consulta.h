@@ -23,9 +23,14 @@ public:
 	// CONSTRUCTORES
 
 	Consulta();
+	
+	Consulta(std::string etiqueta, Periodo* periodo, Reporte* reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones);
+
 	virtual ~Consulta();
 
 	// METODOS
+	
+	virtual void crearContenido();
 
 	// GETTERS
 
@@ -45,19 +50,14 @@ public:
 	void agregarMedio(Medio* medio);
 	void agregarSeccion(Seccion* seccion);
 
-	virtual void crearContenido();
-
 private:
+
+	Periodo* periodo;
+	Reporte* reporte;
 
 	std::vector<Concepto*> conceptos;
 	std::vector<Medio*> medios;
-	std::vector<Seccion*> secciones;
-
-	Periodo* periodo;
-
-	Reporte* reporte;
-
-	
+	std::vector<Seccion*> secciones;	
 };
 
 };

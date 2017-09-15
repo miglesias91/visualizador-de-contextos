@@ -6,6 +6,14 @@ Grafico::Grafico() : Reporte()
 {
 }
 
+Grafico::Grafico(std::string etiqueta) : Reporte(etiqueta)
+{
+}
+
 Grafico::~Grafico()
+{
+}
+
+void Grafico::crearContenido()
 {
 }

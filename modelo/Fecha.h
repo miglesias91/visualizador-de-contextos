@@ -1,15 +1,17 @@
 #pragma once
 
 // stl
-#include <ctime>
 #include <string>
+
+// modelo
+#include <modelo/IEntidad.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class Fecha
+class Fecha : public IEntidad
 {
 public:
 
@@ -17,9 +19,13 @@ public:
 
 	Fecha();
 
-	Fecha(unsigned int dia, unsigned int mes, unsigned int anio);
+	Fecha(std::string etiqueta, unsigned int dia, unsigned int mes, unsigned int anio);
 
 	virtual ~Fecha();
+
+	// METODOS
+
+	virtual void crearContenido();
 
 	// GETTERS
 

@@ -3,6 +3,9 @@
 // stl
 #include <string>
 
+// aplicacion
+#include <aplicacion/ID.h>
+
 namespace visualizador
 {
 namespace modelo
@@ -14,13 +17,13 @@ public:
 
 	// CONSTRUCTORES
 	IEntidad();
-	IEntidad(std::string id, std::string etiqueta, std::string grupo, std::string contenido = "" );
+	IEntidad(std::string etiqueta, std::string grupo, std::string contenido = "" );
 
 	virtual ~IEntidad();
 
 	// GETTERS
 
-	virtual std::string getId();
+	virtual visualizador::aplicacion::ID* getId();
 	
 	virtual std::string getEtiqueta();
 
@@ -30,7 +33,7 @@ public:
 
 	// SETTERS
 
-	virtual void setId(std::string id);
+	virtual void setId(visualizador::aplicacion::ID* id);
 
 	virtual void setEtiqueta(std::string etiqueta);
 
@@ -44,7 +47,7 @@ public:
 
 private:
 
-	std::string id;
+	visualizador::aplicacion::ID* id;
 	std::string etiqueta;
 	std::string contenido;
 	std::string grupo;

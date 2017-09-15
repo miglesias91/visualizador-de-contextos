@@ -15,16 +15,22 @@ namespace modelo
 class Concepto : public IEntidad
 {
 public:
+
+	// CONSTRUCTORES
+
 	Concepto();
+	
+	Concepto(std::string etiqueta, std::vector<Termino*> terminos);
+
 	virtual ~Concepto();
 
 	// GETTERS
 
-	std::vector<Termino> getTerminos();
+	std::vector<Termino*> getTerminos();
 
 	// SETTERS
 
-	void agregarTermino(Termino termino_nuevo);
+	void agregarTermino(Termino* termino_nuevo);
 
 	// METODOS
 
@@ -33,7 +39,7 @@ public:
 
 private:
 
-	std::vector<Termino> terminos;
+	std::vector<Termino*> terminos;
 };
 
 };

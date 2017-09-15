@@ -2,17 +2,26 @@
 
 using namespace visualizador::modelo;
 
+// aplicacion
+#include <aplicacion/ConfiguracionAplicacion.h>
+
 // CONSTRUCTORES
 
 Fecha::Fecha()
 {
 }
 
-Fecha::Fecha(unsigned int dia, unsigned int mes, unsigned int anio) : dia(dia), mes(mes), anio(anio)
+Fecha::Fecha(std::string etiqueta, unsigned int dia, unsigned int mes, unsigned int anio) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(dia), mes(mes), anio(anio)
 {
 }
 
 Fecha::~Fecha()
+{
+}
+
+// METODOS
+
+void Fecha::crearContenido()
 {
 }
 

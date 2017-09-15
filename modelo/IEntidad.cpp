@@ -2,19 +2,23 @@
 
 using namespace visualizador::modelo;
 
+// aplicacion
+#include <aplicacion/GestorIDs.h>
+
 IEntidad::IEntidad()
 {
 }
 
-IEntidad::IEntidad(std::string id, std::string etiqueta, std::string contenido, std::string grupo) : id(id), etiqueta(etiqueta), contenido(contenido), grupo(grupo)
+IEntidad::IEntidad(std::string etiqueta, std::string grupo, std::string contenido) : etiqueta(etiqueta), grupo(grupo), contenido(contenido)
 {
+	this->id = visualizador::aplicacion::GestorIDs::nuevoID();
 }
 
 IEntidad::~IEntidad()
 {
 }
 
-std::string IEntidad::getId()
+visualizador::aplicacion::ID* IEntidad::getId()
 {
 	return this->id;
 }
@@ -34,7 +38,7 @@ std::string IEntidad::getGrupo()
 	return this->grupo;
 }
 
-void IEntidad::setId(std::string id)
+void IEntidad::setId(visualizador::aplicacion::ID* id)
 {
 	this->id = id;
 }

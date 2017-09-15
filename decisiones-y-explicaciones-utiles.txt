@@ -2,9 +2,9 @@ IENTIDAD
 
 Representa a todo contenido de la aplicacion que tenga un ID, ETIQUETA, CONTENIDO y GRUPO.
 
-- ID: identificador de clase del contenido. Habra un identificador distinto para los contenidos de una misma clase. Es decir, ID no representa un identificador unico dentro de toda la aplicacion, sino dentro de un grupo (que sera la clase). Debe haber un encargado de crear el ID para cada clase. Para obtener un identificador unico se concatena 'GRUPO+ID'.
+- ID: identificador de cada entidad. Hay un GestorIDs que se encarga de generar un nuevo ID para cada nueva entidad. El contador de IDs es un 'unsigned long long int' por lo que es posible crear 18.446744.073709.551616 diferentes. No se aplica ninguna optimizacion (como seria reasignacion de IDs eliminados).
 
-- ETIQUETA: nombre del contenido. descripcion de 1 o 2 palabras del contenido.
+- ETIQUETA: nombre del contenido. descripcion de 1 o 2 palabras del contenido. Este valor sera el que vea y conozco el usuario de la aplicacion.
 
 - CONTENIDO: contenido en si. La idea representarlo con un json que contenga los atributos de objeto.
 
@@ -12,3 +12,16 @@ Representa a todo contenido de la aplicacion que tenga un ID, ETIQUETA, CONTENID
 
 La idea es que el IAdmin use esta interfaz para crear los objetos que se almacenaran en la base de datos.
 Desde la interfaz cada pantalla setea los valores propios de cada clase de un objeto. Estos valores deberan quedar almacenados en CONTENIDO. Debe haber un encargado de crear el CONTENIDO de las clases.
+
+CLAVE-VALOR
+
+IAdminAplicacion se encarga de pasarle a IAdminAlmacenamiento los datos ya listo para almacenar. Los datos se transforman de IEntidad=[id, etiqueta, contenido, grupo] -> a -> ClaveValor=[clave[grupo+id], valor[etiqueta, contenido]].
+
+FECHAS Y PERIODO
+Las fechas y períodos se consideran como Entidades porque se pueden almancenar fechas y periodos particulares, por ejemplo: fecha="comienzo de campaña", periodo="1er semestre año 2017", etc etc.
+
+MEDIOS
+Los "medios" analizados no se incluyen desde la interfaz de usuario, sino que vienen incluidos como parte del desarrollo de la aplicación. La idea es que se permita elegir de un conjunto de medios. A nivel de código, habra una GestorMedios que cree instancias con los datos del medio a tratar (es decir, no existirá la sentencia "Medio medio_nuevo = new Medio(<etiqueta_de_un_medio_nuevo>)", sino mas bien "Medio un_medio = GestorMedios::Infobae();")
+
+SECCIONES
+<investigar y decidir si los tratamos de la misma forma que los medios o si los pueden crear el usuario>

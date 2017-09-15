@@ -2,17 +2,30 @@
 
 using namespace visualizador::modelo;
 
+// aplicacion
+#include <aplicacion/ConfiguracionAplicacion.h>
+
+// CONSTRUCTORES
+
 Periodo::Periodo()
 {
 }
 
-visualizador::modelo::Periodo::Periodo(Fecha * desde, Fecha * hasta) : desde(desde), hasta(hasta)
+Periodo::Periodo(std::string etiqueta, Fecha * desde, Fecha * hasta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo()),  desde(desde), hasta(hasta)
 {
 }
 
 Periodo::~Periodo()
 {
 }
+
+// METODOS
+
+void Periodo::crearContenido()
+{
+}
+
+// GETTERS
 
 Fecha * Periodo::getDesde()
 {
@@ -23,6 +36,8 @@ Fecha * Periodo::getHasta()
 {
 	return this->hasta;
 }
+
+// SETTERS
 
 void Periodo::setDesde(Fecha * desde)
 {

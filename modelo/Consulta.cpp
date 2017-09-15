@@ -2,7 +2,15 @@
 
 using namespace visualizador::modelo;
 
+// aplicacion
+#include <aplicacion/ConfiguracionAplicacion.h>
+
 Consulta::Consulta() : IEntidad()
+{
+}
+
+Consulta::Consulta(std::string etiqueta, Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones)
+	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta()), periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones)
 {
 }
 

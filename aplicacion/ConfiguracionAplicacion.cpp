@@ -14,8 +14,11 @@ unsigned int ConfiguracionAplicacion::prefijo_tamanio;
 std::string ConfiguracionAplicacion::prefijo_concepto;
 std::string ConfiguracionAplicacion::prefijo_termino;
 std::string ConfiguracionAplicacion::prefijo_consulta;
-std::string ConfiguracionAplicacion::prefijo_grafico;
+std::string ConfiguracionAplicacion::prefijo_reporte;
 std::string ConfiguracionAplicacion::prefijo_seccion;
+std::string ConfiguracionAplicacion::prefijo_periodo;
+std::string ConfiguracionAplicacion::prefijo_fecha;
+std::string ConfiguracionAplicacion::prefijo_medio;
 
 void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configuracion)
 {
@@ -39,15 +42,20 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 	prefijo_concepto = config_json[ConfiguracionAplicacion::tagPrefijoConcepto().c_str()].GetString();
 	prefijo_termino = config_json[ConfiguracionAplicacion::tagPrefijoTermino().c_str()].GetString();
 	prefijo_consulta = config_json[ConfiguracionAplicacion::tagPrefijoConsulta().c_str()].GetString();
-	prefijo_grafico = config_json[ConfiguracionAplicacion::tagPrefijoGrafico().c_str()].GetString();
+	prefijo_reporte = config_json[ConfiguracionAplicacion::tagPrefijoReporte().c_str()].GetString();
 	prefijo_seccion = config_json[ConfiguracionAplicacion::tagPrefijoSeccion().c_str()].GetString();
+	prefijo_periodo = config_json[ConfiguracionAplicacion::tagPrefijoPeriodo().c_str()].GetString();
+	prefijo_fecha = config_json[ConfiguracionAplicacion::tagPrefijoFecha().c_str()].GetString();
+	prefijo_medio = config_json[ConfiguracionAplicacion::tagPrefijoMedio().c_str()].GetString();
 
 	// recorto el prefijo al tamanio indicado en el archivo de config.
 	prefijo_concepto.erase(prefijo_concepto.begin() + prefijo_tamanio, prefijo_concepto.end());
 	prefijo_termino.erase(prefijo_termino.begin() + prefijo_tamanio, prefijo_termino.end());
 	prefijo_consulta.erase(prefijo_consulta.begin() + prefijo_tamanio, prefijo_consulta.end());
-	prefijo_grafico.erase(prefijo_grafico.begin() + prefijo_tamanio, prefijo_grafico.end());
+	prefijo_reporte.erase(prefijo_reporte.begin() + prefijo_tamanio, prefijo_reporte.end());
 	prefijo_seccion.erase(prefijo_seccion.begin() + prefijo_tamanio, prefijo_seccion.end());
+	prefijo_fecha.erase(prefijo_fecha.begin() + prefijo_tamanio, prefijo_fecha.end());
+	prefijo_medio.erase(prefijo_medio.begin() + prefijo_tamanio, prefijo_medio.end());
 }
 
 bool ConfiguracionAplicacion::prefijoHabilitado()
@@ -75,14 +83,29 @@ std::string ConfiguracionAplicacion::prefijoConsulta()
 	return prefijo_consulta;
 }
 
-std::string ConfiguracionAplicacion::prefijoGrafico()
+std::string ConfiguracionAplicacion::prefijoReporte()
 {
-	return prefijo_grafico;
+	return prefijo_reporte;
 }
 
 std::string ConfiguracionAplicacion::prefijoSeccion()
 {
 	return prefijo_seccion;
+}
+
+std::string ConfiguracionAplicacion::prefijoPeriodo()
+{
+	return prefijo_periodo;
+}
+
+std::string ConfiguracionAplicacion::prefijoFecha()
+{
+	return prefijo_fecha;
+}
+
+std::string ConfiguracionAplicacion::prefijoMedio()
+{
+	return prefijo_medio;
 }
 
 std::string ConfiguracionAplicacion::tagPrefijoHabilitado()
@@ -110,14 +133,29 @@ std::string ConfiguracionAplicacion::tagPrefijoConsulta()
 	return "prefijo_consulta";
 }
 
-std::string ConfiguracionAplicacion::tagPrefijoGrafico()
+std::string ConfiguracionAplicacion::tagPrefijoReporte()
 {
-	return "prefijo_grafico";
+	return "prefijo_reporte";
 }
 
 std::string ConfiguracionAplicacion::tagPrefijoSeccion()
 {
 	return "prefijo_seccion";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoPeriodo()
+{
+	return "prefijo_periodo";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoFecha()
+{
+	return "prefijo_fecha";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoMedio()
+{
+	return "prefijo_medio";
 }
 
 ConfiguracionAplicacion::ConfiguracionAplicacion()
