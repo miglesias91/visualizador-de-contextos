@@ -1,3 +1,11 @@
+﻿ROCKSDB
+
+Para generar los archivos de Visual Studio usamos la opcion PORTABLE=1. Se ejecuto el siguiente comando:
+
+cmake "Visual Studio 15 2017" -DFAIL_ON_WARNINGS=0 -DPORTABLE=1 ..
+
+Esto permite tener una versión portable de rocksdb. De esta forma usa el conjunto de instrucciones AVX y no AVX2.
+
 IENTIDAD
 
 Representa a todo contenido de la aplicacion que tenga un ID, ETIQUETA, CONTENIDO y GRUPO.
