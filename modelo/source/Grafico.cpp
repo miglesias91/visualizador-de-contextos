@@ -1,4 +1,4 @@
-#include <modelo/Grafico.h>
+#include <modelo/include/Grafico.h>
 
 using namespace visualizador::modelo;
 

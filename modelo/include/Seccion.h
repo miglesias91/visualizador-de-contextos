@@ -1,7 +1,7 @@
 #pragma once
 
 // modelo
-#include <modelo/IEntidad.h>
+#include <modelo/include/IEntidad.h>
 
 namespace visualizador
 {
@@ -12,6 +12,9 @@ class Seccion : public IEntidad
 {
 public:
 	Seccion();
+
+	Seccion(std::string etiqueta);
+
 	virtual ~Seccion();
 
 	// METODOS

@@ -1,9 +1,9 @@
-#include <modelo/Reporte.h>
+#include <modelo/include/Reporte.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Reporte::Reporte() : IEntidad()
 {

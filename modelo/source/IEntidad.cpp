@@ -1,9 +1,9 @@
-#include <modelo/IEntidad.h>
+#include <modelo/include/IEntidad.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/GestorIDs.h>
+#include <aplicacion/include/GestorIDs.h>
 
 IEntidad::IEntidad()
 {

@@ -1,9 +1,9 @@
-#include <modelo/Medio.h>
+#include <modelo/include/Medio.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Medio::Medio() : IEntidad()
 {

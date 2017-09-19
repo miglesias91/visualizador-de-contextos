@@ -1,9 +1,9 @@
-#include <modelo/Fecha.h>
+#include <modelo/include/Fecha.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 // CONSTRUCTORES
 

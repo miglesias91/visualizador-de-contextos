@@ -15,66 +15,66 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Concepto.h">
+    <ClInclude Include="include\Termino.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Consulta.h">
+    <ClInclude Include="include\Concepto.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Termino.h">
+    <ClInclude Include="include\Consulta.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Grafico.h">
+    <ClInclude Include="include\Fecha.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Seccion.h">
+    <ClInclude Include="include\Grafico.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="IEntidad.h">
+    <ClInclude Include="include\IEntidad.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Medio.h">
+    <ClInclude Include="include\Medio.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Periodo.h">
+    <ClInclude Include="include\Periodo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Reporte.h">
+    <ClInclude Include="include\Reporte.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Fecha.h">
+    <ClInclude Include="include\Seccion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Concepto.cpp">
+    <ClCompile Include="source\Concepto.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Consulta.cpp">
+    <ClCompile Include="source\Consulta.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Termino.cpp">
+    <ClCompile Include="source\Fecha.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Grafico.cpp">
+    <ClCompile Include="source\Grafico.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Seccion.cpp">
+    <ClCompile Include="source\IEntidad.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="IEntidad.cpp">
+    <ClCompile Include="source\Medio.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Medio.cpp">
+    <ClCompile Include="source\Reporte.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Periodo.cpp">
+    <ClCompile Include="source\Periodo.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Reporte.cpp">
+    <ClCompile Include="source\Seccion.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Fecha.cpp">
+    <ClCompile Include="source\Termino.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

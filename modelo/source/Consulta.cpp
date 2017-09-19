@@ -1,9 +1,9 @@
-#include <modelo/Consulta.h>
+#include <modelo/include/Consulta.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Consulta::Consulta() : IEntidad()
 {

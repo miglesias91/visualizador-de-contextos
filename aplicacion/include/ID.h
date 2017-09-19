@@ -4,7 +4,7 @@
 #include <string>
 
 // aplicacion
-#include <aplicacion/GestorIDs.h>
+#include <aplicacion/include/GestorIDs.h>
 
 namespace visualizador
 {

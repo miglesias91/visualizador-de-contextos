@@ -115,18 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AdministracionAplicacionLocal.h" />
-    <ClInclude Include="ConfiguracionAplicacion.h" />
-    <ClInclude Include="GestorIDs.h" />
-    <ClInclude Include="IAdministracionAplicacion.h" />
-    <ClInclude Include="ID.h" />
+    <ClInclude Include="include\AdministradorAplicacionLocal.h" />
+    <ClInclude Include="include\ConfiguracionAplicacion.h" />
+    <ClInclude Include="include\GestorIDs.h" />
+    <ClInclude Include="include\IAdministradorAplicacion.h" />
+    <ClInclude Include="include\ID.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdministracionAplicacionLocal.cpp" />
-    <ClCompile Include="ConfiguracionAplicacion.cpp" />
-    <ClCompile Include="GestorIDs.cpp" />
-    <ClCompile Include="IAdministracionAplicacion.cpp" />
-    <ClCompile Include="ID.cpp" />
+    <ClCompile Include="source\AdministradorAplicacionLocal.cpp" />
+    <ClCompile Include="source\ConfiguracionAplicacion.cpp" />
+    <ClCompile Include="source\GestorIDs.cpp" />
+    <ClCompile Include="source\IAdministradorAplicacion.cpp" />
+    <ClCompile Include="source\ID.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,34 +1,34 @@
 #pragma once
 
 // modelo
-#include <modelo/IEntidad.h>
+#include <modelo/include/Reporte.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class Medio : public IEntidad
+class Grafico : public Reporte
 {
 public:
 
 	// CONSTRUCTORES
 
-	Medio();
-	Medio(std::string etiqueta);
+	Grafico();
+	
+	Grafico(std::string etiqueta);
 
-	virtual ~Medio();
+	virtual ~Grafico();
 
 	// METODOS
 
 	virtual void crearContenido();
-	
+
 	// GETTERS
 
 	// SETTERS
-
-
 };
 
 };
 };
+

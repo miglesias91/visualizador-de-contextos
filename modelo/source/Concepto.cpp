@@ -1,9 +1,9 @@
-#include <modelo/Concepto.h>
+#include <modelo/include/Concepto.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Concepto::Concepto() : IEntidad()
 {

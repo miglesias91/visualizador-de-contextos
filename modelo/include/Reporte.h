@@ -1,7 +1,7 @@
 #pragma once
 
 // modelo
-#include <modelo/IEntidad.h>
+#include <modelo/include/IEntidad.h>
 
 namespace visualizador
 {

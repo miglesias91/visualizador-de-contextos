@@ -2,16 +2,16 @@
 #include <gtest/gtest.h>
 
 // aplicacion
-#include <aplicacion/ConfiguracionAplicacion.h>
-#include <aplicacion/GestorIDs.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
+#include <aplicacion/include/GestorIDs.h>
 
 // modelo
-#include <modelo/Concepto.h>
-#include <modelo/Consulta.h>
-#include <modelo/Fecha.h>
-#include <modelo/Grafico.h>
-#include <modelo/Medio.h>
-#include <modelo/Periodo.h>
+#include <modelo/include/Concepto.h>
+#include <modelo/include/Consulta.h>
+#include <modelo/include/Fecha.h>
+#include <modelo/include/Grafico.h>
+#include <modelo/include/Medio.h>
+#include <modelo/include/Periodo.h>
 
 using namespace visualizador::modelo;
 
@@ -104,7 +104,7 @@ TEST(modelo, GettersYSettersConsulta)
 	medios.push_back(medio_clarin);
 	medios.push_back(medio_infobae);
 
-	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
+	// estos news de las secciones en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
 	Seccion* seccion_politica = new Seccion("politica");
 	Seccion* seccion_economia = new Seccion("economia");
 
@@ -112,5 +112,41 @@ TEST(modelo, GettersYSettersConsulta)
 	secciones.push_back(seccion_politica);
 	secciones.push_back(seccion_economia);
 
-	// SEGUIR ARMANDO EL TEST. POPULAR "Consulta" y AGREGAR LOS ASSERTS.
+	Consulta* consulta = new Consulta("primavera_2017", primavera_2017, reporte, conceptos, medios, secciones);
+
+	std::string nombre = consulta->getEtiqueta();
+	Periodo* periodo_recuperado = consulta->getPeriodo();
+	Reporte* reporte_recuperado = consulta->getReporte();
+	conceptos = consulta->getConceptos();
+	medios = consulta->getMedios();
+	secciones = consulta->getSecciones();
+
+	ASSERT_STREQ("primavera_2017", nombre.c_str());
+	ASSERT_EQ(19, consulta->getId()->numero());
+
+	ASSERT_STREQ("primavera_2017", periodo_recuperado->getEtiqueta().c_str());
+
+	ASSERT_STREQ("comienzo_primavera_2017", periodo_recuperado->getDesde()->getEtiqueta().c_str());
+	ASSERT_EQ(21, periodo_recuperado->getDesde()->getDia());
+	ASSERT_EQ(9, periodo_recuperado->getDesde()->getMes());
+	ASSERT_EQ(2017, periodo_recuperado->getDesde()->getAnio());
+
+	ASSERT_STREQ("fin_primavera_2017", periodo_recuperado->getHasta()->getEtiqueta().c_str());
+	ASSERT_EQ(21, periodo_recuperado->getHasta()->getDia());
+	ASSERT_EQ(12, periodo_recuperado->getHasta()->getMes());
+	ASSERT_EQ(2017, periodo_recuperado->getHasta()->getAnio());
+
+	ASSERT_STREQ("torta", reporte_recuperado->getEtiqueta().c_str());
+
+	ASSERT_EQ(3, conceptos.size());
+	ASSERT_STREQ("crisis", conceptos[1]->getEtiqueta().c_str());
+
+	ASSERT_EQ(3, conceptos[1]->getTerminos().size());
+	ASSERT_STREQ("desorden", conceptos[1]->getTerminos()[2]->getEtiqueta().c_str());
+
+	ASSERT_EQ(2, medios.size());
+	ASSERT_STREQ("clarin", medios[0]->getEtiqueta().c_str());
+
+	ASSERT_EQ(2, secciones.size());
+	ASSERT_STREQ("economia", secciones[1]->getEtiqueta().c_str());
 }

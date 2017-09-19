@@ -5,12 +5,12 @@
 #include <chrono>
 
 // modelo
-#include <modelo/IEntidad.h>
-#include <modelo/Concepto.h>
-#include <modelo/Seccion.h>
-#include <modelo/Medio.h>
-#include <modelo/Periodo.h>
-#include <modelo/Reporte.h>
+#include <modelo/include/IEntidad.h>
+#include <modelo/include/Concepto.h>
+#include <modelo/include/Seccion.h>
+#include <modelo/include/Medio.h>
+#include <modelo/include/Periodo.h>
+#include <modelo/include/Reporte.h>
 
 namespace visualizador
 {

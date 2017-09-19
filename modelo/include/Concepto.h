@@ -4,8 +4,8 @@
 #include <vector>
 
 // modelo
-#include <modelo/IEntidad.h>
-#include <modelo/Termino.h>
+#include <modelo/include/IEntidad.h>
+#include <modelo/include/Termino.h>
 
 namespace visualizador
 {

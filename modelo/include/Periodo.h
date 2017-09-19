@@ -1,8 +1,8 @@
 #pragma once
 
 // modelo
-#include <modelo/IEntidad.h>
-#include <modelo/Fecha.h>
+#include <modelo/include/IEntidad.h>
+#include <modelo/include/Fecha.h>
 
 namespace visualizador
 {

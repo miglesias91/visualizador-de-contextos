@@ -1,10 +1,10 @@
-#include <modelo/Termino.h>
+#include <modelo/include/Termino.h>
 
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/GestorIDs.h>
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/GestorIDs.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Termino::Termino() : IEntidad()
 {

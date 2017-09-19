@@ -115,28 +115,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Concepto.h" />
-    <ClInclude Include="Consulta.h" />
-    <ClInclude Include="Fecha.h" />
-    <ClInclude Include="Grafico.h" />
-    <ClInclude Include="IEntidad.h" />
-    <ClInclude Include="Medio.h" />
-    <ClInclude Include="Periodo.h" />
-    <ClInclude Include="Reporte.h" />
-    <ClInclude Include="Seccion.h" />
-    <ClInclude Include="Termino.h" />
+    <ClInclude Include="include\Concepto.h" />
+    <ClInclude Include="include\Consulta.h" />
+    <ClInclude Include="include\Fecha.h" />
+    <ClInclude Include="include\Grafico.h" />
+    <ClInclude Include="include\IEntidad.h" />
+    <ClInclude Include="include\Medio.h" />
+    <ClInclude Include="include\Periodo.h" />
+    <ClInclude Include="include\Reporte.h" />
+    <ClInclude Include="include\Seccion.h" />
+    <ClInclude Include="include\Termino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Concepto.cpp" />
-    <ClCompile Include="Consulta.cpp" />
-    <ClCompile Include="Fecha.cpp" />
-    <ClCompile Include="Grafico.cpp" />
-    <ClCompile Include="IEntidad.cpp" />
-    <ClCompile Include="Medio.cpp" />
-    <ClCompile Include="Periodo.cpp" />
-    <ClCompile Include="Reporte.cpp" />
-    <ClCompile Include="Seccion.cpp" />
-    <ClCompile Include="Termino.cpp" />
+    <ClCompile Include="source\Concepto.cpp" />
+    <ClCompile Include="source\Consulta.cpp" />
+    <ClCompile Include="source\Fecha.cpp" />
+    <ClCompile Include="source\Grafico.cpp" />
+    <ClCompile Include="source\IEntidad.cpp" />
+    <ClCompile Include="source\Medio.cpp" />
+    <ClCompile Include="source\Periodo.cpp" />
+    <ClCompile Include="source\Reporte.cpp" />
+    <ClCompile Include="source\Seccion.cpp" />
+    <ClCompile Include="source\Termino.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

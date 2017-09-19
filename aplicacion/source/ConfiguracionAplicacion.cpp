@@ -1,4 +1,4 @@
-#include <aplicacion/ConfiguracionAplicacion.h>
+#include <aplicacion/include/ConfiguracionAplicacion.h>
 
 using namespace visualizador::aplicacion;
 

@@ -1,4 +1,4 @@
-#include <aplicacion/GestorIDs.h>
+#include <aplicacion/include/GestorIDs.h>
 
 using namespace visualizador::aplicacion;
 
