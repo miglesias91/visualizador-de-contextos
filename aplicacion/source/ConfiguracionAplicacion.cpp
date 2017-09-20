@@ -6,9 +6,6 @@ using namespace visualizador::aplicacion;
 #include <fstream>
 #include <sstream>
 
-// rapidjson
-#include <rapidjson/document.h>
-
 bool ConfiguracionAplicacion::prefijo_habilitado;
 unsigned int ConfiguracionAplicacion::prefijo_tamanio;
 std::string ConfiguracionAplicacion::prefijo_concepto;
@@ -19,6 +16,8 @@ std::string ConfiguracionAplicacion::prefijo_seccion;
 std::string ConfiguracionAplicacion::prefijo_periodo;
 std::string ConfiguracionAplicacion::prefijo_fecha;
 std::string ConfiguracionAplicacion::prefijo_medio;
+const unsigned int ConfiguracionAplicacion::tamanio_alocador = 1024;
+rapidjson::Document ConfiguracionAplicacion::documento_alocador;
 
 void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configuracion)
 {
@@ -56,6 +55,22 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 	prefijo_seccion.erase(prefijo_seccion.begin() + prefijo_tamanio, prefijo_seccion.end());
 	prefijo_fecha.erase(prefijo_fecha.begin() + prefijo_tamanio, prefijo_fecha.end());
 	prefijo_medio.erase(prefijo_medio.begin() + prefijo_tamanio, prefijo_medio.end());
+}
+
+rapidjson::Document::AllocatorType * ConfiguracionAplicacion::getAlocador()
+{
+	return &documento_alocador.GetAllocator();
+}
+
+rapidjson::Value::AllocatorType* ConfiguracionAplicacion::crearAlocador()
+{
+	char buffer[tamanio_alocador];
+	return new rapidjson::Value::AllocatorType(buffer, sizeof(buffer));
+}
+
+void ConfiguracionAplicacion::liberarAlocador(rapidjson::Value::AllocatorType * alocador)
+{
+	alocador->Clear();
 }
 
 bool ConfiguracionAplicacion::prefijoHabilitado()

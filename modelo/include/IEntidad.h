@@ -6,6 +6,9 @@
 // aplicacion
 #include <aplicacion/include/ID.h>
 
+// modelo
+#include <modelo/include/ContenidoEntidad.h>
+
 namespace visualizador
 {
 namespace modelo
@@ -17,7 +20,7 @@ public:
 
 	// CONSTRUCTORES
 	IEntidad();
-	IEntidad(std::string etiqueta, std::string grupo, std::string contenido = "" );
+	IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido = new ContenidoEntidad());
 
 	virtual ~IEntidad();
 
@@ -27,7 +30,7 @@ public:
 	
 	virtual std::string getEtiqueta();
 
-	virtual std::string getContenido();
+	virtual ContenidoEntidad* getContenido();
 
 	virtual std::string getGrupo();
 
@@ -37,7 +40,7 @@ public:
 
 	virtual void setEtiqueta(std::string etiqueta);
 
-	virtual void setContenido(std::string contenido);
+	virtual void setContenido(ContenidoEntidad* contenido);
 
 	virtual void setGrupo(std::string grupo);
 
@@ -49,7 +52,7 @@ private:
 
 	visualizador::aplicacion::ID* id;
 	std::string etiqueta;
-	std::string contenido;
+	ContenidoEntidad* contenido;
 	std::string grupo;
 };
 

@@ -3,6 +3,9 @@
 // stl
 #include <string>
 
+// rapidjson
+#include <rapidjson/document.h>
+
 namespace visualizador
 {
 namespace aplicacion
@@ -13,6 +16,13 @@ class ConfiguracionAplicacion
 public:
 
 	static void leerConfiguracion(std::string path_archivo_configuracion);
+
+	// METODOS
+
+	static rapidjson::Document::AllocatorType * getAlocador();
+
+	static rapidjson::Value::AllocatorType* crearAlocador();
+	static void liberarAlocador(rapidjson::Value::AllocatorType* alocador);
 
 	// CONFIGURACIONES
 
@@ -55,6 +65,10 @@ private:
 	static std::string prefijo_periodo;
 	static std::string prefijo_fecha;
 	static std::string prefijo_medio;
+
+	static const unsigned int tamanio_alocador;
+
+	static rapidjson::Document documento_alocador;
 };
 
 };

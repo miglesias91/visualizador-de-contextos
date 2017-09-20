@@ -30,4 +30,13 @@ void Termino::setValor(std::string valor)
 
 void Termino::crearContenido()
 {
+	rapidjson::Value* json_contenido = new rapidjson::Value(rapidjson::kObjectType);
+
+	rapidjson::Document::AllocatorType* alocador = visualizador::aplicacion::ConfiguracionAplicacion::getAlocador();
+
+	rapidjson::Value tag_valor("valor", *alocador);
+	rapidjson::Value valor(this->getValor().c_str(), *alocador);
+	json_contenido->AddMember(tag_valor, valor, *alocador);
+
+	this->getContenido()->setValor(json_contenido);
 }

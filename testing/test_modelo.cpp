@@ -1,3 +1,6 @@
+// stl
+#include <fstream>
+
 // gtest
 #include <gtest/gtest.h>
 
@@ -149,4 +152,41 @@ TEST(modelo, GettersYSettersConsulta)
 
 	ASSERT_EQ(2, secciones.size());
 	ASSERT_STREQ("economia", secciones[1]->getEtiqueta().c_str());
+}
+
+TEST(modelo, CreacionContenidoConcepto)
+{
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	visualizador::aplicacion::GestorIDs::setIdActual(0);
+
+	std::vector<Termino*> terminos_movilizacion;
+	terminos_movilizacion.push_back(new Termino("movilizacion"));
+	terminos_movilizacion.push_back(new Termino("paro"));
+	terminos_movilizacion.push_back(new Termino("marcha"));
+
+	Concepto* concepto_movilizacion = new Concepto("movilizacion", terminos_movilizacion);
+
+	concepto_movilizacion->crearContenido();
+
+	std::string string_contenido = concepto_movilizacion->getContenido()->jsonString();
+
+	ASSERT_STREQ("{\"terminos\":[0,1,2]}", string_contenido.c_str());
+}
+
+TEST(modelo, CreacionContenidoTermino)
+{
+
+}
+
+TEST(modelo, CreacionContenidoConsulta)
+{
+}
+
+TEST(modelo, CreacionContenidoFecha)
+{
+}
+
+TEST(modelo, CreacionContenidoPeriodo)
+{
 }

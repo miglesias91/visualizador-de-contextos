@@ -9,7 +9,7 @@ IEntidad::IEntidad()
 {
 }
 
-IEntidad::IEntidad(std::string etiqueta, std::string grupo, std::string contenido) : etiqueta(etiqueta), grupo(grupo), contenido(contenido)
+IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido) : etiqueta(etiqueta), grupo(grupo), contenido(contenido)
 {
 	this->id = visualizador::aplicacion::GestorIDs::nuevoID();
 }
@@ -28,7 +28,7 @@ std::string IEntidad::getEtiqueta()
 	return this->etiqueta;
 }
 
-std::string IEntidad::getContenido()
+ContenidoEntidad* IEntidad::getContenido()
 {
 	return this->contenido;
 }
@@ -48,7 +48,7 @@ void IEntidad::setEtiqueta(std::string etiqueta)
 	this->etiqueta = etiqueta;
 }
 
-void IEntidad::setContenido(std::string contenido)
+void IEntidad::setContenido(ContenidoEntidad* contenido)
 {
 	this->contenido = contenido;
 }
