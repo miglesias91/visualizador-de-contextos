@@ -2,10 +2,6 @@
 
 using namespace visualizador::modelo;
 
-Grafico::Grafico() : Reporte()
-{
-}
-
 Grafico::Grafico(std::string etiqueta) : Reporte(etiqueta)
 {
 }

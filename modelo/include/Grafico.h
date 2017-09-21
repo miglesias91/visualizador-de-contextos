@@ -13,10 +13,8 @@ class Grafico : public Reporte
 public:
 
 	// CONSTRUCTORES
-
-	Grafico();
 	
-	Grafico(std::string etiqueta);
+	Grafico(std::string etiqueta = "");
 
 	virtual ~Grafico();
 

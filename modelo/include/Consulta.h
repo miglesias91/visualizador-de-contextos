@@ -24,7 +24,7 @@ public:
 
 	Consulta();
 	
-	Consulta(std::string etiqueta, Periodo* periodo, Reporte* reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones);
+	Consulta(Periodo* periodo, Reporte* reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta = "");
 
 	virtual ~Consulta();
 

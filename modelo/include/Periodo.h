@@ -16,7 +16,7 @@ public:
 	// CONSTRUCTORES
 
 	Periodo();
-	Periodo(std::string etiqueta, Fecha* desde, Fecha* hasta);
+	Periodo(Fecha* desde, Fecha* hasta, std::string etiqueta = "");
 	virtual ~Periodo();
 
 	// METODOS

@@ -19,7 +19,7 @@ public:
 
 	Fecha();
 
-	Fecha(std::string etiqueta, unsigned int dia, unsigned int mes, unsigned int anio);
+	Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta = "");
 
 	virtual ~Fecha();
 

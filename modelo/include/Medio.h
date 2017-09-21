@@ -14,8 +14,7 @@ public:
 
 	// CONSTRUCTORES
 
-	Medio();
-	Medio(std::string etiqueta);
+	Medio(std::string etiqueta = "");
 
 	virtual ~Medio();
 

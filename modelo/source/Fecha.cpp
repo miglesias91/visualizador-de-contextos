@@ -11,7 +11,7 @@ Fecha::Fecha()
 {
 }
 
-Fecha::Fecha(std::string etiqueta, unsigned int dia, unsigned int mes, unsigned int anio) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(dia), mes(mes), anio(anio)
+Fecha::Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(dia), mes(mes), anio(anio)
 {
 }
 
@@ -23,23 +23,12 @@ Fecha::~Fecha()
 
 void Fecha::crearContenido()
 {
-	rapidjson::Value* json_contenido = new rapidjson::Value(rapidjson::kObjectType);
+	ContenidoEntidad* contenido = this->getContenido();
+	contenido->reset();
 
-	rapidjson::Document::AllocatorType* alocador = visualizador::aplicacion::ConfiguracionAplicacion::getAlocador();
-
-	rapidjson::Value tag_dia("dia", *alocador);
-	rapidjson::Value dia(this->getDia());
-	json_contenido->AddMember(tag_dia, dia, *alocador);
-
-	rapidjson::Value tag_mes("mes", *alocador);
-	rapidjson::Value mes(this->getMes());
-	json_contenido->AddMember(tag_mes, mes, *alocador);
-
-	rapidjson::Value tag_anio("anio", *alocador);
-	rapidjson::Value anio(this->getAnio());
-	json_contenido->AddMember(tag_anio, anio, *alocador);
-
-	this->getContenido()->setValor(json_contenido);
+	contenido->agregarAtributoValor("dia", this->getDia());
+	contenido->agregarAtributoValor("mes", this->getMes());
+	contenido->agregarAtributoValor("anio", this->getAnio());
 }
 
 // GETTERS

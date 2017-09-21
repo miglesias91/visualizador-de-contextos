@@ -26,11 +26,11 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 
 	std::vector<Termino*> terminos;
 
-	terminos.push_back(new Termino("corrupcion"));
-	terminos.push_back(new Termino("irregularidad"));
-	terminos.push_back(new Termino("irregularidades"));
+	terminos.push_back(new Termino("corrupcion", "corrupcion"));
+	terminos.push_back(new Termino("irregularidad", "irregularidad"));
+	terminos.push_back(new Termino("irregularidades", "irregularidades"));
 
-	Concepto* concepto = new Concepto("corrupcion", terminos);
+	Concepto* concepto = new Concepto(terminos, "corrupcion");
 
 	concepto->agregarTermino(new Termino("desvio"));
 
@@ -67,32 +67,32 @@ TEST(modelo, GettersYSettersConsulta)
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-	Fecha* inicio_primavera_2017 = new Fecha("comienzo_primavera_2017", 21, 9, 2017);
-	Fecha* fin_primavera_2017 = new Fecha("fin_primavera_2017", 21, 12, 2017);
+	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017, "comienzo_primavera_2017");
+	Fecha* fin_primavera_2017 = new Fecha(21, 12, 2017, "fin_primavera_2017");
 
-	Periodo* primavera_2017 = new Periodo("primavera_2017", inicio_primavera_2017, fin_primavera_2017);
+	Periodo* primavera_2017 = new Periodo(inicio_primavera_2017, fin_primavera_2017, "primavera_2017");
 
 	Reporte* reporte = new Grafico("torta");
 
 	std::vector<Termino*> terminos_corrupcion;
-	terminos_corrupcion.push_back(new Termino("corrupcion"));
-	terminos_corrupcion.push_back(new Termino("irregularidad"));
+	terminos_corrupcion.push_back(new Termino("corrupcion", "corrupcion"));
+	terminos_corrupcion.push_back(new Termino("irregularidad", "irregularidad"));
 
-	Concepto* concepto_corrupcion = new Concepto("corrupcion", terminos_corrupcion);
+	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 
 	std::vector<Termino*> terminos_crisis;
-	terminos_crisis.push_back(new Termino("crisis"));
-	terminos_crisis.push_back(new Termino("conflicto"));
-	terminos_crisis.push_back(new Termino("desorden"));
+	terminos_crisis.push_back(new Termino("crisis", "crisis"));
+	terminos_crisis.push_back(new Termino("conflicto", "conflicto"));
+	terminos_crisis.push_back(new Termino("desorden", "desorden"));
 
-	Concepto* concepto_crisis = new Concepto("crisis", terminos_crisis);
+	Concepto* concepto_crisis = new Concepto(terminos_crisis, "crisis");
 
 	std::vector<Termino*> terminos_movilizacion;
-	terminos_movilizacion.push_back(new Termino("movilizacion"));
-	terminos_movilizacion.push_back(new Termino("paro"));
-	terminos_movilizacion.push_back(new Termino("marcha"));
+	terminos_movilizacion.push_back(new Termino("movilizacion", "movilizacion"));
+	terminos_movilizacion.push_back(new Termino("paro", "paro"));
+	terminos_movilizacion.push_back(new Termino("marcha", "marcha"));
 
-	Concepto* concepto_movilizacion = new Concepto("movilizacion", terminos_movilizacion);
+	Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion, "movilizacion");
 
 	std::vector<Concepto*> conceptos;
 	conceptos.push_back(concepto_corrupcion);
@@ -115,7 +115,7 @@ TEST(modelo, GettersYSettersConsulta)
 	secciones.push_back(seccion_politica);
 	secciones.push_back(seccion_economia);
 
-	Consulta* consulta = new Consulta("primavera_2017", primavera_2017, reporte, conceptos, medios, secciones);
+	Consulta* consulta = new Consulta(primavera_2017, reporte, conceptos, medios, secciones, "primavera_2017");
 
 	std::string nombre = consulta->getEtiqueta();
 	Periodo* periodo_recuperado = consulta->getPeriodo();
@@ -162,10 +162,10 @@ TEST(modelo, CreacionContenidoConcepto)
 
 	std::vector<Termino*> terminos_movilizacion;
 	terminos_movilizacion.push_back(new Termino("movilizacion"));
-	terminos_movilizacion.push_back(new Termino("paro"));
+	terminos_movilizacion.push_back(new Termino("paro", "termino_importante"));
 	terminos_movilizacion.push_back(new Termino("marcha"));
 
-	IEntidad* concepto_movilizacion = new Concepto("movilizacion", terminos_movilizacion);
+	IEntidad* concepto_movilizacion = new Concepto(terminos_movilizacion, "movilizacion");
 
 	concepto_movilizacion->crearContenido();
 
@@ -180,7 +180,7 @@ TEST(modelo, CreacionContenidoTermino)
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-	IEntidad* movilizacion = new Termino("movilizacion");
+	IEntidad* movilizacion = new Termino("movilizacion", "paro");
 
 	movilizacion->crearContenido();
 
@@ -195,7 +195,7 @@ TEST(modelo, CreacionContenidoFecha)
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-	IEntidad* primero_de_enero = new Fecha("primero_de_enero", 1, 1, 2017);
+	IEntidad* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
 
 	primero_de_enero->crearContenido();
 
@@ -210,10 +210,10 @@ TEST(modelo, CreacionContenidoPeriodo)
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-	Fecha* primero_de_enero = new Fecha("primero_de_enero", 1, 1, 2017);
-	Fecha* primero_de_febrero = new Fecha("primero_de_febrero", 1, 2, 2017);
+	Fecha* primero_de_enero = new Fecha(1, 1, 2017);
+	Fecha* primero_de_febrero = new Fecha(1, 2, 2017);
 
-	IEntidad* periodo_enero = new Periodo("enero", primero_de_enero, primero_de_febrero);
+	IEntidad* periodo_enero = new Periodo(primero_de_enero, primero_de_febrero);
 
 	periodo_enero->crearContenido();
 
@@ -224,5 +224,63 @@ TEST(modelo, CreacionContenidoPeriodo)
 
 TEST(modelo, CreacionContenidoConsulta)
 {
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
+	visualizador::aplicacion::GestorIDs::setIdActual(0);
+
+	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
+	Fecha* fin_primavera_2017 = new Fecha(21, 12, 2017);
+
+	Periodo* primavera_2017 = new Periodo(inicio_primavera_2017, fin_primavera_2017);
+
+	Reporte* reporte = new Grafico("torta");
+
+	std::vector<Termino*> terminos_corrupcion;
+	terminos_corrupcion.push_back(new Termino("corrupcion"));
+	terminos_corrupcion.push_back(new Termino("irregularidad"));
+
+	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
+
+	std::vector<Termino*> terminos_crisis;
+	terminos_crisis.push_back(new Termino("crisis"));
+	terminos_crisis.push_back(new Termino("conflicto"));
+	terminos_crisis.push_back(new Termino("desorden"));
+
+	Concepto* concepto_crisis = new Concepto(terminos_crisis, "crisis");
+
+	std::vector<Termino*> terminos_movilizacion;
+	terminos_movilizacion.push_back(new Termino("movilizacion"));
+	terminos_movilizacion.push_back(new Termino("paro"));
+	terminos_movilizacion.push_back(new Termino("marcha"));
+
+	Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion);
+
+	std::vector<Concepto*> conceptos;
+	conceptos.push_back(concepto_corrupcion);
+	conceptos.push_back(concepto_crisis);
+	conceptos.push_back(concepto_movilizacion);
+
+	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
+	Medio* medio_clarin = new Medio("clarin");
+	Medio* medio_infobae = new Medio("infobae");
+
+	std::vector<Medio*> medios;
+	medios.push_back(medio_clarin);
+	medios.push_back(medio_infobae);
+
+	// estos news de las secciones en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
+	Seccion* seccion_politica = new Seccion("politica");
+	Seccion* seccion_economia = new Seccion("economia");
+
+	std::vector<Seccion*> secciones;
+	secciones.push_back(seccion_politica);
+	secciones.push_back(seccion_economia);
+
+	Consulta* consulta = new Consulta(primavera_2017, reporte, conceptos, medios, secciones, "primavera_2017");
+
+	consulta->crearContenido();
+
+	std::string json_contenido_consulta = consulta->getContenido()->jsonString();
+
+	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_contenido_consulta.c_str());
 }

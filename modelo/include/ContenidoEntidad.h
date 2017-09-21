@@ -1,14 +1,14 @@
 #pragma once
 
-// rapidjson
-#include <rapidjson/document.h>
+// modelo
+#include <modelo/include/IJson.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class ContenidoEntidad
+class ContenidoEntidad : public IJson
 {
 public:
 
@@ -17,19 +17,13 @@ public:
 	ContenidoEntidad();
 	virtual ~ContenidoEntidad();
 
+	// METODOS
+
 	// GETTERS
-
-	rapidjson::Value* getValor();
-
-	std::string jsonString();
 
 	// SETTERS
 
-	void setValor(rapidjson::Value* valor);
-
 private:
-
-	rapidjson::Value* valor;
 
 };
 

@@ -11,9 +11,8 @@ namespace modelo
 class Reporte : public IEntidad
 {
 public:
-	Reporte();
 
-	Reporte(std::string etiqueta);
+	Reporte(std::string etiqueta = "");
 
 	virtual ~Reporte();
 };

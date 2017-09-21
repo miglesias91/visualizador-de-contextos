@@ -11,9 +11,8 @@ namespace modelo
 class Seccion : public IEntidad
 {
 public:
-	Seccion();
 
-	Seccion(std::string etiqueta);
+	Seccion(std::string etiqueta = "");
 
 	virtual ~Seccion();
 

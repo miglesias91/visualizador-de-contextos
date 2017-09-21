@@ -13,11 +13,11 @@ Concepto::Concepto() : IEntidad()
 {
 }
 
-Concepto::Concepto(std::string etiqueta, std::vector<Termino*> terminos, ContenidoEntidad* contenido) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
 {
 }
 
-Concepto::Concepto(std::string etiqueta, std::vector<Termino*> terminos) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto()), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto()), terminos(terminos)
 {
 }
 
@@ -37,20 +37,15 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
 
 void Concepto::crearContenido()
 {
-	rapidjson::Value* json_contenido = new rapidjson::Value(rapidjson::kObjectType);
-
-	rapidjson::Value json_terminos(rapidjson::kArrayType);
-
-	rapidjson::Document::AllocatorType* alocador = visualizador::aplicacion::ConfiguracionAplicacion::getAlocador();
-
+	std::vector<unsigned long long int> ids_terminos;
 	for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
 	{
-		unsigned long long int id_termino = (*it)->getId()->numero();
-		json_terminos.PushBack(id_termino, *alocador);
+		unsigned long long int id = (*it)->getId()->numero();
+		ids_terminos.push_back(id);
 	}
 
-	rapidjson::Value tag_terminos("ids_terminos", *alocador);
-	json_contenido->AddMember(tag_terminos, json_terminos, *alocador);
+	ContenidoEntidad* contenido = this->getContenido();
+	contenido->reset();
 
-	this->getContenido()->setValor(json_contenido);
+	contenido->agregarAtributoArray("ids_terminos", ids_terminos);
 }

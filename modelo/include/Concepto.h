@@ -20,9 +20,9 @@ public:
 
 	Concepto();
 	
-	Concepto(std::string etiqueta, std::vector<Termino*> terminos, ContenidoEntidad* contenido);
+	Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta = "");
 
-	Concepto(std::string etiqueta, std::vector<Termino*> terminos);
+	Concepto(std::vector<Termino*> terminos, std::string etiqueta = "");
 
 	virtual ~Concepto();
 

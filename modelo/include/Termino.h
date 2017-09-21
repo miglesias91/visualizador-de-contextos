@@ -18,7 +18,7 @@ public:
 	// CONSTRUCTORES
 	Termino();
 
-	Termino(std::string termino);
+	Termino(std::string termino, std::string etiqueta = "");
 	virtual ~Termino();
 
 	// GETTERS
