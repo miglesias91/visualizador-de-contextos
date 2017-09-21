@@ -23,6 +23,23 @@ Fecha::~Fecha()
 
 void Fecha::crearContenido()
 {
+	rapidjson::Value* json_contenido = new rapidjson::Value(rapidjson::kObjectType);
+
+	rapidjson::Document::AllocatorType* alocador = visualizador::aplicacion::ConfiguracionAplicacion::getAlocador();
+
+	rapidjson::Value tag_dia("dia", *alocador);
+	rapidjson::Value dia(this->getDia());
+	json_contenido->AddMember(tag_dia, dia, *alocador);
+
+	rapidjson::Value tag_mes("mes", *alocador);
+	rapidjson::Value mes(this->getMes());
+	json_contenido->AddMember(tag_mes, mes, *alocador);
+
+	rapidjson::Value tag_anio("anio", *alocador);
+	rapidjson::Value anio(this->getAnio());
+	json_contenido->AddMember(tag_anio, anio, *alocador);
+
+	this->getContenido()->setValor(json_contenido);
 }
 
 // GETTERS

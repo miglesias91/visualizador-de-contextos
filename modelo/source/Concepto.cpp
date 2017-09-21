@@ -49,7 +49,7 @@ void Concepto::crearContenido()
 		json_terminos.PushBack(id_termino, *alocador);
 	}
 
-	rapidjson::Value tag_terminos("terminos", *alocador);
+	rapidjson::Value tag_terminos("ids_terminos", *alocador);
 	json_contenido->AddMember(tag_terminos, json_terminos, *alocador);
 
 	this->getContenido()->setValor(json_contenido);

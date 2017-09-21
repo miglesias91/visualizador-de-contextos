@@ -165,28 +165,64 @@ TEST(modelo, CreacionContenidoConcepto)
 	terminos_movilizacion.push_back(new Termino("paro"));
 	terminos_movilizacion.push_back(new Termino("marcha"));
 
-	Concepto* concepto_movilizacion = new Concepto("movilizacion", terminos_movilizacion);
+	IEntidad* concepto_movilizacion = new Concepto("movilizacion", terminos_movilizacion);
 
 	concepto_movilizacion->crearContenido();
 
-	std::string string_contenido = concepto_movilizacion->getContenido()->jsonString();
+	std::string json_contenido = concepto_movilizacion->getContenido()->jsonString();
 
-	ASSERT_STREQ("{\"terminos\":[0,1,2]}", string_contenido.c_str());
+	ASSERT_STREQ("{\"ids_terminos\":[0,1,2]}", json_contenido.c_str());
 }
 
 TEST(modelo, CreacionContenidoTermino)
 {
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
-}
+	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-TEST(modelo, CreacionContenidoConsulta)
-{
+	IEntidad* movilizacion = new Termino("movilizacion");
+
+	movilizacion->crearContenido();
+
+	std::string json_contenido = movilizacion->getContenido()->jsonString();
+
+	ASSERT_STREQ("{\"valor\":\"movilizacion\"}", json_contenido.c_str());
 }
 
 TEST(modelo, CreacionContenidoFecha)
 {
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	visualizador::aplicacion::GestorIDs::setIdActual(0);
+
+	IEntidad* primero_de_enero = new Fecha("primero_de_enero", 1, 1, 2017);
+
+	primero_de_enero->crearContenido();
+
+	std::string json_contenido = primero_de_enero->getContenido()->jsonString();
+
+	ASSERT_STREQ("{\"dia\":1,\"mes\":1,\"anio\":2017}", json_contenido.c_str());
 }
 
 TEST(modelo, CreacionContenidoPeriodo)
 {
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	visualizador::aplicacion::GestorIDs::setIdActual(0);
+
+	Fecha* primero_de_enero = new Fecha("primero_de_enero", 1, 1, 2017);
+	Fecha* primero_de_febrero = new Fecha("primero_de_febrero", 1, 2, 2017);
+
+	IEntidad* periodo_enero = new Periodo("enero", primero_de_enero, primero_de_febrero);
+
+	periodo_enero->crearContenido();
+
+	std::string json_contenido_enero = periodo_enero->getContenido()->jsonString();
+
+	ASSERT_STREQ("{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}", json_contenido_enero.c_str());
+}
+
+TEST(modelo, CreacionContenidoConsulta)
+{
+
 }
