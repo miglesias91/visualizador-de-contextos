@@ -3,6 +3,7 @@
 using namespace visualizador::modelo;
 
 // stl
+#include <iostream>
 #include <sstream>
 
 // rapidjson
@@ -16,6 +17,18 @@ rapidjson::Document IJson::documento_alocador;
 
 IJson::IJson() : valor(new rapidjson::Value(rapidjson::kObjectType))
 {
+}
+
+IJson::IJson(rapidjson::Value* valor) : valor(valor)
+{
+}
+
+IJson::IJson(std::string json)
+{
+	rapidjson::Document* documento = new rapidjson::Document();
+	documento->Parse(json.c_str());
+
+	this->valor = documento;
 }
 
 IJson::~IJson()
@@ -88,6 +101,59 @@ void IJson::agregarAtributoJson(std::string clave, IJson * json)
 
 	rapidjson::Value tag(clave.c_str(), *alocador);
 	this->valor->AddMember(tag, *json->getValor(), *alocador);
+}
+
+unsigned long long int visualizador::modelo::IJson::getAtributoValorUint(std::string clave)
+{
+	unsigned long long int valor = (*this->valor)[clave.c_str()].GetUint64();
+
+	return valor;
+}
+
+std::string visualizador::modelo::IJson::getAtributoValorString(std::string clave)
+{
+	std::string valor = (*this->valor)[clave.c_str()].GetString();
+
+	return valor;
+}
+
+IJson * visualizador::modelo::IJson::getAtributoValorJson(std::string clave)
+{
+	rapidjson::Value* valor = &(*this->valor)[clave.c_str()];
+
+	IJson* json = new IJson(valor);
+
+	return json;
+}
+
+std::vector<unsigned long long int> visualizador::modelo::IJson::getAtributoArrayUint(std::string clave)
+{
+	std::vector<unsigned long long int> valores;
+
+	rapidjson::Value* vector = &(*this->valor)[clave.c_str()];
+
+	for (rapidjson::Value::ValueIterator it = vector->Begin(); it != vector->End(); it++)
+	{
+		unsigned long long int valor = it->GetUint64();
+		valores.push_back(valor);
+	}
+
+	return valores;
+}
+
+std::vector<std::string> visualizador::modelo::IJson::getAtributoArrayString(std::string clave)
+{
+	std::vector<std::string> valores;
+
+	rapidjson::Value* vector = &(*this->valor)[clave.c_str()];
+
+	for (rapidjson::Value::ValueIterator it = vector->Begin(); it != vector->End(); it++)
+	{
+		std::string valor = it->GetString();
+		valores.push_back(valor);
+	}
+
+	return valores;
 }
 
 void IJson::setValor(rapidjson::Value * valor)

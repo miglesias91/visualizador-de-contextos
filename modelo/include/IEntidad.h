@@ -48,6 +48,8 @@ public:
 
 	// METODOS
 
+	virtual void asignarNuevoId();
+
 	virtual void crearContenido() = 0;
 
 	virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;

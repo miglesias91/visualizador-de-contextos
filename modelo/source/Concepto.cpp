@@ -52,4 +52,12 @@ void Concepto::crearContenido()
 
 void Concepto::parsearValorAlmacenable(std::string valor_almacenable)
 {
+	IJson json_almacenable(valor_almacenable);
+
+	std::vector<unsigned long long int> ids_terminos = json_almacenable.getAtributoArrayUint("ids_terminos");
+
+	for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
+	{
+		// deserializar terminos.
+	}
 }

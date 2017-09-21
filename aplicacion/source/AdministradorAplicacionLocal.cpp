@@ -50,5 +50,5 @@ std::vector<visualizador::modelo::IEntidad*> AdministradorAplicacionLocal::recup
 
 	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperarGrupo(prefijo_grupo, grupo);
 
-	return grupo;
+	return std::vector<visualizador::modelo::IEntidad*>();
 }

@@ -11,7 +11,6 @@ IEntidad::IEntidad()
 
 IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido) : etiqueta(etiqueta), grupo(grupo), contenido(contenido)
 {
-	this->id = visualizador::aplicacion::GestorIDs::nuevoID();
 }
 
 IEntidad::~IEntidad()
@@ -71,4 +70,9 @@ void IEntidad::setContenido(ContenidoEntidad* contenido)
 void IEntidad::setGrupo(std::string grupo)
 {
 	this->grupo = grupo;
+}
+
+void IEntidad::asignarNuevoId()
+{
+	this->id = visualizador::aplicacion::GestorIDs::nuevoID();
 }
