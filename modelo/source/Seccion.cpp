@@ -16,3 +16,7 @@ Seccion::~Seccion()
 void Seccion::crearContenido()
 {
 }
+
+void Seccion::parsearValorAlmacenable(std::string valor_almacenable)
+{
+}

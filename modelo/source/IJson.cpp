@@ -14,7 +14,7 @@ using namespace visualizador::modelo;
 
 rapidjson::Document IJson::documento_alocador;
 
-IJson::IJson()
+IJson::IJson() : valor(new rapidjson::Value(rapidjson::kObjectType))
 {
 }
 
@@ -80,6 +80,14 @@ void IJson::agregarAtributoArray(std::string clave, std::vector<std::string> arr
 
 	rapidjson::Value tag(clave.c_str(), *alocador);
 	this->valor->AddMember(tag, json_valores, *alocador);
+}
+
+void IJson::agregarAtributoJson(std::string clave, IJson * json)
+{
+	rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+
+	rapidjson::Value tag(clave.c_str(), *alocador);
+	this->valor->AddMember(tag, *json->getValor(), *alocador);
 }
 
 void IJson::setValor(rapidjson::Value * valor)

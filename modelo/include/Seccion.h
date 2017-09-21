@@ -20,6 +20,8 @@ public:
 
 	virtual void crearContenido();
 
+	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+
 };
 
 };

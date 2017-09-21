@@ -38,6 +38,21 @@ std::string IEntidad::getGrupo()
 	return this->grupo;
 }
 
+std::string IEntidad::getValorAlmacenable()
+{
+	IJson* json_contenido = this->getContenido();
+	IJson* json_almacenable = new IJson();
+
+	json_almacenable->agregarAtributoValor("etiqueta", this->getEtiqueta());
+	json_almacenable->agregarAtributoJson("contenido", json_contenido);
+
+	std::string string_almacenable = json_almacenable->jsonString();
+
+	delete json_almacenable;
+
+	return string_almacenable;
+}
+
 void IEntidad::setId(visualizador::aplicacion::ID* id)
 {
 	this->id = id;

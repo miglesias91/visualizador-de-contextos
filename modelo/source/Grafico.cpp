@@ -13,3 +13,7 @@ Grafico::~Grafico()
 void Grafico::crearContenido()
 {
 }
+
+void Grafico::parsearValorAlmacenable(std::string valor_almacenable)
+{
+}

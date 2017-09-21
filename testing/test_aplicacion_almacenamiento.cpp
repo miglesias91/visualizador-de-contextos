@@ -15,11 +15,11 @@
 
 using namespace visualizador::modelo;
 
-TEST(aplicacionAlmacenamiento, almacenarConcepto)
+TEST(aplicacionAlmacenamiento, GuardarNuevoConcepto)
 {
 
 }
 
-TEST(aplicacionAlmacenamiento, almacenarConsulta)
+TEST(aplicacionAlmacenamiento, almacenarNuevaConsulta)
 {
 }

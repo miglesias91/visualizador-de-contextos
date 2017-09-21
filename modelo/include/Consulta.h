@@ -31,6 +31,8 @@ public:
 	// METODOS
 	
 	virtual void crearContenido();
+	
+	virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
 	// GETTERS
 

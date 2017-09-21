@@ -10,7 +10,7 @@ Termino::Termino() : IEntidad()
 {
 }
 
-Termino::Termino(std::string termino, std::string etiqueta) : IEntidad(termino, visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor(termino)
+Termino::Termino(std::string termino, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor(termino)
 {
 }
 
@@ -34,4 +34,8 @@ void Termino::crearContenido()
 	contenido->reset();
 
 	contenido->agregarAtributoValor("valor", this->getValor());
+}
+
+void Termino::parsearValorAlmacenable(std::string valor_almacenable)
+{
 }

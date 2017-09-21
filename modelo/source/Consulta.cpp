@@ -112,3 +112,7 @@ void Consulta::crearContenido()
 	// agrego secciones
 	contenido->agregarAtributoArray("ids_secciones", ids_secciones);
 }
+
+void Consulta::parsearValorAlmacenable(std::string valor_almacenable)
+{
+}

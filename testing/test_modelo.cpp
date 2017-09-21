@@ -27,12 +27,12 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 	std::vector<Termino*> terminos;
 
 	terminos.push_back(new Termino("corrupcion", "corrupcion"));
-	terminos.push_back(new Termino("irregularidad", "irregularidad"));
+	terminos.push_back(new Termino("irregularidad"));
 	terminos.push_back(new Termino("irregularidades", "irregularidades"));
 
 	Concepto* concepto = new Concepto(terminos, "corrupcion");
 
-	concepto->agregarTermino(new Termino("desvio"));
+	concepto->agregarTermino(new Termino("desvio", "desvio_etiqueta"));
 
 	terminos = concepto->getTerminos();
 
@@ -41,7 +41,7 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 	ASSERT_STREQ(visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino().c_str(), terminos[0]->getGrupo().c_str());
 	ASSERT_EQ(0, terminos[0]->getId()->numero());
 
-	ASSERT_STREQ("irregularidad", terminos[1]->getEtiqueta().c_str());
+	ASSERT_STREQ("", terminos[1]->getEtiqueta().c_str());
 	ASSERT_STREQ("irregularidad", terminos[1]->getValor().c_str());
 	ASSERT_STREQ(visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino().c_str(), terminos[1]->getGrupo().c_str());
 	ASSERT_EQ(1, terminos[1]->getId()->numero());
@@ -51,7 +51,7 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 	ASSERT_STREQ(visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino().c_str(), terminos[2]->getGrupo().c_str());
 	ASSERT_EQ(2, terminos[2]->getId()->numero());
 
-	ASSERT_STREQ("desvio", terminos[3]->getEtiqueta().c_str());
+	ASSERT_STREQ("desvio_etiqueta", terminos[3]->getEtiqueta().c_str());
 	ASSERT_STREQ("desvio", terminos[3]->getValor().c_str());
 	ASSERT_STREQ(visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino().c_str(), terminos[3]->getGrupo().c_str());
 	ASSERT_EQ(4, terminos[3]->getId()->numero());
@@ -154,7 +154,7 @@ TEST(modelo, GettersYSettersConsulta)
 	ASSERT_STREQ("economia", secciones[1]->getEtiqueta().c_str());
 }
 
-TEST(modelo, CreacionContenidoConcepto)
+TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 {
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
@@ -170,11 +170,13 @@ TEST(modelo, CreacionContenidoConcepto)
 	concepto_movilizacion->crearContenido();
 
 	std::string json_contenido = concepto_movilizacion->getContenido()->jsonString();
+	std::string json_almacenable = concepto_movilizacion->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"ids_terminos\":[0,1,2]}", json_contenido.c_str());
+	ASSERT_STREQ("{\"etiqueta\":\"movilizacion\",\"contenido\":{\"ids_terminos\":[0,1,2]}}", json_almacenable.c_str());
 }
 
-TEST(modelo, CreacionContenidoTermino)
+TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 {
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
@@ -185,11 +187,13 @@ TEST(modelo, CreacionContenidoTermino)
 	movilizacion->crearContenido();
 
 	std::string json_contenido = movilizacion->getContenido()->jsonString();
+	std::string json_almacenable = movilizacion->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"valor\":\"movilizacion\"}", json_contenido.c_str());
+	ASSERT_STREQ("{\"etiqueta\":\"paro\",\"contenido\":{\"valor\":\"movilizacion\"}}", json_almacenable.c_str());
 }
 
-TEST(modelo, CreacionContenidoFecha)
+TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 {
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
@@ -200,11 +204,13 @@ TEST(modelo, CreacionContenidoFecha)
 	primero_de_enero->crearContenido();
 
 	std::string json_contenido = primero_de_enero->getContenido()->jsonString();
+	std::string json_almacenable = primero_de_enero->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"dia\":1,\"mes\":1,\"anio\":2017}", json_contenido.c_str());
+	ASSERT_STREQ("{\"etiqueta\":\"primero_enero\",\"contenido\":{\"dia\":1,\"mes\":1,\"anio\":2017}}", json_almacenable.c_str());
 }
 
-TEST(modelo, CreacionContenidoPeriodo)
+TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 {
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
@@ -218,11 +224,13 @@ TEST(modelo, CreacionContenidoPeriodo)
 	periodo_enero->crearContenido();
 
 	std::string json_contenido_enero = periodo_enero->getContenido()->jsonString();
+	std::string json_almacenable = periodo_enero->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}", json_contenido_enero.c_str());
+	ASSERT_STREQ("{\"etiqueta\":\"\",\"contenido\":{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}}", json_almacenable.c_str());
 }
 
-TEST(modelo, CreacionContenidoConsulta)
+TEST(modelo, CreacionContenidoYValorAlmacenableConsulta)
 {
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
@@ -281,6 +289,8 @@ TEST(modelo, CreacionContenidoConsulta)
 	consulta->crearContenido();
 
 	std::string json_contenido_consulta = consulta->getContenido()->jsonString();
+	std::string json_almacenable = consulta->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_contenido_consulta.c_str());
+	ASSERT_STREQ("{\"etiqueta\":\"primavera_2017\",\"contenido\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}", json_almacenable.c_str());
 }

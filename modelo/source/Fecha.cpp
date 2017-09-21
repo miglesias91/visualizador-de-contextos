@@ -31,6 +31,10 @@ void Fecha::crearContenido()
 	contenido->agregarAtributoValor("anio", this->getAnio());
 }
 
+void Fecha::parsearValorAlmacenable(std::string valor_almacenable)
+{
+}
+
 // GETTERS
 
 unsigned int Fecha::getDia()

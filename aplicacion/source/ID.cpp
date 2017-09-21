@@ -22,3 +22,8 @@ unsigned long long int ID::numero()
 {
 	return this->id;
 }
+
+std::string ID::string()
+{
+	return std::to_string(this->id);
+}

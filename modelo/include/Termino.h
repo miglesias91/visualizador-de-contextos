@@ -22,14 +22,18 @@ public:
 	virtual ~Termino();
 
 	// GETTERS
+	
 	std::string getValor();
 
 	// SETTERS
+	
 	void setValor(std::string valor);
 
 	// METODOS
+
 	virtual void crearContenido();
 
+	virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
 private:
 

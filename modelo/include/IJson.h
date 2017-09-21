@@ -27,6 +27,8 @@ public:
 	void agregarAtributoArray(std::string clave, std::vector<unsigned  long long int> array_valores);
 	void agregarAtributoArray(std::string clave, std::vector<std::string> array_valores);
 
+	void agregarAtributoJson(std::string clave, IJson* json);
+
 	// GETTERS
 
 	rapidjson::Value* getValor();

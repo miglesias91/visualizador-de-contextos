@@ -19,6 +19,8 @@ public:
 
 	unsigned long long int numero();
 
+	std::string string();
+
 private:
 
 	ID();

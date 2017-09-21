@@ -49,3 +49,7 @@ void Concepto::crearContenido()
 
 	contenido->agregarAtributoArray("ids_terminos", ids_terminos);
 }
+
+void Concepto::parsearValorAlmacenable(std::string valor_almacenable)
+{
+}

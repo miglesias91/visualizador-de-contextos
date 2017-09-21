@@ -34,6 +34,8 @@ public:
 
 	virtual std::string getGrupo();
 
+	virtual std::string getValorAlmacenable();
+
 	// SETTERS
 
 	virtual void setId(visualizador::aplicacion::ID* id);
@@ -47,6 +49,8 @@ public:
 	// METODOS
 
 	virtual void crearContenido() = 0;
+
+	virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;
 
 private:
 
