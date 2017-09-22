@@ -62,17 +62,6 @@ rapidjson::Document::AllocatorType * ConfiguracionAplicacion::getAlocador()
 	return &documento_alocador.GetAllocator();
 }
 
-rapidjson::Value::AllocatorType* ConfiguracionAplicacion::crearAlocador()
-{
-	char buffer[tamanio_alocador];
-	return new rapidjson::Value::AllocatorType(buffer, sizeof(buffer));
-}
-
-void ConfiguracionAplicacion::liberarAlocador(rapidjson::Value::AllocatorType * alocador)
-{
-	alocador->Clear();
-}
-
 bool ConfiguracionAplicacion::prefijoHabilitado()
 {
 	return prefijo_habilitado;

@@ -17,6 +17,6 @@ void Seccion::crearContenido()
 {
 }
 
-void Seccion::parsearValorAlmacenable(std::string valor_almacenable)
+void Seccion::parsearContenido(IJson* contenido)
 {
 }

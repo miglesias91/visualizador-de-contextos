@@ -52,7 +52,10 @@ public:
 
 	virtual void crearContenido() = 0;
 
-	virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;
+	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+
+	virtual void parsearContenido(IJson* contenido) = 0;
+
 
 private:
 

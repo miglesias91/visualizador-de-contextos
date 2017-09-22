@@ -7,7 +7,7 @@ using namespace visualizador::modelo;
 
 // CONSTRUCTORES
 
-Periodo::Periodo()
+Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo()), desde(NULL), hasta(NULL)
 {
 }
 
@@ -30,7 +30,7 @@ void Periodo::crearContenido()
 	contenido->agregarAtributoValor("id_fecha_hasta", this->getHasta()->getId()->numero());
 }
 
-void Periodo::parsearValorAlmacenable(std::string valor_almacenable)
+void Periodo::parsearContenido(IJson* contenido)
 {
 }
 

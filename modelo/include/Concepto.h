@@ -18,7 +18,7 @@ public:
 
 	// CONSTRUCTORES
 
-	Concepto();
+	Concepto(std::string etiqueta = "");
 	
 	Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta = "");
 
@@ -38,7 +38,7 @@ public:
 
 	virtual void crearContenido();
 
-	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+	virtual void parsearContenido(IJson* contenido);
 
 private:
 

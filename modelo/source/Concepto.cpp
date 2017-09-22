@@ -7,9 +7,10 @@ using namespace visualizador::modelo;
 #include <rapidjson/allocators.h>
 
 // aplicacion
+#include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Concepto::Concepto() : IEntidad()
+Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto())
 {
 }
 
@@ -50,14 +51,16 @@ void Concepto::crearContenido()
 	contenido->agregarAtributoArray("ids_terminos", ids_terminos);
 }
 
-void Concepto::parsearValorAlmacenable(std::string valor_almacenable)
+void Concepto::parsearContenido(IJson* contenido)
 {
-	IJson json_almacenable(valor_almacenable);
+	std::vector<unsigned long long int> ids_terminos = contenido->getAtributoArrayUint("ids_terminos");
 
-	std::vector<unsigned long long int> ids_terminos = json_almacenable.getAtributoArrayUint("ids_terminos");
-
+	Termino* termino_nuevo = NULL;
 	for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
 	{
-		// deserializar terminos.
+		termino_nuevo = new Termino();
+		termino_nuevo->setId(new visualizador::aplicacion::ID(*it));
+		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo);
+		this->terminos.push_back(termino_nuevo);
 	}
 }

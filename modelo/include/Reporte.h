@@ -15,6 +15,12 @@ public:
 	Reporte(std::string etiqueta = "");
 
 	virtual ~Reporte();
+
+	// METODOS
+
+	virtual void crearContenido();
+
+	virtual void parsearContenido(IJson* contenido);
 };
 
 };

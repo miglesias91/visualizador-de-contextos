@@ -6,7 +6,7 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/GestorIDs.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Termino::Termino() : IEntidad()
+Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor("")
 {
 }
 
@@ -36,6 +36,9 @@ void Termino::crearContenido()
 	contenido->agregarAtributoValor("valor", this->getValor());
 }
 
-void Termino::parsearValorAlmacenable(std::string valor_almacenable)
+void Termino::parsearContenido(IJson* contenido)
 {
+	std::string valor = contenido->getAtributoValorString("valor");
+
+	this->setValor(valor);
 }

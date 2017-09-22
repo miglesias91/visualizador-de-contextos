@@ -22,7 +22,7 @@ class Consulta : public IEntidad
 public:
 	// CONSTRUCTORES
 
-	Consulta();
+	Consulta(std::string etiqueta = "");
 	
 	Consulta(Periodo* periodo, Reporte* reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta = "");
 
@@ -31,8 +31,8 @@ public:
 	// METODOS
 	
 	virtual void crearContenido();
-	
-	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+
+	virtual void parsearContenido(IJson* contenido);
 
 	// GETTERS
 

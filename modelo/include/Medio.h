@@ -22,7 +22,7 @@ public:
 
 	virtual void crearContenido();
 	
-	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+	virtual void parsearContenido(IJson* contenido);
 	
 	// GETTERS
 

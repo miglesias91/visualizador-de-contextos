@@ -7,6 +7,7 @@ using namespace visualizador::aplicacion;
 
 AdministradorAplicacionLocal::AdministradorAplicacionLocal()
 {
+	almacenamiento::IAdministradorAlmacenamiento::iniciar("configuracion_almacenamiento.json");
 }
 
 AdministradorAplicacionLocal::~AdministradorAplicacionLocal()
@@ -19,7 +20,7 @@ bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IEntidad * en
 	std::string grupo = entidad->getGrupo();
 	std::string valor = entidad->getValorAlmacenable();
 
-	almacenamiento::IAlmacenableClaveValor* entidad_a_almacenar = new almacenamiento::IAlmacenableClaveValor(clave, valor, grupo);
+	almacenamiento::IAlmacenableClaveValor* entidad_a_almacenar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
 
 	bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->almacenar(entidad_a_almacenar);
 
@@ -33,13 +34,13 @@ bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IEntidad * en
 	std::string clave = entidad->getId()->string();
 	std::string grupo = entidad->getGrupo();
 
-	almacenamiento::IAlmacenableClaveValor* entidad_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
+	almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
 
-	bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperar(entidad_a_recuperar);
+	bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperar(clave_valor_a_recuperar);
 
-	entidad->parsearValorAlmacenable(entidad_a_recuperar->getValor());
+	entidad->parsearValorAlmacenable(clave_valor_a_recuperar->getValor());
 
-	delete entidad_a_recuperar;
+	delete clave_valor_a_recuperar;
 
 	return retorno;
 }

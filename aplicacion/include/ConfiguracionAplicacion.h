@@ -21,9 +21,6 @@ public:
 
 	static rapidjson::Document::AllocatorType * getAlocador();
 
-	static rapidjson::Value::AllocatorType* crearAlocador();
-	static void liberarAlocador(rapidjson::Value::AllocatorType* alocador);
-
 	// CONFIGURACIONES
 
 	static bool prefijoHabilitado();

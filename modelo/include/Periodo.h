@@ -15,7 +15,7 @@ public:
 
 	// CONSTRUCTORES
 
-	Periodo();
+	Periodo(std::string etiqueta = "");
 	Periodo(Fecha* desde, Fecha* hasta, std::string etiqueta = "");
 	virtual ~Periodo();
 
@@ -23,7 +23,7 @@ public:
 
 	virtual void crearContenido();
 	
-	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+	virtual void parsearContenido(IJson* contenido);
 
 	// GETTERS
 

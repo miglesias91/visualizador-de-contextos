@@ -7,7 +7,7 @@ using namespace visualizador::modelo;
 
 // CONSTRUCTORES
 
-Fecha::Fecha()
+Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(0), mes(0), anio(0)
 {
 }
 
@@ -31,7 +31,7 @@ void Fecha::crearContenido()
 	contenido->agregarAtributoValor("anio", this->getAnio());
 }
 
-void Fecha::parsearValorAlmacenable(std::string valor_almacenable)
+void Fecha::parsearContenido(IJson* contenido)
 {
 }
 

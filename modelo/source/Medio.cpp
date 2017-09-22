@@ -17,6 +17,6 @@ void Medio::crearContenido()
 {
 }
 
-void Medio::parsearValorAlmacenable(std::string valor_almacenable)
+void Medio::parsearContenido(IJson* contenido)
 {
 }

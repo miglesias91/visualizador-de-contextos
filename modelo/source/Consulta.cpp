@@ -3,9 +3,10 @@
 using namespace visualizador::modelo;
 
 // aplicacion
+#include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Consulta::Consulta() : IEntidad()
+Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta())
 {
 }
 
@@ -113,6 +114,48 @@ void Consulta::crearContenido()
 	contenido->agregarAtributoArray("ids_secciones", ids_secciones);
 }
 
-void Consulta::parsearValorAlmacenable(std::string valor_almacenable)
+void Consulta::parsearContenido(IJson* contenido)
 {
+	std::vector<unsigned long long int> ids_conceptos = contenido->getAtributoArrayUint("ids_conceptos");
+	std::vector<unsigned long long int> ids_medios = contenido->getAtributoArrayUint("ids_medios");
+	std::vector<unsigned long long int> ids_secciones = contenido->getAtributoArrayUint("ids_secciones");
+	unsigned long long int id_periodo = contenido->getAtributoValorUint("id_periodo");
+	unsigned long long int id_reporte = contenido->getAtributoValorUint("id_reporte");
+
+	Concepto* concepto_nuevo = NULL;
+	for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+	{
+		concepto_nuevo = new Concepto();
+		concepto_nuevo->setId(new visualizador::aplicacion::ID(*it));
+		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_nuevo);
+		this->conceptos.push_back(concepto_nuevo);
+	}
+
+	Medio* medio_nuevo = NULL;
+	for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+	{
+		medio_nuevo = new Medio();
+		medio_nuevo->setId(new visualizador::aplicacion::ID(*it));
+		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(medio_nuevo);
+		this->medios.push_back(medio_nuevo);
+	}
+
+	Seccion* seccion_nueva = NULL;
+	for (std::vector<unsigned long long int>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
+	{
+		seccion_nueva = new Seccion();
+		seccion_nueva->setId(new visualizador::aplicacion::ID(*it));
+		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(seccion_nueva);
+		this->secciones.push_back(seccion_nueva);
+	}
+
+	Periodo* periodo_nuevo = new Periodo();
+	periodo_nuevo->setId(new visualizador::aplicacion::ID(id_periodo));
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(periodo_nuevo);
+	this->periodo = periodo_nuevo;
+
+	Reporte* reporte_nuevo = new Reporte();
+	reporte_nuevo->setId(new visualizador::aplicacion::ID(id_reporte));
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(reporte_nuevo);
+	this->periodo = periodo_nuevo;
 }

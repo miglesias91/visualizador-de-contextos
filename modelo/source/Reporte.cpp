@@ -12,3 +12,11 @@ Reporte::Reporte(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplica
 Reporte::~Reporte()
 {
 }
+
+void Reporte::crearContenido()
+{
+}
+
+void Reporte::parsearContenido(IJson* contenido)
+{
+}

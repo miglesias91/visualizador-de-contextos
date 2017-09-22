@@ -17,7 +17,7 @@ public:
 
 	// CONSTRUCTORES
 
-	Fecha();
+	Fecha(std::string etiqueta);
 
 	Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta = "");
 
@@ -27,7 +27,7 @@ public:
 
 	virtual void crearContenido();
 	
-	virtual void parsearValorAlmacenable(std::string valor_almacenable);
+	virtual void parsearContenido(IJson* contenido);
 
 	// GETTERS
 

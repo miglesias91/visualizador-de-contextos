@@ -17,14 +17,14 @@ class ID
 {
 public:
 
+	ID();
+	ID(unsigned long long int id);
+
 	unsigned long long int numero();
 
 	std::string string();
 
 private:
-
-	ID();
-	ID(unsigned long long int id);
 
 	virtual ~ID();
 
