@@ -33,6 +33,13 @@ void Fecha::crearContenido()
 
 void Fecha::parsearContenido(IJson* contenido)
 {
+	unsigned long long int dia = contenido->getAtributoValorUint("dia");
+	unsigned long long int mes = contenido->getAtributoValorUint("mes");
+	unsigned long long int anio = contenido->getAtributoValorUint("anio");
+
+	this->dia = dia;
+	this->mes = mes;
+	this->anio = anio;
 }
 
 // GETTERS

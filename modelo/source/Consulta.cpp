@@ -157,5 +157,5 @@ void Consulta::parsearContenido(IJson* contenido)
 	Reporte* reporte_nuevo = new Reporte();
 	reporte_nuevo->setId(new visualizador::aplicacion::ID(id_reporte));
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(reporte_nuevo);
-	this->periodo = periodo_nuevo;
+	this->reporte = reporte_nuevo;
 }

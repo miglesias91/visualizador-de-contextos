@@ -22,6 +22,8 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
 	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
@@ -37,7 +39,6 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 	concepto_corrupcion->asignarNuevoId();
 
-
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
@@ -46,6 +47,8 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	concepto_a_recuperar->setId(concepto_corrupcion->getId());
 
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
 
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
 	ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
@@ -64,6 +67,8 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -183,4 +188,90 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	consulta_a_recuperar->setId(consulta->getId());
 
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar);
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+	// test consulta
+	ASSERT_STREQ("primavera_2017", consulta_a_recuperar->getEtiqueta().c_str());
+	ASSERT_EQ(19, consulta_a_recuperar->getId()->numero());
+	
+	// test secciones
+	ASSERT_STREQ("politica", consulta_a_recuperar->getSecciones()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(17, consulta_a_recuperar->getSecciones()[0]->getId()->numero());
+
+	ASSERT_STREQ("economia", consulta_a_recuperar->getSecciones()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(18, consulta_a_recuperar->getSecciones()[1]->getId()->numero());
+
+	// test medios
+	ASSERT_STREQ("clarin", consulta_a_recuperar->getMedios()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(15, consulta_a_recuperar->getMedios()[0]->getId()->numero());
+
+	ASSERT_STREQ("infobae", consulta_a_recuperar->getMedios()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(16, consulta_a_recuperar->getMedios()[1]->getId()->numero());
+
+	// test concepto 0
+	ASSERT_STREQ("corrupcion", consulta_a_recuperar->getConceptos()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(6, consulta_a_recuperar->getConceptos()[0]->getId()->numero());
+
+	ASSERT_STREQ("corrupcion", consulta_a_recuperar->getConceptos()[0]->getTerminos()[0]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[0]->getTerminos()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(4, consulta_a_recuperar->getConceptos()[0]->getTerminos()[0]->getId()->numero());
+
+	ASSERT_STREQ("corrupcion", consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(5, consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getId()->numero());
+
+	// test concepto 1
+	ASSERT_STREQ("crisis", consulta_a_recuperar->getConceptos()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(10, consulta_a_recuperar->getConceptos()[1]->getId()->numero());
+
+	ASSERT_STREQ("crisis", consulta_a_recuperar->getConceptos()[1]->getTerminos()[0]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[1]->getTerminos()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(7, consulta_a_recuperar->getConceptos()[1]->getTerminos()[0]->getId()->numero());
+
+	ASSERT_STREQ("conflicto", consulta_a_recuperar->getConceptos()[1]->getTerminos()[1]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[1]->getTerminos()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(8, consulta_a_recuperar->getConceptos()[1]->getTerminos()[1]->getId()->numero());
+
+	ASSERT_STREQ("desorden", consulta_a_recuperar->getConceptos()[1]->getTerminos()[2]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[1]->getTerminos()[2]->getEtiqueta().c_str());
+	ASSERT_EQ(9, consulta_a_recuperar->getConceptos()[1]->getTerminos()[2]->getId()->numero());
+
+	// test concepto 2
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[2]->getEtiqueta().c_str());
+	ASSERT_EQ(14, consulta_a_recuperar->getConceptos()[2]->getId()->numero());
+
+	ASSERT_STREQ("movilizacion", consulta_a_recuperar->getConceptos()[2]->getTerminos()[0]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[2]->getTerminos()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(11, consulta_a_recuperar->getConceptos()[2]->getTerminos()[0]->getId()->numero());
+
+	ASSERT_STREQ("paro", consulta_a_recuperar->getConceptos()[2]->getTerminos()[1]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[2]->getTerminos()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(12, consulta_a_recuperar->getConceptos()[2]->getTerminos()[1]->getId()->numero());
+
+	ASSERT_STREQ("marcha", consulta_a_recuperar->getConceptos()[2]->getTerminos()[2]->getValor().c_str());
+	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[2]->getTerminos()[2]->getEtiqueta().c_str());
+	ASSERT_EQ(13, consulta_a_recuperar->getConceptos()[2]->getTerminos()[2]->getId()->numero());
+
+	// test reporte
+
+	ASSERT_STREQ("torta", consulta_a_recuperar->getReporte()->getEtiqueta().c_str());
+	ASSERT_EQ(3, consulta_a_recuperar->getReporte()->getId()->numero());
+	
+	// test periodo
+
+	ASSERT_STREQ("", consulta_a_recuperar->getPeriodo()->getEtiqueta().c_str());
+	ASSERT_EQ(2, consulta_a_recuperar->getPeriodo()->getId()->numero());
+
+	ASSERT_STREQ("", consulta_a_recuperar->getPeriodo()->getDesde()->getEtiqueta().c_str());
+	ASSERT_EQ(0, consulta_a_recuperar->getPeriodo()->getDesde()->getId()->numero());
+	ASSERT_EQ(21, consulta_a_recuperar->getPeriodo()->getDesde()->getDia());
+	ASSERT_EQ(9, consulta_a_recuperar->getPeriodo()->getDesde()->getMes());
+	ASSERT_EQ(2017, consulta_a_recuperar->getPeriodo()->getDesde()->getAnio());
+	
+	ASSERT_STREQ("", consulta_a_recuperar->getPeriodo()->getHasta()->getEtiqueta().c_str());
+	ASSERT_EQ(1, consulta_a_recuperar->getPeriodo()->getHasta()->getId()->numero());
+	ASSERT_EQ(21, consulta_a_recuperar->getPeriodo()->getHasta()->getDia());
+	ASSERT_EQ(12, consulta_a_recuperar->getPeriodo()->getHasta()->getMes());
+	ASSERT_EQ(2017, consulta_a_recuperar->getPeriodo()->getHasta()->getAnio());
 }

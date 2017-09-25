@@ -14,6 +14,20 @@ AdministradorAplicacionLocal::~AdministradorAplicacionLocal()
 {
 }
 
+bool AdministradorAplicacionLocal::abrirBD()
+{
+	bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->abrir();
+
+	return retorno;
+}
+
+bool AdministradorAplicacionLocal::cerrarBD()
+{
+	bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->cerrar();
+
+	return retorno;
+}
+
 bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IEntidad * entidad)
 {
 	std::string clave = entidad->getId()->string();

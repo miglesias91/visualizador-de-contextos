@@ -17,7 +17,7 @@ public:
 
 	// CONSTRUCTORES
 
-	Fecha(std::string etiqueta);
+	Fecha(std::string etiqueta = "");
 
 	Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta = "");
 

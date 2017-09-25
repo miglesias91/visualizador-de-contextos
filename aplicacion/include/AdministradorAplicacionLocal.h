@@ -16,6 +16,10 @@ public:
 
 	// METODOS
 
+	virtual bool abrirBD();
+
+	virtual bool cerrarBD();
+
 	virtual bool almacenar(visualizador::modelo::IEntidad* entidad);
 
 	virtual bool recuperar(visualizador::modelo::IEntidad* entidad);

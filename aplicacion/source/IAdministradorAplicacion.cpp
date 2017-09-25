@@ -6,6 +6,8 @@ using namespace visualizador::aplicacion;
 #include <aplicacion/include/AdministradorAplicacionLocal.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
+typedef visualizador::aplicacion::IAdministradorAplicacion* (*admin)();
+
 IAdministradorAplicacion* IAdministradorAplicacion::administrador = NULL;
 
 void IAdministradorAplicacion::liberar()
