@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>670</width>
+    <height>460</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Consulta</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>420</y>
+     <width>161</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>10</y>
+     <width>200</width>
+     <height>220</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Medios</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>180</width>
+      <height>190</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Clarin</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Página 12</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Infobae</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fan page Mauricio Macri</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>200</width>
+     <height>220</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string notr="true">Conceptos</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+   <widget class="QListWidget" name="listWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>180</width>
+      <height>190</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Crisis</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Conflicto</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Orden</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>310</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Período</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+   <widget class="QDateEdit" name="dateEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="dateTime">
+     <datetime>
+      <hour>0</hour>
+      <minute>0</minute>
+      <second>0</second>
+      <year>2017</year>
+      <month>2</month>
+      <day>1</day>
+     </datetime>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>Desde</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>20</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Hasta</string>
+    </property>
+   </widget>
+   <widget class="QDateEdit" name="dateEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>40</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="dateTime">
+     <datetime>
+      <hour>0</hour>
+      <minute>0</minute>
+      <second>0</second>
+      <year>2017</year>
+      <month>3</month>
+      <day>1</day>
+     </datetime>
+    </property>
+    <property name="currentSection">
+     <enum>QDateTimeEdit::DaySection</enum>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>10</y>
+     <width>200</width>
+     <height>220</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Secciones</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+   <widget class="QListWidget" name="listWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>180</width>
+      <height>190</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>economía</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>política</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>editorial</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>nacional</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_5">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>240</y>
+     <width>310</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Tipo de reporte</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+   <widget class="QListWidget" name="listWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>290</width>
+      <height>140</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>gráfico de barras</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</normaloff>../../../../../../Pictures/Iconos/ic_done_black_24dp/ic_done_black_24dp/web/ic_done_black_24dp_1x.png</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>gráfico torta</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>tabla</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
