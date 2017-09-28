@@ -34,4 +34,14 @@
       <Filter>ui</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DialogoPrincipal.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DialogoPrincipal.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

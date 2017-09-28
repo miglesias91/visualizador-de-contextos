@@ -1,15 +1,17 @@
 
+// qt
 #include <QtWidgets/qapplication.h>
-#include <QtWidgets/qpushbutton.h>
+
+// interfaz usuario
+#include <interfaz-usuario/DialogoPrincipal.h>
 
 int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
 
-	//QPushButton hello("Hello world!", 0);
-	//hello.resize(100, 30);
+	DialogoPrincipal* ppal = new DialogoPrincipal();
 
-	//a.setActiveWindow(&hello);
-	//hello.show();
+	a.setActiveWindow(ppal);
+	ppal->show();
 	return a.exec();
 }
