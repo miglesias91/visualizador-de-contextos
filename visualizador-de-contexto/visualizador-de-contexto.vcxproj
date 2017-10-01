@@ -98,7 +98,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(qt-dir)5.9.1\msvc2015_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Debug;$(repos-git)almacenamiento\Debug;$(repos)rocksdb\build_x86\Debug;$(qt-dir)5.9.1\msvc2015_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\x64\Debug;$(repos-git)almacenamiento\x64\Debug;$(repos)rocksdb\build_x64\Debug;$(qt-dir)5.9.1\msvc2015_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;interfaz-usuario.lib;Shlwapi.lib;Rpcrt4.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
