@@ -3,15 +3,13 @@
 #include <QtWidgets/qapplication.h>
 
 // interfaz usuario
-#include <interfaz-usuario/DialogoPrincipal.h>
+#include <interfaz-usuario/ventanaprincipal.h>
 
 int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
+	VentanaPrincipal w;
+	w.show();
 
-	DialogoPrincipal* ppal = new DialogoPrincipal();
-
-	a.setActiveWindow(ppal);
-	ppal->show();
 	return a.exec();
 }

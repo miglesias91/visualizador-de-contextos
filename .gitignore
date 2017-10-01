@@ -8,3 +8,6 @@
 .vs/
 packages/
 x64/
+Makefile*
+.qmake*
+*.pro.user
