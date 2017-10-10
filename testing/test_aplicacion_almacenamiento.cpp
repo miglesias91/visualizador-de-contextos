@@ -18,9 +18,9 @@ using namespace visualizador::modelo;
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 {
-	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
-
 	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
 
@@ -274,4 +274,47 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	ASSERT_EQ(21, consulta_a_recuperar->getPeriodo()->getHasta()->getDia());
 	ASSERT_EQ(12, consulta_a_recuperar->getPeriodo()->getHasta()->getMes());
 	ASSERT_EQ(2017, consulta_a_recuperar->getPeriodo()->getHasta()->getAnio());
+}
+
+TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
+{
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+
+	visualizador::aplicacion::GestorIDs::setIdActual(100);
+
+	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
+	termino_corrupcion->asignarNuevoId();
+
+	Termino* termino_irregularidad = new Termino("irregularidad", "etiqueta_irregular");
+	termino_irregularidad->asignarNuevoId();
+
+	std::vector<Termino*> terminos_corrupcion;
+	terminos_corrupcion.push_back(termino_corrupcion);
+	terminos_corrupcion.push_back(termino_irregularidad);
+
+	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
+	concepto_corrupcion->asignarNuevoId();
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+
+	Concepto* concepto_a_recuperar = new Concepto();
+	concepto_a_recuperar->setId(concepto_corrupcion->getId());
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+	unsigned long long int id_actual = visualizador::aplicacion::GestorIDs::getIdActual();
+
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+	unsigned long long int id_actual_recuperado = visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperarIDActual();
+	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+	ASSERT_EQ(id_actual, id_actual_recuperado);
 }

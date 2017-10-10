@@ -17,6 +17,8 @@ public:
 	// GETTERS
 
 	static ID* nuevoID();
+	
+	static unsigned long long int getIdActual();
 
 	// SETTERS
 

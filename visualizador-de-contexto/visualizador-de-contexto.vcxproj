@@ -82,7 +82,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\Debug;$(repos-git)almacenamiento\Debug;$(repos)rocksdb\build_x86\Debug;$(qt-dir)5.9.1\msvc2015\lib;$(SolutionDir)interfaz-usuario\build-interfaz-qt-Desktop_Qt_5_9_1_MSVC2015_32bit-Debug\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;interfaz-usuario.lib;Shlwapi.lib;Rpcrt4.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;interfaz-qt.lib;Shlwapi.lib;Rpcrt4.lib;qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>NotSet</SubSystem>
     </Link>
     <CustomBuildStep>

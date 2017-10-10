@@ -8,6 +8,13 @@ using namespace visualizador::aplicacion;
 AdministradorAplicacionLocal::AdministradorAplicacionLocal()
 {
 	almacenamiento::IAdministradorAlmacenamiento::iniciar("configuracion_almacenamiento.json");
+
+	// CARGAR CONFIG INICIAL ALMACENADA EN LA BD.
+	abrirBD();
+	unsigned long long int id_actual = this->recuperarIDActual();
+	cerrarBD();
+
+	GestorIDs::setIdActual(id_actual);
 }
 
 AdministradorAplicacionLocal::~AdministradorAplicacionLocal()
@@ -23,6 +30,8 @@ bool AdministradorAplicacionLocal::abrirBD()
 
 bool AdministradorAplicacionLocal::cerrarBD()
 {
+	this->almacenarIDActual();
+
 	bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->cerrar();
 
 	return retorno;
@@ -59,11 +68,18 @@ bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IEntidad * en
 	return retorno;
 }
 
-std::vector<visualizador::modelo::IEntidad*> AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo)
+bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*> & entidades)
 {
 	std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
 
 	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperarGrupo(prefijo_grupo, grupo);
 
-	return std::vector<visualizador::modelo::IEntidad*>();
+	visualizador::modelo::IEntidad* entidad = NULL;
+	for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+	{
+		entidad = new visualizador::modelo::IEntidad();
+		entidad->parsearValorAlmacenable((*it)->getValor());
+	}
+
+	return true;
 }

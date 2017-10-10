@@ -40,6 +40,12 @@
     <ClCompile Include="ventanaprincipal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialogoterminos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_dialogoterminos.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ventanaprincipal.h">
@@ -56,9 +62,6 @@
     <ClCompile Include="debug\moc_ventanaprincipal.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="release\moc_ventanaprincipal.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClInclude Include="ui_ventanaprincipal.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -67,5 +70,18 @@
     <CustomBuild Include="ventanaprincipal.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ui_dialogoterminos.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogoterminos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dialogoterminos.ui">
+      <Filter>Form Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

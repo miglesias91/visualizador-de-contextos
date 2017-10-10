@@ -24,10 +24,10 @@ public:
 
 	virtual bool recuperar(visualizador::modelo::IEntidad* entidad);
 
-	virtual std::vector<visualizador::modelo::IEntidad*> recuperarGrupo(std::string prefijo_grupo);
+	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*> & entidades);
 		
 private:
-	
+
 };
 
 };

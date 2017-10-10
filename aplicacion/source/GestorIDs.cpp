@@ -30,3 +30,8 @@ ID * GestorIDs::nuevoID()
 	return id_nuevo;
 }
 
+unsigned long long int GestorIDs::getIdActual()
+{
+	return id_mas_alto;
+}
+

@@ -1,8 +1,14 @@
 #ifndef VENTANAPRINCIPAL_H
 #define VENTANAPRINCIPAL_H
 
-// #include <QMainWindow>
+// stl
+#include <iostream>
+
+// qt
 #include <QtWidgets/qmainwindow.h>
+
+// dialogos
+#include "dialogoterminos.h"
 
 namespace Ui {
 class VentanaPrincipal;
@@ -17,22 +23,13 @@ public:
     ~VentanaPrincipal();
 
 private slots:
-    void on_btn_termino_released();
 
-    void on_btn_conceptos_released();
-
-    void on_btn_fechas_released();
-
-    void on_btn_periodos_released();
-
-    void on_btn_secciones_released();
-
-    void on_btn_medios_released();
-
-    void on_btn_consulta_released();
+    void on_actionAbrirTerminos_triggered();
 
 private:
     Ui::VentanaPrincipal *ui;
+
+	DialogoTerminos* dialogo_terminos;
 };
 
 #endif // VENTANAPRINCIPAL_H

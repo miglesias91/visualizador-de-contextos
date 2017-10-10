@@ -25,6 +25,7 @@ public:
 
 	static bool prefijoHabilitado();
 	static unsigned int prefijoTamanio();
+	static std::string prefijoConfiguracion();
 	static std::string prefijoConcepto();
 	static std::string prefijoTermino();
 	static std::string prefijoConsulta();
@@ -33,11 +34,13 @@ public:
 	static std::string prefijoPeriodo();
 	static std::string prefijoFecha();
 	static std::string prefijoMedio();
+	static std::string claveIDActual();
 
 	// TAGS
 
 	static std::string tagPrefijoHabilitado();
 	static std::string tagPrefijoTamanio();
+	static std::string tagPrefijoConfiguracion();
 	static std::string tagPrefijoConcepto();
 	static std::string tagPrefijoTermino();
 	static std::string tagPrefijoConsulta();
@@ -54,6 +57,7 @@ private:
 
 	static bool prefijo_habilitado;
 	static unsigned int prefijo_tamanio;
+	static std::string prefijo_configuracion;
 	static std::string prefijo_concepto;
 	static std::string prefijo_termino;
 	static std::string prefijo_consulta;
@@ -62,6 +66,8 @@ private:
 	static std::string prefijo_periodo;
 	static std::string prefijo_fecha;
 	static std::string prefijo_medio;
+
+	static std::string clave_id_actual;
 
 	static const unsigned int tamanio_alocador;
 

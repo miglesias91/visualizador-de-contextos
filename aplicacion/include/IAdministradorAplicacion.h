@@ -39,9 +39,14 @@ public:
 
 	virtual bool recuperar(visualizador::modelo::IEntidad* entidad) = 0;
 
-	virtual std::vector<visualizador::modelo::IEntidad*> recuperarGrupo(std::string prefijo_grupo) = 0;
+	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*> & entidades) = 0;
+
+	virtual unsigned long long int recuperarIDActual();
+
+	virtual void almacenarIDActual();
 
 private:
+	// ATRIBUTOS
 
 	static IAdministradorAplicacion* administrador;
 };

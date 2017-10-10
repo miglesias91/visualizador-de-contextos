@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2017-09-30T20:53:46
+# Project created by QtCreator 2017-10-03T19:41:58
 #
 #-------------------------------------------------
 
@@ -8,9 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = interfaz-usuario
-TEMPLATE = vclib
-CONFIG += staticlib
+TARGET = interfaz-qt
+TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -25,10 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        ventanaprincipal.cpp
+        main.cpp \
+        ventanaprincipal.cpp \
+    dialogoterminos.cpp
 
 HEADERS += \
-        ventanaprincipal.h
+        ventanaprincipal.h \
+    dialogoterminos.h
 
 FORMS += \
-        ventanaprincipal.ui
+        ventanaprincipal.ui \
+    dialogoterminos.ui

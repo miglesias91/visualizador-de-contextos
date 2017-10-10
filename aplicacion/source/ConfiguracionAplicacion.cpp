@@ -8,6 +8,7 @@ using namespace visualizador::aplicacion;
 
 bool ConfiguracionAplicacion::prefijo_habilitado;
 unsigned int ConfiguracionAplicacion::prefijo_tamanio;
+std::string ConfiguracionAplicacion::prefijo_configuracion;
 std::string ConfiguracionAplicacion::prefijo_concepto;
 std::string ConfiguracionAplicacion::prefijo_termino;
 std::string ConfiguracionAplicacion::prefijo_consulta;
@@ -16,6 +17,8 @@ std::string ConfiguracionAplicacion::prefijo_seccion;
 std::string ConfiguracionAplicacion::prefijo_periodo;
 std::string ConfiguracionAplicacion::prefijo_fecha;
 std::string ConfiguracionAplicacion::prefijo_medio;
+std::string ConfiguracionAplicacion::clave_id_actual;
+
 const unsigned int ConfiguracionAplicacion::tamanio_alocador = 1024;
 rapidjson::Document ConfiguracionAplicacion::documento_alocador;
 
@@ -38,6 +41,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 	prefijo_habilitado = config_json[ConfiguracionAplicacion::tagPrefijoHabilitado().c_str()].GetBool();
 	prefijo_tamanio = config_json[ConfiguracionAplicacion::tagPrefijoTamanio().c_str()].GetUint();
 
+	prefijo_configuracion = config_json[ConfiguracionAplicacion::tagPrefijoConfiguracion().c_str()].GetString();
 	prefijo_concepto = config_json[ConfiguracionAplicacion::tagPrefijoConcepto().c_str()].GetString();
 	prefijo_termino = config_json[ConfiguracionAplicacion::tagPrefijoTermino().c_str()].GetString();
 	prefijo_consulta = config_json[ConfiguracionAplicacion::tagPrefijoConsulta().c_str()].GetString();
@@ -48,6 +52,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 	prefijo_medio = config_json[ConfiguracionAplicacion::tagPrefijoMedio().c_str()].GetString();
 
 	// recorto el prefijo al tamanio indicado en el archivo de config.
+	prefijo_configuracion.erase(prefijo_configuracion.begin() + prefijo_tamanio, prefijo_configuracion.end());
 	prefijo_concepto.erase(prefijo_concepto.begin() + prefijo_tamanio, prefijo_concepto.end());
 	prefijo_termino.erase(prefijo_termino.begin() + prefijo_tamanio, prefijo_termino.end());
 	prefijo_consulta.erase(prefijo_consulta.begin() + prefijo_tamanio, prefijo_consulta.end());
@@ -70,6 +75,11 @@ bool ConfiguracionAplicacion::prefijoHabilitado()
 unsigned int ConfiguracionAplicacion::prefijoTamanio()
 {
 	return prefijo_tamanio;
+}
+
+std::string ConfiguracionAplicacion::prefijoConfiguracion()
+{
+	return prefijo_configuracion;
 }
 
 std::string ConfiguracionAplicacion::prefijoConcepto()
@@ -112,6 +122,11 @@ std::string ConfiguracionAplicacion::prefijoMedio()
 	return prefijo_medio;
 }
 
+std::string ConfiguracionAplicacion::claveIDActual()
+{
+	return clave_id_actual;
+}
+
 std::string ConfiguracionAplicacion::tagPrefijoHabilitado()
 {
 	return "prefijo_habilitado";
@@ -120,6 +135,11 @@ std::string ConfiguracionAplicacion::tagPrefijoHabilitado()
 std::string ConfiguracionAplicacion::tagPrefijoTamanio()
 {
 	return "prefijo_tamanio";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoConfiguracion()
+{
+	return "prefijo_configuracion";
 }
 
 std::string ConfiguracionAplicacion::tagPrefijoConcepto()
