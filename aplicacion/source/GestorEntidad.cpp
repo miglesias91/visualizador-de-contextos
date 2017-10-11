@@ -3,35 +3,38 @@
 using namespace visualizador::aplicacion;
 
 // aplicacion
-#include <aplicacion/include/IAdministradorAplicacion.h>
+#include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 
 // modelo
 #include <modelo/include/IEntidad.h>
 
 template <class T>
-GestorEntidad::GestorEntidad()
+GestorEntidad<T>::GestorEntidad()
 {
 }
 
 template <class T>
-GestorEntidad::~GestorEntidad()
+GestorEntidad<T>::~GestorEntidad()
 {
 }
 
 template<class T>
 std::vector<T> GestorEntidad<T>::recuperarTodos()
 {
-	std::vector<visualizador::modelo::IEntidad*> entidades;
-
-	std::string prefijo = T::prefijoGrupo();
+	std::vector<T> entidades;
 
 	std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
 
-	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperarGrupo(prefijo_grupo, grupo);
+	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperarGrupo(T::prefijoGrupo(), grupo);
 
-	for()
+	for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+	{
+		T nueva_entidad = new T();
+		nueva_entidad->parsearValorAlmacenable((*it)->getValor());
+		entidades.push_back(nueva_entidad);
+	}
 
-	return std::vector<T>();
+	return entidades;
 }
 
 

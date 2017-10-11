@@ -1,12 +1,13 @@
 {
 	"prefijo_habilitado" : true,
 	"prefijo_tamanio" : 3,
-	"prefijo_concepto" : "concepto",
-	"prefijo_termino" : "termino",
-	"prefijo_consulta" : "consulta",
-	"prefijo_reporte" : "reporte",
-	"prefijo_seccion" : "seccion",
-	"prefijo_fecha" : "fecha",
-	"prefijo_periodo" : "periodo",
-	"prefijo_medio" : "medio"
+	"prefijo_configuracion" : "000",
+	"prefijo_concepto" : "001",
+	"prefijo_termino" : "002",
+	"prefijo_consulta" : "003",
+	"prefijo_reporte" : "004",
+	"prefijo_seccion" : "005",
+	"prefijo_fecha" : "006",
+	"prefijo_periodo" : "007",
+	"prefijo_medio" : "008"
 }

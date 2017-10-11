@@ -77,8 +77,7 @@ bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std
 	visualizador::modelo::IEntidad* entidad = NULL;
 	for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
 	{
-		entidad = new visualizador::modelo::IEntidad();
-		entidad->parsearValorAlmacenable((*it)->getValor());
+
 	}
 
 	return true;
