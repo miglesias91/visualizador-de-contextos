@@ -20,3 +20,8 @@ void Reporte::crearContenido()
 void Reporte::parsearContenido(IJson* contenido)
 {
 }
+
+std::string Reporte::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoReporte();
+}

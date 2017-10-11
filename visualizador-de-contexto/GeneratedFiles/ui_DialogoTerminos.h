@@ -20,6 +20,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -37,7 +38,8 @@ public:
     QLineEdit *lineedit_etiqueta;
     QLabel *lbl_termino;
     QLineEdit *lineedit_termino;
-    QDialogButtonBox *btnbox_guardar_termino;
+    QPushButton *btn_limpiar_termino;
+    QPushButton *btn_guardar_termino;
     QListWidget *lista_terminos;
     QDialogButtonBox *btnbox_terminos;
 
@@ -57,7 +59,7 @@ public:
         action_guardar->setCheckable(true);
         horizontalLayoutWidget = new QWidget(DialogoTerminos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(20, 15, 541, 291));
+        horizontalLayoutWidget->setGeometry(QRect(20, 15, 468, 194));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -86,13 +88,15 @@ public:
 
         formLayout->setWidget(1, QFormLayout::FieldRole, lineedit_termino);
 
-        btnbox_guardar_termino = new QDialogButtonBox(horizontalLayoutWidget);
-        btnbox_guardar_termino->setObjectName(QStringLiteral("btnbox_guardar_termino"));
-        btnbox_guardar_termino->setOrientation(Qt::Horizontal);
-        btnbox_guardar_termino->setStandardButtons(QDialogButtonBox::Reset|QDialogButtonBox::Save);
-        btnbox_guardar_termino->setCenterButtons(false);
+        btn_limpiar_termino = new QPushButton(horizontalLayoutWidget);
+        btn_limpiar_termino->setObjectName(QStringLiteral("btn_limpiar_termino"));
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, btnbox_guardar_termino);
+        formLayout->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
+
+        btn_guardar_termino = new QPushButton(horizontalLayoutWidget);
+        btn_guardar_termino->setObjectName(QStringLiteral("btn_guardar_termino"));
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, btn_guardar_termino);
 
 
         horizontalLayout->addLayout(formLayout);
@@ -110,7 +114,8 @@ public:
         retranslateUi(DialogoTerminos);
         QObject::connect(btnbox_terminos, SIGNAL(rejected()), DialogoTerminos, SLOT(close()));
         QObject::connect(btnbox_terminos, SIGNAL(accepted()), action_actualizarYCerrar, SLOT(trigger()));
-        QObject::connect(btnbox_guardar_termino, SIGNAL(rejected()), action_resetear, SLOT(trigger()));
+        QObject::connect(btn_guardar_termino, SIGNAL(released()), action_guardar, SLOT(trigger()));
+        QObject::connect(btn_limpiar_termino, SIGNAL(released()), action_resetear, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoTerminos);
     } // setupUi
@@ -129,6 +134,8 @@ public:
 #endif // QT_NO_SHORTCUT
         lbl_etiqueta->setText(QApplication::translate("DialogoTerminos", "etiqueta", Q_NULLPTR));
         lbl_termino->setText(QApplication::translate("DialogoTerminos", "termino", Q_NULLPTR));
+        btn_limpiar_termino->setText(QApplication::translate("DialogoTerminos", "limpiar", Q_NULLPTR));
+        btn_guardar_termino->setText(QApplication::translate("DialogoTerminos", "guardar", Q_NULLPTR));
     } // retranslateUi
 
 };

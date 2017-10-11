@@ -42,6 +42,11 @@ void Fecha::parsearContenido(IJson* contenido)
 	this->anio = anio;
 }
 
+std::string Fecha::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoFecha();
+}
+
 // GETTERS
 
 unsigned int Fecha::getDia()

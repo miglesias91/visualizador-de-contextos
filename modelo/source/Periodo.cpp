@@ -49,6 +49,11 @@ void Periodo::parsearContenido(IJson* contenido)
 	this->hasta = fecha_hasta;
 }
 
+std::string Periodo::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoPeriodo();
+}
+
 // GETTERS
 
 Fecha * Periodo::getDesde()

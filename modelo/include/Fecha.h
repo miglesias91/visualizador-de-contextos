@@ -29,6 +29,8 @@ public:
 	
 	virtual void parsearContenido(IJson* contenido);
 
+	virtual std::string prefijoGrupo();
+
 	// GETTERS
 
 	unsigned int getDia();

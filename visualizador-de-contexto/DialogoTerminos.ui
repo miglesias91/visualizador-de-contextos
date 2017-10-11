@@ -18,8 +18,8 @@
     <rect>
      <x>20</x>
      <y>15</y>
-     <width>541</width>
-     <height>291</height>
+     <width>468</width>
+     <height>194</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -45,16 +45,17 @@
       <item row="1" column="1">
        <widget class="QLineEdit" name="lineedit_termino"/>
       </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btn_limpiar_termino">
+        <property name="text">
+         <string>limpiar</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="1">
-       <widget class="QDialogButtonBox" name="btnbox_guardar_termino">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
-        </property>
-        <property name="centerButtons">
-         <bool>false</bool>
+       <widget class="QPushButton" name="btn_guardar_termino">
+        <property name="text">
+         <string>guardar</string>
         </property>
        </widget>
       </item>
@@ -139,20 +140,36 @@
      <y>321</y>
     </hint>
     <hint type="destinationlabel">
-     <x>93</x>
-     <y>323</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btnbox_guardar_termino</sender>
-   <signal>rejected()</signal>
+   <sender>btn_guardar_termino</sender>
+   <signal>released()</signal>
+   <receiver>action_guardar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_limpiar_termino</sender>
+   <signal>released()</signal>
    <receiver>action_resetear</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>177</x>
-     <y>80</y>
+     <x>145</x>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

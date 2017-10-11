@@ -25,6 +25,8 @@ public:
 	
 	virtual void parsearContenido(IJson* contenido);
 
+	virtual std::string prefijoGrupo();
+
 	// GETTERS
 
 	Fecha* getDesde();

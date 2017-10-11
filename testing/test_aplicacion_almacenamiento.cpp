@@ -4,6 +4,7 @@
 // aplicacion
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
+#include <aplicacion/include/GestorEntidad.h>
 #include <aplicacion/include/GestorIDs.h>
 
 // modelo
@@ -15,16 +16,17 @@
 #include <modelo/include/Periodo.h>
 
 using namespace visualizador::modelo;
+using namespace visualizador::aplicacion;
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
-	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+	IAdministradorAplicacion::getInstancia()->abrirBD();
 
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+	GestorIDs::setIdActual(0);
 
 	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
 	termino_corrupcion->asignarNuevoId();
@@ -39,16 +41,16 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 	concepto_corrupcion->asignarNuevoId();
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
+	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
 
 	Concepto* concepto_a_recuperar = new Concepto();
 	concepto_a_recuperar->setId(concepto_corrupcion->getId());
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+	IAdministradorAplicacion::getInstancia()->cerrarBD();
 
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
 	ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
@@ -64,58 +66,58 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 {
-	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+	IAdministradorAplicacion::getInstancia()->abrirBD();
 
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+	GestorIDs::setIdActual(0);
 
 	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
 	inicio_primavera_2017->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(inicio_primavera_2017);
+	IAdministradorAplicacion::getInstancia()->almacenar(inicio_primavera_2017);
 
 	Fecha* fin_primavera_2017 = new Fecha(21, 12, 2017);
 	fin_primavera_2017->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(fin_primavera_2017);
+	IAdministradorAplicacion::getInstancia()->almacenar(fin_primavera_2017);
 
 	Periodo* primavera_2017 = new Periodo(inicio_primavera_2017, fin_primavera_2017);
 	primavera_2017->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(primavera_2017);
+	IAdministradorAplicacion::getInstancia()->almacenar(primavera_2017);
 
 	Reporte* reporte = new Grafico("torta");
 	reporte->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(reporte);
+	IAdministradorAplicacion::getInstancia()->almacenar(reporte);
 
 	std::vector<Termino*> terminos_corrupcion;
 
 	Termino* termino_corrupcion = new Termino("corrupcion");
 	termino_corrupcion->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
 
 	Termino* termino_irregularidad = new Termino("corrupcion");
 	termino_irregularidad->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
 
 	terminos_corrupcion.push_back(termino_corrupcion);
 	terminos_corrupcion.push_back(termino_irregularidad);
 
 	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 	concepto_corrupcion->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
 
 	Termino* termino_crisis = new Termino("crisis");
 	termino_crisis->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_crisis);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_crisis);
 
 	Termino* termino_conflicto = new Termino("conflicto");
 	termino_conflicto->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_conflicto);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_conflicto);
 
 	Termino* termino_desorden = new Termino("desorden");
 	termino_desorden->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_desorden);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_desorden);
 
 	std::vector<Termino*> terminos_crisis;
 	terminos_crisis.push_back(termino_crisis);
@@ -124,19 +126,19 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 	Concepto* concepto_crisis = new Concepto(terminos_crisis, "crisis");
 	concepto_crisis->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_crisis);
+	IAdministradorAplicacion::getInstancia()->almacenar(concepto_crisis);
 
 	Termino* termino_movilizacion = new Termino("movilizacion");
 	termino_movilizacion->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_movilizacion);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_movilizacion);
 
 	Termino* termino_paro = new Termino("paro");
 	termino_paro->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_paro);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_paro);
 
 	Termino* termino_marcha = new Termino("marcha");
 	termino_marcha->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_marcha);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_marcha);
 
 	std::vector<Termino*> terminos_movilizacion;
 	terminos_movilizacion.push_back(termino_movilizacion);
@@ -145,7 +147,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 	Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion);
 	concepto_movilizacion->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_movilizacion);
+	IAdministradorAplicacion::getInstancia()->almacenar(concepto_movilizacion);
 
 	std::vector<Concepto*> conceptos;
 	conceptos.push_back(concepto_corrupcion);
@@ -155,11 +157,11 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
 	Medio* medio_clarin = new Medio("clarin");
 	medio_clarin->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(medio_clarin);
+	IAdministradorAplicacion::getInstancia()->almacenar(medio_clarin);
 
 	Medio* medio_infobae = new Medio("infobae");
 	medio_infobae->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(medio_infobae);
+	IAdministradorAplicacion::getInstancia()->almacenar(medio_infobae);
 
 	std::vector<Medio*> medios;
 	medios.push_back(medio_clarin);
@@ -168,11 +170,11 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	// estos news de las secciones en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
 	Seccion* seccion_politica = new Seccion("politica");
 	seccion_politica->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(seccion_politica);
+	IAdministradorAplicacion::getInstancia()->almacenar(seccion_politica);
 
 	Seccion* seccion_economia = new Seccion("economia");
 	seccion_economia->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(seccion_economia);
+	IAdministradorAplicacion::getInstancia()->almacenar(seccion_economia);
 
 	std::vector<Seccion*> secciones;
 	secciones.push_back(seccion_politica);
@@ -180,16 +182,16 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 	Consulta* consulta = new Consulta(primavera_2017, reporte, conceptos, medios, secciones, "primavera_2017");
 	consulta->asignarNuevoId();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(consulta);
+	IAdministradorAplicacion::getInstancia()->almacenar(consulta);
 
 	// AHORA RECUPERO TODO
 
 	Consulta* consulta_a_recuperar = new Consulta();
 	consulta_a_recuperar->setId(consulta->getId());
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar);
+	IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar);
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+	IAdministradorAplicacion::getInstancia()->cerrarBD();
 
 	// test consulta
 	ASSERT_STREQ("primavera_2017", consulta_a_recuperar->getEtiqueta().c_str());
@@ -278,13 +280,13 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
 
-	visualizador::aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+	IAdministradorAplicacion::getInstancia()->abrirBD();
 
-	visualizador::aplicacion::GestorIDs::setIdActual(100);
+	GestorIDs::setIdActual(100);
 
 	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
 	termino_corrupcion->asignarNuevoId();
@@ -299,22 +301,29 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 	concepto_corrupcion->asignarNuevoId();
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
+	IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
+	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
 
 	Concepto* concepto_a_recuperar = new Concepto();
 	concepto_a_recuperar->setId(concepto_corrupcion->getId());
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+	IAdministradorAplicacion::getInstancia()->cerrarBD();
 
-	unsigned long long int id_actual = visualizador::aplicacion::GestorIDs::getIdActual();
+	unsigned long long int id_actual = GestorIDs::getIdActual();
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
-	unsigned long long int id_actual_recuperado = visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperarIDActual();
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+	IAdministradorAplicacion::getInstancia()->abrirBD();
+	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstancia()->recuperarIDActual();
+	IAdministradorAplicacion::getInstancia()->cerrarBD();
 
 	ASSERT_EQ(id_actual, id_actual_recuperado);
+}
+
+TEST(aplicacionAlmacenamiento, GestorEntidadFuncionamientoCorrecto)
+{
+	GestorEntidad<Termino*> gestor_terminos;
+
+	std::vector<Termino*> terminos = gestor_terminos.recuperarTodos<Termino*>();
 }

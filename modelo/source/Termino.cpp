@@ -42,3 +42,8 @@ void Termino::parsearContenido(IJson* contenido)
 
 	this->setValor(valor);
 }
+
+std::string Termino::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoTermino();
+}

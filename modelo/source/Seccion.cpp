@@ -20,3 +20,8 @@ void Seccion::crearContenido()
 void Seccion::parsearContenido(IJson* contenido)
 {
 }
+
+std::string Seccion::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoSeccion();
+}

@@ -20,3 +20,8 @@ void Medio::crearContenido()
 void Medio::parsearContenido(IJson* contenido)
 {
 }
+
+std::string Medio::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoMedio();
+}

@@ -1,6 +1,7 @@
 #include <modelo/include/Concepto.h>
 
 using namespace visualizador::modelo;
+using namespace visualizador;
 
 // rapidjson
 #include <rapidjson/document.h>
@@ -10,15 +11,15 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto())
+Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto())
 {
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
 {
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto()), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto()), terminos(terminos)
 {
 }
 
@@ -59,8 +60,13 @@ void Concepto::parsearContenido(IJson* contenido)
 	for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
 	{
 		termino_nuevo = new Termino();
-		termino_nuevo->setId(new visualizador::aplicacion::ID(*it));
-		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo);
+		termino_nuevo->setId(new aplicacion::ID(*it));
+		aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo);
 		this->terminos.push_back(termino_nuevo);
 	}
+}
+
+std::string Concepto::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoConcepto();
 }

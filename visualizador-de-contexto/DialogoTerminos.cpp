@@ -42,6 +42,8 @@ void DialogoTerminos::on_action_guardar_triggered()
 	QString item((etiqueta + " / " + termino).c_str());
 
 	this->ui->lista_terminos->insertItem(0, item);
+
+	this->on_action_resetear_triggered();
 }
 
 void DialogoTerminos::actualizarTerminos()

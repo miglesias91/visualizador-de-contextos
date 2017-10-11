@@ -159,3 +159,8 @@ void Consulta::parsearContenido(IJson* contenido)
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(reporte_nuevo);
 	this->reporte = reporte_nuevo;
 }
+
+std::string Consulta::prefijoGrupo()
+{
+	return aplicacion::ConfiguracionAplicacion::prefijoConsulta();
+}

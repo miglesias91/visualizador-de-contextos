@@ -56,6 +56,8 @@ public:
 
 	virtual void parsearContenido(IJson* contenido) = 0;
 
+	virtual std::string prefijoGrupo() = 0;
+
 
 private:
 
