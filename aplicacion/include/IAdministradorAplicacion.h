@@ -39,7 +39,7 @@ public:
 
 	virtual bool recuperar(visualizador::modelo::IEntidad* entidad) = 0;
 
-	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*> & entidades) = 0;
+	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*>* entidades) = 0;
 
 	virtual unsigned long long int recuperarIDActual();
 

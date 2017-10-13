@@ -68,7 +68,7 @@ bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IEntidad * en
 	return retorno;
 }
 
-bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*> & entidades)
+bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*>* entidades)
 {
 	std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
 

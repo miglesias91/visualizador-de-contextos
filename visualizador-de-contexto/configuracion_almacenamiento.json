@@ -1,0 +1,5 @@
+{
+	"path_db" : "C:/temp/test_rocksdb",
+	"almacenamiento_local" : true,
+	"almacenamiento_distribuido" : false
+}

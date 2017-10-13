@@ -24,7 +24,7 @@ public:
 
 	virtual bool recuperar(visualizador::modelo::IEntidad* entidad);
 
-	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*> & entidades);
+	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*>* entidades);
 		
 private:
 

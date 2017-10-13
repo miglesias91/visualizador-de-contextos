@@ -4,7 +4,7 @@
 // aplicacion
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
-#include <aplicacion/include/GestorEntidad.h>
+#include <aplicacion/include/GestorEntidades.h>
 #include <aplicacion/include/GestorIDs.h>
 
 // modelo
@@ -323,7 +323,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 
 TEST(aplicacionAlmacenamiento, GestorEntidadFuncionamientoCorrecto)
 {
-	GestorEntidad<Termino*> gestor_terminos;
+	//GestorEntidad<Termino*> gestor_terminos;
 
-	std::vector<Termino*> terminos = gestor_terminos.recuperarTodos<Termino*>();
+	//std::vector<Termino*> terminos = gestor_terminos.recuperarTodos<Termino*>();
 }
