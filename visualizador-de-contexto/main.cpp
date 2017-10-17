@@ -7,6 +7,9 @@
 #include <aplicacion/include/GestorEntidades.h>
 #include <aplicacion/include/GestorIDs.h>
 
+// vld
+#include <vld.h>
+
 using namespace visualizador;
 
 int main(int argc, char *argv[])

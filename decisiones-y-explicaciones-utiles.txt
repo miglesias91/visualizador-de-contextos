@@ -1,4 +1,4 @@
-﻿ROCKSDB
+﻿ == ROCKSDB == 
 
 Para generar los archivos de Visual Studio usamos la opcion PORTABLE=1. Se ejecuto el siguiente comando:
 
@@ -6,7 +6,7 @@ cmake "Visual Studio 15 2017" -DFAIL_ON_WARNINGS=0 -DPORTABLE=1 ..
 
 Esto permite tener una versión portable de rocksdb. De esta forma usa el conjunto de instrucciones AVX y no AVX2.
 
-IENTIDAD
+ == IENTIDAD == 
 
 Representa a todo contenido de la aplicacion que tenga un ID, ETIQUETA, CONTENIDO y GRUPO.
 
@@ -21,15 +21,34 @@ Representa a todo contenido de la aplicacion que tenga un ID, ETIQUETA, CONTENID
 La idea es que el IAdmin use esta interfaz para crear los objetos que se almacenaran en la base de datos.
 Desde la interfaz cada pantalla setea los valores propios de cada clase de un objeto. Estos valores deberan quedar almacenados en CONTENIDO. Debe haber un encargado de crear el CONTENIDO de las clases.
 
-CLAVE-VALOR
-
+ == CLAVE-VALOR ==
 IAdminAplicacion se encarga de pasarle a IAdminAlmacenamiento los datos ya listo para almacenar. Los datos se transforman de IEntidad=[id, etiqueta, contenido, grupo] -> a -> ClaveValor=[clave[grupo+id], valor[etiqueta, contenido]].
 
-FECHAS Y PERIODO
+ == FECHAS Y PERIODO == 
 Las fechas y períodos se consideran como Entidades porque se pueden almancenar fechas y periodos particulares, por ejemplo: fecha="comienzo de campaña", periodo="1er semestre año 2017", etc etc.
 
-MEDIOS
+ == MEDIOS == 
 Los "medios" analizados no se incluyen desde la interfaz de usuario, sino que vienen incluidos como parte del desarrollo de la aplicación. La idea es que se permita elegir de un conjunto de medios. A nivel de código, habra una GestorMedios que cree instancias con los datos del medio a tratar (es decir, no existirá la sentencia "Medio medio_nuevo = new Medio(<etiqueta_de_un_medio_nuevo>)", sino mas bien "Medio un_medio = GestorMedios::Infobae();")
 
-SECCIONES
+== SECCIONES ==
 <investigar y decidir si los tratamos de la misma forma que los medios o si los pueden crear el usuario>
+
+== ALTA y BAJA de las entidades en los dialogos de Qt ==
+Cada dialogo de ABM de cada entidad tiene como base:
+- 'QListWidget': todas las entidades que figuran en la bd + las entidades nuevas que NO ESTAN en la bd y se van a almacenar.
+- '<entidades>_a_almacenar': todas las entidades que NO ESTAN en la bd y se van almacenar.
+- '<entidades>_a_eliminar': todas las entidades que SI ESTAN enla bd y se van a eliminar.
+
+Secuencias posibles:
+    1- Agregar entidad que NO existe: se agrega a 'QListWidget' y a '<entidades>_a_almacenar'.
+    2- Agregar entidad que SI existe: se lanza excepcion.
+    3- Agregar entidad que se queria eliminar: se agrega a 'QListWidget' y se elimina de '<entidades>_a_eliminar': es decir, se saca de la lista de entidades a eliminar.
+    4- Eliminar entidad que esta en la bd: se saca de 'QListWIdget' y se agrega a '<entidades>_a_eliminar'.
+    5- Eliminar entidad que se queria almacenar: se saca de 'QListWIdget' y se saca de '<entidades>_a_almacenar'.
+
+Secuencias NO posibles:
+    1- Eliminar entidades que no existen en la QListWidget: esta operacion no es posible porque las entidades a almacenar solo se obtienen de las que figuran en la 'QListWidget'.
+
+Cerrando dialogo
+    1- si se cierra ACEPTANDO, entonces las entidades en '<entidades>_a_almacenar' se dan de ALTA en la bd y '<entidades>_a_eliminar' se dan de baja en la bd.
+    2- se se cierra CANCELANDO, entonces no se realiza ninguna operacion en la bd.

@@ -80,6 +80,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\Debug;$(repos)googletest\googletest\build_x86\Debug;$(repos-git)almacenamiento\Debug;$(repos)rocksdb\build_x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -32,6 +32,7 @@ public:
     QAction *action_actualizarYCerrar;
     QAction *action_resetear;
     QAction *action_guardar;
+    QAction *action_eliminar;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QFormLayout *formLayout;
@@ -41,9 +42,9 @@ public:
     QLineEdit *lineedit_termino;
     QPushButton *btn_guardar_termino;
     QPushButton *btn_limpiar_termino;
+    QPushButton *btn_eliminar;
     QVBoxLayout *verticalLayout_2;
     QListWidget *lista_terminos;
-    QListWidget *listWidget;
     QDialogButtonBox *btnbox_terminos;
 
     void setupUi(QWidget *DialogoTerminos)
@@ -60,6 +61,9 @@ public:
         action_guardar = new QAction(DialogoTerminos);
         action_guardar->setObjectName(QStringLiteral("action_guardar"));
         action_guardar->setCheckable(true);
+        action_eliminar = new QAction(DialogoTerminos);
+        action_eliminar->setObjectName(QStringLiteral("action_eliminar"));
+        action_eliminar->setCheckable(true);
         horizontalLayoutWidget = new QWidget(DialogoTerminos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(20, 15, 468, 194));
@@ -101,6 +105,11 @@ public:
 
         formLayout->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
 
+        btn_eliminar = new QPushButton(horizontalLayoutWidget);
+        btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, btn_eliminar);
+
 
         horizontalLayout->addLayout(formLayout);
 
@@ -111,11 +120,6 @@ public:
         lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
 
         verticalLayout_2->addWidget(lista_terminos);
-
-        listWidget = new QListWidget(horizontalLayoutWidget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-
-        verticalLayout_2->addWidget(listWidget);
 
 
         horizontalLayout->addLayout(verticalLayout_2);
@@ -130,6 +134,7 @@ public:
         QObject::connect(btnbox_terminos, SIGNAL(accepted()), action_actualizarYCerrar, SLOT(trigger()));
         QObject::connect(btn_guardar_termino, SIGNAL(released()), action_guardar, SLOT(trigger()));
         QObject::connect(btn_limpiar_termino, SIGNAL(released()), action_resetear, SLOT(trigger()));
+        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoTerminos);
     } // setupUi
@@ -146,10 +151,15 @@ public:
 #ifndef QT_NO_SHORTCUT
         action_guardar->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+G", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+        action_eliminar->setText(QApplication::translate("DialogoTerminos", "eliminar", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        action_eliminar->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+D", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         lbl_etiqueta->setText(QApplication::translate("DialogoTerminos", "etiqueta", Q_NULLPTR));
         lbl_termino->setText(QApplication::translate("DialogoTerminos", "termino", Q_NULLPTR));
         btn_guardar_termino->setText(QApplication::translate("DialogoTerminos", "guardar", Q_NULLPTR));
         btn_limpiar_termino->setText(QApplication::translate("DialogoTerminos", "limpiar", Q_NULLPTR));
+        btn_eliminar->setText(QApplication::translate("DialogoTerminos", "eliminar", Q_NULLPTR));
     } // retranslateUi
 
 };
