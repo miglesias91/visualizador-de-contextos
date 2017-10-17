@@ -6,6 +6,8 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/GestorIDs.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
+std::hash<std::string> Termino::hasher;
+
 Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor("")
 {
 }
@@ -46,4 +48,9 @@ void Termino::parsearContenido(IJson* contenido)
 std::string Termino::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoTermino();
+}
+
+unsigned int Termino::hashcode()
+{
+	return hasher(this->getValor());
 }

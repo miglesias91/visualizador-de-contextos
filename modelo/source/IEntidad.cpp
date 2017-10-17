@@ -90,3 +90,8 @@ void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 
 	this->parsearContenido(json_contenido);
 }
+
+bool IEntidad::comparador(IEntidad * a, IEntidad * b)
+{
+	return a->getId()->numero() < b->getId()->numero();
+}

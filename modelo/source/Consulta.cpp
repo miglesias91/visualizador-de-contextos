@@ -2,6 +2,9 @@
 
 using namespace visualizador::modelo;
 
+// stl
+#include <algorithm>
+
 // aplicacion
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
@@ -163,4 +166,39 @@ void Consulta::parsearContenido(IJson* contenido)
 std::string Consulta::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoConsulta();
+}
+
+unsigned int Consulta::hashcode()
+{
+	std::vector<Concepto*> conceptos = this->getConceptos();
+	std::sort(conceptos.begin(), conceptos.end(), IEntidad::comparador);
+
+	std::vector<Medio*> medios = this->getMedios();
+	std::sort(medios.begin(), medios.end(), IEntidad::comparador);
+
+	std::vector<Seccion*> secciones = this->getSecciones();
+	std::sort(secciones.begin(), secciones.end(), IEntidad::comparador);
+
+	unsigned int hashcode_periodo = this->getPeriodo()->hashcode();
+	unsigned int hashcode_reporte = this->getReporte()->hashcode();
+
+	unsigned long long int hashcode_conceptos = 0;
+	for (std::vector<Concepto*>::iterator it = conceptos.begin(); it != conceptos.end(); it++)
+	{
+		hashcode_conceptos += (*it)->hashcode();
+	}
+
+	unsigned long long int hashcode_medios = 0;
+	for (std::vector<Medio*>::iterator it = medios.begin(); it != medios.end(); it++)
+	{
+		hashcode_medios += (*it)->hashcode();
+	}
+
+	unsigned long long int hashcode_secciones = 0;
+	for (std::vector<Seccion*>::iterator it = secciones.begin(); it != secciones.end(); it++)
+	{
+		hashcode_secciones += (*it)->hashcode();
+	}
+
+	return hashcode_conceptos + hashcode_medios + hashcode_secciones + hashcode_periodo + hashcode_reporte;
 }

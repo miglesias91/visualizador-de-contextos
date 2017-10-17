@@ -54,6 +54,11 @@ std::string Periodo::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoPeriodo();
 }
 
+unsigned int Periodo::hashcode()
+{
+	return this->getDesde()->hashcode() + this->getHasta()->hashcode();
+}
+
 // GETTERS
 
 Fecha * Periodo::getDesde()

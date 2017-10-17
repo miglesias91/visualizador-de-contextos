@@ -21,6 +21,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -38,9 +39,11 @@ public:
     QLineEdit *lineedit_etiqueta;
     QLabel *lbl_termino;
     QLineEdit *lineedit_termino;
-    QPushButton *btn_limpiar_termino;
     QPushButton *btn_guardar_termino;
+    QPushButton *btn_limpiar_termino;
+    QVBoxLayout *verticalLayout_2;
     QListWidget *lista_terminos;
+    QListWidget *listWidget;
     QDialogButtonBox *btnbox_terminos;
 
     void setupUi(QWidget *DialogoTerminos)
@@ -88,23 +91,34 @@ public:
 
         formLayout->setWidget(1, QFormLayout::FieldRole, lineedit_termino);
 
-        btn_limpiar_termino = new QPushButton(horizontalLayoutWidget);
-        btn_limpiar_termino->setObjectName(QStringLiteral("btn_limpiar_termino"));
-
-        formLayout->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
-
         btn_guardar_termino = new QPushButton(horizontalLayoutWidget);
         btn_guardar_termino->setObjectName(QStringLiteral("btn_guardar_termino"));
 
         formLayout->setWidget(2, QFormLayout::FieldRole, btn_guardar_termino);
 
+        btn_limpiar_termino = new QPushButton(horizontalLayoutWidget);
+        btn_limpiar_termino->setObjectName(QStringLiteral("btn_limpiar_termino"));
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
+
 
         horizontalLayout->addLayout(formLayout);
 
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         lista_terminos = new QListWidget(horizontalLayoutWidget);
         lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
 
-        horizontalLayout->addWidget(lista_terminos);
+        verticalLayout_2->addWidget(lista_terminos);
+
+        listWidget = new QListWidget(horizontalLayoutWidget);
+        listWidget->setObjectName(QStringLiteral("listWidget"));
+
+        verticalLayout_2->addWidget(listWidget);
+
+
+        horizontalLayout->addLayout(verticalLayout_2);
 
         btnbox_terminos = new QDialogButtonBox(DialogoTerminos);
         btnbox_terminos->setObjectName(QStringLiteral("btnbox_terminos"));
@@ -134,8 +148,8 @@ public:
 #endif // QT_NO_SHORTCUT
         lbl_etiqueta->setText(QApplication::translate("DialogoTerminos", "etiqueta", Q_NULLPTR));
         lbl_termino->setText(QApplication::translate("DialogoTerminos", "termino", Q_NULLPTR));
-        btn_limpiar_termino->setText(QApplication::translate("DialogoTerminos", "limpiar", Q_NULLPTR));
         btn_guardar_termino->setText(QApplication::translate("DialogoTerminos", "guardar", Q_NULLPTR));
+        btn_limpiar_termino->setText(QApplication::translate("DialogoTerminos", "limpiar", Q_NULLPTR));
     } // retranslateUi
 
 };

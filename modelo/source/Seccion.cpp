@@ -25,3 +25,8 @@ std::string Seccion::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoSeccion();
 }
+
+unsigned int Seccion::hashcode()
+{
+	return 0;
+}

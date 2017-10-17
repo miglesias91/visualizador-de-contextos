@@ -1,6 +1,7 @@
 #pragma once
 
 // stl
+#include <functional>
 #include <string>
 
 // modelo
@@ -30,6 +31,8 @@ public:
 	virtual void parsearContenido(IJson* contenido);
 
 	virtual std::string prefijoGrupo();
+	
+	virtual unsigned int hashcode();
 
 	// GETTERS
 
@@ -52,6 +55,8 @@ public:
 	void setAnio(unsigned int anio);
 
 private:
+
+	static std::hash<unsigned int> hasher;
 
 	unsigned int dia;
 	unsigned int mes;

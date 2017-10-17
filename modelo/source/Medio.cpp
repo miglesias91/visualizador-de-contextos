@@ -25,3 +25,8 @@ std::string Medio::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoMedio();
 }
+
+unsigned Medio::hashcode()
+{
+	return 0;
+}

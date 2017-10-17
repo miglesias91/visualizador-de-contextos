@@ -25,3 +25,8 @@ std::string Reporte::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoReporte();
 }
+
+unsigned int Reporte::hashcode()
+{
+	return 0;
+}

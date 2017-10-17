@@ -45,13 +45,6 @@
       <item row="1" column="1">
        <widget class="QLineEdit" name="lineedit_termino"/>
       </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="btn_limpiar_termino">
-        <property name="text">
-         <string>limpiar</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="btn_guardar_termino">
         <property name="text">
@@ -59,10 +52,31 @@
         </property>
        </widget>
       </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btn_limpiar_termino">
+        <property name="text">
+         <string>limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="btn_eliminar">
+        <property name="text">
+         <string>eliminar</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="lista_terminos"/>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QListWidget" name="lista_terminos"/>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -107,6 +121,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="action_eliminar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>eliminar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
@@ -170,6 +195,22 @@
     <hint type="sourcelabel">
      <x>145</x>
      <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_eliminar</sender>
+   <signal>released()</signal>
+   <receiver>action_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

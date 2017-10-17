@@ -1,6 +1,7 @@
 #pragma once
 
 // stl
+#include <functional>
 #include <string>
 
 // modelo
@@ -37,7 +38,11 @@ public:
 	
 	virtual std::string prefijoGrupo();
 
+	virtual unsigned int hashcode();
+
 private:
+
+	static std::hash<std::string> hasher;
 
 	std::string valor;
 };

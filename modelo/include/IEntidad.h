@@ -58,6 +58,9 @@ public:
 
 	virtual std::string prefijoGrupo() = 0;
 
+	virtual unsigned int hashcode() = 0;
+
+	static bool comparador(IEntidad* a, IEntidad* b);
 
 private:
 

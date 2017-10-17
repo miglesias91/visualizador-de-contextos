@@ -7,6 +7,8 @@ using namespace visualizador::modelo;
 
 // CONSTRUCTORES
 
+std::hash<unsigned int> Fecha::hasher;
+
 Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(0), mes(0), anio(0)
 {
 }
@@ -45,6 +47,11 @@ void Fecha::parsearContenido(IJson* contenido)
 std::string Fecha::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoFecha();
+}
+
+unsigned int Fecha::hashcode()
+{
+	return hasher(this->dia) + hasher(this->mes) + hasher(this->anio);
 }
 
 // GETTERS

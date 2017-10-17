@@ -26,6 +26,8 @@ public:
 	
 	virtual std::string prefijoGrupo();
 
+	virtual unsigned int hashcode();
+
 	// GETTERS
 
 	// SETTERS

@@ -3,6 +3,9 @@
 using namespace visualizador::modelo;
 using namespace visualizador;
 
+// stl
+#include <algorithm>
+
 // rapidjson
 #include <rapidjson/document.h>
 #include <rapidjson/allocators.h>
@@ -69,4 +72,19 @@ void Concepto::parsearContenido(IJson* contenido)
 std::string Concepto::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoConcepto();
+}
+
+unsigned int Concepto::hashcode()
+{
+	std::vector<Termino*> terminos = this->getTerminos();
+
+	std::sort(terminos.begin(), terminos.end(), IEntidad::comparador);
+
+	unsigned long long int hashcode_terminos = 0;
+	for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
+	{
+		hashcode_terminos += (*it)->hashcode();
+	}
+
+	return hashcode_terminos;
 }

@@ -35,6 +35,8 @@ public:
 	virtual void parsearContenido(IJson* contenido);
 
 	virtual std::string prefijoGrupo();
+	
+	virtual unsigned int hashcode();
 
 	// GETTERS
 

@@ -17,21 +17,15 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	std::vector<modelo::Termino*> terminos = aplicacion::GestorEntidades::recuperarTerminos();
-	for (std::vector<modelo::Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
+	this->terminos_actuales = aplicacion::GestorEntidades::recuperarTerminos();
+	for (std::vector<modelo::Termino*>::iterator it = this->terminos_actuales.begin(); it != this->terminos_actuales.end(); it++)
 	{
-		modelo::Termino* termino = *it;
-
-		QString item((termino->getEtiqueta() + " / " + termino->getValor()).c_str());
-
-		this->ui->lista_terminos->insertItem(0, item);
+		this->agregarTerminoALista(*it);
 	}
 }
 
 DialogoTerminos::~DialogoTerminos()
 {
-
-
 	delete ui;
 }
 
@@ -54,13 +48,41 @@ void DialogoTerminos::on_action_guardar_triggered()
 
 	modelo::Termino* nuevo_termino = new modelo::Termino(termino, etiqueta);
 
-	QString item((etiqueta + " / " + termino).c_str());
+	this->agregarTerminoALista(nuevo_termino);
 
-	this->ui->lista_terminos->insertItem(0, item);
+	this->terminos_a_agregar.push_back(nuevo_termino);
 
 	this->on_action_resetear_triggered();
 }
 
+void DialogoTerminos::on_action_eliminar_triggered()
+{
+	QList<QListWidgetItem*> items = ui->lista_terminos->selectedItems();
+	foreach(QListWidgetItem * item, items)
+	{
+		QVariant data = item->data(Qt::UserRole);
+		modelo::Termino* termino = data.value<modelo::Termino*>();
+		this->terminos_a_eliminar.push_back(termino);
+
+		delete ui->lista_terminos->takeItem(ui->listWidget->row(item));
+	}
+
+}
+
+// METODOS PRIVADOS
+
 void DialogoTerminos::actualizarTerminos()
 {
+}
+
+void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
+{
+	QListWidgetItem* item = new QListWidgetItem();
+
+	QVariant data;
+	data.fromValue(termino);
+	item->setData(Qt::UserRole, data);
+	item->setText((termino->getEtiqueta() + " - " + termino->getValor()).c_str());
+
+	this->ui->lista_terminos->addItem(item);
 }
