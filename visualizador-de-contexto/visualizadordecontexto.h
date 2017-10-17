@@ -3,6 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_visualizadordecontexto.h"
 
+// interfaz
+#include <visualizador-de-contexto/DialogoTerminos.h>
+
 class visualizadordecontexto : public QMainWindow
 {
 	Q_OBJECT
@@ -15,4 +18,8 @@ private slots:
 
 private:
 	Ui::visualizadordecontextoClass ui;
+
+	// DIALOGOS
+
+	DialogoTerminos* dialogo_terminos;
 };

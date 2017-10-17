@@ -35,6 +35,7 @@ DialogoTerminos::~DialogoTerminos()
 		QVariant data = item->data(Qt::UserRole);
 		termino_lista = data.value<modelo::Termino*>();
 		delete termino_lista;
+		delete ui->lista_terminos->takeItem(i);
 	}
 
 	// elimino los terminos de la lista a eliminar
@@ -156,7 +157,6 @@ void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
 	QListWidgetItem* item = new QListWidgetItem();
 
 	QVariant data = QVariant::fromValue(termino);
-	// data.fromValue(termino);
 	item->setData(Qt::UserRole, data);
 	item->setText((termino->getEtiqueta() + " - " + termino->getValor()).c_str());
 

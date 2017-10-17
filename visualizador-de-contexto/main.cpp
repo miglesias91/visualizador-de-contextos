@@ -25,5 +25,7 @@ int main(int argc, char *argv[])
 	int retorno = a.exec();
 
 	// CIERRE APP
+	aplicacion::IAdministradorAplicacion::liberar();
+
 	return retorno;
 }

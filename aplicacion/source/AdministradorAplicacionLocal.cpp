@@ -19,6 +19,7 @@ AdministradorAplicacionLocal::AdministradorAplicacionLocal()
 
 AdministradorAplicacionLocal::~AdministradorAplicacionLocal()
 {
+	almacenamiento::IAdministradorAlmacenamiento::liberar();
 }
 
 bool AdministradorAplicacionLocal::abrirBD()
