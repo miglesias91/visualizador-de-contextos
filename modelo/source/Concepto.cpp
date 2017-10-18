@@ -28,6 +28,12 @@ Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEnti
 
 Concepto::~Concepto()
 {
+	for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+	{
+		delete (*it);
+		(*it) = NULL;
+	}
+	this->terminos.clear();
 }
 
 std::vector<Termino*> Concepto::getTerminos()

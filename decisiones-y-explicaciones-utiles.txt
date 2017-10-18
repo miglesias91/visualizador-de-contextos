@@ -52,3 +52,18 @@ Secuencias NO posibles:
 Cerrando dialogo
     1- si se cierra ACEPTANDO, entonces las entidades en '<entidades>_a_almacenar' se dan de ALTA en la bd y '<entidades>_a_eliminar' se dan de baja en la bd.
     2- se se cierra CANCELANDO, entonces no se realiza ninguna operacion en la bd.
+
+USO DE MEMORIA Y RECURSOS
+Cuando se controlan los memory leaks con VLD 2.5.1, en el proyecto 'almacenamiento', con gtest y RocksDB el minimo de memoria perdida que se alcanzo es 8612 bytes (93 memory leaks). Al parecer esta perdida es agregada por RocksDB, porque aparece con solo abrir y cerrar la bd. Es dificil saber si la perdida es por falsos positivos del VLD, o si efectivamente Rocksdb pierde esa cantidad de memoria al abrir y cerrar la bd. Hay q tener en cuenta que esto es en modo Debug, tal vez en modo Release no se pierde la memoria. De todas formas, los 93 memory leaks son constantes, por lo que puede considerarse aceptable al ser solo 8612 bytes (8,6 kb).
+
+18/10 14:20 visualizador-de-contexto -> testing: hay 540 memory leaks = 33600 bytes.
+
+18/10 14:33 visualizador-de-contexto -> testing: hay 217 memory leaks = 14980 bytes.
+
+18/10 14:42 visualizador-de-contexto -> testing: hay 165 memory leaks = 12484 bytes.
+
+18/10 14:52 visualizador-de-contexto -> testing: hay 119 memory leaks = 9812 bytes.
+
+18/10 14:57 visualizador-de-contexto -> testing: hay 116 memory leaks = 9692 bytes.
+
+18/10 15:06 visualizador-de-contexto -> testing: hay 103 memory leaks = 8932 bytes.

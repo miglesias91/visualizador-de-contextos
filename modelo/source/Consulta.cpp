@@ -20,6 +20,29 @@ Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> 
 
 Consulta::~Consulta()
 {
+	for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
+	{
+		delete (*it);
+		(*it) = NULL;
+	}
+
+	for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+	{
+		delete (*it);
+		(*it) = NULL;
+	}
+
+	for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
+	{
+		delete (*it);
+		(*it) = NULL;
+	}
+
+	delete this->periodo;
+	this->periodo = NULL;
+
+	delete this->reporte;
+	this->reporte = NULL;
 }
 
 Periodo * Consulta::getPeriodo()

@@ -50,11 +50,13 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
 
 	Concepto* concepto_a_recuperar = new Concepto();
-	concepto_a_recuperar->setId(concepto_corrupcion->getId());
+	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
 
 	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
 
 	IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+	IAdministradorAplicacion::liberar();
 
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
 	ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
@@ -71,13 +73,15 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	ASSERT_STREQ("irregularidad", concepto_a_recuperar->getTerminos()[1]->getValor().c_str());
 	ASSERT_EQ(hashcode_irregularidad, concepto_a_recuperar->getTerminos()[1]->hashcode());
 
+	delete concepto_a_recuperar;
+	delete concepto_corrupcion;
 }
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 {
-	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
-
 	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+
+	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
 	IAdministradorAplicacion::getInstancia()->abrirBD();
 
@@ -216,11 +220,13 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	// AHORA RECUPERO TODO
 
 	Consulta* consulta_a_recuperar = new Consulta();
-	consulta_a_recuperar->setId(consulta->getId());
+	consulta_a_recuperar->setId(new ID(*consulta->getId()));
 
 	IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar);
 
 	IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+	IAdministradorAplicacion::liberar();
 
 	// test consulta
 	ASSERT_STREQ("primavera_2017", consulta_a_recuperar->getEtiqueta().c_str());
@@ -326,6 +332,9 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	ASSERT_EQ(12, consulta_a_recuperar->getPeriodo()->getHasta()->getMes());
 	ASSERT_EQ(2017, consulta_a_recuperar->getPeriodo()->getHasta()->getAnio());
 	ASSERT_EQ(hashcode_fecha_hasta, consulta_a_recuperar->getPeriodo()->getHasta()->hashcode());
+
+	delete consulta;
+	delete consulta_a_recuperar;
 }
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
@@ -356,7 +365,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
 
 	Concepto* concepto_a_recuperar = new Concepto();
-	concepto_a_recuperar->setId(concepto_corrupcion->getId());
+	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
 
 	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
 
@@ -367,6 +376,11 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 	IAdministradorAplicacion::getInstancia()->abrirBD();
 	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstancia()->recuperarIDActual();
 	IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+	IAdministradorAplicacion::liberar();
+
+	delete concepto_corrupcion;
+	delete concepto_a_recuperar;
 
 	ASSERT_EQ(id_actual, id_actual_recuperado);
 }

@@ -23,16 +23,20 @@ IJson::IJson(rapidjson::Value* valor) : valor(valor)
 {
 }
 
-IJson::IJson(std::string json)
+IJson::IJson(std::string json) : valor(NULL)
 {
 	rapidjson::Document* documento = new rapidjson::Document();
 	documento->Parse(json.c_str());
 
-	this->valor = documento;
+	this->valor = new rapidjson::Value(*documento, documento_alocador.GetAllocator());
+
+	delete documento;
 }
 
 IJson::~IJson()
 {
+	delete this->valor;
+	this->valor = NULL;
 }
 
 void IJson::reset()
@@ -103,30 +107,34 @@ void IJson::agregarAtributoJson(std::string clave, IJson * json)
 	this->valor->AddMember(tag, *json->getValor(), *alocador);
 }
 
-unsigned long long int visualizador::modelo::IJson::getAtributoValorUint(std::string clave)
+unsigned long long int IJson::getAtributoValorUint(std::string clave)
 {
 	unsigned long long int valor = (*this->valor)[clave.c_str()].GetUint64();
 
 	return valor;
 }
 
-std::string visualizador::modelo::IJson::getAtributoValorString(std::string clave)
+std::string IJson::getAtributoValorString(std::string clave)
 {
 	std::string valor = (*this->valor)[clave.c_str()].GetString();
 
 	return valor;
 }
 
-IJson * visualizador::modelo::IJson::getAtributoValorJson(std::string clave)
+IJson * IJson::getAtributoValorJson(std::string clave)
 {
 	rapidjson::Value* valor = &(*this->valor)[clave.c_str()];
 
-	IJson* json = new IJson(valor);
+	rapidjson::Value* valor_nuevo = new rapidjson::Value(rapidjson::kObjectType);
+
+	valor_nuevo->CopyFrom(*valor, documento_alocador.GetAllocator());
+
+	IJson* json = new IJson(valor_nuevo);
 
 	return json;
 }
 
-std::vector<unsigned long long int> visualizador::modelo::IJson::getAtributoArrayUint(std::string clave)
+std::vector<unsigned long long int> IJson::getAtributoArrayUint(std::string clave)
 {
 	std::vector<unsigned long long int> valores;
 
@@ -141,7 +149,7 @@ std::vector<unsigned long long int> visualizador::modelo::IJson::getAtributoArra
 	return valores;
 }
 
-std::vector<std::string> visualizador::modelo::IJson::getAtributoArrayString(std::string clave)
+std::vector<std::string> IJson::getAtributoArrayString(std::string clave)
 {
 	std::vector<std::string> valores;
 

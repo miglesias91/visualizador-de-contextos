@@ -72,6 +72,8 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 	ASSERT_STREQ("corrupcion", concepto->getEtiqueta().c_str());
 	ASSERT_STREQ(visualizador::aplicacion::ConfiguracionAplicacion::prefijoConcepto().c_str(), concepto->getGrupo().c_str());
 	ASSERT_EQ(3, concepto->getId()->numero());
+
+	delete concepto;
 }
 
 TEST(modelo, GettersYSettersConsulta)
@@ -206,6 +208,8 @@ TEST(modelo, GettersYSettersConsulta)
 
 	ASSERT_EQ(2, secciones.size());
 	ASSERT_STREQ("economia", secciones[1]->getEtiqueta().c_str());
+
+	delete consulta;
 }
 
 TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
@@ -228,7 +232,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 	terminos_movilizacion.push_back(termino_paro);
 	terminos_movilizacion.push_back(termino_marcha);
 
-	IEntidad* concepto_movilizacion = new Concepto(terminos_movilizacion, "movilizacion");
+	Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion, "movilizacion");
 	concepto_movilizacion->asignarNuevoId();
 
 	concepto_movilizacion->crearContenido();
@@ -238,6 +242,8 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 
 	ASSERT_STREQ("{\"ids_terminos\":[0,1,2]}", json_contenido.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"movilizacion\",\"contenido\":{\"ids_terminos\":[0,1,2]}}", json_almacenable.c_str());
+
+	delete concepto_movilizacion;
 }
 
 TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
@@ -246,7 +252,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-	IEntidad* movilizacion = new Termino("movilizacion", "paro");
+	Termino* movilizacion = new Termino("movilizacion", "paro");
 	movilizacion->asignarNuevoId();
 
 	movilizacion->crearContenido();
@@ -256,6 +262,8 @@ TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 
 	ASSERT_STREQ("{\"valor\":\"movilizacion\"}", json_contenido.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"paro\",\"contenido\":{\"valor\":\"movilizacion\"}}", json_almacenable.c_str());
+
+	delete movilizacion;
 }
 
 TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
@@ -264,7 +272,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
-	IEntidad* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
+	Fecha* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
 	primero_de_enero->asignarNuevoId();
 
 	primero_de_enero->crearContenido();
@@ -274,6 +282,8 @@ TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 
 	ASSERT_STREQ("{\"dia\":1,\"mes\":1,\"anio\":2017}", json_contenido.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"primero_enero\",\"contenido\":{\"dia\":1,\"mes\":1,\"anio\":2017}}", json_almacenable.c_str());
+
+	delete primero_de_enero;
 }
 
 TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
@@ -288,7 +298,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 	Fecha* primero_de_febrero = new Fecha(1, 2, 2017);
 	primero_de_febrero->asignarNuevoId();
 
-	IEntidad* periodo_enero = new Periodo(primero_de_enero, primero_de_febrero);
+	Periodo* periodo_enero = new Periodo(primero_de_enero, primero_de_febrero);
 	periodo_enero->asignarNuevoId();
 
 	periodo_enero->crearContenido();
@@ -298,6 +308,8 @@ TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 
 	ASSERT_STREQ("{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}", json_contenido_enero.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"\",\"contenido\":{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}}", json_almacenable.c_str());
+
+	delete periodo_enero;
 }
 
 TEST(modelo, CreacionContenidoYValorAlmacenableConsulta)
@@ -404,6 +416,8 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConsulta)
 
 	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_contenido_consulta.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"primavera_2017\",\"contenido\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}", json_almacenable.c_str());
+
+	delete consulta;
 }
 
 TEST(modelo, GettersYSettersIJson)
@@ -440,4 +454,7 @@ TEST(modelo, GettersYSettersIJson)
 
 	ASSERT_EQ(17, ids_secciones[0]);
 	ASSERT_EQ(18, ids_secciones[1]);
+
+	delete json;
+	delete contenido;
 }

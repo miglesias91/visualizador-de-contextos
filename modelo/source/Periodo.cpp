@@ -18,6 +18,11 @@ Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(
 
 Periodo::~Periodo()
 {
+	delete this->desde;
+	this->desde = NULL;
+
+	delete this->hasta;
+	this->hasta = NULL;
 }
 
 // METODOS
