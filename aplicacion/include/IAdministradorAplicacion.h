@@ -15,6 +15,8 @@ class IAdministradorAplicacion
 {
 public:
 
+	static void iniciar(std::string path_configuracion);
+
 	static void liberar();
 
 	static void crearAdministradorAplicacionLocal();

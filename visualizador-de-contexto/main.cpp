@@ -15,8 +15,9 @@ using namespace visualizador;
 int main(int argc, char *argv[])
 {
 	// INIT APP
-	aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
-	aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+	aplicacion::IAdministradorAplicacion::iniciar("configuracion_aplicacion.json");
+	aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+	aplicacion::IAdministradorAplicacion::getInstancia()->recuperarIDActual();
 
 	// LANZAMIENTO INTERFAZ QT
 	QApplication a(argc, argv);
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
 	int retorno = a.exec();
 
 	// CIERRE APP
+	aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
 	aplicacion::IAdministradorAplicacion::liberar();
 
 	return retorno;

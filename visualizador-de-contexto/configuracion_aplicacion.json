@@ -1,4 +1,6 @@
 {
+	"aplicacion_local" : true,
+	"aplicacion_distribuida" : false,
 	"prefijo_habilitado" : true,
 	"prefijo_tamanio" : 3,
 	"prefijo_configuracion" : "000",

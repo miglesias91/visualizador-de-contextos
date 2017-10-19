@@ -23,6 +23,8 @@ public:
 
 	// CONFIGURACIONES
 
+	static bool aplicacionLocal();
+	static bool aplicacionDistribuida();
 	static bool prefijoHabilitado();
 	static unsigned int prefijoTamanio();
 	static std::string prefijoConfiguracion();
@@ -38,6 +40,8 @@ public:
 
 	// TAGS
 
+	static std::string tagAplicacionLocal();
+	static std::string tagAplicacionDistribuida();
 	static std::string tagPrefijoHabilitado();
 	static std::string tagPrefijoTamanio();
 	static std::string tagPrefijoConfiguracion();
@@ -55,6 +59,8 @@ private:
 	ConfiguracionAplicacion();
 	virtual ~ConfiguracionAplicacion();
 
+	static bool aplicacion_local;
+	static bool aplicacion_distribuida;
 	static bool prefijo_habilitado;
 	static unsigned int prefijo_tamanio;
 	static std::string prefijo_configuracion;

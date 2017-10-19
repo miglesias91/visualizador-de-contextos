@@ -8,13 +8,6 @@ using namespace visualizador::aplicacion;
 AdministradorAplicacionLocal::AdministradorAplicacionLocal()
 {
 	almacenamiento::IAdministradorAlmacenamiento::iniciar("configuracion_almacenamiento.json");
-
-	// CARGAR CONFIG INICIAL ALMACENADA EN LA BD.
-	abrirBD();
-	unsigned long long int id_actual = this->recuperarIDActual();
-	cerrarBD();
-
-	GestorIDs::setIdActual(id_actual);
 }
 
 AdministradorAplicacionLocal::~AdministradorAplicacionLocal()

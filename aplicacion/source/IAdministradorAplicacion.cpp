@@ -2,6 +2,9 @@
 
 using namespace visualizador::aplicacion;
 
+// stl
+#include <iostream>
+
 // almacenamiento
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 
@@ -12,6 +15,28 @@ using namespace visualizador::aplicacion;
 typedef visualizador::aplicacion::IAdministradorAplicacion* (*admin)();
 
 IAdministradorAplicacion* IAdministradorAplicacion::administrador = NULL;
+
+void IAdministradorAplicacion::iniciar(std::string path_configuracion)
+{
+	if (administradorIniciado())
+	{
+		// TODO agregar log.
+		std::cout << "Administrador ya fue iniciado." << std::endl;
+		return;
+		// throw std::exception("Administrador ya fue iniciado.");
+	}
+
+	ConfiguracionAplicacion::leerConfiguracion(path_configuracion);
+
+	if (ConfiguracionAplicacion::aplicacionLocal())
+	{
+		crearAdministradorAplicacionLocal();
+	}
+	else
+	{
+		crearAdministradorAplicacionDistribuida();
+	}
+}
 
 void IAdministradorAplicacion::liberar()
 {

@@ -26,9 +26,9 @@ std::vector<modelo::Termino*> GestorEntidades::recuperarTerminos()
 
 	std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
 
-	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->abrir();
+	// almacenamiento::IAdministradorAlmacenamiento::getInstancia()->abrir();
 	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperarGrupo(ConfiguracionAplicacion::prefijoTermino(), grupo);
-	almacenamiento::IAdministradorAlmacenamiento::getInstancia()->cerrar();
+	// almacenamiento::IAdministradorAlmacenamiento::getInstancia()->cerrar();
 
 	modelo::Termino* termino_recuperado = NULL;
 	for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
@@ -36,7 +36,9 @@ std::vector<modelo::Termino*> GestorEntidades::recuperarTerminos()
 		termino_recuperado = new modelo::Termino();
 		termino_recuperado->parsearValorAlmacenable((*it)->getValor());
 		terminos_recuperados.push_back(termino_recuperado);
+		delete *it;
 	}
+	grupo.clear();
 
 	return terminos_recuperados;
 }

@@ -27,31 +27,20 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 DialogoTerminos::~DialogoTerminos()
 {
 	// elimino los terminos de la lista
-	//QListWidgetItem* item = NULL;
-	//modelo::Termino* termino_lista = NULL;
-	//unsigned int count = ui->lista_terminos->count();
-	//for (int i = 0; i < count; ++i)
-	//{
-	//	count = ui->lista_terminos->count();
-
-	//	item = ui->lista_terminos->item(i);
-	//	QVariant data = item->data(Qt::UserRole);
-	//	termino_lista = data.value<modelo::Termino*>();
-	//	delete termino_lista;
-	//	delete ui->lista_terminos->item(i);
-	//}
-
 	QListWidgetItem* item = NULL;
 	modelo::Termino* termino_lista = NULL;
 	unsigned int count = ui->lista_terminos->count();
-	do
+	while(0 != ui->lista_terminos->count())
 	{
-		item = ui->lista_terminos->item(0);
+		count = ui->lista_terminos->count();
+
+		item = ui->lista_terminos->takeItem(0);
 		QVariant data = item->data(Qt::UserRole);
 		termino_lista = data.value<modelo::Termino*>();
 		delete termino_lista;
 		delete item;
-	} while (item != NULL);
+	}
+
 
 	// elimino los terminos de la lista a eliminar
 	for (this->terminos_it = this->terminos_a_eliminar.begin(); this->terminos_it != this->terminos_a_eliminar.end(); this->terminos_it++)

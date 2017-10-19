@@ -6,6 +6,8 @@ using namespace visualizador::aplicacion;
 #include <fstream>
 #include <sstream>
 
+bool ConfiguracionAplicacion::aplicacion_local;
+bool ConfiguracionAplicacion::aplicacion_distribuida;
 bool ConfiguracionAplicacion::prefijo_habilitado;
 unsigned int ConfiguracionAplicacion::prefijo_tamanio;
 std::string ConfiguracionAplicacion::prefijo_configuracion;
@@ -38,6 +40,8 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 	rapidjson::Document config_json;
 	config_json.Parse(string_config.c_str());
 
+	aplicacion_local = config_json[ConfiguracionAplicacion::tagAplicacionLocal().c_str()].GetBool();
+	aplicacion_distribuida = config_json[ConfiguracionAplicacion::tagAplicacionDistribuida().c_str()].GetBool();
 	prefijo_habilitado = config_json[ConfiguracionAplicacion::tagPrefijoHabilitado().c_str()].GetBool();
 	prefijo_tamanio = config_json[ConfiguracionAplicacion::tagPrefijoTamanio().c_str()].GetUint();
 
@@ -65,6 +69,16 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 rapidjson::Document::AllocatorType * ConfiguracionAplicacion::getAlocador()
 {
 	return &documento_alocador.GetAllocator();
+}
+
+bool ConfiguracionAplicacion::aplicacionLocal()
+{
+	return aplicacion_local;
+}
+
+bool ConfiguracionAplicacion::aplicacionDistribuida()
+{
+	return aplicacion_distribuida;
 }
 
 bool ConfiguracionAplicacion::prefijoHabilitado()
@@ -125,6 +139,16 @@ std::string ConfiguracionAplicacion::prefijoMedio()
 std::string ConfiguracionAplicacion::claveIDActual()
 {
 	return clave_id_actual;
+}
+
+std::string ConfiguracionAplicacion::tagAplicacionLocal()
+{
+	return "aplicacion_local";
+}
+
+std::string ConfiguracionAplicacion::tagAplicacionDistribuida()
+{
+	return "aplicacion_distribuida";
 }
 
 std::string ConfiguracionAplicacion::tagPrefijoHabilitado()
