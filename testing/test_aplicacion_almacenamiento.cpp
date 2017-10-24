@@ -20,12 +20,6 @@ using namespace visualizador::aplicacion;
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 {
-	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
-
-	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
-
-	IAdministradorAplicacion::getInstancia()->abrirBD();
-
 	GestorIDs::setIdActual(0);
 
 	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
@@ -54,10 +48,6 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 
 	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
 
-	IAdministradorAplicacion::getInstancia()->cerrarBD();
-
-	IAdministradorAplicacion::liberar();
-
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
 	ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
 	ASSERT_EQ(hashcode_concepto_corrupcion, concepto_a_recuperar->hashcode());
@@ -79,12 +69,6 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 {
-	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
-
-	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
-
-	IAdministradorAplicacion::getInstancia()->abrirBD();
-
 	GestorIDs::setIdActual(0);
 
 	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
@@ -224,10 +208,6 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 	IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar);
 
-	IAdministradorAplicacion::getInstancia()->cerrarBD();
-
-	IAdministradorAplicacion::liberar();
-
 	// test consulta
 	ASSERT_STREQ("primavera_2017", consulta_a_recuperar->getEtiqueta().c_str());
 	ASSERT_EQ(19, consulta_a_recuperar->getId()->numero());
@@ -339,12 +319,6 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 {
-	ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
-
-	IAdministradorAplicacion::crearAdministradorAplicacionLocal();
-
-	IAdministradorAplicacion::getInstancia()->abrirBD();
-
 	GestorIDs::setIdActual(100);
 
 	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
@@ -370,14 +344,10 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
 
 	IAdministradorAplicacion::getInstancia()->cerrarBD();
-
 	unsigned long long int id_actual = GestorIDs::getIdActual();
-
 	IAdministradorAplicacion::getInstancia()->abrirBD();
-	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstancia()->recuperarIDActual();
-	IAdministradorAplicacion::getInstancia()->cerrarBD();
 
-	IAdministradorAplicacion::liberar();
+	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstancia()->recuperarIDActual();
 
 	delete concepto_corrupcion;
 	delete concepto_a_recuperar;

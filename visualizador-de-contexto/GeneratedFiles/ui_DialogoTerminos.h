@@ -30,9 +30,9 @@ class Ui_DialogoTerminos
 {
 public:
     QAction *action_actualizarYCerrar;
-    QAction *action_resetear;
-    QAction *action_guardar;
-    QAction *action_eliminar;
+    QAction *action_resetear_termino;
+    QAction *action_guardar_termino;
+    QAction *action_eliminar_termino;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QFormLayout *formLayout;
@@ -55,15 +55,15 @@ public:
         action_actualizarYCerrar = new QAction(DialogoTerminos);
         action_actualizarYCerrar->setObjectName(QStringLiteral("action_actualizarYCerrar"));
         action_actualizarYCerrar->setCheckable(true);
-        action_resetear = new QAction(DialogoTerminos);
-        action_resetear->setObjectName(QStringLiteral("action_resetear"));
-        action_resetear->setCheckable(true);
-        action_guardar = new QAction(DialogoTerminos);
-        action_guardar->setObjectName(QStringLiteral("action_guardar"));
-        action_guardar->setCheckable(true);
-        action_eliminar = new QAction(DialogoTerminos);
-        action_eliminar->setObjectName(QStringLiteral("action_eliminar"));
-        action_eliminar->setCheckable(true);
+        action_resetear_termino = new QAction(DialogoTerminos);
+        action_resetear_termino->setObjectName(QStringLiteral("action_resetear_termino"));
+        action_resetear_termino->setCheckable(true);
+        action_guardar_termino = new QAction(DialogoTerminos);
+        action_guardar_termino->setObjectName(QStringLiteral("action_guardar_termino"));
+        action_guardar_termino->setCheckable(true);
+        action_eliminar_termino = new QAction(DialogoTerminos);
+        action_eliminar_termino->setObjectName(QStringLiteral("action_eliminar_termino"));
+        action_eliminar_termino->setCheckable(true);
         horizontalLayoutWidget = new QWidget(DialogoTerminos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(20, 15, 468, 194));
@@ -132,9 +132,9 @@ public:
         retranslateUi(DialogoTerminos);
         QObject::connect(btnbox_terminos, SIGNAL(rejected()), DialogoTerminos, SLOT(close()));
         QObject::connect(btnbox_terminos, SIGNAL(accepted()), action_actualizarYCerrar, SLOT(trigger()));
-        QObject::connect(btn_guardar_termino, SIGNAL(released()), action_guardar, SLOT(trigger()));
-        QObject::connect(btn_limpiar_termino, SIGNAL(released()), action_resetear, SLOT(trigger()));
-        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
+        QObject::connect(btn_guardar_termino, SIGNAL(released()), action_guardar_termino, SLOT(trigger()));
+        QObject::connect(btn_limpiar_termino, SIGNAL(released()), action_resetear_termino, SLOT(trigger()));
+        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar_termino, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoTerminos);
     } // setupUi
@@ -143,17 +143,26 @@ public:
     {
         DialogoTerminos->setWindowTitle(QApplication::translate("DialogoTerminos", "DialogoTerminos", Q_NULLPTR));
         action_actualizarYCerrar->setText(QApplication::translate("DialogoTerminos", "actualizarYCerrar", Q_NULLPTR));
-        action_resetear->setText(QApplication::translate("DialogoTerminos", "resetear", Q_NULLPTR));
+        action_resetear_termino->setText(QApplication::translate("DialogoTerminos", "resetear_termino", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_resetear_termino->setToolTip(QApplication::translate("DialogoTerminos", "resetear termino", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        action_resetear->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+A", Q_NULLPTR));
+        action_resetear_termino->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+A", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_guardar->setText(QApplication::translate("DialogoTerminos", "guardar", Q_NULLPTR));
+        action_guardar_termino->setText(QApplication::translate("DialogoTerminos", "guardar_termino", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_guardar_termino->setToolTip(QApplication::translate("DialogoTerminos", "guardar termino", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        action_guardar->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+G", Q_NULLPTR));
+        action_guardar_termino->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+G", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_eliminar->setText(QApplication::translate("DialogoTerminos", "eliminar", Q_NULLPTR));
+        action_eliminar_termino->setText(QApplication::translate("DialogoTerminos", "eliminar_termino", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_eliminar_termino->setToolTip(QApplication::translate("DialogoTerminos", "eliminar termino", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        action_eliminar->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+D", Q_NULLPTR));
+        action_eliminar_termino->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+D", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         lbl_etiqueta->setText(QApplication::translate("DialogoTerminos", "etiqueta", Q_NULLPTR));
         lbl_termino->setText(QApplication::translate("DialogoTerminos", "termino", Q_NULLPTR));

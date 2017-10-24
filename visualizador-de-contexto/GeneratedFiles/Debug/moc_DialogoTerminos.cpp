@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogoTerminos_t {
     QByteArrayData data[6];
-    char stringdata0[141];
+    char stringdata0[165];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,15 +34,15 @@ static const qt_meta_stringdata_DialogoTerminos_t qt_meta_stringdata_DialogoTerm
 QT_MOC_LITERAL(0, 0, 15), // "DialogoTerminos"
 QT_MOC_LITERAL(1, 16, 37), // "on_action_actualizarYCerrar_t..."
 QT_MOC_LITERAL(2, 54, 0), // ""
-QT_MOC_LITERAL(3, 55, 28), // "on_action_resetear_triggered"
-QT_MOC_LITERAL(4, 84, 27), // "on_action_guardar_triggered"
-QT_MOC_LITERAL(5, 112, 28) // "on_action_eliminar_triggered"
+QT_MOC_LITERAL(3, 55, 36), // "on_action_resetear_termino_tr..."
+QT_MOC_LITERAL(4, 92, 35), // "on_action_guardar_termino_tri..."
+QT_MOC_LITERAL(5, 128, 36) // "on_action_eliminar_termino_tr..."
 
     },
     "DialogoTerminos\0on_action_actualizarYCerrar_triggered\0"
-    "\0on_action_resetear_triggered\0"
-    "on_action_guardar_triggered\0"
-    "on_action_eliminar_triggered"
+    "\0on_action_resetear_termino_triggered\0"
+    "on_action_guardar_termino_triggered\0"
+    "on_action_eliminar_termino_triggered"
 };
 #undef QT_MOC_LITERAL
 
@@ -81,9 +81,9 @@ void DialogoTerminos::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->on_action_actualizarYCerrar_triggered(); break;
-        case 1: _t->on_action_resetear_triggered(); break;
-        case 2: _t->on_action_guardar_triggered(); break;
-        case 3: _t->on_action_eliminar_triggered(); break;
+        case 1: _t->on_action_resetear_termino_triggered(); break;
+        case 2: _t->on_action_guardar_termino_triggered(); break;
+        case 3: _t->on_action_eliminar_termino_triggered(); break;
         default: ;
         }
     }

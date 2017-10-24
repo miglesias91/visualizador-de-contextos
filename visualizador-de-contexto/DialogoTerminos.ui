@@ -101,34 +101,43 @@
     <string>actualizarYCerrar</string>
    </property>
   </action>
-  <action name="action_resetear">
+  <action name="action_resetear_termino">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>resetear</string>
+    <string>resetear_termino</string>
+   </property>
+   <property name="toolTip">
+    <string>resetear termino</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
    </property>
   </action>
-  <action name="action_guardar">
+  <action name="action_guardar_termino">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>guardar</string>
+    <string>guardar_termino</string>
+   </property>
+   <property name="toolTip">
+    <string>guardar termino</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
    </property>
   </action>
-  <action name="action_eliminar">
+  <action name="action_eliminar_termino">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>eliminar</string>
+    <string>eliminar_termino</string>
+   </property>
+   <property name="toolTip">
+    <string>eliminar termino</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
@@ -173,7 +182,7 @@
   <connection>
    <sender>btn_guardar_termino</sender>
    <signal>released()</signal>
-   <receiver>action_guardar</receiver>
+   <receiver>action_guardar_termino</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -189,7 +198,7 @@
   <connection>
    <sender>btn_limpiar_termino</sender>
    <signal>released()</signal>
-   <receiver>action_resetear</receiver>
+   <receiver>action_resetear_termino</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -205,7 +214,7 @@
   <connection>
    <sender>btn_eliminar</sender>
    <signal>released()</signal>
-   <receiver>action_eliminar</receiver>
+   <receiver>action_eliminar_termino</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">

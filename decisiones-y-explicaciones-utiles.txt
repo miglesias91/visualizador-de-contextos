@@ -72,6 +72,9 @@ Cuando se controlan los memory leaks con VLD 2.5.1, en el proyecto 'almacenamien
 
 19/10 19:29 almacenamiento -> testing: hay 91 memory leaks = 8420 bytes.
 
-19/10 19:54 visualizador-de-contexto -> visualizador-de-contexto: hay 94 memory leaks = 8432 bytes.
+19/10 19:54 visualizador-de-contexto -> visualizador-de-contexto: hay 92 memory leaks = 8240 bytes.
+
+23/10 21:24 visualizador-de-contexto -> testing: hay 101 memory leaks = 8740 bytes.
+
 
 
