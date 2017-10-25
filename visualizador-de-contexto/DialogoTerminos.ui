@@ -143,6 +143,14 @@
     <string>Ctrl+D</string>
    </property>
   </action>
+  <action name="action_estado_btn_eliminar">
+   <property name="text">
+    <string>estado_btn_eliminar</string>
+   </property>
+   <property name="toolTip">
+    <string>estado btn eliminar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -224,6 +232,22 @@
     <hint type="destinationlabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lista_terminos</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>action_estado_btn_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>357</x>
+     <y>111</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>

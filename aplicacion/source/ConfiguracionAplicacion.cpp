@@ -138,7 +138,7 @@ std::string ConfiguracionAplicacion::prefijoMedio()
 
 std::string ConfiguracionAplicacion::claveIDActual()
 {
-	return clave_id_actual;
+	return "id_actual";
 }
 
 std::string ConfiguracionAplicacion::tagAplicacionLocal()

@@ -58,7 +58,7 @@ void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
 	item->setData(Qt::UserRole, data);
 	item->setText((termino->getEtiqueta() + " - " + termino->getValor()).c_str());
 
-	this->ui->lista_terminos->addItem(item);
+	this->ui->lista_terminos->insertItem(0, item);
 }
 
 void DialogoTerminos::on_action_resetear_termino_triggered()
@@ -93,6 +93,19 @@ void DialogoTerminos::on_action_eliminar_termino_triggered()
 
         this->gestor_terminos.eliminar(termino);
 
-        delete ui->lista_terminos->takeItem(ui->lista_terminos->row(item));
+        delete this->ui->lista_terminos->takeItem(ui->lista_terminos->row(item));
+    }
+}
+
+void DialogoTerminos::on_action_estado_btn_eliminar_triggered()
+{
+    int items_seleccionados = this->ui->lista_terminos->selectedItems().size();
+    if (0 >= items_seleccionados)
+    {
+        this->ui->btn_eliminar->setDisabled(true);
+    }
+    else
+    {
+        this->ui->btn_eliminar->setEnabled(true);
     }
 }

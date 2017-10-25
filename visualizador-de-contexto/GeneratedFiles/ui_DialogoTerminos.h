@@ -33,6 +33,7 @@ public:
     QAction *action_resetear_termino;
     QAction *action_guardar_termino;
     QAction *action_eliminar_termino;
+    QAction *action_estado_btn_eliminar;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QFormLayout *formLayout;
@@ -64,6 +65,8 @@ public:
         action_eliminar_termino = new QAction(DialogoTerminos);
         action_eliminar_termino->setObjectName(QStringLiteral("action_eliminar_termino"));
         action_eliminar_termino->setCheckable(true);
+        action_estado_btn_eliminar = new QAction(DialogoTerminos);
+        action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         horizontalLayoutWidget = new QWidget(DialogoTerminos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(20, 15, 468, 194));
@@ -135,6 +138,7 @@ public:
         QObject::connect(btn_guardar_termino, SIGNAL(released()), action_guardar_termino, SLOT(trigger()));
         QObject::connect(btn_limpiar_termino, SIGNAL(released()), action_resetear_termino, SLOT(trigger()));
         QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar_termino, SLOT(trigger()));
+        QObject::connect(lista_terminos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoTerminos);
     } // setupUi
@@ -164,6 +168,10 @@ public:
 #ifndef QT_NO_SHORTCUT
         action_eliminar_termino->setShortcut(QApplication::translate("DialogoTerminos", "Ctrl+D", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+        action_estado_btn_eliminar->setText(QApplication::translate("DialogoTerminos", "estado_btn_eliminar", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoTerminos", "estado btn eliminar", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         lbl_etiqueta->setText(QApplication::translate("DialogoTerminos", "etiqueta", Q_NULLPTR));
         lbl_termino->setText(QApplication::translate("DialogoTerminos", "termino", Q_NULLPTR));
         btn_guardar_termino->setText(QApplication::translate("DialogoTerminos", "guardar", Q_NULLPTR));

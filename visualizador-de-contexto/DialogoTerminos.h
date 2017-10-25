@@ -27,6 +27,8 @@ private slots:
 
     void on_action_eliminar_termino_triggered();
 
+    void on_action_estado_btn_eliminar_triggered();
+
 private:
 
 	Ui::DialogoTerminos *ui;
