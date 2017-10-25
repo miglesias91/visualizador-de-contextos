@@ -17,7 +17,8 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-	std::vector<visualizador::modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionarTerminos();
+    std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
+
 	for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
 	{
 		this->agregarTerminoALista(*it);
@@ -43,6 +44,7 @@ DialogoTerminos::~DialogoTerminos()
 
 void DialogoTerminos::on_action_actualizarYCerrar_triggered()
 {
+    this->gestor_terminos.guardarCambios();
 	this->close();
 }
 
@@ -72,18 +74,11 @@ void DialogoTerminos::on_action_guardar_termino_triggered()
 
     modelo::Termino* termino_nuevo = new modelo::Termino(termino, etiqueta);
 
-    if (this->gestor_terminos.existe(termino_nuevo))
+    if(this->gestor_terminos.almacenar(termino_nuevo))
     {
-        // TODO implementar 'ExcepcionTerminoExistente'.
-        std::string mensaje("El t�rmino '" + termino_nuevo->getValor() + "' ya existe.");
-        throw std::exception(mensaje.c_str());
-        return;
+        // si se pudo agregar correctamente, lo agrego en la lista visible.
+        this->agregarTerminoALista(termino_nuevo);
     }
-
-    // lo agrego en la lista visible.
-    this->agregarTerminoALista(termino_nuevo);
-
-    this->gestor_terminos.almacenar(termino_nuevo);
 
     this->on_action_resetear_termino_triggered();
 }

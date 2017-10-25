@@ -17,6 +17,8 @@ using namespace visualizador;
 
 GestorEntidades::GestorEntidades()
 {
+    this->admin_app = IAdministradorAplicacion::getInstancia();
+    this->admin_bd = almacenamiento::IAdministradorAlmacenamiento::getInstancia();
 }
 
 GestorEntidades::~GestorEntidades()
@@ -40,30 +42,16 @@ GestorEntidades::~GestorEntidades()
     this->entidades_a_eliminar.clear();
 }
 
-std::vector<modelo::Termino*> GestorEntidades::gestionarTerminos()
+bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
 {
-    std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
-
-    almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperarGrupo(ConfiguracionAplicacion::prefijoTermino(), grupo);
-
-    modelo::Termino* termino_recuperado = NULL;
-    std::vector<modelo::Termino*> terminos_recuperados;
-    for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    if (this->existe(entidad_nueva))
     {
-        termino_recuperado = new modelo::Termino();
-        termino_recuperado->parsearValorAlmacenable((*it)->getValor());
-        this->entidades_existentes.push_back(termino_recuperado);
-
-        terminos_recuperados.push_back(termino_recuperado);
-        delete *it;
+        // TODO implementar 'ExcepcionTerminoExistente'.
+        std::string mensaje("La entidad '" + entidad_nueva->getEtiqueta() + "' ya existe.");
+        throw std::exception(mensaje.c_str());
+        return false;
     }
-    grupo.clear();
 
-    return terminos_recuperados;
-}
-
-void GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
-{
     // chequeo que el termino a agregar no este en la lista de eliminados:
     // si estaba en la lista de eliminados, entonces quiere decir que esta en la bd y se quiere sacar.
     // Entonces lo que hago es sacarlo de la lista de "a eliminar" y lo vuelvo a agregar a la QListWidget.
@@ -71,15 +59,18 @@ void GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
     {
         if ((*this->entidades_it)->hashcode() == entidad_nueva->hashcode())
         {
+            entidad_nueva->setId((*this->entidades_it)->getId()->copia());
             delete *this->entidades_it;
             this->entidades_existentes.push_back(entidad_nueva);
             this->entidades_a_eliminar.erase(this->entidades_it);
-            return;
+            return true;
         }
     }
 
     // si no estaba en la lista de eliminados, entonces lo agregar a la lista de 'a almacenar'.
     this->entidades_a_almacenar.push_back(entidad_nueva);
+    entidad_nueva->asignarNuevoId();
+    return true;
 }
 
 void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_eliminar)
@@ -97,6 +88,33 @@ void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
         this->entidades_existentes.erase(this->entidades_it);
         this->entidades_a_eliminar.push_back(entidad_a_eliminar);
     }
+}
+
+bool GestorEntidades::guardarCambios()
+{
+    if (false == this->admin_app->almacenar(this->entidades_a_almacenar))
+    {
+        return false;
+    }
+
+    if (false == this->admin_app->eliminar(this->entidades_a_eliminar))
+    {
+        return false;
+    }
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    {
+        this->entidades_existentes.push_back(*this->entidades_it);
+    }
+    this->entidades_a_almacenar.clear();
+
+    for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
+    {
+        delete (*this->entidades_it);
+    }
+    this->entidades_a_eliminar.clear();
+
+    return true;
 }
 
 bool GestorEntidades::existe(visualizador::modelo::IEntidad * entidad_a_chequear)

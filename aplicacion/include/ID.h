@@ -23,6 +23,8 @@ public:
 
 	unsigned long long int numero();
 
+    ID * copia();
+
 	std::string string();
 
 private:

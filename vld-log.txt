@@ -1,0 +1,19 @@
+18/10 14:20 visualizador-de-contexto -> testing: hay 540 memory leaks = 33600 bytes.
+
+18/10 14:33 visualizador-de-contexto -> testing: hay 217 memory leaks = 14980 bytes.
+
+18/10 14:42 visualizador-de-contexto -> testing: hay 165 memory leaks = 12484 bytes.
+
+18/10 14:52 visualizador-de-contexto -> testing: hay 119 memory leaks = 9812 bytes.
+
+18/10 14:57 visualizador-de-contexto -> testing: hay 116 memory leaks = 9692 bytes.
+
+18/10 15:06 visualizador-de-contexto -> testing: hay 103 memory leaks = 8932 bytes.
+
+19/10 18:34 visualizador-de-contexto -> visualizador-de-contexto: hay 154 memory leaks = 12720 bytes.
+
+19/10 19:29 almacenamiento -> testing: hay 91 memory leaks = 8420 bytes.
+
+19/10 19:54 visualizador-de-contexto -> visualizador-de-contexto: hay 92 memory leaks = 8240 bytes.
+
+23/10 21:24 visualizador-de-contexto -> testing: hay 101 memory leaks = 8740 bytes.

@@ -35,46 +35,32 @@ Los "medios" analizados no se incluyen desde la interfaz de usuario, sino que vi
 
 == ALTA y BAJA de las entidades en los dialogos de Qt ==
 Cada dialogo de ABM de cada entidad tiene como base:
-- 'QListWidget': todas las entidades que figuran en la bd + las entidades nuevas que NO ESTAN en la bd y se van a almacenar.
-- '<entidades>_a_almacenar': todas las entidades que NO ESTAN en la bd y se van almacenar.
-- '<entidades>_a_eliminar': todas las entidades que SI ESTAN enla bd y se van a eliminar.
+- 'QListWidget': todas las entidades que figuran en la bd + las entidades nuevas que NO ESTAN en la bd y se van a almacenar - las entidades que SI ESTAN en la bd y se quieren eliminar.
+- 'GestorEntidades': gestiona el ABM de una entidad. Para usarlo, cada dialogo lo inicializa para que gestione la entidad indicada. Por ejemplo, DialogoTerminos lo inicializa llamando a:
+    
+    	"std::vector<Termino*> terminos_actuales = this->gestor_terminos->gestionarTerminos();"
+
+Cada instancia de 'GestorEntidades' contiene 3 listas de entidades:
+- 'entidades_existentes': todas las entidades que aparecen en el 'QListWidget'.
+- 'entidades_a_almacenar': todas las entidades que NO ESTAN en la bd y se van almacenar.
+- 'entidades_a_eliminar': todas las entidades que SI ESTAN en la bd y se van a eliminar.
 
 Secuencias posibles:
-    1- Agregar entidad que NO existe: se agrega a 'QListWidget' y a '<entidades>_a_almacenar'.
+    1- Agregar entidad que NO existe: se agrega a 'QListWidget' y a 'entidades_a_almacenar'.
     2- Agregar entidad que SI existe: se lanza excepcion.
-    3- Agregar entidad que se queria eliminar: se agrega a 'QListWidget' y se elimina de '<entidades>_a_eliminar': es decir, se saca de la lista de entidades a eliminar.
-    4- Eliminar entidad que esta en la bd: se saca de 'QListWIdget' y se agrega a '<entidades>_a_eliminar'.
-    5- Eliminar entidad que se queria almacenar: se saca de 'QListWIdget' y se saca de '<entidades>_a_almacenar'.
+    3- Agregar entidad que se queria eliminar: se agrega a 'QListWidget', se elimina de 'entidades_a_eliminar' y se agrega a 'entidades_existentes': es decir, se saca de la lista de entidades a eliminar.
+    4- Eliminar entidad que esta en la bd: se saca de 'QListWIdget', se saca de 'entidades_existentes' se agrega a 'entidades_a_eliminar'.
+    5- Eliminar entidad que se queria almacenar: se saca de 'QListWIdget' y se saca de 'entidades_a_almacenar'.
 
 Secuencias NO posibles:
-    1- Eliminar entidades que no existen en la QListWidget: esta operacion no es posible porque las entidades a almacenar solo se obtienen de las que figuran en la 'QListWidget'.
+    1- Eliminar entidades que no existen en la QListWidget: esta operacion no es posible porque las entidades a eliminar solo se obtienen de las que figuran en la 'QListWidget'.
 
 Cerrando dialogo
-    1- si se cierra ACEPTANDO, entonces las entidades en '<entidades>_a_almacenar' se dan de ALTA en la bd y '<entidades>_a_eliminar' se dan de baja en la bd.
+    1- si se cierra ACEPTANDO, entonces las entidades en 'entidades_a_almacenar' se dan de ALTA en la bd y 'entidades_a_eliminar' se dan de BAJA en la bd.
     2- se se cierra CANCELANDO, entonces no se realiza ninguna operacion en la bd.
 
 USO DE MEMORIA Y RECURSOS
 Cuando se controlan los memory leaks con VLD 2.5.1, en el proyecto 'almacenamiento', con gtest y RocksDB siempre hay un perdida minima de memoria que al parecer esta perdida es agregada por RocksDB, porque aparece con solo abrir y cerrar la bd. Es dificil saber si la perdida es por falsos positivos del VLD, o si efectivamente Rocksdb pierde esa cantidad de memoria al abrir y cerrar la bd. Hay q tener en cuenta que esto es en modo Debug, tal vez en modo Release no se pierde la memoria. De todas formas, los 93 memory leaks son constantes, por lo que puede considerarse aceptable al ser solo 8612 bytes (8,6 kb).
-
-18/10 14:20 visualizador-de-contexto -> testing: hay 540 memory leaks = 33600 bytes.
-
-18/10 14:33 visualizador-de-contexto -> testing: hay 217 memory leaks = 14980 bytes.
-
-18/10 14:42 visualizador-de-contexto -> testing: hay 165 memory leaks = 12484 bytes.
-
-18/10 14:52 visualizador-de-contexto -> testing: hay 119 memory leaks = 9812 bytes.
-
-18/10 14:57 visualizador-de-contexto -> testing: hay 116 memory leaks = 9692 bytes.
-
-18/10 15:06 visualizador-de-contexto -> testing: hay 103 memory leaks = 8932 bytes.
-
-19/10 18:34 visualizador-de-contexto -> visualizador-de-contexto: hay 154 memory leaks = 12720 bytes.
-
-19/10 19:29 almacenamiento -> testing: hay 91 memory leaks = 8420 bytes.
-
-19/10 19:54 visualizador-de-contexto -> visualizador-de-contexto: hay 92 memory leaks = 8240 bytes.
-
-23/10 21:24 visualizador-de-contexto -> testing: hay 101 memory leaks = 8740 bytes.
 
 
 

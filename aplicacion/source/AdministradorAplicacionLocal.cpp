@@ -52,7 +52,7 @@ bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IEntidad * en
 bool AdministradorAplicacionLocal::almacenar(std::vector<visualizador::modelo::IEntidad*> entidades)
 {
     visualizador::modelo::IEntidad* entidad = NULL;
-    bool retorno = false;
+    bool retorno = true;
     for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
     {
         entidad = *it;
@@ -108,7 +108,7 @@ bool AdministradorAplicacionLocal::eliminar(visualizador::modelo::IEntidad * ent
 bool AdministradorAplicacionLocal::eliminar(std::vector<visualizador::modelo::IEntidad*> entidades)
 {
     visualizador::modelo::IEntidad* entidad = NULL;
-    bool retorno = false;
+    bool retorno = true;
     for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
     {
         entidad = *it;
