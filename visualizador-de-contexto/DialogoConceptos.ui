@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogoConceptos</class>
+ <widget class="QWidget" name="DialogoConceptos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>577</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DialogoConceptos</string>
+  </property>
+  <widget class="QDialogButtonBox" name="btnbox_conceptos">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>310</y>
+     <width>156</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>551</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="layout_general">
+    <item>
+     <layout class="QFormLayout" name="layout_opciones">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl_etiqueta">
+        <property name="text">
+         <string>etiqueta</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineedit_etiqueta"/>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QGroupBox" name="groupbox_terminos">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>77</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>terminos</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>251</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="layout_terminos">
+          <item>
+           <widget class="QComboBox" name="combo_terminos"/>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineedit_terminos"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="btn_guardar_concepto">
+        <property name="text">
+         <string>guardar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="bnt_limpiar_concepto">
+        <property name="text">
+         <string>limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="btn_eliminar_concepto">
+        <property name="text">
+         <string>eliminar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QPushButton" name="btn_agregar_eliminar_terminos">
+        <property name="text">
+         <string>agregar/eliminar terminos</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="layout_lista">
+      <item>
+       <widget class="QListWidget" name="lista_conceptos"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <zorder>btnbox_conceptos</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>lista_conceptos</zorder>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

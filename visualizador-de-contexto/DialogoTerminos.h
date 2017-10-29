@@ -8,6 +8,9 @@
 // modelo
 #include <modelo/include/Termino.h>
 
+// visualizador
+#include <declaraciones_metatipos.h>
+
 namespace Ui { class DialogoTerminos; };
 
 class DialogoTerminos : public QWidget
@@ -40,5 +43,3 @@ private:
     visualizador::aplicacion::GestorEntidades gestor_terminos;
 
 };
-
-Q_DECLARE_METATYPE(visualizador::modelo::Termino*)

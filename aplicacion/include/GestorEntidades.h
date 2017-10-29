@@ -38,6 +38,9 @@ public:
     template <class ENTIDAD>
     std::vector<ENTIDAD*> gestionar();
 
+    template <class ENTIDAD>
+    std::vector<ENTIDAD*> recuperar();
+
     // chequea que existe el termino en la lista de terminos de la ui.
     bool existe(visualizador::modelo::IEntidad* entidad_a_chequear);
 
@@ -84,6 +87,33 @@ std::vector<ENTIDAD*> GestorEntidades::gestionar()
 
         entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
         this->entidades_existentes.push_back(entidad_recuperada);
+
+        entidades_recuperadas.push_back(entidad_recuperada);
+        delete *it;
+    }
+    grupo.clear();
+
+    return entidades_recuperadas;
+};
+
+
+template <class ENTIDAD>
+std::vector<ENTIDAD*> GestorEntidades::recuperar()
+{
+    std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
+
+    ENTIDAD entidad_para_obtener_prefijo;
+    this->admin_bd->recuperarGrupo(entidad_para_obtener_prefijo.prefijoGrupo(), grupo);
+
+    ENTIDAD* entidad_recuperada = NULL;
+    std::vector<ENTIDAD*> entidades_recuperadas;
+    for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    {
+        entidad_recuperada = new ENTIDAD();
+        unsigned long long int id = std::stoull((*it)->getClave());
+        entidad_recuperada->setId(new visualizador::aplicacion::ID(id));
+
+        entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
 
         entidades_recuperadas.push_back(entidad_recuperada);
         delete *it;

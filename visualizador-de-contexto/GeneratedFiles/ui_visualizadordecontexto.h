@@ -27,7 +27,8 @@ QT_BEGIN_NAMESPACE
 class Ui_visualizadordecontextoClass
 {
 public:
-    QAction *action_abrirTerminos;
+    QAction *action_abrir_terminos;
+    QAction *action_abrir_conceptos;
     QWidget *centralWidget;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
@@ -42,9 +43,12 @@ public:
         if (visualizadordecontextoClass->objectName().isEmpty())
             visualizadordecontextoClass->setObjectName(QStringLiteral("visualizadordecontextoClass"));
         visualizadordecontextoClass->resize(600, 400);
-        action_abrirTerminos = new QAction(visualizadordecontextoClass);
-        action_abrirTerminos->setObjectName(QStringLiteral("action_abrirTerminos"));
-        action_abrirTerminos->setCheckable(true);
+        action_abrir_terminos = new QAction(visualizadordecontextoClass);
+        action_abrir_terminos->setObjectName(QStringLiteral("action_abrir_terminos"));
+        action_abrir_terminos->setCheckable(true);
+        action_abrir_conceptos = new QAction(visualizadordecontextoClass);
+        action_abrir_conceptos->setObjectName(QStringLiteral("action_abrir_conceptos"));
+        action_abrir_conceptos->setCheckable(true);
         centralWidget = new QWidget(visualizadordecontextoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
@@ -78,7 +82,8 @@ public:
         visualizadordecontextoClass->setStatusBar(statusBar);
 
         retranslateUi(visualizadordecontextoClass);
-        QObject::connect(btn_terminos, SIGNAL(released()), action_abrirTerminos, SLOT(trigger()));
+        QObject::connect(btn_terminos, SIGNAL(released()), action_abrir_terminos, SLOT(trigger()));
+        QObject::connect(btn_conceptos, SIGNAL(released()), action_abrir_conceptos, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(visualizadordecontextoClass);
     } // setupUi
@@ -86,9 +91,19 @@ public:
     void retranslateUi(QMainWindow *visualizadordecontextoClass)
     {
         visualizadordecontextoClass->setWindowTitle(QApplication::translate("visualizadordecontextoClass", "visualizadordecontexto", Q_NULLPTR));
-        action_abrirTerminos->setText(QApplication::translate("visualizadordecontextoClass", "abrirTerminos", Q_NULLPTR));
+        action_abrir_terminos->setText(QApplication::translate("visualizadordecontextoClass", "abrir_terminos", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_terminos->setToolTip(QApplication::translate("visualizadordecontextoClass", "abrir terminos", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
-        action_abrirTerminos->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+T", Q_NULLPTR));
+        action_abrir_terminos->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+T", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        action_abrir_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "abrir_conceptos", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_conceptos->setToolTip(QApplication::translate("visualizadordecontextoClass", "abrir conceptos", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_SHORTCUT
+        action_abrir_conceptos->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+C", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         btn_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "conceptos", Q_NULLPTR));
         btn_terminos->setText(QApplication::translate("visualizadordecontextoClass", "terminos", Q_NULLPTR));

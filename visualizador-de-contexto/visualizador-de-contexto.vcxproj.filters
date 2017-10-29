@@ -17,6 +17,15 @@
     <ClCompile Include="DialogoTerminos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DialogoConceptos.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoConceptos.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoConceptos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -61,6 +70,12 @@
     <CustomBuild Include="DialogoTerminos.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="DialogoConceptos.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DialogoConceptos.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_visualizadordecontexto.h">
@@ -68,6 +83,12 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DialogoTerminos.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DialogoConceptos.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="declaraciones_metatipos.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,6 +23,8 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 	{
 		this->agregarTerminoALista(*it);
 	}
+
+    this->on_action_estado_btn_eliminar_triggered();
 }
 
 DialogoTerminos::~DialogoTerminos()
@@ -42,23 +44,12 @@ DialogoTerminos::~DialogoTerminos()
 	delete ui;
 }
 
+// ACCIONES
+
 void DialogoTerminos::on_action_actualizarYCerrar_triggered()
 {
     this->gestor_terminos.guardarCambios();
 	this->close();
-}
-
-// METODOS PRIVADOS
-
-void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
-{
-	QListWidgetItem* item = new QListWidgetItem();
-
-	QVariant data = QVariant::fromValue(termino);
-	item->setData(Qt::UserRole, data);
-	item->setText((termino->getEtiqueta() + " - " + termino->getValor()).c_str());
-
-	this->ui->lista_terminos->insertItem(0, item);
 }
 
 void DialogoTerminos::on_action_resetear_termino_triggered()
@@ -108,4 +99,18 @@ void DialogoTerminos::on_action_estado_btn_eliminar_triggered()
     {
         this->ui->btn_eliminar->setEnabled(true);
     }
+}
+
+
+// METODOS PRIVADOS
+
+void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
+{
+    QListWidgetItem* item = new QListWidgetItem();
+
+    QVariant data = QVariant::fromValue(termino);
+    item->setData(Qt::UserRole, data);
+    item->setText((termino->getEtiqueta() + " - " + termino->getValor()).c_str());
+
+    this->ui->lista_terminos->insertItem(0, item);
 }

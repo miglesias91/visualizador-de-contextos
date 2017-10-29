@@ -35,8 +35,8 @@ public:
     QAction *action_eliminar_termino;
     QAction *action_estado_btn_eliminar;
     QWidget *horizontalLayoutWidget;
-    QHBoxLayout *horizontalLayout;
-    QFormLayout *formLayout;
+    QHBoxLayout *layout_general;
+    QFormLayout *layout_opciones;
     QLabel *lbl_etiqueta;
     QLineEdit *lineedit_etiqueta;
     QLabel *lbl_termino;
@@ -44,7 +44,7 @@ public:
     QPushButton *btn_guardar_termino;
     QPushButton *btn_limpiar_termino;
     QPushButton *btn_eliminar;
-    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *layout_lista;
     QListWidget *lista_terminos;
     QDialogButtonBox *btnbox_terminos;
 
@@ -69,63 +69,63 @@ public:
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         horizontalLayoutWidget = new QWidget(DialogoTerminos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(20, 15, 468, 194));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        formLayout = new QFormLayout();
-        formLayout->setSpacing(6);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 551, 291));
+        layout_general = new QHBoxLayout(horizontalLayoutWidget);
+        layout_general->setSpacing(6);
+        layout_general->setContentsMargins(11, 11, 11, 11);
+        layout_general->setObjectName(QStringLiteral("layout_general"));
+        layout_general->setContentsMargins(0, 0, 0, 0);
+        layout_opciones = new QFormLayout();
+        layout_opciones->setSpacing(6);
+        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
         lbl_etiqueta = new QLabel(horizontalLayoutWidget);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
+        layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
 
         lineedit_etiqueta = new QLineEdit(horizontalLayoutWidget);
         lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
+        layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
 
         lbl_termino = new QLabel(horizontalLayoutWidget);
         lbl_termino->setObjectName(QStringLiteral("lbl_termino"));
 
-        formLayout->setWidget(1, QFormLayout::LabelRole, lbl_termino);
+        layout_opciones->setWidget(1, QFormLayout::LabelRole, lbl_termino);
 
         lineedit_termino = new QLineEdit(horizontalLayoutWidget);
         lineedit_termino->setObjectName(QStringLiteral("lineedit_termino"));
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, lineedit_termino);
+        layout_opciones->setWidget(1, QFormLayout::FieldRole, lineedit_termino);
 
         btn_guardar_termino = new QPushButton(horizontalLayoutWidget);
         btn_guardar_termino->setObjectName(QStringLiteral("btn_guardar_termino"));
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, btn_guardar_termino);
+        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_guardar_termino);
 
         btn_limpiar_termino = new QPushButton(horizontalLayoutWidget);
         btn_limpiar_termino->setObjectName(QStringLiteral("btn_limpiar_termino"));
 
-        formLayout->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
+        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
 
         btn_eliminar = new QPushButton(horizontalLayoutWidget);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
 
-        formLayout->setWidget(4, QFormLayout::FieldRole, btn_eliminar);
+        layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_eliminar);
 
 
-        horizontalLayout->addLayout(formLayout);
+        layout_general->addLayout(layout_opciones);
 
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(0);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        layout_lista = new QVBoxLayout();
+        layout_lista->setSpacing(0);
+        layout_lista->setObjectName(QStringLiteral("layout_lista"));
         lista_terminos = new QListWidget(horizontalLayoutWidget);
         lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
 
-        verticalLayout_2->addWidget(lista_terminos);
+        layout_lista->addWidget(lista_terminos);
 
 
-        horizontalLayout->addLayout(verticalLayout_2);
+        layout_general->addLayout(layout_lista);
 
         btnbox_terminos = new QDialogButtonBox(DialogoTerminos);
         btnbox_terminos->setObjectName(QStringLiteral("btnbox_terminos"));

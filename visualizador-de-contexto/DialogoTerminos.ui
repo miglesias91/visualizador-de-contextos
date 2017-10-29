@@ -16,15 +16,15 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>15</y>
-     <width>468</width>
-     <height>194</height>
+     <x>10</x>
+     <y>10</y>
+     <width>551</width>
+     <height>291</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="layout_general">
     <item>
-     <layout class="QFormLayout" name="formLayout">
+     <layout class="QFormLayout" name="layout_opciones">
       <item row="0" column="0">
        <widget class="QLabel" name="lbl_etiqueta">
         <property name="text">
@@ -69,7 +69,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="layout_lista">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -246,8 +246,8 @@
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
-     <x>144</x>
-     <y>138</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

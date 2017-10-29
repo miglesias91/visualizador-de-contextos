@@ -5,6 +5,7 @@
 
 // interfaz
 #include <visualizador-de-contexto/DialogoTerminos.h>
+#include <visualizador-de-contexto/DialogoConceptos.h>
 
 class visualizadordecontexto : public QMainWindow
 {
@@ -14,12 +15,15 @@ public:
 	visualizadordecontexto(QWidget *parent = Q_NULLPTR);
 
 private slots:
-    void on_action_abrirTerminos_triggered();
+    void on_action_abrir_terminos_triggered();
+
+    void on_action_abrir_conceptos_triggered();
 
 private:
 	Ui::visualizadordecontextoClass ui;
 
 	// DIALOGOS
 
-	DialogoTerminos* dialogo_terminos;
+    DialogoTerminos* dialogo_terminos;
+    DialogoConceptos* dialogo_conceptos;
 };

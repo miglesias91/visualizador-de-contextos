@@ -60,32 +60,63 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="action_abrirTerminos">
+  <action name="action_abrir_terminos">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>abrirTerminos</string>
+    <string>abrir_terminos</string>
+   </property>
+   <property name="toolTip">
+    <string>abrir terminos</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
    </property>
   </action>
+  <action name="action_abrir_conceptos">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>abrir_conceptos</string>
+   </property>
+   <property name="toolTip">
+    <string>abrir conceptos</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="visualizadordecontexto.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>btn_terminos</sender>
    <signal>released()</signal>
-   <receiver>action_abrirTerminos</receiver>
+   <receiver>action_abrir_terminos</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>275</x>
      <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_conceptos</sender>
+   <signal>released()</signal>
+   <receiver>action_abrir_conceptos</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

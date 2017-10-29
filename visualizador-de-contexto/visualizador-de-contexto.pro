@@ -8,25 +8,31 @@ DESTDIR = ../Win32/Debug
 QT += core widgets gui
 CONFIG += debug
 DEFINES += QT_WIDGETS_LIB
-INCLUDEPATH += ./GeneratedFiles \
-    . \
+INCLUDEPATH += . \
+    ./GeneratedFiles \
     $(qt-dir)5.9.1/msvc2015/include \
     ./GeneratedFiles/Debug \
     $(qt-dir)5.9.1/msvc2015/include/QtCore \
     $(qt-dir)5.9.1/msvc2015/include/QtGui \
-    $(qt-dir)5.9.1/msvc2015/include/QtWidgets
-LIBS += -L"$(qt-dir)5.9.1/msvc2015/lib"
+    $(qt-dir)5.9.1/msvc2015/include/QtWidgets \
+    $(repos)rapidjson/include \
+    $(SolutionDir) \
+    $(repos-git)almacenamiento
+LIBS += -L"$(qt-dir)5.9.1/msvc2015/lib" \
+    -L"$(SolutionDir)Debug" \
+    -L"$(repos-git)almacenamiento/Debug" \
+    -L"$(repos)rocksdb/build_x86/Debug" \
+    -lmodelo \
+    -laplicacion \
+    -lalmacenamiento \
+    -lWrapperRocksDB \
+    -lrocksdb \
+    -lShlwapi \
+    -lRpcrt4
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
 OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
+include(visualizador-de-contexto.pri)
 win32:RC_FILE = visualizador-de-contexto.rc
-HEADERS += ./visualizadordecontexto.h \
-    ./DialogoTerminos.h
-SOURCES += ./main.cpp \
-    ./visualizadordecontexto.cpp \
-    ./DialogoTerminos.cpp
-FORMS += ./visualizadordecontexto.ui \
-    ./DialogoTerminos.ui
-RESOURCES += visualizadordecontexto.qrc
