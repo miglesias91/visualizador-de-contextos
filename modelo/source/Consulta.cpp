@@ -16,33 +16,64 @@ Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::apli
 Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta)
 	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta()), periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones)
 {
+    this->periodo->sumarReferencia();
+    this->reporte->sumarReferencia();
+
+    for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
+    {
+        (*it)->sumarReferencia();
+    }
+
+    for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+    {
+        (*it)->sumarReferencia();
+    }
+
+    for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
+    {
+        (*it)->sumarReferencia();
+    }
 }
 
 Consulta::~Consulta()
 {
 	for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
 	{
-		delete (*it);
-		(*it) = NULL;
+        if (0 == (*it)->restarReferencia())
+        {
+            delete (*it);
+            (*it) = NULL;
+        }
 	}
 
 	for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
 	{
-		delete (*it);
-		(*it) = NULL;
+        if (0 == (*it)->restarReferencia())
+        {
+            delete (*it);
+            (*it) = NULL;
+        }
 	}
 
 	for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
 	{
-		delete (*it);
-		(*it) = NULL;
+        if (0 == (*it)->restarReferencia())
+        {
+            delete (*it);
+            (*it) = NULL;
+        }
 	}
 
-	delete this->periodo;
-	this->periodo = NULL;
-
-	delete this->reporte;
-	this->reporte = NULL;
+    if (0 == this->periodo->restarReferencia())
+    {
+        delete this->periodo;
+        periodo = NULL;
+    }
+    if (0 == this->reporte->restarReferencia())
+    {
+        delete this->reporte;
+        reporte = NULL;
+    }
 }
 
 Periodo * Consulta::getPeriodo()
@@ -73,26 +104,31 @@ std::vector<Seccion*> Consulta::getSecciones()
 void Consulta::setPeriodo(Periodo * periodo)
 {
 	this->periodo = periodo;
+    this->periodo->sumarReferencia();
 }
 
 void Consulta::setReporte(Reporte * reporte)
 {
 	this->reporte = reporte;
+    this->reporte->sumarReferencia();
 }
 
 void Consulta::agregarConcepto(Concepto * concepto)
 {
 	this->conceptos.push_back(concepto);
+    concepto->sumarReferencia();
 }
 
 void Consulta::agregarMedio(Medio * medio)
 {
 	this->medios.push_back(medio);
+    medio->sumarReferencia();
 }
 
 void Consulta::agregarSeccion(Seccion * seccion)
 {
 	this->secciones.push_back(seccion);
+    seccion->sumarReferencia();
 }
 
 void Consulta::crearContenido()
@@ -154,7 +190,7 @@ void Consulta::parsearContenido(IJson* contenido)
 		concepto_nuevo = new Concepto();
 		concepto_nuevo->setId(new visualizador::aplicacion::ID(*it));
 		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_nuevo);
-		this->conceptos.push_back(concepto_nuevo);
+        this->agregarConcepto(concepto_nuevo);
 	}
 
 	Medio* medio_nuevo = NULL;
@@ -163,7 +199,7 @@ void Consulta::parsearContenido(IJson* contenido)
 		medio_nuevo = new Medio();
 		medio_nuevo->setId(new visualizador::aplicacion::ID(*it));
 		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(medio_nuevo);
-		this->medios.push_back(medio_nuevo);
+        this->agregarMedio(medio_nuevo);
 	}
 
 	Seccion* seccion_nueva = NULL;
@@ -172,18 +208,18 @@ void Consulta::parsearContenido(IJson* contenido)
 		seccion_nueva = new Seccion();
 		seccion_nueva->setId(new visualizador::aplicacion::ID(*it));
 		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(seccion_nueva);
-		this->secciones.push_back(seccion_nueva);
+        this->agregarSeccion(seccion_nueva);
 	}
 
 	Periodo* periodo_nuevo = new Periodo();
 	periodo_nuevo->setId(new visualizador::aplicacion::ID(id_periodo));
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(periodo_nuevo);
-	this->periodo = periodo_nuevo;
+    this->setPeriodo(periodo_nuevo);
 
 	Reporte* reporte_nuevo = new Reporte();
 	reporte_nuevo->setId(new visualizador::aplicacion::ID(id_reporte));
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(reporte_nuevo);
-	this->reporte = reporte_nuevo;
+    this->setReporte(reporte_nuevo);
 }
 
 std::string Consulta::prefijoGrupo()
@@ -224,4 +260,33 @@ unsigned int Consulta::hashcode()
 	}
 
 	return hashcode_conceptos + hashcode_medios + hashcode_secciones + hashcode_periodo + hashcode_reporte;
+}
+
+Consulta * Consulta::clonar()
+{
+    Periodo * clon_periodo = this->getPeriodo()->clonar();
+    Reporte * clon_reporte = this->getReporte()->clonar();
+
+    std::vector<Concepto*> clon_conceptos;
+    for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
+    {
+        clon_conceptos.push_back((*it)->clonar());
+    }
+
+    std::vector<Medio*> clon_medios;
+    for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+    {
+        clon_medios.push_back((*it)->clonar());
+    }
+
+    std::vector<Seccion*> clon_secciones;
+    for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
+    {
+        clon_secciones.push_back((*it)->clonar());
+    }
+
+    Consulta * clon = new Consulta(clon_periodo, clon_reporte, clon_conceptos, clon_medios, clon_secciones, this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
 }

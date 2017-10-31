@@ -12,3 +12,8 @@ ContenidoEntidad::ContenidoEntidad() : IJson()
 ContenidoEntidad::~ContenidoEntidad()
 {
 }
+
+ContenidoEntidad * ContenidoEntidad::clonar()
+{
+    return static_cast<ContenidoEntidad*>(this->IJson::clonar());
+}

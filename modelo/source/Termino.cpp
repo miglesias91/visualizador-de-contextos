@@ -54,3 +54,11 @@ unsigned int Termino::hashcode()
 {
 	return hasher(this->getValor());
 }
+
+Termino * Termino::clonar()
+{
+    Termino * clon = new Termino(this->valor, this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
+}

@@ -30,3 +30,11 @@ unsigned Medio::hashcode()
 {
 	return 0;
 }
+
+Medio * Medio::clonar()
+{
+    Medio * clon = new Medio(this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
+}

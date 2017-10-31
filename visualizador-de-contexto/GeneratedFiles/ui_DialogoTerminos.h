@@ -29,7 +29,7 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoTerminos
 {
 public:
-    QAction *action_actualizarYCerrar;
+    QAction *action_actualizar_y_cerrar;
     QAction *action_resetear_termino;
     QAction *action_guardar_termino;
     QAction *action_eliminar_termino;
@@ -53,9 +53,9 @@ public:
         if (DialogoTerminos->objectName().isEmpty())
             DialogoTerminos->setObjectName(QStringLiteral("DialogoTerminos"));
         DialogoTerminos->resize(577, 345);
-        action_actualizarYCerrar = new QAction(DialogoTerminos);
-        action_actualizarYCerrar->setObjectName(QStringLiteral("action_actualizarYCerrar"));
-        action_actualizarYCerrar->setCheckable(true);
+        action_actualizar_y_cerrar = new QAction(DialogoTerminos);
+        action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
+        action_actualizar_y_cerrar->setCheckable(true);
         action_resetear_termino = new QAction(DialogoTerminos);
         action_resetear_termino->setObjectName(QStringLiteral("action_resetear_termino"));
         action_resetear_termino->setCheckable(true);
@@ -134,7 +134,7 @@ public:
 
         retranslateUi(DialogoTerminos);
         QObject::connect(btnbox_terminos, SIGNAL(rejected()), DialogoTerminos, SLOT(close()));
-        QObject::connect(btnbox_terminos, SIGNAL(accepted()), action_actualizarYCerrar, SLOT(trigger()));
+        QObject::connect(btnbox_terminos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
         QObject::connect(btn_guardar_termino, SIGNAL(released()), action_guardar_termino, SLOT(trigger()));
         QObject::connect(btn_limpiar_termino, SIGNAL(released()), action_resetear_termino, SLOT(trigger()));
         QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar_termino, SLOT(trigger()));
@@ -146,7 +146,10 @@ public:
     void retranslateUi(QWidget *DialogoTerminos)
     {
         DialogoTerminos->setWindowTitle(QApplication::translate("DialogoTerminos", "DialogoTerminos", Q_NULLPTR));
-        action_actualizarYCerrar->setText(QApplication::translate("DialogoTerminos", "actualizarYCerrar", Q_NULLPTR));
+        action_actualizar_y_cerrar->setText(QApplication::translate("DialogoTerminos", "actualiza_y_cerrar", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_actualizar_y_cerrar->setToolTip(QApplication::translate("DialogoTerminos", "actualizar y cerrar", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         action_resetear_termino->setText(QApplication::translate("DialogoTerminos", "resetear_termino", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         action_resetear_termino->setToolTip(QApplication::translate("DialogoTerminos", "resetear termino", Q_NULLPTR));

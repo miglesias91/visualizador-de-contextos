@@ -30,3 +30,11 @@ unsigned int Reporte::hashcode()
 {
 	return 0;
 }
+
+Reporte * Reporte::clonar()
+{
+    Reporte * clon = new Reporte(this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
+}

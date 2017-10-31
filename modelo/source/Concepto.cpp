@@ -20,18 +20,29 @@ Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::Config
 
 Concepto::Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
 {
+    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    {
+        (*it)->sumarReferencia();
+    }
 }
 
 Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto()), terminos(terminos)
 {
+    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    {
+        (*it)->sumarReferencia();
+    }
 }
 
 Concepto::~Concepto()
 {
 	for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
 	{
-		delete (*it);
-		(*it) = NULL;
+        if (0 == (*it)->restarReferencia())
+        {
+            delete (*it);
+            (*it) = NULL;
+        }
 	}
 	this->terminos.clear();
 }
@@ -44,6 +55,7 @@ std::vector<Termino*> Concepto::getTerminos()
 void Concepto::agregarTermino(Termino* termino_nuevo)
 {
 	this->terminos.push_back(termino_nuevo);
+    termino_nuevo->sumarReferencia();
 }
 
 void Concepto::crearContenido()
@@ -71,7 +83,7 @@ void Concepto::parsearContenido(IJson* contenido)
 		termino_nuevo = new Termino();
 		termino_nuevo->setId(new aplicacion::ID(*it));
 		aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo);
-		this->terminos.push_back(termino_nuevo);
+        this->agregarTermino(termino_nuevo);
 	}
 }
 
@@ -93,4 +105,18 @@ unsigned int Concepto::hashcode()
 	}
 
 	return hashcode_terminos;
+}
+
+Concepto * Concepto::clonar()
+{
+    std::vector<Termino*> clon_terminos;
+    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    {
+        clon_terminos.push_back((*it)->clonar());
+    }
+
+    Concepto* clon = new Concepto(clon_terminos, this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
 }

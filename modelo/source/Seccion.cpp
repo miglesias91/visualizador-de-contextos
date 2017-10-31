@@ -30,3 +30,11 @@ unsigned int Seccion::hashcode()
 {
 	return 0;
 }
+
+Seccion * Seccion::clonar()
+{
+    Seccion * clon = new Seccion(this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
+}

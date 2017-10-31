@@ -29,6 +29,8 @@ public:
 
 	virtual unsigned int hashcode();
 
+    Periodo* clonar();
+
 	// GETTERS
 
 	Fecha* getDesde();

@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogoTerminos_t {
     QByteArrayData data[7];
-    char stringdata0[205];
+    char stringdata0[207];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,15 +32,15 @@ struct qt_meta_stringdata_DialogoTerminos_t {
 static const qt_meta_stringdata_DialogoTerminos_t qt_meta_stringdata_DialogoTerminos = {
     {
 QT_MOC_LITERAL(0, 0, 15), // "DialogoTerminos"
-QT_MOC_LITERAL(1, 16, 37), // "on_action_actualizarYCerrar_t..."
-QT_MOC_LITERAL(2, 54, 0), // ""
-QT_MOC_LITERAL(3, 55, 36), // "on_action_resetear_termino_tr..."
-QT_MOC_LITERAL(4, 92, 35), // "on_action_guardar_termino_tri..."
-QT_MOC_LITERAL(5, 128, 36), // "on_action_eliminar_termino_tr..."
-QT_MOC_LITERAL(6, 165, 39) // "on_action_estado_btn_eliminar..."
+QT_MOC_LITERAL(1, 16, 39), // "on_action_actualizar_y_cerrar..."
+QT_MOC_LITERAL(2, 56, 0), // ""
+QT_MOC_LITERAL(3, 57, 36), // "on_action_resetear_termino_tr..."
+QT_MOC_LITERAL(4, 94, 35), // "on_action_guardar_termino_tri..."
+QT_MOC_LITERAL(5, 130, 36), // "on_action_eliminar_termino_tr..."
+QT_MOC_LITERAL(6, 167, 39) // "on_action_estado_btn_eliminar..."
 
     },
-    "DialogoTerminos\0on_action_actualizarYCerrar_triggered\0"
+    "DialogoTerminos\0on_action_actualizar_y_cerrar_triggered\0"
     "\0on_action_resetear_termino_triggered\0"
     "on_action_guardar_termino_triggered\0"
     "on_action_eliminar_termino_triggered\0"
@@ -84,7 +84,7 @@ void DialogoTerminos::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         DialogoTerminos *_t = static_cast<DialogoTerminos *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_action_actualizarYCerrar_triggered(); break;
+        case 0: _t->on_action_actualizar_y_cerrar_triggered(); break;
         case 1: _t->on_action_resetear_termino_triggered(); break;
         case 2: _t->on_action_guardar_termino_triggered(); break;
         case 3: _t->on_action_eliminar_termino_triggered(); break;

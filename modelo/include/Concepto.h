@@ -44,6 +44,8 @@ public:
 	
 	virtual unsigned int hashcode();
 
+    Concepto* clonar();
+
 private:
 
 	std::vector<Termino*> terminos;

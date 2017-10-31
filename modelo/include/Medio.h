@@ -28,6 +28,8 @@ public:
 
 	virtual unsigned int hashcode();
 
+    Medio* clonar();
+
 	// GETTERS
 
 	// SETTERS

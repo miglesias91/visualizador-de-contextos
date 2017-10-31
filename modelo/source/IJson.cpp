@@ -197,3 +197,8 @@ std::string IJson::jsonString()
 
 	return sstream.str();
 }
+
+IJson * IJson::clonar()
+{
+    return new IJson(this->jsonString());
+}

@@ -34,6 +34,8 @@ public:
 	
 	virtual unsigned int hashcode();
 
+    Fecha* clonar();
+
 	// GETTERS
 
 	unsigned int getDia();

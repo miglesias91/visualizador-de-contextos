@@ -40,6 +40,8 @@ public:
 
 	virtual unsigned int hashcode();
 
+    Termino* clonar();
+
 private:
 
 	static std::hash<std::string> hasher;

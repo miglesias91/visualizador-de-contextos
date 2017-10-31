@@ -5,11 +5,11 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/GestorIDs.h>
 
-IEntidad::IEntidad() : id(NULL), contenido(NULL)
+IEntidad::IEntidad() : IReferenciable(), id(NULL), contenido(NULL)
 {
 }
 
-IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido) : etiqueta(etiqueta), grupo(grupo), id(NULL), contenido(contenido)
+IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido) : IReferenciable(), etiqueta(etiqueta), grupo(grupo), id(NULL), contenido(contenido)
 {
 }
 

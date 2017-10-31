@@ -8,13 +8,14 @@
 
 // modelo
 #include <modelo/include/ContenidoEntidad.h>
+#include <modelo/include/IReferenciable.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class IEntidad
+class IEntidad : public IReferenciable
 {
 public:
 

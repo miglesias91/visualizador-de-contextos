@@ -19,6 +19,8 @@ public:
 
 	// METODOS
 
+    ContenidoEntidad * clonar();
+
 	// GETTERS
 
 	// SETTERS

@@ -54,6 +54,14 @@ unsigned int Fecha::hashcode()
 	return hasher(this->dia) + hasher(this->mes) + hasher(this->anio);
 }
 
+Fecha * Fecha::clonar()
+{
+    Fecha * clon = new Fecha(this->dia, this->mes, this->anio, this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
+}
+
 // GETTERS
 
 unsigned int Fecha::getDia()

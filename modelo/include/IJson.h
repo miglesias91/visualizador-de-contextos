@@ -32,6 +32,8 @@ public:
 
 	void agregarAtributoJson(std::string clave, IJson* json);
 
+    IJson * clonar();
+
 	// GETTERS
 
 	unsigned long long int getAtributoValorUint(std::string clave);
@@ -53,8 +55,6 @@ private:
 	rapidjson::Value* valor;
 
     rapidjson::Document * documento_alocador;
-	// static rapidjson::Document documento_alocador;
-
 };
 };
 };

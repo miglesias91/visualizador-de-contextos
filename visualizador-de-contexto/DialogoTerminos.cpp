@@ -70,6 +70,10 @@ void DialogoTerminos::on_action_guardar_termino_triggered()
         // si se pudo agregar correctamente, lo agrego en la lista visible.
         this->agregarTerminoALista(termino_nuevo);
     }
+    else
+    {
+        delete termino_nuevo;
+    }
 
     this->on_action_resetear_termino_triggered();
 }

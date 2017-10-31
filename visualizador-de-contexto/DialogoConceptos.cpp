@@ -1,11 +1,15 @@
 #include "DialogoConceptos.h"
 #include "ui_DialogoConceptos.h"
 
+// stl
+#include <memory>
+
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
 
 // modelo
 #include <modelo/include/Concepto.h>
+#include <modelo/include/Termino.h>
 
 using namespace visualizador;
 
@@ -23,14 +27,14 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
         this->agregarConceptoALista(*it);
     }
 
-    this->cargarComboBoxTerminos();
+    this->cargarListaTerminos();
 }
 
 DialogoConceptos::~DialogoConceptos()
 {
+    QListWidgetItem* item = nullptr;
+
     // elimino los conceptos de la lista
-    QListWidgetItem* item = NULL;
-    modelo::Concepto* concepto_lista = NULL;
     unsigned int count = ui->lista_conceptos->count();
     while (0 != ui->lista_conceptos->count())
     {
@@ -41,16 +45,21 @@ DialogoConceptos::~DialogoConceptos()
     }
 
     // elimino los terminos de la lista
-    modelo::Termino* termino_lista = NULL;
+    modelo::Termino* termino_lista = nullptr;
     count = ui->lista_terminos->count();
     while (0 != ui->lista_terminos->count())
     {
         count = ui->lista_terminos->count();
 
         termino_lista = this->ui->lista_terminos->item(0)->data(Qt::UserRole).value<modelo::Termino*>();
-        delete termino_lista;
 
-        this->ui->lista_terminos->takeItem(ui->lista_terminos->row(item));
+        if( 0 == termino_lista->restarReferencia())
+        {
+            delete termino_lista;
+        }
+
+        item = this->ui->lista_terminos->takeItem(0);
+        delete item;
     }
 
     delete ui;
@@ -69,6 +78,7 @@ void DialogoConceptos::on_action_resetear_concepto_triggered()
     this->ui->lineedit_etiqueta->clear();
     this->ui->lineedit_terminos->clear();
     this->ui->lista_terminos->clearSelection();
+    this->ui->lista_conceptos->clearSelection();
 }
 
 void DialogoConceptos::on_action_eliminar_concepto_triggered()
@@ -81,7 +91,7 @@ void DialogoConceptos::on_action_eliminar_concepto_triggered()
 
         this->gestor_conceptos.eliminar(concepto);
 
-        delete this->ui->lista_terminos->takeItem(ui->lista_conceptos->row(item));
+        delete this->ui->lista_conceptos->takeItem(ui->lista_conceptos->row(item));
     }
 }
 
@@ -98,13 +108,25 @@ void DialogoConceptos::on_action_guardar_concepto_triggered()
         // si se pudo agregar correctamente, lo agrego en la lista visible.
         this->agregarConceptoALista(concepto_nuevo);
     }
+    else
+    {
+        delete concepto_nuevo;
+    }
 
     this->on_action_resetear_concepto_triggered();
 }
 
 void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
 {
-
+    int items_seleccionados = this->ui->lista_conceptos->selectedItems().size();
+    if (0 >= items_seleccionados)
+    {
+        this->ui->btn_eliminar_concepto->setDisabled(true);
+    }
+    else
+    {
+        this->ui->btn_eliminar_concepto->setEnabled(true);
+    }
 }
 
 // METODOS PRIVADOS
@@ -150,6 +172,7 @@ void DialogoConceptos::cargarListaTerminos()
 
     for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
     {
+        (*it)->sumarReferencia();
         std::string texto_termino = (*it)->getEtiqueta() + " - " + (*it)->getValor();
         QListWidgetItem* item = new QListWidgetItem();
 

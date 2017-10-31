@@ -127,8 +127,10 @@
     <ClInclude Include="include\Reporte.h" />
     <ClInclude Include="include\Seccion.h" />
     <ClInclude Include="include\Termino.h" />
+    <ClInclude Include="include\IReferenciable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\IReferenciable.cpp" />
     <ClCompile Include="source\IJson.cpp" />
     <ClCompile Include="source\ContenidoEntidad.cpp" />
     <ClCompile Include="source\Concepto.cpp" />

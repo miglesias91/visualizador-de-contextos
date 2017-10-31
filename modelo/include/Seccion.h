@@ -26,6 +26,8 @@ public:
 
 	virtual unsigned int hashcode();
 
+    Seccion* clonar();
+
 };
 
 };

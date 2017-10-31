@@ -39,7 +39,7 @@ private:
     // agregar un termino a la lista de terminos de la ui.
     void agregarConceptoALista(visualizador::modelo::Concepto* concepto);
 
-    std::vector<modelo::Termino*> terminosSeleccionados();
+    std::vector<visualizador::modelo::Termino*> terminosSeleccionados();
 
     void cargarListaTerminos();
 

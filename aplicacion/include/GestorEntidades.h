@@ -41,6 +41,9 @@ public:
     template <class ENTIDAD>
     std::vector<ENTIDAD*> recuperar();
 
+    template <class ENTIDAD>
+    ENTIDAD* clonar(visualizador::modelo::IEntidad* entidad_a_clonar);
+
     // chequea que existe el termino en la lista de terminos de la ui.
     bool existe(visualizador::modelo::IEntidad* entidad_a_chequear);
 
@@ -122,6 +125,13 @@ std::vector<ENTIDAD*> GestorEntidades::recuperar()
 
     return entidades_recuperadas;
 };
+
+template <class ENTIDAD>
+ENTIDAD* GestorEntidades::clonar(visualizador::modelo::IEntidad* entidad_a_clonar)
+{
+    visualizador::modelo::IEntidad* entidad_clonada = entidad_a_clonar->clonar();
+    return static_cast<ENTIDAD*>(entidad_clonada);
+}
 
 };
 };

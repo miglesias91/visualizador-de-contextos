@@ -38,6 +38,8 @@ public:
 	
 	virtual unsigned int hashcode();
 
+    Consulta* clonar();
+
 	// GETTERS
 
 	Periodo* getPeriodo();

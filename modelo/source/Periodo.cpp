@@ -14,15 +14,23 @@ Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplica
 
 Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo()),  desde(desde), hasta(hasta)
 {
+    this->desde->sumarReferencia();
+    this->hasta->sumarReferencia();
 }
 
 Periodo::~Periodo()
 {
-	delete this->desde;
-	this->desde = NULL;
+    if (0 == this->desde->restarReferencia())
+    {
+        delete this->desde;
+        this->desde = NULL;
+    }
 
-	delete this->hasta;
-	this->hasta = NULL;
+    if (0 == this->hasta->restarReferencia())
+    {
+        delete this->hasta;
+        this->hasta = NULL;
+    }
 }
 
 // METODOS
@@ -50,8 +58,8 @@ void Periodo::parsearContenido(IJson* contenido)
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde);
 	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta);
 
-	this->desde = fecha_desde;
-	this->hasta = fecha_hasta;
+    this->setDesde(fecha_desde);
+    this->setHasta(fecha_hasta);
 }
 
 std::string Periodo::prefijoGrupo()
@@ -62,6 +70,14 @@ std::string Periodo::prefijoGrupo()
 unsigned int Periodo::hashcode()
 {
 	return this->getDesde()->hashcode() + this->getHasta()->hashcode();
+}
+
+Periodo * Periodo::clonar()
+{
+    Periodo * clon = new Periodo(this->getDesde()->clonar(), this->getHasta()->clonar(), this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setContenido(this->getContenido()->clonar());
+    return clon;
 }
 
 // GETTERS
@@ -81,9 +97,11 @@ Fecha * Periodo::getHasta()
 void Periodo::setDesde(Fecha * desde)
 {
 	this->desde = desde;
+    this->desde->sumarReferencia();
 }
 
 void Periodo::setHasta(Fecha * hasta)
 {
 	this->hasta = hasta;
+    this->hasta->sumarReferencia();
 }
