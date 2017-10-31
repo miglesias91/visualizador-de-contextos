@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGroupBox>
@@ -40,8 +39,8 @@ public:
     QGroupBox *groupbox_terminos;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *layout_terminos;
-    QComboBox *combo_terminos;
     QLineEdit *lineedit_terminos;
+    QListWidget *lista_terminos;
     QPushButton *btn_guardar_concepto;
     QPushButton *bnt_limpiar_concepto;
     QPushButton *btn_eliminar_concepto;
@@ -87,24 +86,24 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(groupbox_terminos->sizePolicy().hasHeightForWidth());
         groupbox_terminos->setSizePolicy(sizePolicy);
-        groupbox_terminos->setMinimumSize(QSize(0, 77));
+        groupbox_terminos->setMinimumSize(QSize(0, 144));
         verticalLayoutWidget_2 = new QWidget(groupbox_terminos);
         verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(10, 20, 251, 51));
+        verticalLayoutWidget_2->setGeometry(QRect(10, 20, 251, 111));
         layout_terminos = new QVBoxLayout(verticalLayoutWidget_2);
         layout_terminos->setSpacing(6);
         layout_terminos->setContentsMargins(11, 11, 11, 11);
         layout_terminos->setObjectName(QStringLiteral("layout_terminos"));
         layout_terminos->setContentsMargins(0, 0, 0, 0);
-        combo_terminos = new QComboBox(verticalLayoutWidget_2);
-        combo_terminos->setObjectName(QStringLiteral("combo_terminos"));
-
-        layout_terminos->addWidget(combo_terminos);
-
         lineedit_terminos = new QLineEdit(verticalLayoutWidget_2);
         lineedit_terminos->setObjectName(QStringLiteral("lineedit_terminos"));
 
         layout_terminos->addWidget(lineedit_terminos);
+
+        lista_terminos = new QListWidget(verticalLayoutWidget_2);
+        lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
+
+        layout_terminos->addWidget(lista_terminos);
 
 
         layout_opciones->setWidget(1, QFormLayout::SpanningRole, groupbox_terminos);
@@ -143,9 +142,6 @@ public:
 
         layout_general->addLayout(layout_lista);
 
-        btnbox_conceptos->raise();
-        horizontalLayoutWidget->raise();
-        lista_conceptos->raise();
 
         retranslateUi(DialogoConceptos);
 

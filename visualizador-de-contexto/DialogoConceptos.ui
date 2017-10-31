@@ -62,7 +62,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>77</height>
+          <height>144</height>
          </size>
         </property>
         <property name="title">
@@ -74,15 +74,15 @@
            <x>10</x>
            <y>20</y>
            <width>251</width>
-           <height>51</height>
+           <height>111</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="layout_terminos">
           <item>
-           <widget class="QComboBox" name="combo_terminos"/>
+           <widget class="QLineEdit" name="lineedit_terminos"/>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineedit_terminos"/>
+           <widget class="QListWidget" name="lista_terminos"/>
           </item>
          </layout>
         </widget>
@@ -96,7 +96,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QPushButton" name="bnt_limpiar_concepto">
+       <widget class="QPushButton" name="btn_limpiar_concepto">
         <property name="text">
          <string>limpiar</string>
         </property>
@@ -127,11 +127,145 @@
     </item>
    </layout>
   </widget>
-  <zorder>btnbox_conceptos</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>lista_conceptos</zorder>
+  <action name="action_actualizar_y_cerrar">
+   <property name="text">
+    <string>actualizar_y_cerrar</string>
+   </property>
+   <property name="toolTip">
+    <string>actualizar y cerrar</string>
+   </property>
+  </action>
+  <action name="action_resetear_concepto">
+   <property name="text">
+    <string>resetear_concepto</string>
+   </property>
+   <property name="toolTip">
+    <string>resetear concepto</string>
+   </property>
+  </action>
+  <action name="action_eliminar_concepto">
+   <property name="text">
+    <string>eliminar_concepto</string>
+   </property>
+   <property name="toolTip">
+    <string>eliminar concepto</string>
+   </property>
+  </action>
+  <action name="action_guardar_concepto">
+   <property name="text">
+    <string>guardar_concepto</string>
+   </property>
+   <property name="toolTip">
+    <string>guardar concepto</string>
+   </property>
+  </action>
+  <action name="action_estado_btn_eliminar">
+   <property name="text">
+    <string>estado_btn_eliminar</string>
+   </property>
+   <property name="toolTip">
+    <string>estado btn eliminar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btnbox_conceptos</sender>
+   <signal>accepted()</signal>
+   <receiver>action_actualizar_y_cerrar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_conceptos</sender>
+   <signal>rejected()</signal>
+   <receiver>DialogoConceptos</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_guardar_concepto</sender>
+   <signal>released()</signal>
+   <receiver>action_guardar_concepto</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>199</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_limpiar_concepto</sender>
+   <signal>released()</signal>
+   <receiver>action_resetear_concepto</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_eliminar_concepto</sender>
+   <signal>released()</signal>
+   <receiver>action_eliminar_concepto</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>257</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lista_conceptos</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>action_estado_btn_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

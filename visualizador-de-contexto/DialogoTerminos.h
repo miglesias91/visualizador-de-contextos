@@ -22,7 +22,7 @@ public:
 	~DialogoTerminos();
 
 private slots:
-    void on_action_actualizarYCerrar_triggered();
+    void on_action_actualizar_y_cerrar_triggered();
 
     void on_action_resetear_termino_triggered();
 

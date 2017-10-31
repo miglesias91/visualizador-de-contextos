@@ -52,7 +52,8 @@ private:
 
 	rapidjson::Value* valor;
 
-	static rapidjson::Document documento_alocador;
+    rapidjson::Document * documento_alocador;
+	// static rapidjson::Document documento_alocador;
 
 };
 };

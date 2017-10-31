@@ -93,12 +93,15 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <action name="action_actualizarYCerrar">
+  <action name="action_actualizar_y_cerrar">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>actualizarYCerrar</string>
+    <string>actualiza_y_cerrar</string>
+   </property>
+   <property name="toolTip">
+    <string>actualizar y cerrar</string>
    </property>
   </action>
   <action name="action_resetear_termino">
@@ -174,7 +177,7 @@
   <connection>
    <sender>btnbox_terminos</sender>
    <signal>accepted()</signal>
-   <receiver>action_actualizarYCerrar</receiver>
+   <receiver>action_actualizar_y_cerrar</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">

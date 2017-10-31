@@ -13,45 +13,51 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-rapidjson::Document IJson::documento_alocador;
+// rapidjson::Document IJson::documento_alocador;
 
-IJson::IJson() : valor(new rapidjson::Value(rapidjson::kObjectType))
+IJson::IJson() : valor(new rapidjson::Value(rapidjson::kObjectType)), documento_alocador(new rapidjson::Document())
 {
 }
 
-IJson::IJson(rapidjson::Value* valor) : valor(valor)
+IJson::IJson(rapidjson::Value* valor) : valor(valor), documento_alocador(new rapidjson::Document())
 {
 }
 
-IJson::IJson(std::string json) : valor(NULL)
+IJson::IJson(std::string json) : valor(NULL), documento_alocador(NULL)
 {
 	rapidjson::Document* documento = new rapidjson::Document();
 	documento->Parse(json.c_str());
 
-	this->valor = new rapidjson::Value(*documento, documento_alocador.GetAllocator());
+	this->valor = new rapidjson::Value(*documento, documento->GetAllocator());
 
-	delete documento;
+	this->documento_alocador = documento;
 }
 
 IJson::~IJson()
 {
 	delete this->valor;
 	this->valor = NULL;
+
+    delete this->documento_alocador;
+    this->documento_alocador = NULL;
 }
 
 void IJson::reset()
 {
-	if (NULL != this->valor)
-	{
-		delete this->valor;
-	}
+    delete this->valor;
+    this->valor = NULL;
+
+    delete this->documento_alocador;
+    this->documento_alocador = NULL;
 
 	this->valor = new rapidjson::Value(rapidjson::kObjectType);
+    this->documento_alocador = new rapidjson::Document();
 }
 
 void IJson::agregarAtributoValor(std::string clave, std::string valor)
 {
-	rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+	// rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+    rapidjson::Document::AllocatorType* alocador = &this->documento_alocador->GetAllocator();
 
 	rapidjson::Value tag(clave.c_str(), *alocador);
 	rapidjson::Value json_valor(valor.c_str(), *alocador);
@@ -60,7 +66,8 @@ void IJson::agregarAtributoValor(std::string clave, std::string valor)
 
 void IJson::agregarAtributoValor(std::string clave, unsigned int valor)
 {
-	rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+	// rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+    rapidjson::Document::AllocatorType* alocador = &this->documento_alocador->GetAllocator();
 
 	rapidjson::Value tag(clave.c_str(), *alocador);
 	rapidjson::Value json_valor(valor);
@@ -69,7 +76,8 @@ void IJson::agregarAtributoValor(std::string clave, unsigned int valor)
 
 void IJson::agregarAtributoArray(std::string clave, std::vector<unsigned long long int> array_valores)
 {
-	rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+	// rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+    rapidjson::Document::AllocatorType* alocador = &this->documento_alocador->GetAllocator();
 
 	rapidjson::Value json_valores(rapidjson::kArrayType);
 
@@ -85,7 +93,8 @@ void IJson::agregarAtributoArray(std::string clave, std::vector<unsigned long lo
 
 void IJson::agregarAtributoArray(std::string clave, std::vector<std::string> array_valores)
 {
-	rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+	// rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+    rapidjson::Document::AllocatorType* alocador = &this->documento_alocador->GetAllocator();
 
 	rapidjson::Value json_valores(rapidjson::kArrayType);
 
@@ -101,7 +110,8 @@ void IJson::agregarAtributoArray(std::string clave, std::vector<std::string> arr
 
 void IJson::agregarAtributoJson(std::string clave, IJson * json)
 {
-	rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+	// rapidjson::Document::AllocatorType* alocador = &documento_alocador.GetAllocator();
+    rapidjson::Document::AllocatorType* alocador = &this->documento_alocador->GetAllocator();
 
 	rapidjson::Value tag(clave.c_str(), *alocador);
 	this->valor->AddMember(tag, *json->getValor(), *alocador);
@@ -127,7 +137,8 @@ IJson * IJson::getAtributoValorJson(std::string clave)
 
 	rapidjson::Value* valor_nuevo = new rapidjson::Value(rapidjson::kObjectType);
 
-	valor_nuevo->CopyFrom(*valor, documento_alocador.GetAllocator());
+	// valor_nuevo->CopyFrom(*valor, documento_alocador.GetAllocator());
+    valor_nuevo->CopyFrom(*valor, this->documento_alocador->GetAllocator());
 
 	IJson* json = new IJson(valor_nuevo);
 

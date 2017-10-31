@@ -7,6 +7,7 @@
 
 // modelo
 #include <modelo/include/Concepto.h>
+#include <modelo/include/Termino.h>
 
 // visualizador
 #include <declaraciones_metatipos.h>
@@ -21,13 +22,26 @@ public:
     DialogoConceptos(QWidget *parent = Q_NULLPTR);
     ~DialogoConceptos();
 
+private slots:
+    void on_action_actualizar_y_cerrar_triggered();
+
+    void on_action_resetear_concepto_triggered();
+
+    void on_action_eliminar_concepto_triggered();
+
+    void on_action_guardar_concepto_triggered();
+
+    void on_action_estado_btn_eliminar_triggered();
+
 private:
     Ui::DialogoConceptos *ui;
 
     // agregar un termino a la lista de terminos de la ui.
     void agregarConceptoALista(visualizador::modelo::Concepto* concepto);
 
-    void cargarComboBoxTerminos();
+    std::vector<modelo::Termino*> terminosSeleccionados();
+
+    void cargarListaTerminos();
 
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_conceptos;

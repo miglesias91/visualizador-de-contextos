@@ -46,7 +46,7 @@ DialogoTerminos::~DialogoTerminos()
 
 // ACCIONES
 
-void DialogoTerminos::on_action_actualizarYCerrar_triggered()
+void DialogoTerminos::on_action_actualizar_y_cerrar_triggered()
 {
     this->gestor_terminos.guardarCambios();
 	this->close();

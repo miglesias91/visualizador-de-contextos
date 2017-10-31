@@ -40,23 +40,72 @@ DialogoConceptos::~DialogoConceptos()
         delete item;
     }
 
-    // elimino los terminos del combobox
-    modelo::Termino* termino_combo = NULL;
-    count = ui->combo_terminos->count();
-    while (0 != ui->combo_terminos->count())
+    // elimino los terminos de la lista
+    modelo::Termino* termino_lista = NULL;
+    count = ui->lista_terminos->count();
+    while (0 != ui->lista_terminos->count())
     {
-        count = ui->combo_terminos->count();
+        count = ui->lista_terminos->count();
 
-        termino_combo = this->ui->combo_terminos->itemData(0).value<modelo::Termino*>();
-        delete termino_combo;
+        termino_lista = this->ui->lista_terminos->item(0)->data(Qt::UserRole).value<modelo::Termino*>();
+        delete termino_lista;
 
-        this->ui->combo_terminos->removeItem(0);
+        this->ui->lista_terminos->takeItem(ui->lista_terminos->row(item));
     }
 
     delete ui;
 }
 
 // ACCIONES
+
+void DialogoConceptos::on_action_actualizar_y_cerrar_triggered()
+{
+    this->gestor_conceptos.guardarCambios();
+    this->close();
+}
+
+void DialogoConceptos::on_action_resetear_concepto_triggered()
+{
+    this->ui->lineedit_etiqueta->clear();
+    this->ui->lineedit_terminos->clear();
+    this->ui->lista_terminos->clearSelection();
+}
+
+void DialogoConceptos::on_action_eliminar_concepto_triggered()
+{
+    QList<QListWidgetItem*> items = ui->lista_conceptos->selectedItems();
+    foreach(QListWidgetItem * item, items)
+    {
+        QVariant data = item->data(Qt::UserRole);
+        modelo::Concepto* concepto = data.value<modelo::Concepto*>();
+
+        this->gestor_conceptos.eliminar(concepto);
+
+        delete this->ui->lista_terminos->takeItem(ui->lista_conceptos->row(item));
+    }
+}
+
+void DialogoConceptos::on_action_guardar_concepto_triggered()
+{
+    std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
+
+    std::vector<modelo::Termino*> terminos_seleccionados = this->terminosSeleccionados();
+
+    modelo::Concepto* concepto_nuevo = new modelo::Concepto(terminos_seleccionados, etiqueta);
+
+    if (this->gestor_conceptos.almacenar(concepto_nuevo))
+    {
+        // si se pudo agregar correctamente, lo agrego en la lista visible.
+        this->agregarConceptoALista(concepto_nuevo);
+    }
+
+    this->on_action_resetear_concepto_triggered();
+}
+
+void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
+{
+
+}
 
 // METODOS PRIVADOS
 
@@ -79,7 +128,22 @@ void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)
     this->ui->lista_conceptos->insertItem(0, item);
 }
 
-void DialogoConceptos::cargarComboBoxTerminos()
+std::vector<modelo::Termino*> DialogoConceptos::terminosSeleccionados()
+{
+    std::vector<modelo::Termino*> terminos_seleccionados;
+    QList<QListWidgetItem*> items = ui->lista_terminos->selectedItems();
+    foreach(QListWidgetItem * item, items)
+    {
+        QVariant data = item->data(Qt::UserRole);
+        modelo::Termino* termino = data.value<modelo::Termino*>();
+
+        terminos_seleccionados.push_back(termino);
+    }
+
+    return terminos_seleccionados;
+}
+
+void DialogoConceptos::cargarListaTerminos()
 {
     aplicacion::GestorEntidades gestor_terminos;
     std::vector<modelo::Termino*> terminos_actuales = gestor_terminos.recuperar<modelo::Termino>();
@@ -87,6 +151,12 @@ void DialogoConceptos::cargarComboBoxTerminos()
     for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
     {
         std::string texto_termino = (*it)->getEtiqueta() + " - " + (*it)->getValor();
-        this->ui->combo_terminos->insertItem(0, texto_termino.c_str(), QVariant::fromValue(*it));
+        QListWidgetItem* item = new QListWidgetItem();
+
+        QVariant data = QVariant::fromValue((*it));
+        item->setData(Qt::UserRole, data);
+        item->setText(texto_termino.c_str());
+
+        this->ui->lista_terminos->insertItem(0, item);
     }
 }
