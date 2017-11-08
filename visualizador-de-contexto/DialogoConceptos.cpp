@@ -28,6 +28,8 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
     }
 
     this->cargarListaTerminos();
+    this->ui->lista_conceptos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
 DialogoConceptos::~DialogoConceptos()
@@ -139,10 +141,15 @@ void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)
     item->setData(Qt::UserRole, data);
 
     std::vector<modelo::Termino*> terminos = concepto->getTerminos();
-    std::string texto_item = concepto->getEtiqueta() + " - " + (*terminos.begin())->getValor();
-    for (std::vector<modelo::Termino*>::iterator it = terminos.begin() + 1; it != terminos.end(); it++)
+
+    std::string texto_item = concepto->getEtiqueta() + " - ";
+    if (false == terminos.empty())
     {
-        texto_item += ", " + (*it)->getValor();
+        texto_item += (*terminos.begin())->getValor();
+        for (std::vector<modelo::Termino*>::iterator it = terminos.begin() + 1; it != terminos.end(); it++)
+        {
+            texto_item += ", " + (*it)->getValor();
+        }
     }
 
     item->setText(texto_item.c_str());
@@ -173,7 +180,7 @@ void DialogoConceptos::cargarListaTerminos()
     for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
     {
         (*it)->sumarReferencia();
-        std::string texto_termino = (*it)->getEtiqueta() + " - " + (*it)->getValor();
+        std::string texto_termino = (*it)->getValor();
         QListWidgetItem* item = new QListWidgetItem();
 
         QVariant data = QVariant::fromValue((*it));

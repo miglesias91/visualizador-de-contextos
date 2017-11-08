@@ -38,11 +38,13 @@ void Termino::crearContenido()
 	contenido->agregarAtributoValor("valor", this->getValor());
 }
 
-void Termino::parsearContenido(IJson* contenido)
+bool Termino::parsearContenido(IJson* contenido)
 {
 	std::string valor = contenido->getAtributoValorString("valor");
 
 	this->setValor(valor);
+
+    return true;
 }
 
 std::string Termino::prefijoGrupo()

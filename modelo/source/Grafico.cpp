@@ -14,6 +14,7 @@ void Grafico::crearContenido()
 {
 }
 
-void Grafico::parsearContenido(IJson* contenido)
+bool Grafico::parsearContenido(IJson* contenido)
 {
+    return true;
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogoPeriodos</class>
+ <widget class="QWidget" name="DialogoPeriodos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>577</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DialogoPeriodos</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>310</y>
+     <width>156</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>551</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QFormLayout" name="layout_opciones">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl_etiqueta">
+        <property name="text">
+         <string>etiqueta</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineedit_etiqueta"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbl_desde">
+        <property name="text">
+         <string>desde</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="combobox_desde"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lbl_hasta">
+        <property name="text">
+         <string>hasta</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="combobox_hasta"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btn_guardar_periodo">
+        <property name="text">
+         <string>guardar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="btn_limpiar_periodo">
+        <property name="text">
+         <string>limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QPushButton" name="btn_eliminar_periodo">
+        <property name="text">
+         <string>eliminar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="layout_lista">
+      <item>
+       <widget class="QListWidget" name="lista_periodos"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

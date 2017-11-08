@@ -44,7 +44,7 @@ void Periodo::crearContenido()
 	contenido->agregarAtributoValor("id_fecha_hasta", this->getHasta()->getId()->numero());
 }
 
-void Periodo::parsearContenido(IJson* contenido)
+bool Periodo::parsearContenido(IJson* contenido)
 {
 	unsigned long long int id_fecha_desde = contenido->getAtributoValorUint("id_fecha_desde");
 	unsigned long long int id_fecha_hasta = contenido->getAtributoValorUint("id_fecha_hasta");
@@ -55,11 +55,29 @@ void Periodo::parsearContenido(IJson* contenido)
 	Fecha* fecha_hasta = new Fecha();
 	fecha_hasta->setId(new visualizador::aplicacion::ID(id_fecha_hasta));
 
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde);
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta);
+    bool contenido_limpio = true;
 
-    this->setDesde(fecha_desde);
-    this->setHasta(fecha_hasta);
+    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
+    {
+        this->setDesde(fecha_desde);
+    }
+    else
+    {
+        delete fecha_desde;
+        contenido_limpio = false;
+    }
+
+    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
+    {
+        this->setHasta(fecha_hasta);
+    }
+    else
+    {
+        delete fecha_hasta;
+        contenido_limpio = false;
+    }
+
+    return contenido_limpio;
 }
 
 std::string Periodo::prefijoGrupo()

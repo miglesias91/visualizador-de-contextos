@@ -33,7 +33,7 @@ void Fecha::crearContenido()
 	contenido->agregarAtributoValor("anio", this->getAnio());
 }
 
-void Fecha::parsearContenido(IJson* contenido)
+bool Fecha::parsearContenido(IJson* contenido)
 {
 	unsigned long long int dia = contenido->getAtributoValorUint("dia");
 	unsigned long long int mes = contenido->getAtributoValorUint("mes");
@@ -42,6 +42,8 @@ void Fecha::parsearContenido(IJson* contenido)
 	this->dia = dia;
 	this->mes = mes;
 	this->anio = anio;
+
+    return true;
 }
 
 std::string Fecha::prefijoGrupo()

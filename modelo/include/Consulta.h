@@ -32,7 +32,7 @@ public:
 	
 	virtual void crearContenido();
 
-	virtual void parsearContenido(IJson* contenido);
+	virtual bool parsearContenido(IJson* contenido);
 
 	virtual std::string prefijoGrupo();
 	

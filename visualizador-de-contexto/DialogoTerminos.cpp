@@ -23,6 +23,8 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 	{
 		this->agregarTerminoALista(*it);
 	}
+    
+    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 
     this->on_action_estado_btn_eliminar_triggered();
 }

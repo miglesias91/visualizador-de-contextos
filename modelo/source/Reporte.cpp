@@ -17,8 +17,9 @@ void Reporte::crearContenido()
 {
 }
 
-void Reporte::parsearContenido(IJson* contenido)
+bool Reporte::parsearContenido(IJson* contenido)
 {
+    return true;
 }
 
 std::string Reporte::prefijoGrupo()

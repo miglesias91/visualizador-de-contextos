@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogoConsultas</class>
+ <widget class="QWidget" name="DialogoConsultas">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>577</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DialogoConsultas</string>
+  </property>
+  <widget class="QDialogButtonBox" name="btnbox_consulta">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>310</y>
+     <width>156</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTabWidget" name="opciones_consulta">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>561</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab_consulta">
+    <attribute name="title">
+     <string>Consulta</string>
+    </attribute>
+    <widget class="QWidget" name="gridLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>541</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="layout_consulta">
+      <item row="0" column="1">
+       <widget class="QGroupBox" name="groupbox_periodo">
+        <property name="title">
+         <string>Periodo</string>
+        </property>
+        <widget class="QWidget" name="formLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>160</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="1" column="0">
+           <widget class="QLabel" name="lbl_desde">
+            <property name="text">
+             <string>desde</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDateEdit" name="dateedit_desde">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lbl_hasta">
+            <property name="text">
+             <string>hasta</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDateEdit" name="dateedit_hastsa">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbl_etiqueta">
+            <property name="text">
+             <string>etiqueta</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineedit_etiqueta">
+            <property name="dragEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QGroupBox" name="groupbox_secciones">
+        <property name="title">
+         <string>Secciones</string>
+        </property>
+        <widget class="QListWidget" name="lista_secciones_en_consulta">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="2">
+       <widget class="QGroupBox" name="groupbox_conceptos">
+        <property name="title">
+         <string>Conceptos</string>
+        </property>
+        <widget class="QListWidget" name="lista_conceptos_en_consulta">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>161</width>
+           <height>211</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QGroupBox" name="groupbox_medios">
+        <property name="title">
+         <string>Medios</string>
+        </property>
+        <widget class="QListWidget" name="lista_medios_en_consulta">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QGroupBox" name="groupbox_reportes">
+        <property name="title">
+         <string>Reportes</string>
+        </property>
+        <widget class="QListWidget" name="lista_reportes_en_consulta">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_conceptos">
+    <attribute name="title">
+     <string>Conceptos</string>
+    </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>531</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="layout_conceptos">
+      <item>
+       <widget class="QListWidget" name="lista_conceptos"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_agregar_conceptos">
+        <property name="text">
+         <string>agregar a consulta</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <zorder>horizontalLayoutWidget</zorder>
+    <zorder>lista_conceptos</zorder>
+   </widget>
+   <widget class="QWidget" name="tab_periodo">
+    <attribute name="title">
+     <string>Periodo</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_medios">
+    <attribute name="title">
+     <string>Medios</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_secciones">
+    <attribute name="title">
+     <string>Secciones</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_reporte">
+    <attribute name="title">
+     <string>Reportes</string>
+    </attribute>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

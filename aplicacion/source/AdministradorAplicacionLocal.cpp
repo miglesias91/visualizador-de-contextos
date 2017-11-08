@@ -82,13 +82,16 @@ bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IEntidad * en
 
 	almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
 
-	bool retorno = this->admin_almacenamiento->recuperar(clave_valor_a_recuperar);
+	bool existe_valor = this->admin_almacenamiento->recuperar(clave_valor_a_recuperar);
 
-	entidad->parsearValorAlmacenable(clave_valor_a_recuperar->getValor());
+    if (existe_valor)
+    {
+        entidad->parsearValorAlmacenable(clave_valor_a_recuperar->getValor());
+    }
 
 	delete clave_valor_a_recuperar;
 
-	return retorno;
+	return existe_valor;
 }
 
 bool AdministradorAplicacionLocal::eliminar(visualizador::modelo::IEntidad * entidad)
@@ -125,6 +128,47 @@ bool AdministradorAplicacionLocal::eliminar(std::vector<visualizador::modelo::IE
         }
 
         delete entidad_a_eliminar;
+    }
+
+    return retorno;
+}
+
+bool AdministradorAplicacionLocal::modificar(visualizador::modelo::IEntidad * entidad)
+{
+    std::string clave = entidad->getId()->string();
+    std::string grupo = entidad->getGrupo();
+    std::string valor = entidad->getValorAlmacenable();
+
+    almacenamiento::IAlmacenableClaveValor* entidad_a_modificar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
+
+    bool retorno = this->admin_almacenamiento->almacenar(entidad_a_modificar);
+
+    delete entidad_a_modificar;
+
+    return retorno;
+}
+
+bool AdministradorAplicacionLocal::modificar(std::vector<visualizador::modelo::IEntidad*> entidades)
+{
+    visualizador::modelo::IEntidad* entidad = NULL;
+    bool retorno = true;
+    for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
+    {
+        entidad = *it;
+        std::string clave = entidad->getId()->string();
+        std::string grupo = entidad->getGrupo();
+        std::string valor = entidad->getValorAlmacenable();
+
+        almacenamiento::IAlmacenableClaveValor* entidad_a_modificar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
+
+        retorno = this->admin_almacenamiento->modificar(entidad_a_modificar);
+        if (false == retorno)
+        {
+            delete entidad_a_modificar;
+            break;
+        }
+
+        delete entidad_a_modificar;
     }
 
     return retorno;

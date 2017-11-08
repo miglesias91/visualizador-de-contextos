@@ -73,18 +73,27 @@ void Concepto::crearContenido()
 	contenido->agregarAtributoArray("ids_terminos", ids_terminos);
 }
 
-void Concepto::parsearContenido(IJson* contenido)
+bool Concepto::parsearContenido(IJson* contenido)
 {
 	std::vector<unsigned long long int> ids_terminos = contenido->getAtributoArrayUint("ids_terminos");
 
 	Termino* termino_nuevo = NULL;
+    bool contenido_limpio = true;
 	for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
 	{
 		termino_nuevo = new Termino();
 		termino_nuevo->setId(new aplicacion::ID(*it));
-		aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo);
-        this->agregarTermino(termino_nuevo);
+        if (aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo))
+        { // si el termino existe, lo agrego a la lista de terminos
+            this->agregarTermino(termino_nuevo);
+        }
+        else
+        { // si el termino no existe, entonces no lo agrego, lo elimino y seteo el 'concepto' como "entidad sucia" 
+            delete termino_nuevo;
+            contenido_limpio = false;
+        }
 	}
+    return contenido_limpio;
 }
 
 std::string Concepto::prefijoGrupo()

@@ -25,6 +25,10 @@ GestorEntidades::~GestorEntidades()
 {
     for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
     {
+        if ((*this->entidades_it)->estaSucia())
+        {
+            this->admin_app->modificar(*this->entidades_it);
+        }
         delete (*this->entidades_it);
     }
     this->entidades_existentes.clear();
@@ -40,6 +44,43 @@ GestorEntidades::~GestorEntidades()
         delete (*this->entidades_it);
     }
     this->entidades_a_eliminar.clear();
+}
+
+bool GestorEntidades::guardarCambios()
+{
+    if (false == this->admin_app->almacenar(this->entidades_a_almacenar))
+    {
+        return false;
+    }
+
+    if (false == this->admin_app->eliminar(this->entidades_a_eliminar))
+    {
+        return false;
+    }
+
+    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->estaSucia())
+        {
+            this->admin_app->modificar(*this->entidades_it);
+        }
+    }
+    this->entidades_existentes.clear();
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    {
+        this->entidades_existentes.push_back(*this->entidades_it);
+    }
+    this->entidades_a_almacenar.clear();
+
+    for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
+    {
+        delete (*this->entidades_it);
+    }
+    this->entidades_a_eliminar.clear();
+
+
+    return true;
 }
 
 bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
@@ -85,36 +126,12 @@ void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
     else
     {
         this->entidades_it = std::find(this->entidades_existentes.begin(), this->entidades_existentes.end(), entidad_a_eliminar);
-        this->entidades_existentes.erase(this->entidades_it);
+        if (this->entidades_existentes.end() != this->entidades_it)
+        {
+            this->entidades_existentes.erase(this->entidades_it);
+        }
         this->entidades_a_eliminar.push_back(entidad_a_eliminar);
     }
-}
-
-bool GestorEntidades::guardarCambios()
-{
-    if (false == this->admin_app->almacenar(this->entidades_a_almacenar))
-    {
-        return false;
-    }
-
-    if (false == this->admin_app->eliminar(this->entidades_a_eliminar))
-    {
-        return false;
-    }
-
-    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
-    {
-        this->entidades_existentes.push_back(*this->entidades_it);
-    }
-    this->entidades_a_almacenar.clear();
-
-    for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
-    {
-        delete (*this->entidades_it);
-    }
-    this->entidades_a_eliminar.clear();
-
-    return true;
 }
 
 bool GestorEntidades::existe(visualizador::modelo::IEntidad * entidad_a_chequear)

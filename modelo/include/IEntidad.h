@@ -55,7 +55,8 @@ public:
 
 	virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
-	virtual void parsearContenido(IJson* contenido) = 0;
+    // parte el contenido JSON, y devuelve 'true' si el contenido es correcto, devuelve 'false' si el contenido parseado no esta correcto.
+	virtual bool parsearContenido(IJson* contenido) = 0;
 
 	virtual std::string prefijoGrupo() = 0;
 
@@ -63,12 +64,21 @@ public:
 
 	static bool comparador(IEntidad* a, IEntidad* b);
 
+    // CONSULTAS
+
+    virtual bool estaSucia();
+
+    virtual bool estaLimpia();
+
 private:
 
 	visualizador::aplicacion::ID* id;
 	std::string etiqueta;
 	ContenidoEntidad* contenido;
 	std::string grupo;
+
+    // true = el contenido que hay en la bd es el correcto | false = el contenido que hay en la bd no esta correcto, hay referencias 'sucias'.
+    bool esta_limpia;
 };
 
 };

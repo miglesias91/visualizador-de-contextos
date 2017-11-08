@@ -47,6 +47,10 @@ public:
 
     virtual bool eliminar(std::vector<visualizador::modelo::IEntidad*> entidades) = 0;
 
+    virtual bool modificar(visualizador::modelo::IEntidad * entidad) = 0;
+
+    virtual bool modificar(std::vector<visualizador::modelo::IEntidad*> entidades) = 0;
+
 	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*>* entidades) = 0;
 
 	virtual unsigned long long int recuperarIDActual();

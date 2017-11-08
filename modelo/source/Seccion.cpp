@@ -17,8 +17,9 @@ void Seccion::crearContenido()
 {
 }
 
-void Seccion::parsearContenido(IJson* contenido)
+bool Seccion::parsearContenido(IJson* contenido)
 {
+    return true;
 }
 
 std::string Seccion::prefijoGrupo()

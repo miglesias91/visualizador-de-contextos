@@ -25,16 +25,6 @@ public:
 
     ~GestorEntidades();
 
-    //static bool almacenar(visualizador::modelo::IEntidad * entidad);
-
-    //static bool almacenar(std::vector<visualizador::modelo::IEntidad*> entidades);
-
-    //static bool eliminar(visualizador::modelo::IEntidad * entidad);
-
-    //static bool eliminar(std::vector<visualizador::modelo::IEntidad*> entidades);
-
-    //static bool recuperar(visualizador::modelo::IEntidad * entidad);
-
     template <class ENTIDAD>
     std::vector<ENTIDAD*> gestionar();
 
@@ -89,6 +79,7 @@ std::vector<ENTIDAD*> GestorEntidades::gestionar()
         entidad_recuperada->setId(new visualizador::aplicacion::ID(id));
 
         entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
+
         this->entidades_existentes.push_back(entidad_recuperada);
 
         entidades_recuperadas.push_back(entidad_recuperada);

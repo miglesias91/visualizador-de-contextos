@@ -7,14 +7,24 @@
 message("You are running qmake on a generated .pro file. This may not work!")
 
 
-HEADERS += ./visualizadordecontexto.h \
+HEADERS += ./declaraciones_metatipos.h \
+    ./visualizadordecontexto.h \
+    ./DialogoConceptos.h \
+    ./DialogoFechas.h \
     ./DialogoTerminos.h \
-    ./DialogoConceptos.h
+    ./DialogoPeriodos.h \
+    ./DialogoConsultas.h
 SOURCES += ./main.cpp \
+    ./DialogoConceptos.cpp \
+    ./DialogoFechas.cpp \
     ./DialogoTerminos.cpp \
     ./visualizadordecontexto.cpp \
-    ./DialogoConceptos.cpp
+    ./DialogoPeriodos.cpp \
+    ./DialogoConsultas.cpp
 FORMS += ./visualizadordecontexto.ui \
     ./DialogoTerminos.ui \
-    ./DialogoConceptos.ui
+    ./DialogoConceptos.ui \
+    ./DialogoFechas.ui \
+    ./DialogoPeriodos.ui \
+    ./DialogoConsultas.ui
 RESOURCES += visualizadordecontexto.qrc

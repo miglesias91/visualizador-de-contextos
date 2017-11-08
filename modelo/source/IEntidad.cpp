@@ -5,11 +5,12 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/GestorIDs.h>
 
-IEntidad::IEntidad() : IReferenciable(), id(NULL), contenido(NULL)
+IEntidad::IEntidad() : IReferenciable(), id(NULL), contenido(NULL), esta_limpia(false)
 {
 }
 
-IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido) : IReferenciable(), etiqueta(etiqueta), grupo(grupo), id(NULL), contenido(contenido)
+IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido)
+    : IReferenciable(), etiqueta(etiqueta), grupo(grupo), id(NULL), contenido(contenido), esta_limpia(false)
 {
 }
 
@@ -93,7 +94,7 @@ void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 
 	IJson* json_contenido = json_almacenable.getAtributoValorJson("contenido");
 
-	this->parsearContenido(json_contenido);
+	this->esta_limpia = this->parsearContenido(json_contenido);
 
 	delete json_contenido;
 }
@@ -101,4 +102,14 @@ void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 bool IEntidad::comparador(IEntidad * a, IEntidad * b)
 {
 	return a->getId()->numero() < b->getId()->numero();
+}
+
+bool IEntidad::estaSucia()
+{
+    return !this->estaLimpia();
+}
+
+bool IEntidad::estaLimpia()
+{
+    return this->esta_limpia;
 }

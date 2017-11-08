@@ -33,6 +33,10 @@ public:
     
     virtual bool eliminar(std::vector<visualizador::modelo::IEntidad*> entidades);
 
+    virtual bool modificar(visualizador::modelo::IEntidad * entidad);
+
+    virtual bool modificar(std::vector<visualizador::modelo::IEntidad*> entidades);
+
 	virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*>* entidades);
 		
 private:

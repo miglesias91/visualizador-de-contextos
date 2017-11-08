@@ -17,8 +17,9 @@ void Medio::crearContenido()
 {
 }
 
-void Medio::parsearContenido(IJson* contenido)
+bool Medio::parsearContenido(IJson* contenido)
 {
+    return true;
 }
 
 std::string Medio::prefijoGrupo()

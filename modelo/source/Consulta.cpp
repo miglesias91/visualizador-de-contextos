@@ -9,7 +9,7 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta())
+Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta()), periodo(NULL), reporte(NULL)
 {
 }
 
@@ -176,50 +176,89 @@ void Consulta::crearContenido()
 	contenido->agregarAtributoArray("ids_secciones", ids_secciones);
 }
 
-void Consulta::parsearContenido(IJson* contenido)
+bool Consulta::parsearContenido(IJson* contenido)
 {
-	std::vector<unsigned long long int> ids_conceptos = contenido->getAtributoArrayUint("ids_conceptos");
-	std::vector<unsigned long long int> ids_medios = contenido->getAtributoArrayUint("ids_medios");
-	std::vector<unsigned long long int> ids_secciones = contenido->getAtributoArrayUint("ids_secciones");
-	unsigned long long int id_periodo = contenido->getAtributoValorUint("id_periodo");
-	unsigned long long int id_reporte = contenido->getAtributoValorUint("id_reporte");
+    std::vector<unsigned long long int> ids_conceptos = contenido->getAtributoArrayUint("ids_conceptos");
+    std::vector<unsigned long long int> ids_medios = contenido->getAtributoArrayUint("ids_medios");
+    std::vector<unsigned long long int> ids_secciones = contenido->getAtributoArrayUint("ids_secciones");
+    unsigned long long int id_periodo = contenido->getAtributoValorUint("id_periodo");
+    unsigned long long int id_reporte = contenido->getAtributoValorUint("id_reporte");
 
-	Concepto* concepto_nuevo = NULL;
-	for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
-	{
-		concepto_nuevo = new Concepto();
-		concepto_nuevo->setId(new visualizador::aplicacion::ID(*it));
-		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_nuevo);
-        this->agregarConcepto(concepto_nuevo);
-	}
+    bool contenido_limpio = true;
 
-	Medio* medio_nuevo = NULL;
-	for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
-	{
-		medio_nuevo = new Medio();
-		medio_nuevo->setId(new visualizador::aplicacion::ID(*it));
-		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(medio_nuevo);
-        this->agregarMedio(medio_nuevo);
-	}
+    Concepto* concepto_nuevo = NULL;
+    for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    {
+        concepto_nuevo = new Concepto();
+        concepto_nuevo->setId(new visualizador::aplicacion::ID(*it));
+        if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(concepto_nuevo))
+        {
+            this->agregarConcepto(concepto_nuevo);
+        }
+        else
+        {
+            delete concepto_nuevo;
+            contenido_limpio = false;
+        }
+    }
 
-	Seccion* seccion_nueva = NULL;
-	for (std::vector<unsigned long long int>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
-	{
-		seccion_nueva = new Seccion();
-		seccion_nueva->setId(new visualizador::aplicacion::ID(*it));
-		visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(seccion_nueva);
-        this->agregarSeccion(seccion_nueva);
-	}
+    Medio* medio_nuevo = NULL;
+    for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    {
+        medio_nuevo = new Medio();
+        medio_nuevo->setId(new visualizador::aplicacion::ID(*it));
+        if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(medio_nuevo))
+        {
+            this->agregarMedio(medio_nuevo);
+        }
+        else
+        {
+            delete medio_nuevo;
+            contenido_limpio = false;
+        }
+    }
 
-	Periodo* periodo_nuevo = new Periodo();
-	periodo_nuevo->setId(new visualizador::aplicacion::ID(id_periodo));
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(periodo_nuevo);
-    this->setPeriodo(periodo_nuevo);
+    Seccion* seccion_nueva = NULL;
+    for (std::vector<unsigned long long int>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
+    {
+        seccion_nueva = new Seccion();
+        seccion_nueva->setId(new visualizador::aplicacion::ID(*it));
+        if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(seccion_nueva))
+        {
+            this->agregarSeccion(seccion_nueva);
+        }
+        else
+        {
+            delete seccion_nueva;
+            contenido_limpio = false;
+        }
+    }
+
+    Periodo* periodo_nuevo = new Periodo();
+    periodo_nuevo->setId(new visualizador::aplicacion::ID(id_periodo));
+    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(periodo_nuevo))
+    {
+        this->setPeriodo(periodo_nuevo);
+    }
+    else
+    {
+        delete periodo_nuevo;
+        contenido_limpio = false;
+    }
 
 	Reporte* reporte_nuevo = new Reporte();
 	reporte_nuevo->setId(new visualizador::aplicacion::ID(id_reporte));
-	visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(reporte_nuevo);
-    this->setReporte(reporte_nuevo);
+    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(reporte_nuevo))
+    {
+        this->setReporte(reporte_nuevo);
+    }
+    else
+    {
+        delete reporte_nuevo;
+        contenido_limpio = false;
+    }
+
+    return contenido_limpio;
 }
 
 std::string Consulta::prefijoGrupo()
