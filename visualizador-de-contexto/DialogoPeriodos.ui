@@ -100,6 +100,31 @@
     </item>
    </layout>
   </widget>
+  <action name="action_guardar_periodo">
+   <property name="text">
+    <string>guardar_periodo</string>
+   </property>
+  </action>
+  <action name="action_limpiar_periodo">
+   <property name="text">
+    <string>limpiar_periodo</string>
+   </property>
+  </action>
+  <action name="action_eliminar_periodo">
+   <property name="text">
+    <string>eliminar_periodo</string>
+   </property>
+  </action>
+  <action name="action_actualizar_y_cerrar">
+   <property name="text">
+    <string>actualizar_y_cerrar</string>
+   </property>
+  </action>
+  <action name="action_estado_btn_eliminar">
+   <property name="text">
+    <string>estado_btn_eliminar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

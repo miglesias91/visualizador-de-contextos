@@ -36,7 +36,7 @@ private slots:
 private:
     Ui::DialogoConceptos *ui;
 
-    // agregar un termino a la lista de terminos de la ui.
+    // agregar un concepto a la lista de terminos de la ui.
     void agregarConceptoALista(visualizador::modelo::Concepto* concepto);
 
     std::vector<visualizador::modelo::Termino*> terminosSeleccionados();

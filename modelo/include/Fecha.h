@@ -46,6 +46,10 @@ public:
 	std::string getStringMes();
 	std::string getStringAnio();
 
+    std::string getStringDDMMAAAA();
+
+    std::string getStringDDmesAAAA();
+
 	// SETTERS
 
 	void setDia(std::string dia);

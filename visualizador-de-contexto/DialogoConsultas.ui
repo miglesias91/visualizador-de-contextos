@@ -13,30 +13,17 @@
   <property name="windowTitle">
    <string>DialogoConsultas</string>
   </property>
-  <widget class="QDialogButtonBox" name="btnbox_consulta">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>310</y>
-     <width>156</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
   <widget class="QTabWidget" name="opciones_consulta">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
      <width>561</width>
-     <height>291</height>
+     <height>331</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_consulta">
     <attribute name="title">
@@ -48,7 +35,7 @@
        <x>10</x>
        <y>20</y>
        <width>541</width>
-       <height>241</height>
+       <height>251</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="layout_consulta">
@@ -66,7 +53,7 @@
            <height>91</height>
           </rect>
          </property>
-         <layout class="QFormLayout" name="formLayout">
+         <layout class="QFormLayout" name="layout_periodo">
           <item row="1" column="0">
            <widget class="QLabel" name="lbl_desde">
             <property name="text">
@@ -138,15 +125,20 @@
         <property name="title">
          <string>Conceptos</string>
         </property>
-        <widget class="QListWidget" name="lista_conceptos_en_consulta">
+        <widget class="QWidget" name="verticalLayoutWidget">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>20</y>
            <width>161</width>
-           <height>211</height>
+           <height>221</height>
           </rect>
          </property>
+         <layout class="QVBoxLayout" name="layout_concepto_consulta">
+          <item>
+           <widget class="QListWidget" name="lista_conceptos_en_consulta"/>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
@@ -186,6 +178,19 @@
       </item>
      </layout>
     </widget>
+    <widget class="QDialogButtonBox" name="btnbox_consulta">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>280</y>
+       <width>156</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_conceptos">
     <attribute name="title">
@@ -196,8 +201,8 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>531</width>
-       <height>251</height>
+       <width>541</width>
+       <height>291</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layout_conceptos">
@@ -205,16 +210,25 @@
        <widget class="QListWidget" name="lista_conceptos"/>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_agregar_conceptos">
-        <property name="text">
-         <string>agregar a consulta</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="btn_agregar_conceptos">
+          <property name="text">
+           <string>agregar a consulta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>sacar de consulta</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
-    <zorder>horizontalLayoutWidget</zorder>
-    <zorder>lista_conceptos</zorder>
    </widget>
    <widget class="QWidget" name="tab_periodo">
     <attribute name="title">
@@ -237,6 +251,54 @@
     </attribute>
    </widget>
   </widget>
+  <action name="action_agregar_conceptos">
+   <property name="text">
+    <string>agregar_conceptos</string>
+   </property>
+   <property name="toolTip">
+    <string>agregar_conceptos</string>
+   </property>
+  </action>
+  <action name="action_sacar_conceptos">
+   <property name="text">
+    <string>sacar_conceptos</string>
+   </property>
+  </action>
+  <action name="action_setear_periodo">
+   <property name="text">
+    <string>setear_periodo</string>
+   </property>
+  </action>
+  <action name="action_agregar_medios">
+   <property name="text">
+    <string>agregar_medios</string>
+   </property>
+  </action>
+  <action name="action_agregar_secciones">
+   <property name="text">
+    <string>agregar_secciones</string>
+   </property>
+  </action>
+  <action name="action_sacar_medios">
+   <property name="text">
+    <string>sacar_medios</string>
+   </property>
+  </action>
+  <action name="action_sacar_secciones">
+   <property name="text">
+    <string>sacar_secciones</string>
+   </property>
+  </action>
+  <action name="action_agregar_reportes">
+   <property name="text">
+    <string>agregar_reportes</string>
+   </property>
+  </action>
+  <action name="action_sacar_reportes">
+   <property name="text">
+    <string>sacar_reportes</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

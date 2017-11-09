@@ -6,6 +6,8 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
 {
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
+ 
+    this->setAttribute(Qt::WA_DeleteOnClose);
 }
 
 DialogoConsultas::~DialogoConsultas()

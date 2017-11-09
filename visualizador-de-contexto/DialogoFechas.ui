@@ -112,6 +112,34 @@
     </item>
    </layout>
   </widget>
+  <action name="action_guardar_fecha">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>guardar_fecha</string>
+   </property>
+  </action>
+  <action name="action_limpiar_fecha">
+   <property name="text">
+    <string>limpiar_fecha</string>
+   </property>
+  </action>
+  <action name="action_eliminar_fecha">
+   <property name="text">
+    <string>eliminar_fecha</string>
+   </property>
+  </action>
+  <action name="action_actualizar_y_cerrar">
+   <property name="text">
+    <string>actualizar_y_cerrar</string>
+   </property>
+  </action>
+  <action name="action_estado_btn_eliminar">
+   <property name="text">
+    <string>estado_btn_eliminar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
