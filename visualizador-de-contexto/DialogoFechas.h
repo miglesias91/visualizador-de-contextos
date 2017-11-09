@@ -8,6 +8,9 @@
 // modelo
 #include <modelo/include/Fecha.h>
 
+// visualizador
+#include <declaraciones_metatipos.h>
+
 namespace Ui { class DialogoFechas; };
 
 class DialogoFechas : public QWidget
@@ -33,7 +36,7 @@ private:
     Ui::DialogoFechas *ui;
 
     // agregar una fecha a la lista de fechas de la ui.
-    void agregarFechaALista(visualizador::modelo::Fecha* concepto);
+    void agregarFechaALista(visualizador::modelo::Fecha* fecha);
 
     // ATRIBUTOS
 

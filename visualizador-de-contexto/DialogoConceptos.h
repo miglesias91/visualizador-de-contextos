@@ -43,6 +43,8 @@ private:
 
     void cargarListaTerminos();
 
+    void descargarListaTerminos();
+
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_conceptos;
 };

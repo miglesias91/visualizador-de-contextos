@@ -5,9 +5,12 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-// CONSTRUCTORES
 
 std::hash<unsigned int> Fecha::hasher;
+
+std::string Fecha::nombres_meses[] = { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
+
+// CONSTRUCTORES
 
 Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(0), mes(0), anio(0)
 {
@@ -94,6 +97,21 @@ std::string Fecha::getStringMes()
 std::string Fecha::getStringAnio()
 {
 	return std::to_string(this->anio);
+}
+
+std::string Fecha::getNombreMes()
+{
+    return nombres_meses[this->mes - 1];
+}
+
+std::string Fecha::getStringDDMMAAAA(std::string separador)
+{
+    return this->getStringDia() + separador + this->getStringMes() + separador + this->getStringAnio();
+}
+
+std::string Fecha::getStringDDmesAAAA(std::string separador)
+{
+    return this->getStringDia() + separador + this->getNombreMes() + separador + this->getStringAnio();
 }
 
 // SETTERS

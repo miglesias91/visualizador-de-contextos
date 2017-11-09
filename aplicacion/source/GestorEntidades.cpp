@@ -7,10 +7,8 @@ using namespace visualizador;
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/IAdministradorAplicacion.h>
 
-
 // almacenamiento
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
-
 
 // modelo
 #include <modelo/include/IEntidad.h>
@@ -65,7 +63,6 @@ bool GestorEntidades::guardarCambios()
             this->admin_app->modificar(*this->entidades_it);
         }
     }
-    this->entidades_existentes.clear();
 
     for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
     {
@@ -85,6 +82,8 @@ bool GestorEntidades::guardarCambios()
 
 bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
 {
+    // si ya existe la entidad, entonces devuelvo 'false' indicando que no se agregó la nueva entidad
+    // y tiro una excepcion avisando que ya existe una entidad igual.
     if (this->existe(entidad_nueva))
     {
         // TODO implementar 'ExcepcionTerminoExistente'.
@@ -93,9 +92,10 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
         return false;
     }
 
-    // chequeo que el termino a agregar no este en la lista de eliminados:
+    // chequeo que la entidad a agregar no este en la lista de eliminados:
     // si estaba en la lista de eliminados, entonces quiere decir que esta en la bd y se quiere sacar.
-    // Entonces lo que hago es sacarlo de la lista de "a eliminar" y lo vuelvo a agregar a la QListWidget.
+    // Entonces lo que hago es sacarlo de la lista de "a eliminar" y lo vuelvo a agregar a la QListWidget,
+    // quedandome con la "entidad_nueva" y eliminando la vieja que figura en "a_eliminar".
     for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
     {
         if ((*this->entidades_it)->hashcode() == entidad_nueva->hashcode())
@@ -116,6 +116,8 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
 
 void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_eliminar)
 {
+    // chequeo que la entidad a eliminar no este en la lista de entidades que se quieren almacenar.
+    // en caso que SI este, entonces directamente la elimino de la lista de entidades a almacenar. De esta forma evito tocar la bd.
     this->entidades_it = std::find(this->entidades_a_almacenar.begin(), this->entidades_a_almacenar.end(), entidad_a_eliminar);
     if (this->entidades_a_almacenar.end() != this->entidades_it)
     {
@@ -125,6 +127,7 @@ void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
     }
     else
     {
+        // si la entidad a eliminar no esta en la lista de "a_almacenar", entonces la agrego a la lista de "a_eliminar" y la saco de la lista de "existentes".
         this->entidades_it = std::find(this->entidades_existentes.begin(), this->entidades_existentes.end(), entidad_a_eliminar);
         if (this->entidades_existentes.end() != this->entidades_it)
         {

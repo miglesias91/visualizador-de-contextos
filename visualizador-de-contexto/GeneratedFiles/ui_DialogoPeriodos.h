@@ -30,7 +30,12 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoPeriodos
 {
 public:
-    QDialogButtonBox *buttonBox;
+    QAction *action_guardar_periodo;
+    QAction *action_limpiar_periodo;
+    QAction *action_eliminar_periodo;
+    QAction *action_actualizar_y_cerrar;
+    QAction *action_estado_btn_eliminar;
+    QDialogButtonBox *btnbox_periodos;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
     QFormLayout *layout_opciones;
@@ -51,10 +56,20 @@ public:
         if (DialogoPeriodos->objectName().isEmpty())
             DialogoPeriodos->setObjectName(QStringLiteral("DialogoPeriodos"));
         DialogoPeriodos->resize(577, 345);
-        buttonBox = new QDialogButtonBox(DialogoPeriodos);
-        buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(210, 310, 156, 23));
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        action_guardar_periodo = new QAction(DialogoPeriodos);
+        action_guardar_periodo->setObjectName(QStringLiteral("action_guardar_periodo"));
+        action_limpiar_periodo = new QAction(DialogoPeriodos);
+        action_limpiar_periodo->setObjectName(QStringLiteral("action_limpiar_periodo"));
+        action_eliminar_periodo = new QAction(DialogoPeriodos);
+        action_eliminar_periodo->setObjectName(QStringLiteral("action_eliminar_periodo"));
+        action_actualizar_y_cerrar = new QAction(DialogoPeriodos);
+        action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
+        action_estado_btn_eliminar = new QAction(DialogoPeriodos);
+        action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
+        btnbox_periodos = new QDialogButtonBox(DialogoPeriodos);
+        btnbox_periodos->setObjectName(QStringLiteral("btnbox_periodos"));
+        btnbox_periodos->setGeometry(QRect(210, 310, 156, 23));
+        btnbox_periodos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         horizontalLayoutWidget = new QWidget(DialogoPeriodos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(10, 10, 551, 291));
@@ -127,6 +142,12 @@ public:
 
 
         retranslateUi(DialogoPeriodos);
+        QObject::connect(btnbox_periodos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
+        QObject::connect(btnbox_periodos, SIGNAL(rejected()), DialogoPeriodos, SLOT(close()));
+        QObject::connect(btn_guardar_periodo, SIGNAL(released()), action_guardar_periodo, SLOT(trigger()));
+        QObject::connect(btn_eliminar_periodo, SIGNAL(released()), action_eliminar_periodo, SLOT(trigger()));
+        QObject::connect(btn_limpiar_periodo, SIGNAL(released()), action_limpiar_periodo, SLOT(trigger()));
+        QObject::connect(lista_periodos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoPeriodos);
     } // setupUi
@@ -134,6 +155,11 @@ public:
     void retranslateUi(QWidget *DialogoPeriodos)
     {
         DialogoPeriodos->setWindowTitle(QApplication::translate("DialogoPeriodos", "DialogoPeriodos", Q_NULLPTR));
+        action_guardar_periodo->setText(QApplication::translate("DialogoPeriodos", "guardar_periodo", Q_NULLPTR));
+        action_limpiar_periodo->setText(QApplication::translate("DialogoPeriodos", "limpiar_periodo", Q_NULLPTR));
+        action_eliminar_periodo->setText(QApplication::translate("DialogoPeriodos", "eliminar_periodo", Q_NULLPTR));
+        action_actualizar_y_cerrar->setText(QApplication::translate("DialogoPeriodos", "actualizar_y_cerrar", Q_NULLPTR));
+        action_estado_btn_eliminar->setText(QApplication::translate("DialogoPeriodos", "estado_btn_eliminar", Q_NULLPTR));
         lbl_etiqueta->setText(QApplication::translate("DialogoPeriodos", "etiqueta", Q_NULLPTR));
         lbl_desde->setText(QApplication::translate("DialogoPeriodos", "desde", Q_NULLPTR));
         lbl_hasta->setText(QApplication::translate("DialogoPeriodos", "hasta", Q_NULLPTR));

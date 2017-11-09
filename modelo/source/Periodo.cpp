@@ -20,13 +20,13 @@ Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(
 
 Periodo::~Periodo()
 {
-    if (0 == this->desde->restarReferencia())
+    if (this->desde != NULL && 0 == this->desde->restarReferencia())
     {
         delete this->desde;
         this->desde = NULL;
     }
 
-    if (0 == this->hasta->restarReferencia())
+    if (this->hasta != NULL && 0 == this->hasta->restarReferencia())
     {
         delete this->hasta;
         this->hasta = NULL;

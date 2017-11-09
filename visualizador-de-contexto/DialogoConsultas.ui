@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_consulta">
     <attribute name="title">
@@ -210,7 +210,7 @@
        <widget class="QListWidget" name="lista_conceptos"/>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="layout_opciones_conceptos">
         <item>
          <widget class="QPushButton" name="btn_agregar_conceptos">
           <property name="text">
@@ -219,7 +219,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="btn_sacar_conceptos">
           <property name="text">
            <string>sacar de consulta</string>
           </property>
@@ -234,21 +234,146 @@
     <attribute name="title">
      <string>Periodo</string>
     </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>531</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="layout_periodos">
+      <item>
+       <widget class="QListWidget" name="lista_periodos"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layout_opciones_periodos">
+        <item>
+         <widget class="QPushButton" name="btn_setear_periodo">
+          <property name="text">
+           <string>setear periodo</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_medios">
     <attribute name="title">
      <string>Medios</string>
     </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>9</y>
+       <width>541</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="layout_medios">
+      <item>
+       <widget class="QListWidget" name="lista_medios"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="layout_opciones_medios">
+        <item>
+         <widget class="QPushButton" name="btn_agregar_medios">
+          <property name="text">
+           <string>agregar a consulta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_sacar_medios">
+          <property name="text">
+           <string>sacar de consulta</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_secciones">
     <attribute name="title">
      <string>Secciones</string>
     </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>9</y>
+       <width>541</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="layout_secciones">
+      <item>
+       <widget class="QListWidget" name="lista_secciones"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="layout_opciones_secciones">
+        <item>
+         <widget class="QPushButton" name="btn_agregar_secciones">
+          <property name="text">
+           <string>agregar a consulta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_sacar_secciones">
+          <property name="text">
+           <string>sacar de consulta</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_reporte">
     <attribute name="title">
      <string>Reportes</string>
     </attribute>
+    <widget class="QWidget" name="horizontalLayoutWidget_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>541</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="layout_reportes">
+      <item>
+       <widget class="QListWidget" name="lista_reportes"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="layout_opciones_reportes">
+        <item>
+         <widget class="QPushButton" name="btn_sacar_reportes">
+          <property name="text">
+           <string>agregar a consulta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_agregar_reportes">
+          <property name="text">
+           <string>sacar de consulta</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
   <action name="action_agregar_conceptos">
@@ -299,8 +424,190 @@
     <string>sacar_reportes</string>
    </property>
   </action>
+  <action name="action_realizar_consulta_y_cerrar">
+   <property name="text">
+    <string>realizar_consulta_y_cerrar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_agregar_conceptos</sender>
+   <signal>released()</signal>
+   <receiver>action_agregar_conceptos</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_sacar_conceptos</sender>
+   <signal>released()</signal>
+   <receiver>action_sacar_conceptos</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>240</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_setear_periodo</sender>
+   <signal>released()</signal>
+   <receiver>action_setear_periodo</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_agregar_medios</sender>
+   <signal>released()</signal>
+   <receiver>action_agregar_medios</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_sacar_medios</sender>
+   <signal>released()</signal>
+   <receiver>action_sacar_medios</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_agregar_secciones</sender>
+   <signal>released()</signal>
+   <receiver>action_agregar_secciones</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_sacar_secciones</sender>
+   <signal>released()</signal>
+   <receiver>action_sacar_secciones</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_agregar_reportes</sender>
+   <signal>released()</signal>
+   <receiver>action_agregar_reportes</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>240</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_sacar_reportes</sender>
+   <signal>released()</signal>
+   <receiver>action_sacar_reportes</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>511</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_consulta</sender>
+   <signal>accepted()</signal>
+   <receiver>action_realizar_consulta_y_cerrar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_consulta</sender>
+   <signal>rejected()</signal>
+   <receiver>DialogoConsultas</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

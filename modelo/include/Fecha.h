@@ -46,9 +46,11 @@ public:
 	std::string getStringMes();
 	std::string getStringAnio();
 
-    std::string getStringDDMMAAAA();
+    std::string getNombreMes();
 
-    std::string getStringDDmesAAAA();
+    std::string getStringDDMMAAAA(std::string separador = "");
+
+    std::string getStringDDmesAAAA(std::string separador = "");
 
 	// SETTERS
 
@@ -63,6 +65,8 @@ public:
 private:
 
 	static std::hash<unsigned int> hasher;
+
+    static std::string nombres_meses[];
 
 	unsigned int dia;
 	unsigned int mes;

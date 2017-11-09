@@ -48,7 +48,6 @@ bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IEntidad * en
 	return retorno;
 }
 
-
 bool AdministradorAplicacionLocal::almacenar(std::vector<visualizador::modelo::IEntidad*> entidades)
 {
     visualizador::modelo::IEntidad* entidad = NULL;

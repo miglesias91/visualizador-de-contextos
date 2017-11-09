@@ -143,5 +143,102 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lista_fechas</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>action_estado_btn_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_fechas</sender>
+   <signal>accepted()</signal>
+   <receiver>action_actualizar_y_cerrar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_fechas</sender>
+   <signal>rejected()</signal>
+   <receiver>DialogoFechas</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_guardar_fecha</sender>
+   <signal>released()</signal>
+   <receiver>action_guardar_fecha</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_eliminar_fecha</sender>
+   <signal>released()</signal>
+   <receiver>action_eliminar_fecha</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_limpiar_fecha</sender>
+   <signal>released()</signal>
+   <receiver>action_limpiar_fecha</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
