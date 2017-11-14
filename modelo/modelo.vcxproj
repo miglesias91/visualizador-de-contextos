@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\IAlmacenable.h" />
     <ClInclude Include="include\IJson.h" />
     <ClInclude Include="include\ContenidoEntidad.h" />
     <ClInclude Include="include\Concepto.h" />
@@ -130,6 +131,7 @@
     <ClInclude Include="include\IReferenciable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\IAlmacenable.cpp" />
     <ClCompile Include="source\IReferenciable.cpp" />
     <ClCompile Include="source\IJson.cpp" />
     <ClCompile Include="source\ContenidoEntidad.cpp" />

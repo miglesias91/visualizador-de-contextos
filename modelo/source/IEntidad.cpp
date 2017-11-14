@@ -5,28 +5,30 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/GestorIDs.h>
 
-IEntidad::IEntidad() : IReferenciable(), id(NULL), contenido(NULL), esta_limpia(false)
+//IEntidad::IEntidad() : IReferenciable(), id(NULL), contenido(NULL), esta_limpia(false)
+IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), contenido(NULL), esta_limpia(false)
 {
 }
 
 IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido)
-    : IReferenciable(), etiqueta(etiqueta), grupo(grupo), id(NULL), contenido(contenido), esta_limpia(false)
+    //: IReferenciable(), etiqueta(etiqueta), grupo(grupo), id(NULL), contenido(contenido), esta_limpia(false)
+    : IReferenciable(), IAlmacenable(grupo), etiqueta(etiqueta), contenido(contenido), esta_limpia(false)
 {
 }
 
 IEntidad::~IEntidad()
 {
-	delete this->id;
-	this->id = NULL;
+	//delete this->id;
+	//this->id = NULL;
 
 	delete this->contenido;
 	this->contenido = NULL;
 }
 
-visualizador::aplicacion::ID* IEntidad::getId()
-{
-	return this->id;
-}
+//visualizador::aplicacion::ID* IEntidad::getId()
+//{
+//	return this->id;
+//}
 
 std::string IEntidad::getEtiqueta()
 {
@@ -38,10 +40,10 @@ ContenidoEntidad* IEntidad::getContenido()
 	return this->contenido;
 }
 
-std::string IEntidad::getGrupo()
-{
-	return this->grupo;
-}
+//std::string IEntidad::getGrupo()
+//{
+//	return this->grupo;
+//}
 
 std::string IEntidad::getValorAlmacenable()
 {
@@ -60,10 +62,10 @@ std::string IEntidad::getValorAlmacenable()
 	return string_almacenable;
 }
 
-void IEntidad::setId(visualizador::aplicacion::ID* id)
-{
-	this->id = id;
-}
+//void IEntidad::setId(visualizador::aplicacion::ID* id)
+//{
+//	this->id = id;
+//}
 
 void IEntidad::setEtiqueta(std::string etiqueta)
 {
@@ -75,15 +77,15 @@ void IEntidad::setContenido(ContenidoEntidad* contenido)
 	this->contenido = contenido;
 }
 
-void IEntidad::setGrupo(std::string grupo)
-{
-	this->grupo = grupo;
-}
-
-void IEntidad::asignarNuevoId()
-{
-	this->id = visualizador::aplicacion::GestorIDs::nuevoID();
-}
+//void IEntidad::setGrupo(std::string grupo)
+//{
+//	this->grupo = grupo;
+//}
+//
+//void IEntidad::asignarNuevoId()
+//{
+//	this->id = visualizador::aplicacion::GestorIDs::nuevoID();
+//}
 
 void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 {
@@ -99,10 +101,10 @@ void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 	delete json_contenido;
 }
 
-bool IEntidad::comparador(IEntidad * a, IEntidad * b)
-{
-	return a->getId()->numero() < b->getId()->numero();
-}
+//bool IEntidad::comparador(IEntidad * a, IEntidad * b)
+//{
+//	return a->getId()->numero() < b->getId()->numero();
+//}
 
 bool IEntidad::estaSucia()
 {

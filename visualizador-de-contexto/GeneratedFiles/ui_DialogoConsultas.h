@@ -403,7 +403,7 @@ public:
         QObject::connect(btnbox_consulta, SIGNAL(accepted()), action_realizar_consulta_y_cerrar, SLOT(trigger()));
         QObject::connect(btnbox_consulta, SIGNAL(rejected()), DialogoConsultas, SLOT(close()));
 
-        opciones_consulta->setCurrentIndex(0);
+        opciones_consulta->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(DialogoConsultas);
