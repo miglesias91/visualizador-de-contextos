@@ -8,18 +8,18 @@ namespace visualizador
 namespace modelo
 {
 
-class ContenidoEntidad : public IJson
+class ContenidoJson : public IJson
 {
 public:
 
 	// CONSTRUCTORES
 
-	ContenidoEntidad();
-	virtual ~ContenidoEntidad();
+	ContenidoJson();
+	virtual ~ContenidoJson();
 
 	// METODOS
 
-    ContenidoEntidad * clonar();
+    ContenidoJson * clonar();
 
 	// GETTERS
 
