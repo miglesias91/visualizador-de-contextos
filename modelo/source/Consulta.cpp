@@ -157,7 +157,7 @@ void Consulta::crearContenido()
 		ids_secciones.push_back(id);
 	}
 
-	ContenidoEntidad* contenido = this->getContenido();
+	IJson* contenido = this->getContenido();
 	contenido->reset();
 
 	// agrego periodo

@@ -18,7 +18,7 @@ Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::Config
 {
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
 {
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
@@ -67,7 +67,7 @@ void Concepto::crearContenido()
 		ids_terminos.push_back(id);
 	}
 
-	ContenidoEntidad* contenido = this->getContenido();
+	IJson* contenido = this->getContenido();
 	contenido->reset();
 
 	contenido->agregarAtributoArray("ids_terminos", ids_terminos);

@@ -32,7 +32,7 @@ void Termino::setValor(std::string valor)
 
 void Termino::crearContenido()
 {
-	ContenidoEntidad* contenido = this->getContenido();
+	IJson* contenido = this->getContenido();
 	contenido->reset();
 
 	contenido->agregarAtributoValor("valor", this->getValor());

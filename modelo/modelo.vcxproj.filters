@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de código fuente\relaciones">
+      <UniqueIdentifier>{c0efa985-ae50-4a4b-8b99-231f32c91b83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\relaciones">
+      <UniqueIdentifier>{8c95f7eb-8718-4e54-857b-ab7aeb144225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Termino.h">
@@ -45,9 +51,6 @@
     <ClInclude Include="include\Seccion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="include\ContenidoEntidad.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="include\IJson.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -55,6 +58,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="include\IAlmacenable.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="IRelacion.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IContieneJson.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,9 +98,6 @@
     <ClCompile Include="source\Termino.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="source\ContenidoEntidad.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="source\IJson.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
@@ -99,6 +105,12 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="source\IAlmacenable.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="IRelacion.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IContieneJson.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

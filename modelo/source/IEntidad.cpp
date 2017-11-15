@@ -5,19 +5,17 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/GestorIDs.h>
 
-IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), contenido(NULL), esta_limpia(false)
+IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), IContieneJson(), esta_limpia(false)
 {
 }
 
-IEntidad::IEntidad(std::string etiqueta, std::string grupo, ContenidoEntidad* contenido)
-    : IReferenciable(), IAlmacenable(grupo), etiqueta(etiqueta), contenido(contenido), esta_limpia(false)
+IEntidad::IEntidad(std::string etiqueta, std::string grupo, IJson * contenido)
+    : IReferenciable(), IAlmacenable(grupo), IContieneJson(contenido), etiqueta(etiqueta), esta_limpia(false)
 {
 }
 
 IEntidad::~IEntidad()
 {
-	delete this->contenido;
-	this->contenido = NULL;
 }
 
 std::string IEntidad::getEtiqueta()
@@ -25,24 +23,17 @@ std::string IEntidad::getEtiqueta()
 	return this->etiqueta;
 }
 
-ContenidoEntidad* IEntidad::getContenido()
-{
-	return this->contenido;
-}
-
 std::string IEntidad::getValorAlmacenable()
 {
 	this->crearContenido();
 
 	IJson* json_contenido = this->getContenido();
-	IJson* json_almacenable = new IJson();
+	IJson json_almacenable;
 
-	json_almacenable->agregarAtributoValor("etiqueta", this->getEtiqueta());
-	json_almacenable->agregarAtributoJson("contenido", json_contenido);
+	json_almacenable.agregarAtributoValor("etiqueta", this->getEtiqueta());
+	json_almacenable.agregarAtributoJson("contenido", json_contenido);
 
-	std::string string_almacenable = json_almacenable->jsonString();
-
-	delete json_almacenable;
+	std::string string_almacenable = json_almacenable.jsonString();
 
 	return string_almacenable;
 }
@@ -50,11 +41,6 @@ std::string IEntidad::getValorAlmacenable()
 void IEntidad::setEtiqueta(std::string etiqueta)
 {
 	this->etiqueta = etiqueta;
-}
-
-void IEntidad::setContenido(ContenidoEntidad* contenido)
-{
-	this->contenido = contenido;
 }
 
 void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)

@@ -20,7 +20,7 @@ public:
 
 	Concepto(std::string etiqueta = "");
 	
-	Concepto(std::vector<Termino*> terminos, ContenidoEntidad* contenido, std::string etiqueta = "");
+	Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta = "");
 
 	Concepto(std::vector<Termino*> terminos, std::string etiqueta = "");
 

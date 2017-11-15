@@ -28,7 +28,7 @@ Fecha::~Fecha()
 
 void Fecha::crearContenido()
 {
-	ContenidoEntidad* contenido = this->getContenido();
+	IJson* contenido = this->getContenido();
 	contenido->reset();
 
 	contenido->agregarAtributoValor("dia", this->getDia());

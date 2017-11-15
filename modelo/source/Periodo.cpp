@@ -37,7 +37,7 @@ Periodo::~Periodo()
 
 void Periodo::crearContenido()
 {
-	ContenidoEntidad* contenido = this->getContenido();
+	IJson* contenido = this->getContenido();
 	contenido->reset();
 
 	contenido->agregarAtributoValor("id_fecha_desde", this->getDesde()->getId()->numero());

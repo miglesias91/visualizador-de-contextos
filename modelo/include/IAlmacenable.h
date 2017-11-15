@@ -6,9 +6,6 @@
 // aplicacion
 #include <aplicacion/include/ID.h>
 
-// modelo
-#include <modelo/include/ContenidoEntidad.h>
-
 namespace visualizador
 {
 namespace modelo
