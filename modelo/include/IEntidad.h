@@ -40,6 +40,8 @@ public:
 
 	virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
+    static std::vector<IAlmacenable*> comoAlmacenables(std::vector<IEntidad*> entidades);
+
     // CONSULTAS
 
     virtual bool estaSucia();

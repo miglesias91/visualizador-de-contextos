@@ -354,10 +354,93 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 
 	ASSERT_EQ(id_actual, id_actual_recuperado);
 }
+//
+//TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
+//{
+//    GestorIDs::setIdActual(0);
+//
+//	GestorEntidades gestor_conceptos;
+//
+//	gestor_conceptos.gestionar<Concepto>();
+//
+//    Termino* termino1 = new Termino("termino_ok", "gestorentidad-almacenamiento-test");
+//    termino1->asignarNuevoId();
+//
+//    Termino* termino2 = new Termino("termino_ok2", "gestorentidad-almacenamiento-test");
+//    termino2->asignarNuevoId();
+//
+//    std::vector<Termino*> terminos_corrupcion;
+//    terminos_corrupcion.push_back(termino1);
+//    terminos_corrupcion.push_back(termino2);
+//
+//    Concepto* concepto1 = new Concepto(terminos_corrupcion, "gestorentidad-almacenamiento-test");
+//    concepto1->asignarNuevoId();
+//
+//    GestorEntidades gestor_terminos;
+//    gestor_terminos.gestionar<Termino>();
+//    gestor_terminos.almacenar(termino1);
+//    gestor_terminos.almacenar(termino2);
+//    gestor_terminos.guardarCambios();
+//
+//    gestor_conceptos.almacenar(concepto1);
+//
+//    gestor_conceptos.guardarCambios();
+//
+//    GestorEntidades gestor_conceptos_nuevo;
+//    gestor_conceptos_nuevo.gestionar<Concepto>();
+//
+//    bool existe = gestor_conceptos_nuevo.existe(concepto1);
+//
+//    ASSERT_EQ(true, existe);
+//
+//    delete concepto1;
+//
+//}
 
-TEST(aplicacionAlmacenamiento, GestorEntidadFuncionamientoCorrecto)
+
+TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
 {
-	//GestorEntidad<Termino*> gestor_terminos;
+    GestorIDs::setIdActual(0);
 
-	//std::vector<Termino*> terminos = gestor_terminos.recuperarTodos<Termino*>();
+    GestorEntidades gestor_conceptos;
+
+    std::vector<Concepto*> conceptos = gestor_conceptos.gestionar<Concepto>();
+
+    Termino* termino1 = new Termino("termino_ok", "gestorentidad-almacenamiento-test");
+    termino1->asignarNuevoId();
+
+    Termino* termino2 = new Termino("termino_ok2", "gestorentidad-almacenamiento-test");
+    termino2->asignarNuevoId();
+
+    std::vector<Termino*> terminos_corrupcion;
+    terminos_corrupcion.push_back(termino1);
+    terminos_corrupcion.push_back(termino2);
+
+    Concepto* concepto1 = new Concepto(terminos_corrupcion, "gestorentidad-almacenamiento-test");
+    concepto1->asignarNuevoId();
+    gestor_conceptos.eliminar(concepto1);
+
+    gestor_conceptos.guardarCambios();
+
+    GestorEntidades gestor_terminos;
+    gestor_terminos.gestionar<Termino>();
+
+    gestor_terminos.eliminar(termino1);
+    gestor_terminos.eliminar(termino2);
+
+    gestor_terminos.guardarCambios();
+
+    GestorEntidades gestor_conceptos_nuevo;
+    gestor_conceptos_nuevo.gestionar<Concepto>();
+    bool existe1 = gestor_conceptos_nuevo.existe(concepto1);
+
+    GestorEntidades gestor_terminos_nuevo;
+    gestor_terminos_nuevo.gestionar<Termino>();
+
+    bool existe2 = gestor_terminos_nuevo.existe(termino1);
+    bool existe3 = gestor_terminos_nuevo.existe(termino2);
+
+    ASSERT_EQ(false, existe1);
+    ASSERT_EQ(false, existe2);
+    ASSERT_EQ(false, existe3);
 }

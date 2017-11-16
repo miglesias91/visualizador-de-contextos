@@ -46,12 +46,14 @@ GestorEntidades::~GestorEntidades()
 
 bool GestorEntidades::guardarCambios()
 {
-    if (false == this->admin_app->almacenar(this->entidades_a_almacenar))
+    std::vector<visualizador::modelo::IAlmacenable*> almacenables_a_almacenar = visualizador::modelo::IEntidad::comoAlmacenables(this->entidades_a_almacenar);
+    if (false == this->admin_app->almacenar(almacenables_a_almacenar))
     {
         return false;
     }
 
-    if (false == this->admin_app->eliminar(this->entidades_a_eliminar))
+    std::vector<visualizador::modelo::IAlmacenable*> almacenables_a_eliminar = visualizador::modelo::IEntidad::comoAlmacenables(this->entidades_a_eliminar);
+    if (false == this->admin_app->eliminar(almacenables_a_eliminar))
     {
         return false;
     }
@@ -118,23 +120,62 @@ void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
 {
     // chequeo que la entidad a eliminar no este en la lista de entidades que se quieren almacenar.
     // en caso que SI este, entonces directamente la elimino de la lista de entidades a almacenar. De esta forma evito tocar la bd.
-    this->entidades_it = std::find(this->entidades_a_almacenar.begin(), this->entidades_a_almacenar.end(), entidad_a_eliminar);
-    if (this->entidades_a_almacenar.end() != this->entidades_it)
+    //this->entidades_it = std::find(this->entidades_a_almacenar.begin(), this->entidades_a_almacenar.end(), entidad_a_eliminar);
+    //if (this->entidades_a_almacenar.end() != this->entidades_it)
+    //{
+    //    visualizador::modelo::IEntidad* entidad_a_devolver = *this->entidades_it;
+    //    delete entidad_a_eliminar;
+    //    this->entidades_a_almacenar.erase(this->entidades_it);
+    //}
+    //else
+    //{
+    //    // si la entidad a eliminar no esta en la lista de "a_almacenar", entonces la agrego a la lista de "a_eliminar" y la saco de la lista de "existentes".
+    //    this->entidades_it = std::find(this->entidades_existentes.begin(), this->entidades_existentes.end(), entidad_a_eliminar);
+    //    if (this->entidades_existentes.end() != this->entidades_it)
+    //    {
+    //        this->entidades_existentes.erase(this->entidades_it);
+    //    }
+    //    this->entidades_a_eliminar.push_back(entidad_a_eliminar);
+    //}
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
     {
-        visualizador::modelo::IEntidad* entidad_a_devolver = *this->entidades_it;
-        delete entidad_a_eliminar;
-        this->entidades_a_almacenar.erase(this->entidades_it);
-    }
-    else
-    {
-        // si la entidad a eliminar no esta en la lista de "a_almacenar", entonces la agrego a la lista de "a_eliminar" y la saco de la lista de "existentes".
-        this->entidades_it = std::find(this->entidades_existentes.begin(), this->entidades_existentes.end(), entidad_a_eliminar);
-        if (this->entidades_existentes.end() != this->entidades_it)
+        if ((*this->entidades_it)->hashcode() == entidad_a_eliminar->hashcode())
         {
+            this->entidades_a_almacenar.erase(this->entidades_it);
+        }
+    }
+
+    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_eliminar->hashcode())
+        {
+            this->entidades_a_eliminar.push_back(*this->entidades_it);
             this->entidades_existentes.erase(this->entidades_it);
         }
-        this->entidades_a_eliminar.push_back(entidad_a_eliminar);
     }
+}
+
+
+visualizador::modelo::IEntidad * GestorEntidades::encontrar(visualizador::modelo::IEntidad * entidad_a_encontrar)
+{
+    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_encontrar->hashcode())
+        {
+            return *this->entidades_it;
+        }
+    }
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_encontrar->hashcode())
+        {
+            return *this->entidades_it;;
+        }
+    }
+
+    return NULL;
 }
 
 bool GestorEntidades::existe(visualizador::modelo::IEntidad * entidad_a_chequear)

@@ -57,6 +57,19 @@ void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 	delete json_contenido;
 }
 
+std::vector<IAlmacenable*> IEntidad::comoAlmacenables(std::vector<IEntidad*> entidades)
+{
+    std::vector<IAlmacenable*> almacenables;
+
+    for (std::vector<IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
+    {
+        IEntidad* entidad = *it;
+        almacenables.push_back(entidad);
+    }
+
+    return almacenables;
+}
+
 bool IEntidad::estaSucia()
 {
     return !this->estaLimpia();
