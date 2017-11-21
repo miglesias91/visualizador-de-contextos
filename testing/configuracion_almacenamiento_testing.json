@@ -1,5 +1,5 @@
 {
-	"path_db" : "C:/temp/test_rocksdb",
+	"path_db" : "C:/temp/db_visualizador-de-contextos--testing",
 	"almacenamiento_local" : true,
 	"almacenamiento_distribuido" : false
 }

@@ -2,12 +2,15 @@
 
 using namespace visualizador::aplicacion;
 
+// aplicacion
+#include <aplicacion/include/ConfiguracionAplicacion.h>
+
 // almacenamiento
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 
 AdministradorAplicacionLocal::AdministradorAplicacionLocal() : admin_almacenamiento(NULL)
 {
-	almacenamiento::IAdministradorAlmacenamiento::iniciar("configuracion_almacenamiento.json");
+	almacenamiento::IAdministradorAlmacenamiento::iniciar(ConfiguracionAplicacion::pathConfiguracion());
 
     this->admin_almacenamiento = almacenamiento::IAdministradorAlmacenamiento::getInstancia();
 }
@@ -31,6 +34,11 @@ bool AdministradorAplicacionLocal::cerrarBD()
 	bool retorno = this->admin_almacenamiento->cerrar();
 
 	return retorno;
+}
+
+bool AdministradorAplicacionLocal::borrarBD()
+{
+    return this->admin_almacenamiento->borrar();
 }
 
 //bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IEntidad * entidad)

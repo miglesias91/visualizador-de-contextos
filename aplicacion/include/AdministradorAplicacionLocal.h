@@ -23,6 +23,8 @@ public:
 
 	virtual bool cerrarBD();
 
+    virtual bool borrarBD();
+
 	//virtual bool almacenar(visualizador::modelo::IEntidad* entidad);
 
  //   virtual bool almacenar(std::vector<visualizador::modelo::IEntidad*> entidades);

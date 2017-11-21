@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
 
-    aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+    aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
     aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
@@ -24,6 +24,8 @@ int main(int argc, char **argv)
 	int result = RUN_ALL_TESTS();
 
     aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+
+    aplicacion::IAdministradorAplicacion::getInstancia()->borrarBD();
 
     aplicacion::IAdministradorAplicacion::liberar();
 

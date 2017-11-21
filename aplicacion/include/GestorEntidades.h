@@ -41,7 +41,7 @@ public:
     bool almacenar(visualizador::modelo::IEntidad* entidad_a_almacenar);
 
     // elimina logicamente el termino.
-    void eliminar(visualizador::modelo::IEntidad* entidad_a_eliminar);
+    bool eliminar(visualizador::modelo::IEntidad* entidad_a_eliminar);
 
     // devuelve el puntero a la entidad en caso que se encuentre en la lista de 'existentes' o de 'a almacenar'
     visualizador::modelo::IEntidad* encontrar(visualizador::modelo::IEntidad* entidad_a_encontrar);

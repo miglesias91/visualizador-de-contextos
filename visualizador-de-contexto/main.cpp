@@ -15,7 +15,7 @@ using namespace visualizador;
 int main(int argc, char *argv[])
 {
 	// INIT APP
-	aplicacion::IAdministradorAplicacion::iniciar("configuracion_aplicacion.json");
+	aplicacion::IAdministradorAplicacion::iniciar("config_visualizador-de-contexto.json");
 	aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
 	aplicacion::IAdministradorAplicacion::getInstancia()->recuperarIDActual();
 

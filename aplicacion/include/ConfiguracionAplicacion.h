@@ -23,6 +23,8 @@ public:
 
 	// CONFIGURACIONES
 
+    static std::string pathConfiguracion();
+
 	static bool aplicacionLocal();
 	static bool aplicacionDistribuida();
 	static bool prefijoHabilitado();
@@ -58,6 +60,8 @@ private:
 
 	ConfiguracionAplicacion();
 	virtual ~ConfiguracionAplicacion();
+
+    static std::string path_config;
 
 	static bool aplicacion_local;
 	static bool aplicacion_distribuida;

@@ -36,7 +36,9 @@ public:
 
 	virtual bool abrirBD() = 0;
 
-	virtual bool cerrarBD() = 0;
+    virtual bool cerrarBD() = 0;
+
+    virtual bool borrarBD() = 0;
 
 	//virtual bool almacenar(visualizador::modelo::IEntidad* entidad) = 0;
 

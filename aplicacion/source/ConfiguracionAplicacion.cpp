@@ -6,6 +6,8 @@ using namespace visualizador::aplicacion;
 #include <fstream>
 #include <sstream>
 
+std::string ConfiguracionAplicacion::path_config;
+
 bool ConfiguracionAplicacion::aplicacion_local;
 bool ConfiguracionAplicacion::aplicacion_distribuida;
 bool ConfiguracionAplicacion::prefijo_habilitado;
@@ -28,6 +30,8 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 {
 	std::ifstream archivo(path_archivo_configuracion);
 
+    path_config = path_archivo_configuracion;
+
 	if (false == archivo.good())
 	{
 		throw - 1;
@@ -40,20 +44,22 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 	rapidjson::Document config_json;
 	config_json.Parse(string_config.c_str());
 
-	aplicacion_local = config_json[ConfiguracionAplicacion::tagAplicacionLocal().c_str()].GetBool();
-	aplicacion_distribuida = config_json[ConfiguracionAplicacion::tagAplicacionDistribuida().c_str()].GetBool();
-	prefijo_habilitado = config_json[ConfiguracionAplicacion::tagPrefijoHabilitado().c_str()].GetBool();
-	prefijo_tamanio = config_json[ConfiguracionAplicacion::tagPrefijoTamanio().c_str()].GetUint();
+    rapidjson::Value & config_app_json = config_json["aplicacion"];
 
-	prefijo_configuracion = config_json[ConfiguracionAplicacion::tagPrefijoConfiguracion().c_str()].GetString();
-	prefijo_concepto = config_json[ConfiguracionAplicacion::tagPrefijoConcepto().c_str()].GetString();
-	prefijo_termino = config_json[ConfiguracionAplicacion::tagPrefijoTermino().c_str()].GetString();
-	prefijo_consulta = config_json[ConfiguracionAplicacion::tagPrefijoConsulta().c_str()].GetString();
-	prefijo_reporte = config_json[ConfiguracionAplicacion::tagPrefijoReporte().c_str()].GetString();
-	prefijo_seccion = config_json[ConfiguracionAplicacion::tagPrefijoSeccion().c_str()].GetString();
-	prefijo_periodo = config_json[ConfiguracionAplicacion::tagPrefijoPeriodo().c_str()].GetString();
-	prefijo_fecha = config_json[ConfiguracionAplicacion::tagPrefijoFecha().c_str()].GetString();
-	prefijo_medio = config_json[ConfiguracionAplicacion::tagPrefijoMedio().c_str()].GetString();
+	aplicacion_local = config_app_json[ConfiguracionAplicacion::tagAplicacionLocal().c_str()].GetBool();
+	aplicacion_distribuida = config_app_json[ConfiguracionAplicacion::tagAplicacionDistribuida().c_str()].GetBool();
+	prefijo_habilitado = config_app_json[ConfiguracionAplicacion::tagPrefijoHabilitado().c_str()].GetBool();
+	prefijo_tamanio = config_app_json[ConfiguracionAplicacion::tagPrefijoTamanio().c_str()].GetUint();
+
+	prefijo_configuracion = config_app_json[ConfiguracionAplicacion::tagPrefijoConfiguracion().c_str()].GetString();
+	prefijo_concepto = config_app_json[ConfiguracionAplicacion::tagPrefijoConcepto().c_str()].GetString();
+	prefijo_termino = config_app_json[ConfiguracionAplicacion::tagPrefijoTermino().c_str()].GetString();
+	prefijo_consulta = config_app_json[ConfiguracionAplicacion::tagPrefijoConsulta().c_str()].GetString();
+	prefijo_reporte = config_app_json[ConfiguracionAplicacion::tagPrefijoReporte().c_str()].GetString();
+	prefijo_seccion = config_app_json[ConfiguracionAplicacion::tagPrefijoSeccion().c_str()].GetString();
+	prefijo_periodo = config_app_json[ConfiguracionAplicacion::tagPrefijoPeriodo().c_str()].GetString();
+	prefijo_fecha = config_app_json[ConfiguracionAplicacion::tagPrefijoFecha().c_str()].GetString();
+	prefijo_medio = config_app_json[ConfiguracionAplicacion::tagPrefijoMedio().c_str()].GetString();
 
 	// recorto el prefijo al tamanio indicado en el archivo de config.
 	prefijo_configuracion.erase(prefijo_configuracion.begin() + prefijo_tamanio, prefijo_configuracion.end());
@@ -69,6 +75,11 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 rapidjson::Document::AllocatorType * ConfiguracionAplicacion::getAlocador()
 {
 	return &documento_alocador.GetAllocator();
+}
+
+std::string ConfiguracionAplicacion::pathConfiguracion()
+{
+    return path_config;
 }
 
 bool ConfiguracionAplicacion::aplicacionLocal()

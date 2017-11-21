@@ -90,7 +90,7 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
     {
         // TODO implementar 'ExcepcionTerminoExistente'.
         std::string mensaje("La entidad '" + entidad_nueva->getEtiqueta() + "' ya existe.");
-        throw std::exception(mensaje.c_str());
+        // throw std::exception(mensaje.c_str());
         return false;
     }
 
@@ -112,11 +112,14 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
 
     // si no estaba en la lista de eliminados, entonces lo agregar a la lista de 'a almacenar'.
     this->entidades_a_almacenar.push_back(entidad_nueva);
-    entidad_nueva->asignarNuevoId();
+    if (NULL == entidad_nueva->getId())
+    {
+        entidad_nueva->asignarNuevoId();
+    }
     return true;
 }
 
-void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_eliminar)
+bool GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_eliminar)
 {
     // chequeo que la entidad a eliminar no este en la lista de entidades que se quieren almacenar.
     // en caso que SI este, entonces directamente la elimino de la lista de entidades a almacenar. De esta forma evito tocar la bd.
@@ -138,11 +141,20 @@ void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
     //    this->entidades_a_eliminar.push_back(entidad_a_eliminar);
     //}
 
+    // chequeo que la entidad a eliminar no este en la lista de entidades que se quieren almacenar.
+    // en caso que SI este, entonces directamente la elimino de la lista de entidades a almacenar. De esta forma evito tocar la bd.
     for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
     {
         if ((*this->entidades_it)->hashcode() == entidad_a_eliminar->hashcode())
         {
+            // si NO apuntan a la misma entidad, entonces borro la que esta en "a almacenar"
+            if (entidad_a_eliminar != *this->entidades_it)
+            {
+                delete *this->entidades_it;
+            }
+
             this->entidades_a_almacenar.erase(this->entidades_it);
+            return true;
         }
     }
 
@@ -152,8 +164,11 @@ void GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
         {
             this->entidades_a_eliminar.push_back(*this->entidades_it);
             this->entidades_existentes.erase(this->entidades_it);
+            return true;
         }
     }
+
+    return false;
 }
 
 
