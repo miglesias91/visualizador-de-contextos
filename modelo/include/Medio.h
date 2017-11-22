@@ -28,7 +28,9 @@ public:
 
 	virtual unsigned int hashcode();
 
-    Medio* clonar();
+    //Medio* clonar();
+
+    virtual IEntidad * clonar();
 
 	// GETTERS
 

@@ -34,9 +34,11 @@ public:
 	
 	virtual unsigned int hashcode();
 
-    Fecha* clonar();
+    //Fecha* clonar();
 
-	// GETTERS
+    virtual IEntidad * clonar();
+    
+    // GETTERS
 
 	unsigned int getDia();
 	unsigned int getMes();

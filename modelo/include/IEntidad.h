@@ -40,6 +40,8 @@ public:
 
 	virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
+    virtual IEntidad * clonar() = 0;
+
     static std::vector<IAlmacenable*> comoAlmacenables(std::vector<IEntidad*> entidades);
 
     // CONSULTAS

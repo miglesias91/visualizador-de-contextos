@@ -11,7 +11,8 @@ using namespace visualizador;
 #include <rapidjson/allocators.h>
 
 // aplicacion
-#include <aplicacion/include/IAdministradorAplicacion.h>
+#include <aplicacion/include/GestorEntidades.h>
+// #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto())
@@ -116,12 +117,15 @@ unsigned int Concepto::hashcode()
 	return hashcode_terminos;
 }
 
-Concepto * Concepto::clonar()
+IEntidad * Concepto::clonar()
 {
+    aplicacion::GestorEntidades gestor;
+
     std::vector<Termino*> clon_terminos;
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
-        clon_terminos.push_back((*it)->clonar());
+        Termino * clon_termino = gestor.clonar<Termino>((*it));
+        clon_terminos.push_back(clon_termino);
     }
 
     Concepto* clon = new Concepto(clon_terminos, this->getEtiqueta());

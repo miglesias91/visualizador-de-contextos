@@ -3,16 +3,15 @@
 // stl
 #include <vector>
 
+// almacenamiento
+#include <almacenamiento/include/IAdministradorAlmacenamiento.h>
+
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/IAdministradorAplicacion.h>
 
 // modelo
-#include <modelo/include/Termino.h>
-
-// almacenamiento
-#include <almacenamiento/include/IAdministradorAlmacenamiento.h>
-
+#include <modelo/include/IEntidad.h>
 namespace visualizador
 {
 namespace aplicacion
@@ -31,6 +30,8 @@ public:
     template <class ENTIDAD>
     std::vector<ENTIDAD*> recuperar();
 
+    // clona la entidad devolviendo un puntero de la clase especifica de la entidad.
+    // Similar al metodo "clonar" de cada entidad, solo que agrega el tipo de entidad indicado en <ENTIDAD>.
     template <class ENTIDAD>
     ENTIDAD* clonar(visualizador::modelo::IEntidad* entidad_a_clonar);
 

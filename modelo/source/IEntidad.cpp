@@ -5,12 +5,12 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/GestorIDs.h>
 
-IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), IContieneJson(), esta_limpia(false)
+IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), IContieneJson(), esta_limpia(true)
 {
 }
 
 IEntidad::IEntidad(std::string etiqueta, std::string grupo, IJson * contenido)
-    : IReferenciable(), IAlmacenable(grupo), IContieneJson(contenido), etiqueta(etiqueta), esta_limpia(false)
+    : IReferenciable(), IAlmacenable(grupo), IContieneJson(contenido), etiqueta(etiqueta), esta_limpia(true)
 {
 }
 

@@ -32,7 +32,7 @@ unsigned int Seccion::hashcode()
 	return 0;
 }
 
-Seccion * Seccion::clonar()
+IEntidad * Seccion::clonar()
 {
     Seccion * clon = new Seccion(this->getEtiqueta());
     clon->setId(this->getId()->copia());

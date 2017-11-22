@@ -358,7 +358,6 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
     GestorIDs::setIdActual(200);
 
 	GestorEntidades gestor_conceptos;
-
 	gestor_conceptos.gestionar<Concepto>();
 
     Termino* termino1 = new Termino("termino_ok", "gestorentidad-almacenamiento-test");
@@ -390,8 +389,6 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
     bool existe = gestor_conceptos_nuevo.existe(concepto1);
 
     ASSERT_EQ(true, existe);
-
-    delete concepto1;
 }
 
 
@@ -400,8 +397,7 @@ TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
     GestorIDs::setIdActual(200);
 
     GestorEntidades gestor_conceptos;
-
-    std::vector<Concepto*> conceptos = gestor_conceptos.gestionar<Concepto>();
+    gestor_conceptos.gestionar<Concepto>();
 
     Termino* termino1 = new Termino("termino_ok", "gestorentidad-almacenamiento-test");
     termino1->asignarNuevoId();
@@ -436,6 +432,8 @@ TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
 
     bool existe2 = gestor_terminos_nuevo.existe(termino1);
     bool existe3 = gestor_terminos_nuevo.existe(termino2);
+
+    delete concepto1;
 
     ASSERT_EQ(false, existe1);
     ASSERT_EQ(false, existe2);

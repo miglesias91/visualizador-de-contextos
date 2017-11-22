@@ -44,7 +44,10 @@ public:
 	
 	virtual unsigned int hashcode();
 
-    Concepto* clonar();
+    // Concepto* clonar();
+
+    virtual IEntidad * clonar();
+
 
 private:
 

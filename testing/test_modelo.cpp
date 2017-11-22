@@ -20,7 +20,7 @@ using namespace visualizador::modelo;
 
 TEST(modelo, GettersYSettersConceptoYTerminos)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -78,7 +78,7 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 
 TEST(modelo, GettersYSettersConsulta)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -214,7 +214,7 @@ TEST(modelo, GettersYSettersConsulta)
 
 TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -248,7 +248,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 
 TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -268,7 +268,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 
 TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -288,7 +288,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 
 TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
@@ -314,7 +314,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 
 TEST(modelo, CreacionContenidoYValorAlmacenableConsulta)
 {
-	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("configuracion_aplicacion.json");
+	visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 

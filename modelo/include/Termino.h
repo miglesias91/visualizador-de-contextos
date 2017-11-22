@@ -40,7 +40,9 @@ public:
 
 	virtual unsigned int hashcode();
 
-    Termino* clonar();
+    //Termino* clonar();
+
+    virtual IEntidad * clonar();
 
 private:
 

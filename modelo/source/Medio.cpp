@@ -32,7 +32,7 @@ unsigned Medio::hashcode()
 	return 0;
 }
 
-Medio * Medio::clonar()
+IEntidad * Medio::clonar()
 {
     Medio * clon = new Medio(this->getEtiqueta());
     clon->setId(this->getId()->copia());

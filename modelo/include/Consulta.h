@@ -38,7 +38,9 @@ public:
 	
 	virtual unsigned int hashcode();
 
-    Consulta* clonar();
+    //Consulta* clonar();
+    
+    virtual IEntidad * clonar();
 
 	// GETTERS
 

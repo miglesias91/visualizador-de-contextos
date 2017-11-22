@@ -29,7 +29,9 @@ public:
 
 	virtual unsigned int hashcode();
 
-    Periodo* clonar();
+    //Periodo* clonar();
+
+    virtual IEntidad * clonar();
 
 	// GETTERS
 

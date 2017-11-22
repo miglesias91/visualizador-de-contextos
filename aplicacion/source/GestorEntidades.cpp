@@ -95,27 +95,25 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
     }
 
     // chequeo que la entidad a agregar no este en la lista de eliminados:
-    // si estaba en la lista de eliminados, entonces quiere decir que esta en la bd y se quiere sacar.
-    // Entonces lo que hago es sacarlo de la lista de "a eliminar" y lo vuelvo a agregar a la QListWidget,
-    // quedandome con la "entidad_nueva" y eliminando la vieja que figura en "a_eliminar".
+    // si estaba en la lista de eliminados, entonces quiere decir que esta en la bd y se queria sacar, pero ahora la queremos agregar.
+    // Entonces lo que hago es sacarlo de la lista de "a eliminar" y lo vuelvo a agregar a la lista de "existentes".
     for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
     {
         if ((*this->entidades_it)->hashcode() == entidad_nueva->hashcode())
         {
-            entidad_nueva->setId((*this->entidades_it)->getId()->copia());
-            delete *this->entidades_it;
-            this->entidades_existentes.push_back(entidad_nueva);
+            this->entidades_existentes.push_back(*this->entidades_it);
             this->entidades_a_eliminar.erase(this->entidades_it);
             return true;
         }
     }
 
     // si no estaba en la lista de eliminados, entonces lo agregar a la lista de 'a almacenar'.
-    this->entidades_a_almacenar.push_back(entidad_nueva);
     if (NULL == entidad_nueva->getId())
     {
         entidad_nueva->asignarNuevoId();
     }
+    this->entidades_a_almacenar.push_back(entidad_nueva->clonar());
+
     return true;
 }
 

@@ -6,7 +6,8 @@ using namespace visualizador::modelo;
 #include <algorithm>
 
 // aplicacion
-#include <aplicacion/include/IAdministradorAplicacion.h>
+#include <aplicacion/include/GestorEntidades.h>
+// #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta()), periodo(NULL), reporte(NULL)
@@ -301,27 +302,38 @@ unsigned int Consulta::hashcode()
 	return hashcode_conceptos + hashcode_medios + hashcode_secciones + hashcode_periodo + hashcode_reporte;
 }
 
-Consulta * Consulta::clonar()
+IEntidad * Consulta::clonar()
 {
-    Periodo * clon_periodo = this->getPeriodo()->clonar();
-    Reporte * clon_reporte = this->getReporte()->clonar();
+    aplicacion::GestorEntidades gestor;
+
+    Periodo * clon_periodo = gestor.clonar<Periodo>(this->getPeriodo());
+    Reporte * clon_reporte = gestor.clonar<Reporte>(this->getReporte());
+
+    //Periodo * clon_periodo = this->getPeriodo()->clonar();
+    //Reporte * clon_reporte = this->getReporte()->clonar();
 
     std::vector<Concepto*> clon_conceptos;
     for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
     {
-        clon_conceptos.push_back((*it)->clonar());
+        //clon_conceptos.push_back((*it)->clonar());
+        Concepto * clon_concepto = gestor.clonar<Concepto>((*it));
+        clon_conceptos.push_back(clon_concepto);
     }
 
     std::vector<Medio*> clon_medios;
     for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
     {
-        clon_medios.push_back((*it)->clonar());
+        //clon_medios.push_back((*it)->clonar());
+        Medio * clon_medio = gestor.clonar<Medio>((*it));
+        clon_medios.push_back(clon_medio);
     }
 
     std::vector<Seccion*> clon_secciones;
     for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
     {
-        clon_secciones.push_back((*it)->clonar());
+        //clon_secciones.push_back((*it)->clonar());
+        Seccion * clon_seccion = gestor.clonar<Seccion>((*it));
+        clon_secciones.push_back(clon_seccion);
     }
 
     Consulta * clon = new Consulta(clon_periodo, clon_reporte, clon_conceptos, clon_medios, clon_secciones, this->getEtiqueta());

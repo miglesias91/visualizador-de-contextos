@@ -5,7 +5,6 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-
 std::hash<unsigned int> Fecha::hasher;
 
 std::string Fecha::nombres_meses[] = { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
@@ -59,7 +58,7 @@ unsigned int Fecha::hashcode()
 	return hasher(this->dia) + hasher(this->mes) + hasher(this->anio);
 }
 
-Fecha * Fecha::clonar()
+IEntidad * Fecha::clonar()
 {
     Fecha * clon = new Fecha(this->dia, this->mes, this->anio, this->getEtiqueta());
     clon->setId(this->getId()->copia());

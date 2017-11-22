@@ -26,7 +26,9 @@ public:
 
 	virtual unsigned int hashcode();
 
-    Seccion* clonar();
+    //Seccion* clonar();
+
+    virtual IEntidad * clonar();
 
 };
 

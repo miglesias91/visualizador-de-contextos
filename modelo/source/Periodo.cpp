@@ -3,7 +3,8 @@
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/include/IAdministradorAplicacion.h>
+#include <aplicacion/include/GestorEntidades.h>
+// #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 // CONSTRUCTORES
@@ -90,9 +91,14 @@ unsigned int Periodo::hashcode()
 	return this->getDesde()->hashcode() + this->getHasta()->hashcode();
 }
 
-Periodo * Periodo::clonar()
+IEntidad * Periodo::clonar()
 {
-    Periodo * clon = new Periodo(this->getDesde()->clonar(), this->getHasta()->clonar(), this->getEtiqueta());
+    aplicacion::GestorEntidades gestor;
+
+    Fecha * clon_desde = gestor.clonar<Fecha>(this->getDesde());
+    Fecha * clon_hasta = gestor.clonar<Fecha>(this->getHasta());
+
+    Periodo * clon = new Periodo(clon_desde, clon_hasta, this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setContenido(this->getContenido()->clonar());
     return clon;
