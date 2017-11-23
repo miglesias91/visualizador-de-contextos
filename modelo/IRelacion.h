@@ -21,7 +21,7 @@ public:
     // CONSTRUCTORES
 
     IRelacion(std::string grupo = "");
-    ~IRelacion();
+    virtual ~IRelacion();
 
     // GETTERS
     

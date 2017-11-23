@@ -210,3 +210,41 @@ bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std
 
 	return true;
 }
+
+
+unsigned long long int AdministradorAplicacionLocal::recuperarIDActual()
+{
+    std::string clave = ConfiguracionAplicacion::claveIDActual();
+    std::string grupo = ConfiguracionAplicacion::prefijoConfiguracion();
+
+    almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
+
+    bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperar(clave_valor_a_recuperar);
+
+    std::string string_id_actual = clave_valor_a_recuperar->getValor();
+
+    unsigned long long int id_actual = 0;
+    if (false == string_id_actual.empty())
+    {
+        id_actual = std::stoull(string_id_actual);
+    }
+
+    GestorIDs::setIdActual(id_actual);
+
+    delete clave_valor_a_recuperar;
+
+    return id_actual;
+}
+
+void AdministradorAplicacionLocal::almacenarIDActual()
+{
+    std::string clave = ConfiguracionAplicacion::claveIDActual();
+    std::string grupo = ConfiguracionAplicacion::prefijoConfiguracion();
+    std::string valor = std::to_string(GestorIDs::getIdActual());
+
+    almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
+
+    bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->modificar(clave_valor_a_recuperar);
+
+    delete clave_valor_a_recuperar;
+}

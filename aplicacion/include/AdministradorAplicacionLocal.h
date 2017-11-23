@@ -56,7 +56,11 @@ public:
     virtual bool modificar(std::vector<visualizador::modelo::IAlmacenable*> almacenables);
 
     virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* almacenables);
-		
+
+    virtual unsigned long long int recuperarIDActual();
+
+    virtual void almacenarIDActual();
+
 private:
     almacenamiento::IAdministradorAlmacenamiento* admin_almacenamiento;
 };

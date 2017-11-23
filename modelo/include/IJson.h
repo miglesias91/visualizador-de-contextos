@@ -15,7 +15,7 @@ class IJson
 {
 public:
 	IJson();
-	IJson::IJson(rapidjson::Value* valor);
+	IJson(rapidjson::Value* valor);
 	IJson(std::string json);
 
 	virtual ~IJson();

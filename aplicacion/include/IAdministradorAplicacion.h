@@ -15,6 +15,8 @@ namespace aplicacion
 class IAdministradorAplicacion
 {
 public:
+    IAdministradorAplicacion();
+    virtual ~IAdministradorAplicacion();
 
 	static void iniciar(std::string path_configuracion);
 
@@ -72,9 +74,9 @@ public:
 
     virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* almacenables) = 0;
 
-	virtual unsigned long long int recuperarIDActual();
+	virtual unsigned long long int recuperarIDActual() = 0;
 
-	virtual void almacenarIDActual();
+	virtual void almacenarIDActual() = 0;
 
 private:
 	// ATRIBUTOS

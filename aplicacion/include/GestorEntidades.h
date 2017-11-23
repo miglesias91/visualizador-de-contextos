@@ -7,11 +7,12 @@
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 
 // aplicacion
-#include <aplicacion/include/ConfiguracionAplicacion.h>
+// #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/IAdministradorAplicacion.h>
 
 // modelo
 #include <modelo/include/IEntidad.h>
+
 namespace visualizador
 {
 namespace aplicacion

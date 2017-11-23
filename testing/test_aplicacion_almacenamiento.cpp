@@ -388,6 +388,8 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
 
     bool existe = gestor_conceptos_nuevo.existe(concepto1);
 
+    delete concepto1;
+
     ASSERT_EQ(true, existe);
 }
 

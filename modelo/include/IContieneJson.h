@@ -14,7 +14,7 @@ public:
     // CONSTRUCTORES
 
     IContieneJson(IJson * contenido = NULL);
-    ~IContieneJson();
+    virtual ~IContieneJson();
 
     // GETTERS
 

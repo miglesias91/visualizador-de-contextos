@@ -15,7 +15,7 @@ class IAlmacenable
 {
 public:
     IAlmacenable(std::string grupo = "");
-    ~IAlmacenable();
+    virtual ~IAlmacenable();
 
     // GETTERS
 

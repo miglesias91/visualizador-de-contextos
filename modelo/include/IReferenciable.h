@@ -9,7 +9,7 @@ class IReferenciable
 {
 public:
     IReferenciable();
-    ~IReferenciable();
+    virtual ~IReferenciable();
 
     bool estaReferenciado();
 

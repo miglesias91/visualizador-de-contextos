@@ -19,5 +19,7 @@ IJson * IContieneJson::getContenido()
 
 void IContieneJson::setContenido(IJson * contenido)
 {
+    delete this->contenido;
+
     this->contenido = contenido;
 }
