@@ -2,6 +2,7 @@
 
 // modelo
 #include <modelo/include/IRelaciones.h>
+#include <modelo/include/RelacionConConceptos.h>
 
 namespace visualizador
 {
@@ -43,7 +44,7 @@ public:
 
 private:
 
-    RelacionConConsultas * relacion_con_consultas;
+    RelacionConConceptos * relacion_con_conceptos;
 };
 
 };

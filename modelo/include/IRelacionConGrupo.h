@@ -11,6 +11,8 @@
 #include <modelo/include/IAlmacenable.h>
 #include <modelo/include/IContieneJson.h>
 
+using namespace visualizador;
+
 namespace visualizador
 {
 namespace modelo
@@ -29,24 +31,27 @@ public:
 
     // GETTERS
     
-    virtual std::string getValorAlmacenable() = 0;
+    virtual std::vector<aplicacion::ID*> getIdsGrupo();
+
+    virtual std::vector<unsigned long long int> getIdsGrupoComoUint();
 
     // SETTERS
 
     // METODOS
 
-    virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;
-
-    virtual std::string prefijoGrupo() = 0;
-
-    virtual unsigned int hashcode() = 0;
-
     // 'id' debe ser una COPIA, cuando se destruye la instancia se destruyen los ids que contiene la relacion.
     virtual bool agregarRelacion(aplicacion::ID * id);
 
+    // metodos de IContienJson
+
+    virtual void crearContenido() = 0;
+
+    // parsea el contenido JSON, y devuelve 'true' si el contenido es correcto, devuelve 'false' si el contenido parseado no esta correcto.
+    virtual bool parsearContenido(IJson * contenido) = 0;
+
 private:
 
-    std::vector<aplicacion::ID*> ids_relacionados;
+    std::vector<aplicacion::ID*> ids_grupo;
 };
 
 };
