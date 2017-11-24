@@ -13,7 +13,14 @@
         "prefijo_seccion" : "005",
         "prefijo_fecha" : "006",
         "prefijo_periodo" : "007",
-        "prefijo_medio" : "008"
+        "prefijo_medio" : "008",
+        "prefijo_relacion_termino_conceptos" : "009",
+        "prefijo_relacion_fecha_periodos" : "010",
+        "prefijo_relacion_concepto_consultas" : "011",
+        "prefijo_relacion_periodo_consultas" : "012",
+        "prefijo_relacion_reporte_consultas" : "013",
+        "prefijo_relacion_medio_consultas" : "014",
+        "prefijo_relacion_seccion_consultas" : "015",
     },
 
     "almacenamiento" :

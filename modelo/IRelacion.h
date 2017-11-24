@@ -2,25 +2,27 @@
 
 // stl
 #include <string>
+#include <vector>
 
 // aplicacion
 #include <aplicacion/include/ID.h>
 
 // modelo
 #include <modelo/include/IAlmacenable.h>
+#include <modelo/include/IContieneJson.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class IRelacion : public IAlmacenable
+class IRelacion : public IAlmacenable, public IContieneJson
 {
 public:
     
     // CONSTRUCTORES
 
-    IRelacion(std::string grupo = "");
+    IRelacion(unsigned long long int id_entidad = 0, std::string grupo = "");
     virtual ~IRelacion();
 
     // GETTERS
@@ -37,8 +39,12 @@ public:
 
     virtual unsigned int hashcode() = 0;
 
+    // 'id' debe ser una COPIA, cuando se destruye la instancia se destruyen los ids que contiene la relacion.
+    virtual bool agregarRelacion(aplicacion::ID * id);
+
 private:
 
+    std::vector<aplicacion::ID*> ids_relacionados;
 };
 
 };

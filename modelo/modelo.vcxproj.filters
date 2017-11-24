@@ -60,11 +60,11 @@
     <ClInclude Include="include\IAlmacenable.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="IRelacion.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="include\IContieneJson.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="IRelacion.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,11 +107,11 @@
     <ClCompile Include="source\IAlmacenable.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="IRelacion.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="source\IContieneJson.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="IRelacion.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

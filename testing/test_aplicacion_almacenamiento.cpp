@@ -393,7 +393,6 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
     ASSERT_EQ(true, existe);
 }
 
-
 TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
 {
     GestorIDs::setIdActual(200);

@@ -44,8 +44,11 @@ public:
 	void setHasta(Fecha* hasta);
 
 private:
-	Fecha* desde;
+	
+    Fecha* desde;
 	Fecha* hasta;
+  
+    IRelacion * relacion_consultas;
 };
 
 };

@@ -36,6 +36,10 @@ public:
 
 	// SETTERS
 
+private:
+
+    IRelacion * relacion_consultas;
+
 
 };
 

@@ -49,6 +49,8 @@ private:
 	static std::hash<std::string> hasher;
 
 	std::string valor;
+
+    IRelacion * relacion_conceptos;
 };
 
 };

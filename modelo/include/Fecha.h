@@ -73,6 +73,8 @@ private:
 	unsigned int dia;
 	unsigned int mes;
 	unsigned int anio;
+  
+    IRelacion * relacion_periodos;
 };
 
 };

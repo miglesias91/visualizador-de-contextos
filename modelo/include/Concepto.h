@@ -52,6 +52,8 @@ public:
 private:
 
 	std::vector<Termino*> terminos;
+  
+    IRelacion * relacion_consultas;
 };
 
 };

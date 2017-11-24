@@ -30,6 +30,10 @@ public:
 
     virtual IEntidad * clonar();
 
+private:
+
+    IRelacion * relacion_consultas;
+
 };
 
 };
