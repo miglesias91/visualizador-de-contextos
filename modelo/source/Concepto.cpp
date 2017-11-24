@@ -12,7 +12,6 @@ using namespace visualizador;
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
-// #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto())

@@ -129,11 +129,17 @@
     <ClInclude Include="include\Seccion.h" />
     <ClInclude Include="include\Termino.h" />
     <ClInclude Include="include\IReferenciable.h" />
-    <ClInclude Include="IRelacion.h" />
+    <ClInclude Include="include\IRelacionConGrupo.h" />
+    <ClInclude Include="include\IRelaciones.h" />
+    <ClInclude Include="include\RelacionConConceptos.h" />
+    <ClInclude Include="include\RelacionesTermino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\RelacionConConceptos.cpp" />
+    <ClCompile Include="source\RelacionesTermino.cpp" />
+    <ClCompile Include="source\IRelaciones.cpp" />
     <ClCompile Include="source\IContieneJson.cpp" />
-    <ClCompile Include="IRelacion.cpp" />
+    <ClCompile Include="source\IRelacionConGrupo.cpp" />
     <ClCompile Include="source\IAlmacenable.cpp" />
     <ClCompile Include="source\IReferenciable.cpp" />
     <ClCompile Include="source\IJson.cpp" />

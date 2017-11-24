@@ -33,9 +33,9 @@ public:
 
     // METODOS
 
-    virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;
-
     virtual void asignarNuevoId();
+
+    virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;
 
     virtual std::string prefijoGrupo() = 0;
 

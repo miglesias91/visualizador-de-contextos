@@ -1,16 +1,16 @@
-#include "IRelacion.h"
+#include <modelo/include/IRelacionConGrupo.h>
 
-using namespace visualizador::modelo;
+using namespace visualizador::modelo::relaciones;
 
-IRelacion::IRelacion(unsigned long long int id_entidad, std::string grupo) : IAlmacenable(grupo), IContieneJson()
+IRelacionConGrupo::IRelacionConGrupo(unsigned long long int id_entidad, std::string grupo) : IContieneJson()
 {
 }
 
-IRelacion::~IRelacion()
+IRelacionConGrupo::~IRelacionConGrupo()
 {
 }
 
-bool IRelacion::agregarRelacion(aplicacion::ID * id)
+bool IRelacionConGrupo::agregarRelacion(aplicacion::ID * id)
 {
     if (this->ids_relacionados.end() != std::find(this->ids_relacionados.begin(), this->ids_relacionados.end(), id))
     {// si ya contiene el id que se quiere agregar, entonces devuelvo false.

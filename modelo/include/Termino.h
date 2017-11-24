@@ -50,7 +50,7 @@ private:
 
 	std::string valor;
 
-    IRelacion * relacion_conceptos;
+    IRelacionConGrupo * relacion_conceptos;
 };
 
 };

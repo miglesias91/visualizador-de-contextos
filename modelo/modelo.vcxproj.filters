@@ -63,8 +63,17 @@
     <ClInclude Include="include\IContieneJson.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="IRelacion.h">
+    <ClInclude Include="include\IRelacionConGrupo.h">
       <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelaciones.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionConConceptos.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesTermino.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +119,17 @@
     <ClCompile Include="source\IContieneJson.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="IRelacion.cpp">
+    <ClCompile Include="source\IRelacionConGrupo.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelaciones.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesTermino.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionConConceptos.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 
 // modelo
 #include <modelo/include/IEntidad.h>
+#include <modelo/include/IRelacionConGrupo.h>
 #include <modelo/include/Termino.h>
 
 namespace visualizador
@@ -53,7 +54,7 @@ private:
 
 	std::vector<Termino*> terminos;
   
-    IRelacion * relacion_consultas;
+    IRelacionConGrupo * relacion_consultas;
 };
 
 };

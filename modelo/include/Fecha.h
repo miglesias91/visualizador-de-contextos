@@ -74,7 +74,7 @@ private:
 	unsigned int mes;
 	unsigned int anio;
   
-    IRelacion * relacion_periodos;
+    IRelacionConGrupo * relacion_periodos;
 };
 
 };

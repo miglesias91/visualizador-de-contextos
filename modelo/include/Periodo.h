@@ -48,7 +48,7 @@ private:
     Fecha* desde;
 	Fecha* hasta;
   
-    IRelacion * relacion_consultas;
+    IRelacionConGrupo * relacion_consultas;
 };
 
 };
