@@ -9,11 +9,11 @@ using namespace visualizador::modelo;
 
 // CONSTRUCTORES
 
-Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo()), desde(NULL), hasta(NULL)
+Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL), desde(NULL), hasta(NULL)
 {
 }
 
-Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo()),  desde(desde), hasta(hasta)
+Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL),  desde(desde), hasta(hasta)
 {
     this->desde->sumarReferencia();
     this->hasta->sumarReferencia();

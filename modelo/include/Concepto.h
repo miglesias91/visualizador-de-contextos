@@ -13,6 +13,8 @@ namespace visualizador
 namespace modelo
 {
 
+    class Termino; // forward declaration
+
 class Concepto : public IEntidad
 {
 public:
@@ -35,22 +37,33 @@ public:
 
 	void agregarTermino(Termino* termino_nuevo);
 
+    // metodos de IAlmacenable
+
+    virtual void setId(visualizador::aplicacion::ID* id_concepto);
+
 	// METODOS
+
+    // metodos de IContieneJson
 
 	virtual void crearContenido();
 
 	virtual bool parsearContenido(IJson* contenido);
 	
+    // metodos de IAlmacenable
+
 	virtual std::string prefijoGrupo();
 	
 	virtual unsigned int hashcode();
 
-    // Concepto* clonar();
+    // metodos de IEntidad
 
     virtual IEntidad * clonar();
 
-
 private:
+
+    // METODOS INTERNOS
+
+    void relacionarTerminos();
 
 	std::vector<Termino*> terminos;
   

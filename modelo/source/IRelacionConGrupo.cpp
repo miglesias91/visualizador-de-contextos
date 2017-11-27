@@ -6,7 +6,7 @@
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador;
 
-IRelacionConGrupo::IRelacionConGrupo(unsigned long long int id_entidad, std::string grupo) : IContieneJson(), IHashable()
+IRelacionConGrupo::IRelacionConGrupo() : IContieneJson(), IHashable()
 {
 }
 

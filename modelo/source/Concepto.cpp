@@ -14,11 +14,11 @@ using namespace visualizador;
 #include <aplicacion/include/GestorEntidades.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto())
+Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL)
 {
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), contenido), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), terminos(terminos)
 {
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
@@ -26,7 +26,7 @@ Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string
     }
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto()), terminos(terminos)
+Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), terminos(terminos)
 {
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
@@ -47,16 +47,28 @@ Concepto::~Concepto()
 	this->terminos.clear();
 }
 
+// GETTERS
+
 std::vector<Termino*> Concepto::getTerminos()
 {
 	return this->terminos;
 }
 
+// METODOS
+
 void Concepto::agregarTermino(Termino* termino_nuevo)
 {
 	this->terminos.push_back(termino_nuevo);
+
+    if (NULL != this->getId())
+    {
+        termino_nuevo->relacionarConConcepto(this);
+    }
+
     termino_nuevo->sumarReferencia();
 }
+
+// metodos IContieneJson
 
 void Concepto::crearContenido()
 {
@@ -96,6 +108,15 @@ bool Concepto::parsearContenido(IJson* contenido)
     return contenido_limpio;
 }
 
+// metodos IAlmacenable
+
+void Concepto::setId(visualizador::aplicacion::ID* id)
+{
+    IEntidad::setId(id);
+
+    this->relacionarTerminos();
+}
+
 std::string Concepto::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoConcepto();
@@ -116,6 +137,8 @@ unsigned int Concepto::hashcode()
 	return hashcode_terminos;
 }
 
+// metodos IEntidad
+
 IEntidad * Concepto::clonar()
 {
     aplicacion::GestorEntidades gestor;
@@ -131,4 +154,12 @@ IEntidad * Concepto::clonar()
     clon->setId(this->getId()->copia());
     clon->setContenido(this->getContenido()->clonar());
     return clon;
+}
+
+void Concepto::relacionarTerminos()
+{
+    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    {
+        (*it)->relacionarConConcepto(this);
+    }
 }

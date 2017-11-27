@@ -41,7 +41,6 @@ bool AdministradorAplicacionLocal::borrarBD()
     return this->admin_almacenamiento->borrar();
 }
 
-//bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IEntidad * entidad)
 bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IAlmacenable * entidad)
 {
 	std::string clave = entidad->getId()->string();
@@ -57,13 +56,11 @@ bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IAlmacenable 
 	return retorno;
 }
 
-//bool AdministradorAplicacionLocal::almacenar(std::vector<visualizador::modelo::IEntidad*> entidades)
 bool AdministradorAplicacionLocal::almacenar(std::vector<visualizador::modelo::IAlmacenable*> entidades)
 {
-    //visualizador::modelo::IEntidad* entidad = NULL;
     visualizador::modelo::IAlmacenable* entidad = NULL;
     bool retorno = true;
-    //for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
+
     for (std::vector<visualizador::modelo::IAlmacenable*>::iterator it = entidades.begin(); it != entidades.end(); it++)
     {
         entidad = *it;
@@ -86,7 +83,6 @@ bool AdministradorAplicacionLocal::almacenar(std::vector<visualizador::modelo::I
     return retorno;
 }
 
-//bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IEntidad * entidad)
 bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IAlmacenable * entidad)
 {
 	std::string clave = entidad->getId()->string();
@@ -106,7 +102,6 @@ bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IAlmacenable 
 	return existe_valor;
 }
 
-//bool AdministradorAplicacionLocal::eliminar(visualizador::modelo::IEntidad * entidad)
 bool AdministradorAplicacionLocal::eliminar(visualizador::modelo::IAlmacenable * entidad)
 {
     std::string clave = entidad->getId()->string();
@@ -121,13 +116,11 @@ bool AdministradorAplicacionLocal::eliminar(visualizador::modelo::IAlmacenable *
     return retorno;
 }
 
-//bool AdministradorAplicacionLocal::eliminar(std::vector<visualizador::modelo::IEntidad*> entidades)
 bool AdministradorAplicacionLocal::eliminar(std::vector<visualizador::modelo::IAlmacenable*> entidades)
 {
-    //visualizador::modelo::IEntidad* entidad = NULL;
     visualizador::modelo::IAlmacenable* entidad = NULL;
     bool retorno = true;
-    //for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
+
     for (std::vector<visualizador::modelo::IAlmacenable*>::iterator it = entidades.begin(); it != entidades.end(); it++)
     {
         entidad = *it;
@@ -149,7 +142,6 @@ bool AdministradorAplicacionLocal::eliminar(std::vector<visualizador::modelo::IA
     return retorno;
 }
 
-//bool AdministradorAplicacionLocal::modificar(visualizador::modelo::IEntidad * entidad)
 bool AdministradorAplicacionLocal::modificar(visualizador::modelo::IAlmacenable * entidad)
 {
     std::string clave = entidad->getId()->string();
@@ -165,13 +157,11 @@ bool AdministradorAplicacionLocal::modificar(visualizador::modelo::IAlmacenable 
     return retorno;
 }
 
-//bool AdministradorAplicacionLocal::modificar(std::vector<visualizador::modelo::IEntidad*> entidades)
 bool AdministradorAplicacionLocal::modificar(std::vector<visualizador::modelo::IAlmacenable*> entidades)
 {
-    //visualizador::modelo::IEntidad* entidad = NULL;
     visualizador::modelo::IAlmacenable* entidad = NULL;
     bool retorno = true;
-    //for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades.begin(); it != entidades.end(); it++)
+
     for (std::vector<visualizador::modelo::IAlmacenable*>::iterator it = entidades.begin(); it != entidades.end(); it++)
     {
         entidad = *it;
@@ -194,14 +184,12 @@ bool AdministradorAplicacionLocal::modificar(std::vector<visualizador::modelo::I
     return retorno;
 }
 
-//bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IEntidad*>* entidades)
 bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* entidades)
 {
 	std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
 
     this->admin_almacenamiento->recuperarGrupo(prefijo_grupo, grupo);
 
-	//visualizador::modelo::IEntidad* entidad = NULL;
     visualizador::modelo::IAlmacenable* entidad = NULL;
 	for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
 	{

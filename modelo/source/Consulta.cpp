@@ -10,12 +10,12 @@ using namespace visualizador::modelo;
 // #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta()), periodo(NULL), reporte(NULL)
+Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL), periodo(NULL), reporte(NULL)
 {
 }
 
 Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta)
-	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta()), periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones)
+	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL), periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones)
 {
     this->periodo->sumarReferencia();
     this->reporte->sumarReferencia();

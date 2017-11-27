@@ -10,6 +10,7 @@
 #include <modelo/include/IAlmacenable.h>
 #include <modelo/include/IContieneJson.h>
 #include <modelo/include/IReferenciable.h>
+#include <modelo/include/IRelaciones.h>
 
 namespace visualizador
 {
@@ -22,7 +23,7 @@ public:
 
 	// CONSTRUCTORES
 	IEntidad();
-    IEntidad(std::string etiqueta, std::string grupo, IJson * contenido = new IJson());
+    IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, IJson * contenido = new IJson());
 
 	virtual ~IEntidad();
 
@@ -30,11 +31,21 @@ public:
 	
 	virtual std::string getEtiqueta();
 
-	virtual std::string getValorAlmacenable();
+    virtual relaciones::IRelaciones * IEntidad::getRelaciones();
+    
+    // metodos IAlmacenable
+
+    virtual std::string getValorAlmacenable();
 
 	// SETTERS
 
 	virtual void setEtiqueta(std::string etiqueta);
+
+    virtual void setRelaciones(relaciones::IRelaciones * relaciones);
+
+    // metodos de IAlmacenable
+
+    virtual void setId(visualizador::aplicacion::ID* id_termino);
 
 	// METODOS
 
@@ -52,10 +63,9 @@ public:
 
 private:
 
-//	visualizador::aplicacion::ID* id;
 	std::string etiqueta;
-//	ContenidoEntidad* contenido;
-//	std::string grupo;
+
+    relaciones::IRelaciones * relaciones;
 
     // true = el contenido que hay en la bd es el correcto | false = el contenido que hay en la bd no esta correcto, hay referencias 'sucias'.
     bool esta_limpia;

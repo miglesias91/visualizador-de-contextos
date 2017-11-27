@@ -5,6 +5,7 @@
 #include <string>
 
 // modelo
+#include <modelo/include/Concepto.h>
 #include <modelo/include/IEntidad.h>
 #include <modelo/include/RelacionesTermino.h>
 
@@ -12,6 +13,8 @@ namespace visualizador
 {
 namespace modelo
 {
+
+    class Concepto; // forward declaration
 
 class Termino : public IEntidad
 {
@@ -33,15 +36,21 @@ public:
 
 	// METODOS
 
+    void relacionarConConcepto(Concepto * concepto);
+
+    // metodos de IContieneJson
+
 	virtual void crearContenido();
 
 	virtual bool parsearContenido(IJson* contenido);
 	
+    // metodos de IAlmacenable
+
 	virtual std::string prefijoGrupo();
 
 	virtual unsigned int hashcode();
 
-    //Termino* clonar();
+    // metodos de IEntidad
 
     virtual IEntidad * clonar();
 
@@ -51,7 +60,7 @@ private:
 
 	std::string valor;
 
-    relaciones::RelacionesTermino * relaciones;
+    relaciones::RelacionesTermino * relaciones_termino;
 };
 
 };

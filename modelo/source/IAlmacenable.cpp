@@ -28,6 +28,11 @@ std::string IAlmacenable::getGrupo()
 
 void IAlmacenable::setId(visualizador::aplicacion::ID* id)
 {
+    if (NULL != this->id)
+    {
+        delete this->id;
+    }
+
     this->id = id;
 }
 
@@ -40,7 +45,7 @@ void IAlmacenable::setGrupo(std::string grupo)
 
 void IAlmacenable::asignarNuevoId()
 {
-    this->id = visualizador::aplicacion::GestorIDs::nuevoID();
+    this->setId(visualizador::aplicacion::GestorIDs::nuevoID());
 }
 
 bool IAlmacenable::comparador(IAlmacenable * a, IAlmacenable * b)

@@ -19,6 +19,12 @@
     <Filter Include="Archivos de encabezado\relaciones">
       <UniqueIdentifier>{8c95f7eb-8718-4e54-857b-ab7aeb144225}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\interfaces">
+      <UniqueIdentifier>{780b8689-583d-49b5-b194-4cd7ee3551a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\interfaces">
+      <UniqueIdentifier>{e41bcd6b-86ff-49f8-a8a0-bd3f22481aa2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Termino.h">
@@ -36,9 +42,6 @@
     <ClInclude Include="include\Grafico.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="include\IEntidad.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="include\Medio.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -49,18 +52,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="include\Seccion.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IJson.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IReferenciable.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IAlmacenable.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="include\IContieneJson.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="include\IRelacionConGrupo.h">
@@ -75,8 +66,23 @@
     <ClInclude Include="include\IRelaciones.h">
       <Filter>Archivos de encabezado\relaciones</Filter>
     </ClInclude>
+    <ClInclude Include="include\IAlmacenable.h">
+      <Filter>Archivos de encabezado\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IContieneJson.h">
+      <Filter>Archivos de encabezado\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IEntidad.h">
+      <Filter>Archivos de encabezado\interfaces</Filter>
+    </ClInclude>
     <ClInclude Include="include\IHashable.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IJson.h">
+      <Filter>Archivos de encabezado\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IReferenciable.h">
+      <Filter>Archivos de encabezado\interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +96,6 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="source\Grafico.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IEntidad.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="source\Medio.cpp">
@@ -110,18 +113,6 @@
     <ClCompile Include="source\Termino.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="source\IJson.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IReferenciable.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IAlmacenable.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IContieneJson.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="source\IRelacionConGrupo.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
     </ClCompile>
@@ -134,8 +125,23 @@
     <ClCompile Include="source\IRelaciones.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
     </ClCompile>
+    <ClCompile Include="source\IAlmacenable.cpp">
+      <Filter>Archivos de código fuente\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IContieneJson.cpp">
+      <Filter>Archivos de código fuente\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IEntidad.cpp">
+      <Filter>Archivos de código fuente\interfaces</Filter>
+    </ClCompile>
     <ClCompile Include="source\IHashable.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IJson.cpp">
+      <Filter>Archivos de código fuente\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IReferenciable.cpp">
+      <Filter>Archivos de código fuente\interfaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

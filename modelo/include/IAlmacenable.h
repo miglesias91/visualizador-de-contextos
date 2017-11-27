@@ -42,8 +42,6 @@ public:
 
     virtual std::string prefijoGrupo() = 0;
 
-    // virtual unsigned int hashcode() = 0;
-
     static bool comparador(IAlmacenable* a, IAlmacenable* b);
 
 private:

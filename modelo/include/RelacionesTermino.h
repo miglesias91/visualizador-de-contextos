@@ -23,7 +23,7 @@ public:
 
     // CONSTRUCTORES
 
-    RelacionesTermino();
+    RelacionesTermino(visualizador::aplicacion::ID* id_termino = NULL);
     virtual ~RelacionesTermino();
 
     // GETTERS
@@ -33,6 +33,8 @@ public:
     // SETTERS
 
     // METODOS
+
+    void agregarRelacionConConcepto(visualizador::aplicacion::ID* id_concepto);
 
     // IAlmacenable::
 

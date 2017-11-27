@@ -3,12 +3,16 @@
 // stl
 #include <algorithm>
 
+// aplicacion
+#include <aplicacion/include/ConfiguracionAplicacion.h>
+
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
+using namespace visualizador;
 
 // CONSTRUCTORES
 
-RelacionesTermino::RelacionesTermino() : IRelaciones(), relacion_con_conceptos(NULL)
+RelacionesTermino::RelacionesTermino(visualizador::aplicacion::ID* id_termino) : IRelaciones(id_termino, aplicacion::ConfiguracionAplicacion::prefijoRelacionesTermino()), relacion_con_conceptos(new RelacionConConceptos())
 {
 }
 
@@ -35,6 +39,15 @@ std::string RelacionesTermino::getValorAlmacenable()
 // SETTERS
 
 // METODOS
+
+void RelacionesTermino::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+{
+    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
+    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto))
+    {// si no lo agrego, entonces destruyo la copia.
+        delete id_concepto_copia;
+    }
+}
 
 // metodos de IAlmacenable
 

@@ -8,27 +8,49 @@ using namespace visualizador::modelo;
 
 std::hash<std::string> Termino::hasher;
 
-Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor(""), relaciones(NULL)
+Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino(), NULL), valor("")
 {
+    this->relaciones_termino = new relaciones::RelacionesTermino();
+    this->setRelaciones(this->relaciones_termino);
 }
 
-Termino::Termino(std::string termino, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor(termino)
+Termino::Termino(std::string termino, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino(), NULL), valor(termino)
 {
+    this->relaciones_termino = new relaciones::RelacionesTermino();
+    this->setRelaciones(this->relaciones_termino);
 }
 
 Termino::~Termino()
 {
+    //if (NULL != this->relaciones)
+    //{
+    //    delete this->relaciones;
+    //    this->relaciones = NULL;
+    //}
 }
+
+// GETTERS
 
 std::string Termino::getValor()
 {
 	return this->valor;
 }
 
+// SETTERS
+
 void Termino::setValor(std::string valor)
 {
 	this->valor = valor;
 }
+
+void Termino::relacionarConConcepto(Concepto * concepto)
+{
+    this->relaciones_termino->agregarRelacionConConcepto(concepto->getId());
+}
+
+// METODOS
+
+// metodos de IContieneJson
 
 void Termino::crearContenido()
 {
@@ -47,6 +69,8 @@ bool Termino::parsearContenido(IJson* contenido)
     return true;
 }
 
+// metodos de IAlmacenable
+
 std::string Termino::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoTermino();
@@ -56,6 +80,8 @@ unsigned int Termino::hashcode()
 {
 	return hasher(this->getValor());
 }
+
+// metodos de IEntidad
 
 IEntidad * Termino::clonar()
 {

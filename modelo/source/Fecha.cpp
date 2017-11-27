@@ -11,11 +11,11 @@ std::string Fecha::nombres_meses[] = { "enero", "febrero", "marzo", "abril", "ma
 
 // CONSTRUCTORES
 
-Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(0), mes(0), anio(0)
+Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha(), NULL), dia(0), mes(0), anio(0)
 {
 }
 
-Fecha::Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha()), dia(dia), mes(mes), anio(anio)
+Fecha::Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha(), NULL), dia(dia), mes(mes), anio(anio)
 {
 }
 

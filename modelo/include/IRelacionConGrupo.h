@@ -26,7 +26,7 @@ public:
     
     // CONSTRUCTORES
 
-    IRelacionConGrupo(unsigned long long int id_entidad = 0, std::string grupo = "");
+    IRelacionConGrupo();
     virtual ~IRelacionConGrupo();
 
     // GETTERS
