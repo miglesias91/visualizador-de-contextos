@@ -54,6 +54,13 @@ public:
 
     virtual IEntidad * clonar();
 
+    // metodos de IRelacionable
+
+    virtual void vincular();
+
+    virtual void desvincular();
+
+
 private:
 
 	static std::hash<std::string> hasher;

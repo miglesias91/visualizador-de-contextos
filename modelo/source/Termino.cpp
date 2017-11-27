@@ -90,3 +90,16 @@ IEntidad * Termino::clonar()
     clon->setContenido(this->getContenido()->clonar());
     return clon;
 }
+
+void Termino::vincular()
+{
+    // DESDE ACA HACER Q LLAME AL "GestorRelaciones" y le paso el RelacionesTermino y le digo q vincule
+    // los conceptos de "relacion_con_conceptos" con el id del termino (que esta almacenado en el id de RelacionesTermino).
+    // --> con el GestorRelaciones evito clavar 'forward declaration' en todas las relaciones.
+    this->relaciones_termino->vincularConceptos();
+}
+
+void Termino::desvincular()
+{
+    this->relaciones_termino->desvincularConceptos();
+}

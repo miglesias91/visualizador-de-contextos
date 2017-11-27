@@ -5,22 +5,17 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/GestorIDs.h>
 
-IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), IContieneJson(), relaciones(NULL), esta_limpia(true)
+IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), IContieneJson(), IRelacionable(), esta_limpia(true)
 {
 }
 
 IEntidad::IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, IJson * contenido)
-    : IReferenciable(), IAlmacenable(grupo), IContieneJson(contenido), etiqueta(etiqueta), relaciones(relaciones), esta_limpia(true)
+    : IReferenciable(), IAlmacenable(grupo), IContieneJson(contenido), IRelacionable(relaciones), etiqueta(etiqueta), esta_limpia(true)
 {
 }
 
 IEntidad::~IEntidad()
 {
-    if (NULL != this->relaciones)
-    {
-        delete this->relaciones;
-        this->relaciones = NULL;
-    }
 }
 
 // GETTERS
@@ -28,11 +23,6 @@ IEntidad::~IEntidad()
 std::string IEntidad::getEtiqueta()
 {
 	return this->etiqueta;
-}
-
-relaciones::IRelaciones * IEntidad::getRelaciones()
-{
-    return this->relaciones;
 }
 
 // metodos IAlmacenable
@@ -59,19 +49,13 @@ void IEntidad::setEtiqueta(std::string etiqueta)
 	this->etiqueta = etiqueta;
 }
 
-void IEntidad::setRelaciones(relaciones::IRelaciones * relaciones)
-{
-    this->relaciones = relaciones;
-}
-
-
 // metodos de IAlmacenable
 
 void IEntidad::setId(visualizador::aplicacion::ID* id)
 {
-    if (NULL != this->relaciones)
+    if (NULL != this->getRelaciones())
     {
-        this->relaciones->setId(id->copia());
+        this->getRelaciones()->setId(id->copia());
     }
 
     IAlmacenable::setId(id);

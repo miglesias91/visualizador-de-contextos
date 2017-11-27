@@ -10,14 +10,14 @@
 #include <modelo/include/IAlmacenable.h>
 #include <modelo/include/IContieneJson.h>
 #include <modelo/include/IReferenciable.h>
-#include <modelo/include/IRelaciones.h>
+#include <modelo/include/IRelacionable.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class IEntidad : public IAlmacenable, public IContieneJson, public IReferenciable
+class IEntidad : public IAlmacenable, public IContieneJson, public relaciones::IRelacionable, public IReferenciable
 {
 public:
 
@@ -30,8 +30,6 @@ public:
 	// GETTERS
 	
 	virtual std::string getEtiqueta();
-
-    virtual relaciones::IRelaciones * IEntidad::getRelaciones();
     
     // metodos IAlmacenable
 
@@ -40,8 +38,6 @@ public:
 	// SETTERS
 
 	virtual void setEtiqueta(std::string etiqueta);
-
-    virtual void setRelaciones(relaciones::IRelaciones * relaciones);
 
     // metodos de IAlmacenable
 
@@ -64,8 +60,6 @@ public:
 private:
 
 	std::string etiqueta;
-
-    relaciones::IRelaciones * relaciones;
 
     // true = el contenido que hay en la bd es el correcto | false = el contenido que hay en la bd no esta correcto, hay referencias 'sucias'.
     bool esta_limpia;

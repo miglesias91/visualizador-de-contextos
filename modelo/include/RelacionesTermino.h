@@ -28,11 +28,21 @@ public:
 
     // GETTERS
 
+    virtual RelacionConConceptos * getRelacionConConceptos();
+
+    // getters de IAlmacenable
+
     virtual std::string getValorAlmacenable();
 
     // SETTERS
 
+    virtual void setRelacionConConceptos(RelacionConConceptos * relacion_con_conceptos);
+
     // METODOS
+
+    bool vincularConceptos();
+
+    bool desvincularConceptos();
 
     void agregarRelacionConConcepto(visualizador::aplicacion::ID* id_concepto);
 

@@ -27,6 +27,11 @@ RelacionesTermino::~RelacionesTermino()
 
 // GETTERS
 
+RelacionConConceptos * RelacionesTermino::getRelacionConConceptos()
+{
+    return this->relacion_con_conceptos;;
+}
+
 // getters de IAlmacenable
 
 std::string RelacionesTermino::getValorAlmacenable()
@@ -38,7 +43,29 @@ std::string RelacionesTermino::getValorAlmacenable()
 
 // SETTERS
 
+void RelacionesTermino::setRelacionConConceptos(RelacionConConceptos * relacion_con_conceptos)
+{
+    this->relacion_con_conceptos = relacion_con_conceptos;
+}
+
 // METODOS
+
+bool RelacionesTermino::vincularConceptos()
+{
+    std::vector<visualizador::aplicacion::ID*> ids_conceptos = this->relacion_con_conceptos->getIdsGrupo();
+
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    {
+        RelacionesConcepto relaciones_concepto()
+    }
+
+    return false;
+}
+
+bool RelacionesTermino::desvincularConceptos()
+{
+    return false;
+}
 
 void RelacionesTermino::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
 {

@@ -46,17 +46,38 @@ GestorEntidades::~GestorEntidades()
 
 bool GestorEntidades::guardarCambios()
 {
-    std::vector<visualizador::modelo::IAlmacenable*> almacenables_a_almacenar = visualizador::modelo::IEntidad::comoAlmacenables(this->entidades_a_almacenar);
-    if (false == this->admin_app->almacenar(almacenables_a_almacenar))
-    {
-        return false;
-    }
+    //std::vector<visualizador::modelo::IAlmacenable*> almacenables_a_almacenar = visualizador::modelo::IEntidad::comoAlmacenables(this->entidades_a_almacenar);
+    //if (false == this->admin_app->almacenar(almacenables_a_almacenar))
+    //{
+    //    return false;
+    //}
 
-    std::vector<visualizador::modelo::IAlmacenable*> almacenables_a_eliminar = visualizador::modelo::IEntidad::comoAlmacenables(this->entidades_a_eliminar);
-    if (false == this->admin_app->eliminar(almacenables_a_eliminar))
+    //std::vector<visualizador::modelo::IAlmacenable*> almacenables_a_eliminar = visualizador::modelo::IEntidad::comoAlmacenables(this->entidades_a_eliminar);
+    //if (false == this->admin_app->eliminar(almacenables_a_eliminar))
+    //{
+    //    return false;
+    //}
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
     {
-        return false;
+        visualizador::modelo::IEntidad * entidad_a_almacenar = *this->entidades_it;
+        this->admin_app->almacenar(entidad_a_almacenar);
+        this->admin_app->almacenar(entidad_a_almacenar->getRelaciones());
+        entidad_a_almacenar->vincular();
+
+        this->entidades_existentes.push_back(*this->entidades_it);
     }
+    this->entidades_a_almacenar.clear();
+
+    for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
+    {
+        visualizador::modelo::IEntidad * entidad_a_eliminar = *this->entidades_it;
+        this->admin_app->eliminar(entidad_a_eliminar);
+        this->admin_app->eliminar(entidad_a_eliminar->getRelaciones());
+        entidad_a_eliminar->desvincular();
+        delete (*this->entidades_it);
+    }
+    this->entidades_a_eliminar.clear();
 
     for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
     {
@@ -66,17 +87,17 @@ bool GestorEntidades::guardarCambios()
         }
     }
 
-    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
-    {
-        this->entidades_existentes.push_back(*this->entidades_it);
-    }
-    this->entidades_a_almacenar.clear();
+    //for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    //{
+    //    this->entidades_existentes.push_back(*this->entidades_it);
+    //}
+    //this->entidades_a_almacenar.clear();
 
-    for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
-    {
-        delete (*this->entidades_it);
-    }
-    this->entidades_a_eliminar.clear();
+    //for (this->entidades_it = this->entidades_a_eliminar.begin(); this->entidades_it != this->entidades_a_eliminar.end(); this->entidades_it++)
+    //{
+    //    delete (*this->entidades_it);
+    //}
+    //this->entidades_a_eliminar.clear();
 
 
     return true;
