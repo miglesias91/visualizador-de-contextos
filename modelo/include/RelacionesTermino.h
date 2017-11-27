@@ -1,5 +1,11 @@
 #pragma once
 
+// stl
+#include <functional>
+
+// aplicacion
+#include <aplicacion/include/ConfiguracionAplicacion.h>
+
 // modelo
 #include <modelo/include/IRelaciones.h>
 #include <modelo/include/RelacionConConceptos.h>
@@ -43,6 +49,8 @@ public:
     virtual bool parsearContenido(IJson * contenido);
 
 private:
+    
+    static std::hash<std::string> hasher;
 
     RelacionConConceptos * relacion_con_conceptos;
 };

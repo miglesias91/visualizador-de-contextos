@@ -27,6 +27,8 @@ public:
 
 	std::string string();
 
+    static bool comparador(ID* a, ID* b);
+
 private:
 
 	unsigned long long int id;

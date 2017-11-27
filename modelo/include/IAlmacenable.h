@@ -6,12 +6,15 @@
 // aplicacion
 #include <aplicacion/include/ID.h>
 
+// modelo
+#include <modelo/include/IHashable.h>
+
 namespace visualizador
 {
 namespace modelo
 {
 
-class IAlmacenable
+class IAlmacenable : public IHashable
 {
 public:
     IAlmacenable(std::string grupo = "");
@@ -39,7 +42,7 @@ public:
 
     virtual std::string prefijoGrupo() = 0;
 
-    virtual unsigned int hashcode() = 0;
+    // virtual unsigned int hashcode() = 0;
 
     static bool comparador(IAlmacenable* a, IAlmacenable* b);
 

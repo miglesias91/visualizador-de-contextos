@@ -8,7 +8,7 @@ using namespace visualizador::modelo;
 
 std::hash<std::string> Termino::hasher;
 
-Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor("")
+Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino()), valor(""), relaciones(NULL)
 {
 }
 

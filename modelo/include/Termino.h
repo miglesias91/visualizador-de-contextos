@@ -6,6 +6,7 @@
 
 // modelo
 #include <modelo/include/IEntidad.h>
+#include <modelo/include/RelacionesTermino.h>
 
 namespace visualizador
 {
@@ -50,7 +51,7 @@ private:
 
 	std::string valor;
 
-    IRelacionConGrupo * relacion_conceptos;
+    relaciones::RelacionesTermino * relaciones;
 };
 
 };

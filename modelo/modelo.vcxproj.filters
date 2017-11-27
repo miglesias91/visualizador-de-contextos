@@ -75,6 +75,9 @@
     <ClInclude Include="include\IRelaciones.h">
       <Filter>Archivos de encabezado\relaciones</Filter>
     </ClInclude>
+    <ClInclude Include="include\IHashable.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Concepto.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="source\IRelaciones.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IHashable.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

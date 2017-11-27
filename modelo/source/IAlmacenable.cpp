@@ -2,7 +2,7 @@
 
 using namespace visualizador::modelo;
 
-IAlmacenable::IAlmacenable(std::string grupo) : id(NULL), grupo(grupo)
+IAlmacenable::IAlmacenable(std::string grupo) : id(NULL), grupo(grupo), IHashable()
 {
 }
 

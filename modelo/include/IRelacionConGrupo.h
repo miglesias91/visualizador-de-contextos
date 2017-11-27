@@ -8,8 +8,8 @@
 #include <aplicacion/include/ID.h>
 
 // modelo
-#include <modelo/include/IAlmacenable.h>
 #include <modelo/include/IContieneJson.h>
+#include <modelo/include/IHashable.h>
 
 using namespace visualizador;
 
@@ -20,7 +20,7 @@ namespace modelo
 namespace relaciones
 {
 
-class IRelacionConGrupo : public IContieneJson
+class IRelacionConGrupo : public IContieneJson, public IHashable
 {
 public:
     
@@ -39,17 +39,22 @@ public:
 
     // METODOS
 
+    virtual bool existeRelacion(unsigned long long int id);
+
+    virtual bool existeRelacion(aplicacion::ID * id);
+
+    virtual bool agregarRelacion(unsigned long long int id);
+
     // 'id' debe ser una COPIA, cuando se destruye la instancia se destruyen los ids que contiene la relacion.
     virtual bool agregarRelacion(aplicacion::ID * id);
 
-    // metodos de IContienJson
+    // metodos de IHashable
 
-    virtual void crearContenido() = 0;
-
-    // parsea el contenido JSON, y devuelve 'true' si el contenido es correcto, devuelve 'false' si el contenido parseado no esta correcto.
-    virtual bool parsearContenido(IJson * contenido) = 0;
+    virtual unsigned int hashcode();
 
 private:
+
+    static std::hash<std::string> hasher;
 
     std::vector<aplicacion::ID*> ids_grupo;
 };

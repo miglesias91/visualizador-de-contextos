@@ -54,7 +54,7 @@ private:
 
 	std::vector<Termino*> terminos;
   
-    IRelacionConGrupo * relacion_consultas;
+    // IRelacionConGrupo * relacion_consultas;
 };
 
 };

@@ -32,3 +32,8 @@ std::string ID::string()
 {
 	return std::to_string(this->id);
 }
+
+bool ID::comparador(ID * a, ID * b)
+{
+    return a->numero() < b->numero();
+}

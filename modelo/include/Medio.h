@@ -38,7 +38,7 @@ public:
 
 private:
 
-    IRelacionConGrupo * relacion_consultas;
+    //IRelacionConGrupo * relacion_consultas;
 
 
 };

@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\IHashable.h" />
     <ClInclude Include="include\IContieneJson.h" />
     <ClInclude Include="include\IAlmacenable.h" />
     <ClInclude Include="include\IJson.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="include\RelacionesTermino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\IHashable.cpp" />
     <ClCompile Include="source\RelacionConConceptos.cpp" />
     <ClCompile Include="source\RelacionesTermino.cpp" />
     <ClCompile Include="source\IRelaciones.cpp" />

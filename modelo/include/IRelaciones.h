@@ -17,7 +17,8 @@ public:
 
     // CONSTRUCTORES
 
-    IRelaciones();
+    IRelaciones(std::string grupo = "");
+    IRelaciones(IJson * contenido, std::string grupo = "");
     virtual ~IRelaciones();
 
     // GETTERS
