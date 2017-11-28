@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\GestorRelaciones.h" />
     <ClInclude Include="include\GestorEntidades.h" />
     <ClInclude Include="include\AdministradorAplicacionLocal.h" />
     <ClInclude Include="include\ConfiguracionAplicacion.h" />
@@ -123,6 +124,7 @@
     <ClInclude Include="include\ID.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\GestorRelaciones.cpp" />
     <ClCompile Include="source\GestorEntidades.cpp" />
     <ClCompile Include="source\AdministradorAplicacionLocal.cpp" />
     <ClCompile Include="source\ConfiguracionAplicacion.cpp" />

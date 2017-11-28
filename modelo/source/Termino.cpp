@@ -22,11 +22,6 @@ Termino::Termino(std::string termino, std::string etiqueta) : IEntidad(etiqueta,
 
 Termino::~Termino()
 {
-    //if (NULL != this->relaciones)
-    //{
-    //    delete this->relaciones;
-    //    this->relaciones = NULL;
-    //}
 }
 
 // GETTERS
@@ -34,6 +29,11 @@ Termino::~Termino()
 std::string Termino::getValor()
 {
 	return this->valor;
+}
+
+relaciones::RelacionesTermino * Termino::getRelacionesTermino()
+{
+    return this->relaciones_termino;
 }
 
 // SETTERS
@@ -91,15 +91,20 @@ IEntidad * Termino::clonar()
     return clon;
 }
 
+// metodos de IRelacionable
+
 void Termino::vincular()
 {
     // DESDE ACA HACER Q LLAME AL "GestorRelaciones" y le paso el RelacionesTermino y le digo q vincule
     // los conceptos de "relacion_con_conceptos" con el id del termino (que esta almacenado en el id de RelacionesTermino).
     // --> con el GestorRelaciones evito clavar 'forward declaration' en todas las relaciones.
-    this->relaciones_termino->vincularConceptos();
+    
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.vincular(this->relaciones_termino, this->getId());
 }
 
 void Termino::desvincular()
 {
-    this->relaciones_termino->desvincularConceptos();
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.desvincular(this->relaciones_termino, this->getId());
 }

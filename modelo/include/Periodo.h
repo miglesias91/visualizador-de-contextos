@@ -19,20 +19,6 @@ public:
 	Periodo(Fecha* desde, Fecha* hasta, std::string etiqueta = "");
 	virtual ~Periodo();
 
-	// METODOS
-
-	virtual void crearContenido();
-	
-	virtual bool parsearContenido(IJson* contenido);
-
-	virtual std::string prefijoGrupo();
-
-	virtual unsigned int hashcode();
-
-    //Periodo* clonar();
-
-    virtual IEntidad * clonar();
-
 	// GETTERS
 
 	Fecha* getDesde();
@@ -42,6 +28,30 @@ public:
 
 	void setDesde(Fecha* desde);
 	void setHasta(Fecha* hasta);
+
+    // METODOS
+
+    // metodos de IContieneJson
+
+    virtual void crearContenido();
+
+    virtual bool parsearContenido(IJson* contenido);
+
+    // metodos de IAlmacenable
+
+    virtual std::string prefijoGrupo();
+
+    virtual unsigned int hashcode();
+
+    // metodos de IEntidad
+
+    virtual IEntidad * clonar();
+
+    // metodos de IRelacionable
+
+    virtual void vincular();
+
+    virtual void desvincular();
 
 private:
 	

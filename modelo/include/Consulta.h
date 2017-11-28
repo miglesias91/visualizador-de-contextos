@@ -28,37 +28,47 @@ public:
 
 	virtual ~Consulta();
 
+    // GETTERS
+
+    Periodo* getPeriodo();
+    Reporte* getReporte();
+
+    std::vector<Concepto*> getConceptos();
+    std::vector<Medio*> getMedios();
+    std::vector<Seccion*> getSecciones();
+
+    // SETTERS
+
+    void setPeriodo(Periodo* periodo);
+    void setReporte(Reporte* reporte);
+
+    void agregarConcepto(Concepto* concepto);
+    void agregarMedio(Medio* medio);
+    void agregarSeccion(Seccion* seccion);
+
 	// METODOS
-	
+
+    // metodos de IContieneJson
+
 	virtual void crearContenido();
 
 	virtual bool parsearContenido(IJson* contenido);
+    
+    // metodos de IAlmacenable
 
 	virtual std::string prefijoGrupo();
 	
 	virtual unsigned int hashcode();
-
-    //Consulta* clonar();
     
+    // metodos de IEntidad
+
     virtual IEntidad * clonar();
 
-	// GETTERS
+    // metodos de IRelacionable
 
-	Periodo* getPeriodo();
-	Reporte* getReporte();
+    virtual void vincular();
 
-	std::vector<Concepto*> getConceptos();
-	std::vector<Medio*> getMedios();
-	std::vector<Seccion*> getSecciones();
-
-	// SETTERS
-
-	void setPeriodo(Periodo* periodo);
-	void setReporte(Reporte* reporte);
-
-	void agregarConcepto(Concepto* concepto);
-	void agregarMedio(Medio* medio);
-	void agregarSeccion(Seccion* seccion);
+    virtual void desvincular();
 
 private:
 

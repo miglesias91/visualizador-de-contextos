@@ -18,17 +18,27 @@ public:
 
 	// METODOS
 
+    // metodos de IContieneJson
+
 	virtual void crearContenido();
 
 	virtual bool parsearContenido(IJson* contenido);
 
+    // metodos de IAlmacenable
+
 	virtual std::string prefijoGrupo();
 
 	virtual unsigned int hashcode();
-   
-    //Reporte* clonar();
+
+    // metodos de IEntidad
 
     virtual IEntidad * clonar();
+
+    // metodos de IRelacionable
+
+    virtual void vincular();
+
+    virtual void desvincular();
 
 private:
 

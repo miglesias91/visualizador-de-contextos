@@ -5,7 +5,7 @@
 
 // modelo
 #include <modelo/include/IEntidad.h>
-#include <modelo/include/IRelacionConGrupo.h>
+#include <modelo/include/RelacionConGrupo.h>
 #include <modelo/include/Termino.h>
 
 namespace visualizador
@@ -37,7 +37,7 @@ public:
 
 	void agregarTermino(Termino* termino_nuevo);
 
-    // metodos de IAlmacenable
+    // setters de IAlmacenable
 
     virtual void setId(visualizador::aplicacion::ID* id_concepto);
 
@@ -59,6 +59,12 @@ public:
 
     virtual IEntidad * clonar();
 
+    // metodos de IRelacionable
+
+    virtual void vincular();
+
+    virtual void desvincular();
+
 private:
 
     // METODOS INTERNOS
@@ -67,7 +73,7 @@ private:
 
 	std::vector<Termino*> terminos;
   
-    // IRelacionConGrupo * relacion_consultas;
+    relaciones::RelacionesConcepto * relacion_concepto;
 };
 
 };

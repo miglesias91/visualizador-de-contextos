@@ -16,20 +16,31 @@ using namespace visualizador;
 
 Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL)
 {
+    this->relacion_concepto = new relaciones::RelacionesConcepto();
+    this->setRelaciones(this->relacion_concepto);
 }
 
 Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), terminos(terminos)
 {
+    this->relacion_concepto = new relaciones::RelacionesConcepto();
+    this->setRelaciones(this->relacion_concepto);
+
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
+        this->relacion_concepto->agregarRelacionConTermino((*it)->getId());
         (*it)->sumarReferencia();
     }
+
 }
 
 Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), terminos(terminos)
 {
+    this->relacion_concepto = new relaciones::RelacionesConcepto();
+    this->setRelaciones(this->relacion_concepto);
+
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
+        this->relacion_concepto->agregarRelacionConTermino((*it)->getId());
         (*it)->sumarReferencia();
     }
 }
@@ -162,4 +173,18 @@ void Concepto::relacionarTerminos()
     {
         (*it)->relacionarConConcepto(this);
     }
+}
+
+// metodos de IRelacionable
+
+void Concepto::vincular()
+{
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.vincular(this->relacion_concepto, this->getId());
+}
+
+void Concepto::desvincular()
+{
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.desvincular(this->relacion_concepto, this->getId());
 }

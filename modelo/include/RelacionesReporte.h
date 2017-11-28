@@ -17,18 +17,13 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionesTermino : public IRelaciones
+class RelacionesReporte : public IRelaciones
 {
 public:
-
-    // CONSTRUCTORES
-
-    RelacionesTermino(visualizador::aplicacion::ID* id_termino = NULL);
-    virtual ~RelacionesTermino();
+    RelacionesReporte(visualizador::aplicacion::ID* id_reporte = NULL);
+    virtual ~RelacionesReporte();
 
     // GETTERS
-
-    virtual RelacionConGrupo * getRelacionConConceptos();
 
     // getters de IAlmacenable
 
@@ -36,15 +31,9 @@ public:
 
     // SETTERS
 
-    virtual void setRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos);
-
     // METODOS
 
-    void agregarRelacionConConcepto(visualizador::aplicacion::ID* id_concepto);
-
-    void eliminarRelacionConConcepto(visualizador::aplicacion::ID* id_concepto);
-
-    // metodos de IAlmacenable
+    // IAlmacenable::
 
     virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
@@ -52,20 +41,17 @@ public:
 
     virtual unsigned int hashcode();
 
-    // metodos de IContieneJson
+    // IContieneJson::
 
     virtual void crearContenido();
 
     virtual bool parsearContenido(IJson * contenido);
 
 private:
-    
-    static std::hash<std::string> hasher;
 
-    RelacionConGrupo * relacion_con_conceptos;
+    RelacionConGrupo * relacion_con_consultas;
 };
 
 };
 };
 };
-

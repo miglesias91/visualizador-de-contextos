@@ -25,6 +25,12 @@
     <Filter Include="Archivos de encabezado\interfaces">
       <UniqueIdentifier>{e41bcd6b-86ff-49f8-a8a0-bd3f22481aa2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\relaciones\relacion con">
+      <UniqueIdentifier>{215097fe-9b48-4f08-abe4-4132a3b6589a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\relaciones\relacion con">
+      <UniqueIdentifier>{84438530-b1a3-4caa-bfee-0bd890b3c8a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Termino.h">
@@ -54,13 +60,7 @@
     <ClInclude Include="include\Seccion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="include\IRelacionConGrupo.h">
-      <Filter>Archivos de encabezado\relaciones</Filter>
-    </ClInclude>
     <ClInclude Include="include\RelacionesTermino.h">
-      <Filter>Archivos de encabezado\relaciones</Filter>
-    </ClInclude>
-    <ClInclude Include="include\RelacionConConceptos.h">
       <Filter>Archivos de encabezado\relaciones</Filter>
     </ClInclude>
     <ClInclude Include="include\IRelaciones.h">
@@ -86,6 +86,48 @@
     </ClInclude>
     <ClInclude Include="include\IRelacionable.h">
       <Filter>Archivos de encabezado\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesConcepto.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesConsulta.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesFecha.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesMedio.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesPeriodo.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesReporte.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionesSeccion.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionConGrupo.h">
+      <Filter>Archivos de encabezado\relaciones</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelacionConConsultas.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelacionConMedios.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelacionConPeriodos.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelacionConSecciones.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelacionConTerminos.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IRelacionConConceptos.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,12 +158,6 @@
     <ClCompile Include="source\Termino.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="source\IRelacionConGrupo.cpp">
-      <Filter>Archivos de código fuente\relaciones</Filter>
-    </ClCompile>
-    <ClCompile Include="source\RelacionConConceptos.cpp">
-      <Filter>Archivos de código fuente\relaciones</Filter>
-    </ClCompile>
     <ClCompile Include="source\RelacionesTermino.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
     </ClCompile>
@@ -148,6 +184,48 @@
     </ClCompile>
     <ClCompile Include="source\IRelacionable.cpp">
       <Filter>Archivos de código fuente\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesConcepto.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesConsulta.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesFecha.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesMedio.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesPeriodo.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesReporte.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionesSeccion.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionConGrupo.cpp">
+      <Filter>Archivos de código fuente\relaciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelacionConConsultas.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelacionConMedios.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelacionConPeriodos.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelacionConSecciones.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelacionConTerminos.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\IRelacionConConceptos.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

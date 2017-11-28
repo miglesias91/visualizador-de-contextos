@@ -4,6 +4,9 @@
 #include <functional>
 #include <string>
 
+// aplicacion
+#include <aplicacion/include/GestorRelaciones.h>
+
 // modelo
 #include <modelo/include/Concepto.h>
 #include <modelo/include/IEntidad.h>
@@ -29,6 +32,8 @@ public:
 	// GETTERS
 	
 	std::string getValor();
+
+    relaciones::RelacionesTermino * getRelacionesTermino();
 
 	// SETTERS
 	
@@ -59,7 +64,6 @@ public:
     virtual void vincular();
 
     virtual void desvincular();
-
 
 private:
 

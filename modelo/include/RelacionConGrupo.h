@@ -20,14 +20,14 @@ namespace modelo
 namespace relaciones
 {
 
-class IRelacionConGrupo : public IContieneJson, public IHashable
+class RelacionConGrupo : /*public IContieneJson, */public IHashable
 {
 public:
     
     // CONSTRUCTORES
 
-    IRelacionConGrupo();
-    virtual ~IRelacionConGrupo();
+    RelacionConGrupo();
+    virtual ~RelacionConGrupo();
 
     // GETTERS
     
@@ -47,6 +47,10 @@ public:
 
     // 'id' debe ser una COPIA, cuando se destruye la instancia se destruyen los ids que contiene la relacion.
     virtual bool agregarRelacion(aplicacion::ID * id);
+
+    virtual bool eliminarRelacion(unsigned long long int id);
+
+    virtual bool eliminarRelacion(aplicacion::ID * id);
 
     // metodos de IHashable
 

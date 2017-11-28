@@ -1,4 +1,4 @@
-#include <modelo/include/IRelacionConGrupo.h>
+#include <modelo/include/RelacionConGrupo.h>
 
 // stl
 #include <algorithm>
@@ -6,11 +6,11 @@
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador;
 
-IRelacionConGrupo::IRelacionConGrupo() : IContieneJson(), IHashable()
+RelacionConGrupo::RelacionConGrupo() : /*IContieneJson(),*/ IHashable()
 {
 }
 
-IRelacionConGrupo::~IRelacionConGrupo()
+RelacionConGrupo::~RelacionConGrupo()
 {
     for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
@@ -21,12 +21,12 @@ IRelacionConGrupo::~IRelacionConGrupo()
 
 // GETTERS
 
-std::vector<aplicacion::ID*> IRelacionConGrupo::getIdsGrupo()
+std::vector<aplicacion::ID*> RelacionConGrupo::getIdsGrupo()
 {
     return this->ids_grupo;
 }
 
-std::vector<unsigned long long int> IRelacionConGrupo::getIdsGrupoComoUint()
+std::vector<unsigned long long int> RelacionConGrupo::getIdsGrupoComoUint()
 {
     std::vector<unsigned long long int> ids;
     for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
@@ -41,7 +41,7 @@ std::vector<unsigned long long int> IRelacionConGrupo::getIdsGrupoComoUint()
 
 // METODOS
 
-bool IRelacionConGrupo::existeRelacion(unsigned long long int id)
+bool RelacionConGrupo::existeRelacion(unsigned long long int id)
 {
     aplicacion::ID * id_aux = new aplicacion::ID(id);
     
@@ -52,7 +52,7 @@ bool IRelacionConGrupo::existeRelacion(unsigned long long int id)
     return existe;
 }
 
-bool IRelacionConGrupo::existeRelacion(aplicacion::ID * id)
+bool RelacionConGrupo::existeRelacion(aplicacion::ID * id)
 {
     for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
@@ -65,7 +65,7 @@ bool IRelacionConGrupo::existeRelacion(aplicacion::ID * id)
     return false;
 }
 
-bool IRelacionConGrupo::agregarRelacion(unsigned long long int id)
+bool RelacionConGrupo::agregarRelacion(unsigned long long int id)
 {
     aplicacion::ID * nuevo_id = new aplicacion::ID(id);
     if (false == this->agregarRelacion(nuevo_id))
@@ -76,7 +76,7 @@ bool IRelacionConGrupo::agregarRelacion(unsigned long long int id)
     return true;
 }
 
-bool IRelacionConGrupo::agregarRelacion(aplicacion::ID * id)
+bool RelacionConGrupo::agregarRelacion(aplicacion::ID * id)
 {
     if (this->existeRelacion(id))
     {
@@ -88,9 +88,34 @@ bool IRelacionConGrupo::agregarRelacion(aplicacion::ID * id)
     return true;
 }
 
+bool RelacionConGrupo::eliminarRelacion(unsigned long long int id)
+{
+    aplicacion::ID * id_aux = new aplicacion::ID(id);
+
+    bool existe = this->eliminarRelacion(id_aux);
+
+    delete id_aux;
+
+    return existe;
+}
+
+bool RelacionConGrupo::eliminarRelacion(aplicacion::ID * id)
+{
+    for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
+    {
+        if ((*it)->numero() == id->numero())
+        {// si coincide, entonces lo elimino
+            this->ids_grupo.erase(it);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // metodos de IHashable
 
-unsigned int IRelacionConGrupo::hashcode()
+unsigned int RelacionConGrupo::hashcode()
 {
     std::string string_ids = "";
 

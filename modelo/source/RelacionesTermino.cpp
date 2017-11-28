@@ -12,7 +12,7 @@ using namespace visualizador;
 
 // CONSTRUCTORES
 
-RelacionesTermino::RelacionesTermino(visualizador::aplicacion::ID* id_termino) : IRelaciones(id_termino, aplicacion::ConfiguracionAplicacion::prefijoRelacionesTermino()), relacion_con_conceptos(new RelacionConConceptos())
+RelacionesTermino::RelacionesTermino(visualizador::aplicacion::ID* id_termino) : IRelaciones(id_termino, aplicacion::ConfiguracionAplicacion::prefijoRelacionesTermino()), relacion_con_conceptos(new RelacionConGrupo())
 {
 }
 
@@ -27,7 +27,7 @@ RelacionesTermino::~RelacionesTermino()
 
 // GETTERS
 
-RelacionConConceptos * RelacionesTermino::getRelacionConConceptos()
+RelacionConGrupo * RelacionesTermino::getRelacionConConceptos()
 {
     return this->relacion_con_conceptos;;
 }
@@ -43,37 +43,24 @@ std::string RelacionesTermino::getValorAlmacenable()
 
 // SETTERS
 
-void RelacionesTermino::setRelacionConConceptos(RelacionConConceptos * relacion_con_conceptos)
+void RelacionesTermino::setRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos)
 {
     this->relacion_con_conceptos = relacion_con_conceptos;
 }
 
 // METODOS
 
-bool RelacionesTermino::vincularConceptos()
-{
-    std::vector<visualizador::aplicacion::ID*> ids_conceptos = this->relacion_con_conceptos->getIdsGrupo();
-
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
-    {
-        RelacionesConcepto relaciones_concepto()
-    }
-
-    return false;
-}
-
-bool RelacionesTermino::desvincularConceptos()
-{
-    return false;
-}
-
 void RelacionesTermino::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
 {
     visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto))
+    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
     {// si no lo agrego, entonces destruyo la copia.
         delete id_concepto_copia;
     }
+}
+
+void RelacionesTermino::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+{
 }
 
 // metodos de IAlmacenable
@@ -99,20 +86,26 @@ unsigned int RelacionesTermino::hashcode()
 
 void RelacionesTermino::crearContenido()
 {
-    this->relacion_con_conceptos->crearContenido();
-    IJson* ids_conceptos = this->relacion_con_conceptos->getContenido();
+    IJson * relaciones_termino = new IJson();
 
+    relaciones_termino->agregarAtributoArray("ids_conceptos", this->relacion_con_conceptos->getIdsGrupoComoUint());
+    
     IJson* contenido = this->getContenido();
     contenido->reset();
 
-    contenido->agregarAtributoJson("relaciones_termino", ids_conceptos);
+    contenido->agregarAtributoJson("relaciones_termino", relaciones_termino);
 }
 
 bool RelacionesTermino::parsearContenido(IJson * contenido)
 {
     IJson * json_relaciones_termino = contenido->getAtributoValorJson("relaciones_termino");
 
-    this->relacion_con_conceptos->parsearContenido(json_relaciones_termino);
+    std::vector<unsigned long long int> ids_conceptos = json_relaciones_termino->getAtributoArrayUint("ids_conceptos");
+
+    for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    {
+        this->relacion_con_conceptos->agregarRelacion(*it);
+    }
 
     return true;
 }

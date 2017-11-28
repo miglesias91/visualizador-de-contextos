@@ -24,20 +24,6 @@ public:
 
 	virtual ~Fecha();
 
-	// METODOS
-
-	virtual void crearContenido();
-	
-	virtual bool parsearContenido(IJson* contenido);
-
-	virtual std::string prefijoGrupo();
-	
-	virtual unsigned int hashcode();
-
-    //Fecha* clonar();
-
-    virtual IEntidad * clonar();
-    
     // GETTERS
 
 	unsigned int getDia();
@@ -63,6 +49,30 @@ public:
 	void setDia(unsigned int dia);
 	void setMes(unsigned int mes);
 	void setAnio(unsigned int anio);
+
+    // METODOS
+
+    // metodos de IContieneJson
+
+    virtual void crearContenido();
+
+    virtual bool parsearContenido(IJson* contenido);
+
+    // metodos de IAlmacenable
+
+    virtual std::string prefijoGrupo();
+
+    virtual unsigned int hashcode();
+
+    // metodos de IEntidad
+
+    virtual IEntidad * clonar();
+
+    // metodos de IRelacionable
+
+    virtual void vincular();
+
+    virtual void desvincular();
 
 private:
 

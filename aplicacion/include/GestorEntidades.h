@@ -7,8 +7,8 @@
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 
 // aplicacion
-// #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/IAdministradorAplicacion.h>
+#include <aplicacion/include/GestorRelaciones.h>
 
 // modelo
 #include <modelo/include/IEntidad.h>
@@ -23,7 +23,7 @@ class GestorEntidades
 public:
     GestorEntidades();
 
-    ~GestorEntidades();
+    virtual ~GestorEntidades();
 
     template <class ENTIDAD>
     std::vector<ENTIDAD*> gestionar();
@@ -65,6 +65,7 @@ private:
 
     IAdministradorAplicacion * admin_app;
     almacenamiento::IAdministradorAlmacenamiento * admin_bd;
+    GestorRelaciones gestor_relaciones;
 };
 
 template <class ENTIDAD>
