@@ -14,7 +14,7 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionesPeriodo : public IRelaciones, IRelacionConConsultas
+class RelacionesPeriodo : public IRelaciones, public IRelacionConConsultas
 {
 public:
     RelacionesPeriodo(visualizador::aplicacion::ID* id_periodo = NULL);

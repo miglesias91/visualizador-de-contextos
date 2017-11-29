@@ -27,49 +27,6 @@ Fecha::~Fecha()
 {
 }
 
-// METODOS
-
-void Fecha::crearJson()
-{
-	IJson* json = this->getJson();
-    json->reset();
-
-    json->agregarAtributoValor("dia", this->getDia());
-    json->agregarAtributoValor("mes", this->getMes());
-    json->agregarAtributoValor("anio", this->getAnio());
-}
-
-bool Fecha::parsearJson(IJson* json)
-{
-	unsigned long long int dia = json->getAtributoValorUint("dia");
-	unsigned long long int mes = json->getAtributoValorUint("mes");
-	unsigned long long int anio = json->getAtributoValorUint("anio");
-
-	this->dia = dia;
-	this->mes = mes;
-	this->anio = anio;
-
-    return true;
-}
-
-std::string Fecha::prefijoGrupo()
-{
-	return aplicacion::ConfiguracionAplicacion::prefijoFecha();
-}
-
-unsigned int Fecha::hashcode()
-{
-	return hasher(this->dia) + hasher(this->mes) + hasher(this->anio);
-}
-
-IEntidad * Fecha::clonar()
-{
-    Fecha * clon = new Fecha(this->dia, this->mes, this->anio, this->getEtiqueta());
-    clon->setId(this->getId()->copia());
-    clon->setJson(this->getJson()->clonar());
-    return clon;
-}
-
 // GETTERS
 
 unsigned int Fecha::getDia()
@@ -117,6 +74,11 @@ std::string Fecha::getStringDDmesAAAA(std::string separador)
     return this->getStringDia() + separador + this->getNombreMes() + separador + this->getStringAnio();
 }
 
+relaciones::RelacionesFecha * Fecha::getRelacionesFecha()
+{
+    return this->relaciones_fecha;;
+}
+
 // SETTERS
 
 void Fecha::setDia(std::string dia)
@@ -148,6 +110,62 @@ void Fecha::setAnio(unsigned int anio)
 {
 	this->anio = anio;
 }
+
+void Fecha::setRelacionesFecha(relaciones::RelacionesFecha * relaciones_fecha)
+{
+    this->relaciones_fecha = relaciones_fecha;
+}
+
+// METODOS
+
+// metodos de IContieneJson
+
+void Fecha::crearJson()
+{
+    IJson* json = this->getJson();
+    json->reset();
+
+    json->agregarAtributoValor("dia", this->getDia());
+    json->agregarAtributoValor("mes", this->getMes());
+    json->agregarAtributoValor("anio", this->getAnio());
+}
+
+bool Fecha::parsearJson(IJson* json)
+{
+    unsigned long long int dia = json->getAtributoValorUint("dia");
+    unsigned long long int mes = json->getAtributoValorUint("mes");
+    unsigned long long int anio = json->getAtributoValorUint("anio");
+
+    this->dia = dia;
+    this->mes = mes;
+    this->anio = anio;
+
+    return true;
+}
+
+// metodos de IAlmacenable
+
+std::string Fecha::prefijoGrupo()
+{
+    return aplicacion::ConfiguracionAplicacion::prefijoFecha();
+}
+
+unsigned int Fecha::hashcode()
+{
+    return hasher(this->dia) + hasher(this->mes) + hasher(this->anio);
+}
+
+// metodos de IEntidad
+
+IEntidad * Fecha::clonar()
+{
+    Fecha * clon = new Fecha(this->dia, this->mes, this->anio, this->getEtiqueta());
+    clon->setId(this->getId()->copia());
+    clon->setJson(this->getJson()->clonar());
+    return clon;
+}
+
+// metodos de IRelacionable
 
 bool Fecha::recuperarContenidoDeRelaciones()
 {

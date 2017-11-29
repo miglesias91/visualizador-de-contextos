@@ -67,6 +67,8 @@ void IEntidad::setId(visualizador::aplicacion::ID* id)
     }
 
     IAlmacenable::setId(id);
+
+    this->actualizarRelaciones();
 }
 
 void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)

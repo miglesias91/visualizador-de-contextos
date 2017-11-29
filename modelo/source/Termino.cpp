@@ -43,10 +43,10 @@ void Termino::setValor(std::string valor)
 	this->valor = valor;
 }
 
-//void Termino::relacionarConConcepto(visualizador::aplicacion::ID * id_concepto)
-//{
-//    this->relaciones_termino->agregarRelacionConConcepto(id_concepto);
-//}
+void Termino::setRelacionesTermino(relaciones::RelacionesTermino * relaciones_termino)
+{
+    this->relaciones_termino = relaciones_termino;
+}
 
 // METODOS
 

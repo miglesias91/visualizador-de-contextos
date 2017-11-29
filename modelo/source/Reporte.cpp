@@ -15,6 +15,24 @@ Reporte::~Reporte()
 {
 }
 
+// GETTERS
+
+relaciones::RelacionesReporte * Reporte::getRelacionesReporte()
+{
+    return this->relaciones_reporte;
+}
+
+// SETTERS
+
+void Reporte::setRelacionesReporte(relaciones::RelacionesReporte * relaciones_reporte)
+{
+    this->relaciones_reporte = relaciones_reporte;
+}
+
+// METODOS
+
+// metodos IContieneJson
+
 void Reporte::crearJson()
 {
 }
@@ -23,6 +41,8 @@ bool Reporte::parsearJson(IJson* json)
 {
     return true;
 }
+
+// metodos IAlmacenable
 
 std::string Reporte::prefijoGrupo()
 {
@@ -34,6 +54,8 @@ unsigned int Reporte::hashcode()
 	return 0;
 }
 
+// metodos IEntidad
+
 IEntidad * Reporte::clonar()
 {
     Reporte * clon = new Reporte(this->getEtiqueta());
@@ -41,6 +63,8 @@ IEntidad * Reporte::clonar()
     clon->setJson(this->getJson()->clonar());
     return clon;
 }
+
+// metodos IRelacionable
 
 bool Reporte::recuperarContenidoDeRelaciones()
 {

@@ -18,27 +18,31 @@ Consulta::Consulta(std::string etiqueta) :
 
 Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta)
 	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL),
-    periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones), relaciones_consulta(NULL)
+    // periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones),
+    relaciones_consulta(NULL)
 {
     this->relaciones_consulta = new relaciones::RelacionesConsulta();
     this->setRelaciones(this->relaciones_consulta);
 
-    this->periodo->sumarReferencia();
-    this->reporte->sumarReferencia();
+    this->setPeriodo(periodo);
+    this->setReporte(reporte);
 
-    for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
+    for (std::vector<Concepto*>::iterator it = conceptos.begin(); it != conceptos.end(); it++)
     {
-        (*it)->sumarReferencia();
+        // (*it)->sumarReferencia();
+        this->agregarConcepto(*it);
     }
 
-    for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+    for (std::vector<Medio*>::iterator it = medios.begin(); it != medios.end(); it++)
     {
-        (*it)->sumarReferencia();
+        // (*it)->sumarReferencia();
+        this->agregarMedio(*it);
     }
 
-    for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
+    for (std::vector<Seccion*>::iterator it = secciones.begin(); it != secciones.end(); it++)
     {
-        (*it)->sumarReferencia();
+        // (*it)->sumarReferencia();
+        this->agregarSeccion(*it);
     }
 }
 
@@ -83,6 +87,8 @@ Consulta::~Consulta()
     }
 }
 
+// GETTERS
+
 Periodo * Consulta::getPeriodo()
 {
 	return this->periodo;
@@ -108,35 +114,101 @@ std::vector<Seccion*> Consulta::getSecciones()
 	return this->secciones;
 }
 
+relaciones::RelacionesConsulta * Consulta::getRelacionesConsulta()
+{
+    return this->relaciones_consulta;
+}
+
+// SETTERS
+
 void Consulta::setPeriodo(Periodo * periodo)
 {
 	this->periodo = periodo;
     this->periodo->sumarReferencia();
+
+    if (NULL != this->getId())
+    {
+        this->periodo->getRelacionesPeriodo()->agregarRelacionConConsulta(this->getId());
+    }
+
+    if (NULL != this->periodo->getId())
+    {
+        this->relaciones_consulta->setRelacionConPeriodo(this->periodo->getId()->numero());
+    }
 }
 
 void Consulta::setReporte(Reporte * reporte)
 {
 	this->reporte = reporte;
     this->reporte->sumarReferencia();
+    
+    if (NULL != this->getId())
+    {
+        this->reporte->getRelacionesReporte()->agregarRelacionConConsulta(this->getId());
+    }
+
+    if (NULL != this->reporte->getId())
+    {
+        this->relaciones_consulta->setRelacionConReporte(this->reporte->getId()->numero());
+    }
 }
 
 void Consulta::agregarConcepto(Concepto * concepto)
 {
 	this->conceptos.push_back(concepto);
     concepto->sumarReferencia();
+
+    if (NULL != this->getId())
+    {
+        concepto->getRelacionesConcepto()->agregarRelacionConConsulta(this->getId());
+    }
+
+    if (NULL != concepto->getId())
+    {
+        this->relaciones_consulta->getRelacionConConceptos()->agregarRelacion(concepto->getId());
+    }
 }
 
 void Consulta::agregarMedio(Medio * medio)
 {
 	this->medios.push_back(medio);
     medio->sumarReferencia();
+
+    if (NULL != this->getId())
+    {
+        medio->getRelacionesMedio()->agregarRelacionConConsulta(this->getId());
+    }
+
+    if (NULL != medio->getId())
+    {
+        this->relaciones_consulta->getRelacionConConceptos()->agregarRelacion(medio->getId());
+    }
 }
 
 void Consulta::agregarSeccion(Seccion * seccion)
 {
 	this->secciones.push_back(seccion);
     seccion->sumarReferencia();
+
+    if (NULL != this->getId())
+    {
+        seccion->getRelacionesSeccion()->agregarRelacionConConsulta(this->getId());
+    }
+
+    if (NULL != seccion->getId())
+    {
+        this->relaciones_consulta->getRelacionConConceptos()->agregarRelacion(seccion->getId());
+    }
 }
+
+void Consulta::getRelacionesConsulta(relaciones::RelacionesConsulta * relaciones_consulta)
+{
+    this->relaciones_consulta = relaciones_consulta;
+}
+
+// METODOS
+
+// metodos de IContieneJson
 
 void Consulta::crearJson()
 {
@@ -270,6 +342,8 @@ bool Consulta::parsearJson(IJson* json)
     return true;
 }
 
+// metodos de IAlmacenable
+
 std::string Consulta::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoConsulta();
@@ -310,6 +384,8 @@ unsigned int Consulta::hashcode()
 	return hashcode_conceptos + hashcode_medios + hashcode_secciones + hashcode_periodo + hashcode_reporte;
 }
 
+// metodos de IEntidad
+
 IEntidad * Consulta::clonar()
 {
     aplicacion::GestorEntidades gestor;
@@ -343,6 +419,8 @@ IEntidad * Consulta::clonar()
     clon->setJson(this->getJson()->clonar());
     return clon;
 }
+
+// metodos de IRelacionable
 
 bool Consulta::recuperarContenidoDeRelaciones()
 {
@@ -439,9 +517,21 @@ void Consulta::actualizarRelaciones()
 
     for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
     {
-        (*it)->getRelacionesConcepto()->agregarRelacionConConsulta(this->getId());
-        this->relaciones_consulta->agregarRelacionConConcepto((*it)->getId());
+        (*it)->getRelacionesMedio()->agregarRelacionConConsulta(this->getId());
+        this->relaciones_consulta->agregarRelacionConMedio((*it)->getId());
     }
+
+    for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
+    {
+        (*it)->getRelacionesSeccion()->agregarRelacionConConsulta(this->getId());
+        this->relaciones_consulta->agregarRelacionConSeccion((*it)->getId());
+    }
+
+    this->periodo->getRelacionesPeriodo()->agregarRelacionConConsulta(this->getId());
+    this->relaciones_consulta->setRelacionConPeriodo(this->periodo->getId()->numero());
+
+    this->reporte->getRelacionesReporte()->agregarRelacionConConsulta(this->getId());
+    this->relaciones_consulta->setRelacionConReporte(this->reporte->getId()->numero());
 }
 
 void Consulta::vincular()

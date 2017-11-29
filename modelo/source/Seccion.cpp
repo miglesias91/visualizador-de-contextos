@@ -15,6 +15,24 @@ Seccion::~Seccion()
 {
 }
 
+// GETTERS
+
+relaciones::RelacionesSeccion * Seccion::getRelacionesSeccion()
+{
+    return this->relaciones_seccion;
+}
+
+// SETTERS
+
+void Seccion::setRelacionesSeccion(relaciones::RelacionesSeccion * relaciones_seccion)
+{
+    this->relaciones_seccion = relaciones_seccion;
+}
+
+// METODOS
+
+// metodos IContieneJson
+
 void Seccion::crearJson()
 {
 }
@@ -23,6 +41,8 @@ bool Seccion::parsearJson(IJson* json)
 {
     return true;
 }
+
+// metodos de IAlmacenable
 
 std::string Seccion::prefijoGrupo()
 {
@@ -33,6 +53,8 @@ unsigned int Seccion::hashcode()
 {
 	return 0;
 }
+
+// metodos de IEntidad
 
 IEntidad * Seccion::clonar()
 {
@@ -46,6 +68,8 @@ bool Seccion::recuperarContenidoDeRelaciones()
 {
     return true;
 }
+
+// metodos de IRelacionable
 
 void Seccion::actualizarRelaciones()
 {

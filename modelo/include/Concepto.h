@@ -39,10 +39,6 @@ public:
 
 	void agregarTermino(Termino* termino_nuevo);
 
-    // setters de IAlmacenable
-
-    virtual void setId(visualizador::aplicacion::ID* id_concepto);
-
 	// METODOS
 
     // metodos de IContieneJson
@@ -74,8 +70,6 @@ public:
 private:
 
     // METODOS INTERNOS
-
-    void relacionarTerminos();
 
 	std::vector<Termino*> terminos;
   

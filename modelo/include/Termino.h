@@ -8,7 +8,6 @@
 #include <aplicacion/include/GestorRelaciones.h>
 
 // modelo
-#include <modelo/include/Concepto.h>
 #include <modelo/include/IEntidad.h>
 #include <modelo/include/RelacionesTermino.h>
 
@@ -40,8 +39,6 @@ public:
     void setRelacionesTermino(relaciones::RelacionesTermino * relaciones_termino);
 
 	// METODOS
-
-    // void relacionarConConcepto(visualizador::aplicacion::ID * id_concepto);
 
     // metodos de IContieneJson
 

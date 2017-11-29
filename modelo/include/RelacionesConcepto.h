@@ -23,10 +23,6 @@ public:
 
     // GETTERS
 
-    //virtual RelacionConGrupo * getRelacionConTerminos();
-
-    //virtual RelacionConGrupo * getRelacionConConsultas();
-
     // getters de IAlmacenable
 
     virtual std::string getValorAlmacenable();

@@ -20,32 +20,34 @@ Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::Config
     this->setRelaciones(this->relaciones_concepto);
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), terminos(terminos), relaciones_concepto(NULL)
+Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), /*terminos(terminos),*/ relaciones_concepto(NULL)
 {
     this->relaciones_concepto = new relaciones::RelacionesConcepto();
     this->setRelaciones(this->relaciones_concepto);
 
-    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
     {
-        if (NULL != (*it)->getId())
-        {
-            this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
-        }
+        //if (NULL != (*it)->getId())
+        //{
+        //    this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+        //}
+        this->agregarTermino(*it);
         (*it)->sumarReferencia();
     }
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), terminos(terminos), relaciones_concepto(NULL)
+Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), /*terminos(terminos),*/ relaciones_concepto(NULL)
 {
     this->relaciones_concepto = new relaciones::RelacionesConcepto();
     this->setRelaciones(this->relaciones_concepto);
 
-    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
     {
-        if (NULL != (*it)->getId())
-        {
-            this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
-        }
+        //if (NULL != (*it)->getId())
+        //{
+        //    this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+        //}
+        this->agregarTermino(*it);
         (*it)->sumarReferencia();
     }
 }
@@ -90,7 +92,6 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
 
     if (NULL != this->getId())
     {
-        //termino_nuevo->relacionarConConcepto(this->getId());
         termino_nuevo->getRelacionesTermino()->agregarRelacionConConcepto(this->getId());
     }
 
@@ -152,14 +153,6 @@ bool Concepto::parsearJson(IJson* json)
 
 // metodos IAlmacenable
 
-void Concepto::setId(visualizador::aplicacion::ID* id)
-{
-    IEntidad::setId(id);
-
-    //this->relacionarTerminos();
-    this->actualizarRelaciones();
-}
-
 std::string Concepto::prefijoGrupo()
 {
 	return aplicacion::ConfiguracionAplicacion::prefijoConcepto();
@@ -197,17 +190,6 @@ IEntidad * Concepto::clonar()
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
     return clon;
-}
-
-void Concepto::relacionarTerminos()
-{
-    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
-    {
-        // ACA HACER QUE EN VEZ DE PASARLE 'this' LE PASE DIRECTAMENTE LE ID DEL CONCEPTO (al 'Termino*' o directo al 'RelacionesTermino*'),
-        // ASI ME EVITO LOS FORWARD DECLARATION.
-        //(*it)->relacionarConConcepto(this);
-        (*it)->getRelacionesTermino()->agregarRelacionConConcepto(this->getId());
-    }
 }
 
 // metodos de IRelacionable
