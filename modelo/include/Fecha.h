@@ -7,6 +7,8 @@
 // modelo
 #include <modelo/include/IEntidad.h>
 
+#include <modelo/include/RelacionesFecha.h>
+
 namespace visualizador
 {
 namespace modelo
@@ -84,7 +86,7 @@ private:
 	unsigned int mes;
 	unsigned int anio;
   
-    //IRelacionConGrupo * relacion_periodos;
+    relaciones::RelacionesFecha * relaciones_fecha;
 };
 
 };

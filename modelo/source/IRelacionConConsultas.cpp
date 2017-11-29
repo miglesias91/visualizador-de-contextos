@@ -1,34 +1,48 @@
-#include <modelo/include/IRelacionConConceptos.h>
+#include <modelo/include/IRelacionConConsultas.h>
 
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-IRelacionConConceptos::IRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos) : relacion_con_conceptos(relacion_con_conceptos)
+IRelacionConConsultas::IRelacionConConsultas(RelacionConGrupo * relacion_con_consulta) : relacion_con_consulta(relacion_con_consulta)
 {
 }
 
-IRelacionConConceptos::~IRelacionConConceptos()
+IRelacionConConsultas::~IRelacionConConsultas()
 {
-}
-
-// GETTES
-
-// SETTERS
-
-// METODOS
-
-
-void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
-{
-    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
-    {// si no lo agrego, entonces destruyo la copia.
-        delete id_concepto_copia;
+    if (NULL != this->relacion_con_consulta)
+    {
+        delete this->relacion_con_consulta;
+        this->relacion_con_consulta = NULL;
     }
 }
 
-void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+// GETTERS
+
+RelacionConGrupo * IRelacionConConsultas::getRelacionConConsultas()
 {
-    this->relacion_con_conceptos->eliminarRelacion(id_concepto);
+    return this->relacion_con_consulta;
+}
+
+// SETTERS
+
+void IRelacionConConsultas::setRelacionConConsultas(RelacionConGrupo * relacion_con_consulta)
+{
+    this->relacion_con_consulta = relacion_con_consulta;
+}
+
+// METODOS
+
+void IRelacionConConsultas::agregarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta)
+{
+    visualizador::aplicacion::ID * id_consulta_copia = id_consulta->copia();
+    if (false == this->relacion_con_consulta->agregarRelacion(id_consulta_copia))
+    {// si no lo agrego, entonces destruyo la copia.
+        delete id_consulta_copia;
+    }
+}
+
+void IRelacionConConsultas::eliminarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta)
+{
+    this->relacion_con_consulta->eliminarRelacion(id_consulta);
 }

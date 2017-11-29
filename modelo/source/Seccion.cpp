@@ -5,8 +5,10 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Seccion::Seccion(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoSeccion(), NULL)
+Seccion::Seccion(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoSeccion(), NULL), relaciones_seccion(NULL)
 {
+    this->relaciones_seccion = new relaciones::RelacionesSeccion();
+    this->setRelaciones(this->relaciones_seccion);
 }
 
 Seccion::~Seccion()
@@ -38,4 +40,12 @@ IEntidad * Seccion::clonar()
     clon->setId(this->getId()->copia());
     clon->setContenido(this->getContenido()->clonar());
     return clon;
+}
+
+void Seccion::vincular()
+{
+}
+
+void Seccion::desvincular()
+{
 }

@@ -1,34 +1,44 @@
-#include <modelo/include/IRelacionConConceptos.h>
+#include <modelo/include/IRelacionConTerminos.h>
 
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-IRelacionConConceptos::IRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos) : relacion_con_conceptos(relacion_con_conceptos)
+IRelacionConTerminos::IRelacionConTerminos(RelacionConGrupo * relacion_con_terminos) : relacion_con_terminos(relacion_con_terminos)
 {
 }
 
-IRelacionConConceptos::~IRelacionConConceptos()
+IRelacionConTerminos::~IRelacionConTerminos()
 {
 }
 
-// GETTES
+// GETTERS
+
+RelacionConGrupo * IRelacionConTerminos::getRelacionConTerminos()
+{
+    return this->relacion_con_terminos;
+}
 
 // SETTERS
+
+void IRelacionConTerminos::setRelacionConTerminos(RelacionConGrupo * relacion_con_terminos)
+{
+    this->relacion_con_terminos = relacion_con_terminos;
+}
 
 // METODOS
 
 
-void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConTerminos::agregarRelacionConTermino(visualizador::aplicacion::ID * id_termino)
 {
-    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
+    visualizador::aplicacion::ID * id_termino_copia = id_termino->copia();
+    if (false == this->relacion_con_terminos->agregarRelacion(id_termino_copia))
     {// si no lo agrego, entonces destruyo la copia.
-        delete id_concepto_copia;
+        delete id_termino_copia;
     }
 }
 
-void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConTerminos::eliminarRelacionConTermino(visualizador::aplicacion::ID * id_termino)
 {
-    this->relacion_con_conceptos->eliminarRelacion(id_concepto);
+    this->relacion_con_terminos->eliminarRelacion(id_termino);
 }

@@ -9,12 +9,19 @@ using namespace visualizador::modelo;
 
 // CONSTRUCTORES
 
-Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL), desde(NULL), hasta(NULL)
+Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL),
+    desde(NULL), hasta(NULL), relaciones_periodo(NULL)
 {
+    this->relaciones_periodo = new relaciones::RelacionesPeriodo();
+    this->setRelaciones(this->relaciones_periodo);
 }
 
-Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL),  desde(desde), hasta(hasta)
+Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL),
+    desde(desde), hasta(hasta), relaciones_periodo(NULL)
 {
+    this->relaciones_periodo = new relaciones::RelacionesPeriodo();
+    this->setRelaciones(this->relaciones_periodo);
+
     this->desde->sumarReferencia();
     this->hasta->sumarReferencia();
 }
@@ -128,4 +135,12 @@ void Periodo::setHasta(Fecha * hasta)
 {
 	this->hasta = hasta;
     this->hasta->sumarReferencia();
+}
+
+void Periodo::vincular()
+{
+}
+
+void Periodo::desvincular()
+{
 }

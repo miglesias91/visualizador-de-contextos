@@ -1,34 +1,49 @@
-#include <modelo/include/IRelacionConConceptos.h>
+#include <modelo/include/IRelacionConSecciones.h>
 
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-IRelacionConConceptos::IRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos) : relacion_con_conceptos(relacion_con_conceptos)
+IRelacionConSecciones::IRelacionConSecciones(RelacionConGrupo * relacion_con_secciones) : relacion_con_secciones(relacion_con_secciones)
 {
 }
 
-IRelacionConConceptos::~IRelacionConConceptos()
+IRelacionConSecciones::~IRelacionConSecciones()
 {
+    if (NULL != this->relacion_con_secciones)
+    {
+        delete this->relacion_con_secciones;
+        this->relacion_con_secciones = NULL;
+    }
 }
 
-// GETTES
+// GETTERS
+
+RelacionConGrupo * IRelacionConSecciones::getRelacionConSecciones()
+{
+    return this->relacion_con_secciones;
+}
 
 // SETTERS
+
+void IRelacionConSecciones::setRelacionConSecciones(RelacionConGrupo * relacion_con_secciones)
+{
+    this->relacion_con_secciones = relacion_con_secciones;
+}
 
 // METODOS
 
 
-void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConSecciones::agregarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion)
 {
-    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
+    visualizador::aplicacion::ID * id_seccion_copia = id_seccion->copia();
+    if (false == this->relacion_con_secciones->agregarRelacion(id_seccion_copia))
     {// si no lo agrego, entonces destruyo la copia.
-        delete id_concepto_copia;
+        delete id_seccion_copia;
     }
 }
 
-void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConSecciones::eliminarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion)
 {
-    this->relacion_con_conceptos->eliminarRelacion(id_concepto);
+    this->relacion_con_secciones->eliminarRelacion(id_seccion);
 }

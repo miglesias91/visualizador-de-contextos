@@ -4,6 +4,8 @@
 #include <modelo/include/IEntidad.h>
 #include <modelo/include/Fecha.h>
 
+#include <modelo/include/RelacionesPeriodo.h>
+
 namespace visualizador
 {
 namespace modelo
@@ -58,7 +60,7 @@ private:
     Fecha* desde;
 	Fecha* hasta;
   
-    //IRelacionConGrupo * relacion_consultas;
+    relaciones::RelacionesPeriodo * relaciones_periodo;
 };
 
 };

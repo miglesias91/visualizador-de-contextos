@@ -9,6 +9,8 @@
 // modelo
 #include <modelo/include/IRelaciones.h>
 #include <modelo/include/IRelacionConConceptos.h>
+#include <modelo/include/IRelacionConMedios.h>
+#include <modelo/include/IRelacionConSecciones.h>
 
 #include <modelo/include/RelacionConGrupo.h>
 
@@ -53,9 +55,6 @@ private:
 
     unsigned long long int relacion_con_periodo;
     unsigned long long int relacion_con_reporte;
-
-    RelacionConGrupo * relacion_con_medios;
-    RelacionConGrupo * relacion_con_secciones;
 };
 
 };

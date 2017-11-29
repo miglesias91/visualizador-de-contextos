@@ -94,11 +94,7 @@ IEntidad * Termino::clonar()
 // metodos de IRelacionable
 
 void Termino::vincular()
-{
-    // DESDE ACA HACER Q LLAME AL "GestorRelaciones" y le paso el RelacionesTermino y le digo q vincule
-    // los conceptos de "relacion_con_conceptos" con el id del termino (que esta almacenado en el id de RelacionesTermino).
-    // --> con el GestorRelaciones evito clavar 'forward declaration' en todas las relaciones.
-    
+{    
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.vincular(this->relaciones_termino, this->getId());
 }

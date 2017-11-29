@@ -17,9 +17,19 @@ IRelacionConConceptos::~IRelacionConConceptos()
     }
 }
 
-// GETTES
+// GETTERS
+
+RelacionConGrupo * IRelacionConConceptos::getRelacionConConceptos()
+{
+    return this->relacion_con_conceptos;
+}
 
 // SETTERS
+
+void IRelacionConConceptos::setRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos)
+{
+    this->relacion_con_conceptos = relacion_con_conceptos;
+}
 
 // METODOS
 
@@ -36,14 +46,4 @@ void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion:
 void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
 {
     this->relacion_con_conceptos->eliminarRelacion(id_concepto);
-}
-
-RelacionConGrupo * IRelacionConConceptos::getRelacionConConceptos()
-{
-    return this->relacion_con_conceptos;
-}
-
-void IRelacionConConceptos::setRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos)
-{
-    this->relacion_con_conceptos = relacion_con_conceptos;
 }

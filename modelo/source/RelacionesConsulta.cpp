@@ -6,24 +6,15 @@ using namespace visualizador;
 
 RelacionesConsulta::RelacionesConsulta(visualizador::aplicacion::ID* id_consulta) :
     IRelaciones(id_consulta, aplicacion::ConfiguracionAplicacion::prefijoRelacionesConsulta()),
-    IRelacionConConceptos(new RelacionConGrupo()) ,relacion_con_medios(new RelacionConGrupo()), relacion_con_secciones(new RelacionConGrupo()),
+    IRelacionConConceptos(new RelacionConGrupo()),
+    IRelacionConMedios(new RelacionConGrupo()), 
+    IRelacionConSecciones(new RelacionConGrupo()),
     relacion_con_periodo(0), relacion_con_reporte(0)
 {
 }
 
 RelacionesConsulta::~RelacionesConsulta()
 {
-    if (NULL != this->relacion_con_medios)
-    {
-        delete this->relacion_con_medios;
-        this->relacion_con_medios = NULL;
-    }
-
-    if (NULL != this->relacion_con_secciones)
-    {
-        delete this->relacion_con_secciones;
-        this->relacion_con_secciones = NULL;
-    }
 }
 
 // GETTERS
@@ -70,8 +61,8 @@ void RelacionesConsulta::crearContenido()
     relaciones_consulta->agregarAtributoValor("id_reporte", this->relacion_con_reporte);
 
     relaciones_consulta->agregarAtributoArray("ids_conceptos", this->getRelacionConConceptos()->getIdsGrupoComoUint());
-    relaciones_consulta->agregarAtributoArray("ids_medios", this->relacion_con_medios->getIdsGrupoComoUint());
-    relaciones_consulta->agregarAtributoArray("ids_secciones", this->relacion_con_secciones->getIdsGrupoComoUint());
+    relaciones_consulta->agregarAtributoArray("ids_medios", this->getRelacionConMedios()->getIdsGrupoComoUint());
+    relaciones_consulta->agregarAtributoArray("ids_secciones", this->getRelacionConSecciones()->getIdsGrupoComoUint());
 
     IJson* contenido = this->getContenido();
     contenido->reset();
@@ -84,11 +75,25 @@ bool RelacionesConsulta::parsearContenido(IJson * contenido)
     IJson * json_relaciones_consulta = contenido->getAtributoValorJson("relaciones_consulta");
 
     std::vector<unsigned long long int> ids_conceptos = json_relaciones_consulta->getAtributoArrayUint("ids_conceptos");
-
     for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         this->getRelacionConConceptos()->agregarRelacion(*it);
     }
+
+    std::vector<unsigned long long int> ids_medios = json_relaciones_consulta->getAtributoArrayUint("ids_medios");
+    for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    {
+        this->getRelacionConSecciones()->agregarRelacion(*it);
+    }
+
+    std::vector<unsigned long long int> ids_secciones = json_relaciones_consulta->getAtributoArrayUint("ids_secciones");
+    for (std::vector<unsigned long long int>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
+    {
+        this->getRelacionConSecciones()->agregarRelacion(*it);
+    }
+
+    this->relacion_con_periodo = json_relaciones_consulta->getAtributoValorUint("id_periodo");
+    this->relacion_con_reporte = json_relaciones_consulta->getAtributoValorUint("id_reporte");
 
     return true;
 }

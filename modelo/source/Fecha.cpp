@@ -11,12 +11,16 @@ std::string Fecha::nombres_meses[] = { "enero", "febrero", "marzo", "abril", "ma
 
 // CONSTRUCTORES
 
-Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha(), NULL), dia(0), mes(0), anio(0)
+Fecha::Fecha(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha(), NULL), dia(0), mes(0), anio(0), relaciones_fecha(NULL)
 {
+    this->relaciones_fecha = new relaciones::RelacionesFecha();
+    this->setRelaciones(this->relaciones_fecha);
 }
 
 Fecha::Fecha(unsigned int dia, unsigned int mes, unsigned int anio, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoFecha(), NULL), dia(dia), mes(mes), anio(anio)
 {
+    this->relaciones_fecha = new relaciones::RelacionesFecha();
+    this->setRelaciones(this->relaciones_fecha);
 }
 
 Fecha::~Fecha()
@@ -143,4 +147,12 @@ void Fecha::setMes(unsigned int mes)
 void Fecha::setAnio(unsigned int anio)
 {
 	this->anio = anio;
+}
+
+void Fecha::vincular()
+{
+}
+
+void Fecha::desvincular()
+{
 }

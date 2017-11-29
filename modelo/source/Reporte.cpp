@@ -5,8 +5,10 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Reporte::Reporte(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoReporte(), NULL)
+Reporte::Reporte(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoReporte(), NULL), relaciones_reporte(NULL)
 {
+    this->relaciones_reporte = new relaciones::RelacionesReporte();
+    this->setRelaciones(this->relaciones_reporte);
 }
 
 Reporte::~Reporte()
@@ -38,4 +40,12 @@ IEntidad * Reporte::clonar()
     clon->setId(this->getId()->copia());
     clon->setContenido(this->getContenido()->clonar());
     return clon;
+}
+
+void Reporte::vincular()
+{
+}
+
+void Reporte::desvincular()
+{
 }

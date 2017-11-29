@@ -4,17 +4,14 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesSeccion::RelacionesSeccion(visualizador::aplicacion::ID* id_seccion) : IRelaciones(id_seccion, aplicacion::ConfiguracionAplicacion::prefijoRelacionesSeccion()), relacion_con_consultas(new RelacionConGrupo())
+RelacionesSeccion::RelacionesSeccion(visualizador::aplicacion::ID* id_seccion) :
+    IRelaciones(id_seccion, aplicacion::ConfiguracionAplicacion::prefijoRelacionesSeccion()),
+    IRelacionConConsultas(new RelacionConGrupo())
 {
 }
 
 RelacionesSeccion::~RelacionesSeccion()
 {
-    if (NULL != this->relacion_con_consultas)
-    {
-        delete this->relacion_con_consultas;
-        this->relacion_con_consultas = NULL;
-    }
 }
 
 // GETTERS
@@ -48,7 +45,7 @@ std::string RelacionesSeccion::prefijoGrupo()
 
 unsigned int RelacionesSeccion::hashcode()
 {
-    return this->relacion_con_consultas->hashcode();
+    return this->getRelacionConConsultas()->hashcode();
 }
 
 // metodos de IContieneJson
@@ -57,7 +54,7 @@ void RelacionesSeccion::crearContenido()
 {
     IJson * relaciones_termino = new IJson();
 
-    relaciones_termino->agregarAtributoArray("ids_consultas", this->relacion_con_consultas->getIdsGrupoComoUint());
+    relaciones_termino->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 
     IJson* contenido = this->getContenido();
     contenido->reset();
@@ -73,7 +70,7 @@ bool RelacionesSeccion::parsearContenido(IJson * contenido)
 
     for (std::vector<unsigned long long int>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
-        this->relacion_con_consultas->agregarRelacion(*it);
+        this->getRelacionConConsultas()->agregarRelacion(*it);
     }
 
     return true;

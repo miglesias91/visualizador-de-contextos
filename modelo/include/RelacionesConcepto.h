@@ -8,7 +8,8 @@
 
 // modelo
 #include <modelo/include/IRelaciones.h>
-#include <modelo/include/RelacionConGrupo.h>
+#include <modelo/include/IRelacionConTerminos.h>
+#include <modelo/include/IRelacionConConsultas.h>
 
 namespace visualizador
 {
@@ -17,7 +18,7 @@ namespace modelo
 namespace relaciones
 {
             
-class RelacionesConcepto : public IRelaciones
+class RelacionesConcepto : public IRelaciones, public IRelacionConTerminos, public IRelacionConConsultas
 {
 public:
     RelacionesConcepto(visualizador::aplicacion::ID* id_concepto = NULL);
@@ -25,9 +26,9 @@ public:
 
     // GETTERS
 
-    virtual RelacionConGrupo * getRelacionConTerminos();
+    //virtual RelacionConGrupo * getRelacionConTerminos();
 
-    virtual RelacionConGrupo * getRelacionConConsultas();
+    //virtual RelacionConGrupo * getRelacionConConsultas();
 
     // getters de IAlmacenable
 
@@ -36,14 +37,6 @@ public:
     // SETTERS
 
     // METODOS
-
-    virtual void agregarRelacionConTermino(visualizador::aplicacion::ID * id_termino);
-
-    virtual void agregarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta);
-
-    virtual void eliminarRelacionConTermino(visualizador::aplicacion::ID * id_termino);
-
-    virtual void eliminarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta);
 
     // IAlmacenable::
 
@@ -61,8 +54,6 @@ public:
 
 private:
 
-    RelacionConGrupo * relacion_con_terminos;
-    RelacionConGrupo * relacion_con_consultas;
 };
 
 };

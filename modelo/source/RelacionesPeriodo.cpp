@@ -5,17 +5,12 @@ using namespace visualizador::modelo;
 using namespace visualizador;
 
 RelacionesPeriodo::RelacionesPeriodo(visualizador::aplicacion::ID* id_periodo) : IRelaciones(id_periodo, aplicacion::ConfiguracionAplicacion::prefijoRelacionesPeriodo()),
-    relacion_con_consultas(new RelacionConGrupo()), relacion_con_fecha_desde(0), relacion_con_fecha_hasta(0)
+    IRelacionConConsultas(new RelacionConGrupo()), relacion_con_fecha_desde(0), relacion_con_fecha_hasta(0)
 {
 }
 
 RelacionesPeriodo::~RelacionesPeriodo()
 {
-    if (NULL != this->relacion_con_consultas)
-    {
-        delete this->relacion_con_consultas;
-        this->relacion_con_consultas = NULL;
-    }
 }
 
 // GETTERS
@@ -49,7 +44,7 @@ std::string RelacionesPeriodo::prefijoGrupo()
 
 unsigned int RelacionesPeriodo::hashcode()
 {
-    return this->relacion_con_fecha_desde + this->relacion_con_fecha_hasta + this->relacion_con_consultas->hashcode();
+    return this->relacion_con_fecha_desde + this->relacion_con_fecha_hasta + this->getRelacionConConsultas()->hashcode();
 }
 
 // metodos de IContieneJson
@@ -61,7 +56,7 @@ void RelacionesPeriodo::crearContenido()
     relaciones_periodo->agregarAtributoValor("id_fecha_desde", this->relacion_con_fecha_desde);
     relaciones_periodo->agregarAtributoValor("id_fecha_hasta", this->relacion_con_fecha_desde);
 
-    relaciones_periodo->agregarAtributoArray("ids_consultas", this->relacion_con_consultas->getIdsGrupoComoUint());
+    relaciones_periodo->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 
     IJson* contenido = this->getContenido();
     contenido->reset();
@@ -77,7 +72,7 @@ bool RelacionesPeriodo::parsearContenido(IJson * contenido)
 
     for (std::vector<unsigned long long int>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
-        this->relacion_con_consultas->agregarRelacion(*it);
+        this->getRelacionConConsultas()->agregarRelacion(*it);
     }
 
     this->relacion_con_fecha_desde = json_relaciones_periodo->getAtributoValorUint("id_fecha_desde");

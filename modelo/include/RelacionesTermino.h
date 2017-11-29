@@ -8,7 +8,7 @@
 
 // modelo
 #include <modelo/include/IRelaciones.h>
-#include <modelo/include/RelacionConGrupo.h>
+#include <modelo/include/IRelacionConConceptos.h>
 
 namespace visualizador
 {
@@ -17,7 +17,7 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionesTermino : public IRelaciones
+class RelacionesTermino : public IRelaciones, public IRelacionConConceptos
 {
 public:
 
@@ -28,21 +28,13 @@ public:
 
     // GETTERS
 
-    virtual RelacionConGrupo * getRelacionConConceptos();
-
     // getters de IAlmacenable
 
     virtual std::string getValorAlmacenable();
 
     // SETTERS
 
-    virtual void setRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos);
-
     // METODOS
-
-    void agregarRelacionConConcepto(visualizador::aplicacion::ID* id_concepto);
-
-    void eliminarRelacionConConcepto(visualizador::aplicacion::ID* id_concepto);
 
     // metodos de IAlmacenable
 
@@ -61,8 +53,6 @@ public:
 private:
     
     static std::hash<std::string> hasher;
-
-    RelacionConGrupo * relacion_con_conceptos;
 };
 
 };

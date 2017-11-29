@@ -8,7 +8,7 @@
 
 // modelo
 #include <modelo/include/IRelaciones.h>
-#include <modelo/include/RelacionConGrupo.h>
+#include <modelo/include/IRelacionConConsultas.h>
 
 namespace visualizador
 {
@@ -17,7 +17,7 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionesMedio : public IRelaciones
+class RelacionesMedio : public IRelaciones, public IRelacionConConsultas
 {
 public:
     RelacionesMedio(visualizador::aplicacion::ID* id_medio = NULL);
@@ -49,7 +49,6 @@ public:
 
 private:
 
-    RelacionConGrupo * relacion_con_consultas;
 };
 
 };

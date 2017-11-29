@@ -14,25 +14,29 @@ namespace modelo
 namespace relaciones
 {
 
-class IRelacionConConceptos
+class IRelacionConPeriodos
 {
 public:
-    IRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos = NULL);
-    virtual ~IRelacionConConceptos();
+    IRelacionConPeriodos(RelacionConGrupo * relacion_con_periodos = NULL);
+    virtual ~IRelacionConPeriodos();
 
     // GETTERS
 
+    RelacionConGrupo * getRelacionConPeriodos();
+
     // SETTERS
+
+    void setRelacionConPeriodos(RelacionConGrupo * relacion_con_periodos);
 
     // METODOS
 
-    virtual void agregarRelacionConConcepto(visualizador::aplicacion::ID * id_consulta);
+    virtual void agregarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo);
 
-    virtual void eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_consulta);
+    virtual void eliminarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo);
 
 private:
 
-    RelacionConGrupo * relacion_con_conceptos;
+    RelacionConGrupo * relacion_con_periodos;
 };
 
 };

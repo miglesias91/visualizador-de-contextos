@@ -4,17 +4,14 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesFecha::RelacionesFecha(visualizador::aplicacion::ID* id_fecha) : IRelaciones(id_fecha, aplicacion::ConfiguracionAplicacion::prefijoRelacionesFecha()), relacion_con_periodos(new RelacionConGrupo())
+RelacionesFecha::RelacionesFecha(visualizador::aplicacion::ID* id_fecha) :
+    IRelaciones(id_fecha, aplicacion::ConfiguracionAplicacion::prefijoRelacionesFecha()),
+    IRelacionConPeriodos(new RelacionConGrupo())
 {
 }
 
 RelacionesFecha::~RelacionesFecha()
 {
-    if (NULL != this->relacion_con_periodos)
-    {
-        delete this->relacion_con_periodos;
-        this->relacion_con_periodos = NULL;
-    }
 }
 
 // GETTERS
@@ -48,7 +45,7 @@ std::string RelacionesFecha::prefijoGrupo()
 
 unsigned int RelacionesFecha::hashcode()
 {
-    return this->relacion_con_periodos->hashcode();
+    return this->getRelacionConPeriodos()->hashcode();
 }
 
 // metodos de IContieneJson
@@ -57,7 +54,7 @@ void RelacionesFecha::crearContenido()
 {
     IJson * relaciones_fecha = new IJson();
 
-    relaciones_fecha->agregarAtributoArray("ids_periodos", this->relacion_con_periodos->getIdsGrupoComoUint());
+    relaciones_fecha->agregarAtributoArray("ids_periodos", this->getRelacionConPeriodos()->getIdsGrupoComoUint());
 
     IJson* contenido = this->getContenido();
     contenido->reset();
@@ -73,7 +70,7 @@ bool RelacionesFecha::parsearContenido(IJson * contenido)
 
     for (std::vector<unsigned long long int>::iterator it = ids_periodos.begin(); it != ids_periodos.end(); it++)
     {
-        this->relacion_con_periodos->agregarRelacion(*it);
+        this->getRelacionConPeriodos()->agregarRelacion(*it);
     }
 
     return true;

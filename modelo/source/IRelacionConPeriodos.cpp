@@ -1,34 +1,49 @@
-#include <modelo/include/IRelacionConConceptos.h>
+#include <modelo/include/IRelacionConPeriodos.h>
 
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-IRelacionConConceptos::IRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos) : relacion_con_conceptos(relacion_con_conceptos)
+IRelacionConPeriodos::IRelacionConPeriodos(RelacionConGrupo * relacion_con_periodos) : relacion_con_periodos(relacion_con_periodos)
 {
 }
 
-IRelacionConConceptos::~IRelacionConConceptos()
+IRelacionConPeriodos::~IRelacionConPeriodos()
 {
+    if (NULL != this->relacion_con_periodos)
+    {
+        delete this->relacion_con_periodos;
+        this->relacion_con_periodos = NULL;
+    }
 }
 
-// GETTES
+// GETTERS
+
+RelacionConGrupo * IRelacionConPeriodos::getRelacionConPeriodos()
+{
+    return this->relacion_con_periodos;
+}
 
 // SETTERS
+
+void IRelacionConPeriodos::setRelacionConPeriodos(RelacionConGrupo * relacion_con_periodos)
+{
+    this->relacion_con_periodos = relacion_con_periodos;
+}
 
 // METODOS
 
 
-void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConPeriodos::agregarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo)
 {
-    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
+    visualizador::aplicacion::ID * id_periodo_copia = id_periodo->copia();
+    if (false == this->relacion_con_periodos->agregarRelacion(id_periodo_copia))
     {// si no lo agrego, entonces destruyo la copia.
-        delete id_concepto_copia;
+        delete id_periodo_copia;
     }
 }
 
-void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConPeriodos::eliminarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo)
 {
-    this->relacion_con_conceptos->eliminarRelacion(id_concepto);
+    this->relacion_con_periodos->eliminarRelacion(id_periodo);
 }

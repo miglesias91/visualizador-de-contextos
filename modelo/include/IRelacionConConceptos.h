@@ -30,9 +30,9 @@ public:
 
     // METODOS
 
-    virtual void agregarRelacionConConcepto(visualizador::aplicacion::ID * id_consulta);
+    virtual void agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto);
 
-    virtual void eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_consulta);
+    virtual void eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto);
 
 private:
 

@@ -7,16 +7,22 @@ using namespace visualizador::modelo;
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
-// #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Consulta::Consulta(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL), periodo(NULL), reporte(NULL)
+Consulta::Consulta(std::string etiqueta) :
+    IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL), periodo(NULL), reporte(NULL), relaciones_consulta(NULL)
 {
+    this->relaciones_consulta = new relaciones::RelacionesConsulta();
+    this->setRelaciones(this->relaciones_consulta);
 }
 
 Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta)
-	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL), periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones)
+	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL),
+    periodo(periodo), reporte(reporte), conceptos(conceptos), medios(medios), secciones(secciones), relaciones_consulta(NULL)
 {
+    this->relaciones_consulta = new relaciones::RelacionesConsulta();
+    this->setRelaciones(this->relaciones_consulta);
+
     this->periodo->sumarReferencia();
     this->reporte->sumarReferencia();
 
@@ -340,4 +346,14 @@ IEntidad * Consulta::clonar()
     clon->setId(this->getId()->copia());
     clon->setContenido(this->getContenido()->clonar());
     return clon;
+}
+
+void Consulta::vincular()
+{
+    // visualizador::aplicacion::GestorRelaciones gestor;
+}
+
+void Consulta::desvincular()
+{
+    // visualizador::aplicacion::GestorRelaciones gestor;
 }

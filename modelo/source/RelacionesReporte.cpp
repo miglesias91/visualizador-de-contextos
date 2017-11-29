@@ -4,13 +4,10 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesReporte::RelacionesReporte(visualizador::aplicacion::ID* id_reporte) : IRelaciones(id_reporte, aplicacion::ConfiguracionAplicacion::prefijoRelacionesReporte()), relacion_con_consultas(new RelacionConGrupo())
+RelacionesReporte::RelacionesReporte(visualizador::aplicacion::ID* id_reporte) :
+    IRelaciones(id_reporte, aplicacion::ConfiguracionAplicacion::prefijoRelacionesReporte()),
+    IRelacionConConsultas(new RelacionConGrupo())
 {
-    if (NULL != this->relacion_con_consultas)
-    {
-        delete this->relacion_con_consultas;
-        this->relacion_con_consultas = NULL;
-    }
 }
 
 RelacionesReporte::~RelacionesReporte()
@@ -48,7 +45,7 @@ std::string RelacionesReporte::prefijoGrupo()
 
 unsigned int RelacionesReporte::hashcode()
 {
-    return this->relacion_con_consultas->hashcode();
+    return this->getRelacionConConsultas()->hashcode();
 }
 
 // metodos de IContieneJson
@@ -57,7 +54,7 @@ void RelacionesReporte::crearContenido()
 {
     IJson * relaciones_reporte = new IJson();
 
-    relaciones_reporte->agregarAtributoArray("ids_consultas", this->relacion_con_consultas->getIdsGrupoComoUint());
+    relaciones_reporte->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 
     IJson* contenido = this->getContenido();
     contenido->reset();
@@ -73,7 +70,7 @@ bool RelacionesReporte::parsearContenido(IJson * contenido)
 
     for (std::vector<unsigned long long int>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
-        this->relacion_con_consultas->agregarRelacion(*it);
+        this->getRelacionConConsultas()->agregarRelacion(*it);
     }
 
     return true;

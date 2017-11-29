@@ -12,6 +12,8 @@
 #include <modelo/include/Periodo.h>
 #include <modelo/include/Reporte.h>
 
+#include <modelo/include/RelacionesConsulta.h>
+
 namespace visualizador
 {
 namespace modelo
@@ -77,7 +79,9 @@ private:
 
 	std::vector<Concepto*> conceptos;
 	std::vector<Medio*> medios;
-	std::vector<Seccion*> secciones;	
+	std::vector<Seccion*> secciones;
+
+    relaciones::RelacionesConsulta * relaciones_consulta;
 };
 
 };

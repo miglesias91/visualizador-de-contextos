@@ -5,7 +5,7 @@
 
 // modelo
 #include <modelo/include/IEntidad.h>
-#include <modelo/include/RelacionConGrupo.h>
+#include <modelo/include/RelacionesConcepto.h>
 #include <modelo/include/Termino.h>
 
 namespace visualizador
@@ -73,7 +73,7 @@ private:
 
 	std::vector<Termino*> terminos;
   
-    relaciones::RelacionesConcepto * relacion_concepto;
+    relaciones::RelacionesConcepto * relaciones_concepto;
 };
 
 };

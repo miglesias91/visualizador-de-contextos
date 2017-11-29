@@ -1,34 +1,49 @@
-#include <modelo/include/IRelacionConConceptos.h>
+#include <modelo/include/IRelacionConMedios.h>
 
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-IRelacionConConceptos::IRelacionConConceptos(RelacionConGrupo * relacion_con_conceptos) : relacion_con_conceptos(relacion_con_conceptos)
+IRelacionConMedios::IRelacionConMedios(RelacionConGrupo * relacion_con_medios) : relacion_con_medios(relacion_con_medios)
 {
 }
 
-IRelacionConConceptos::~IRelacionConConceptos()
+IRelacionConMedios::~IRelacionConMedios()
 {
+    if (NULL != this->relacion_con_medios)
+    {
+        delete this->relacion_con_medios;
+        this->relacion_con_medios = NULL;
+    }
 }
 
-// GETTES
+// GETTERS
+
+RelacionConGrupo * IRelacionConMedios::getRelacionConMedios()
+{
+    return this->relacion_con_medios;
+}
 
 // SETTERS
+
+void IRelacionConMedios::setRelacionConMedios(RelacionConGrupo * relacion_con_medios)
+{
+    this->relacion_con_medios = relacion_con_medios;
+}
 
 // METODOS
 
 
-void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConMedios::agregarRelacionConMedio(visualizador::aplicacion::ID * id_medio)
 {
-    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
+    visualizador::aplicacion::ID * id_medio_copia = id_medio->copia();
+    if (false == this->relacion_con_medios->agregarRelacion(id_medio_copia))
     {// si no lo agrego, entonces destruyo la copia.
-        delete id_concepto_copia;
+        delete id_medio_copia;
     }
 }
 
-void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConMedios::eliminarRelacionConMedio(visualizador::aplicacion::ID * id_medio)
 {
-    this->relacion_con_conceptos->eliminarRelacion(id_concepto);
+    this->relacion_con_medios->eliminarRelacion(id_medio);
 }

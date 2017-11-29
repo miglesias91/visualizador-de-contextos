@@ -108,9 +108,6 @@
     <ClInclude Include="include\RelacionesSeccion.h">
       <Filter>Archivos de encabezado\relaciones</Filter>
     </ClInclude>
-    <ClInclude Include="include\RelacionConGrupo.h">
-      <Filter>Archivos de encabezado\relaciones</Filter>
-    </ClInclude>
     <ClInclude Include="include\IRelacionConConsultas.h">
       <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
     </ClInclude>
@@ -127,6 +124,9 @@
       <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
     </ClInclude>
     <ClInclude Include="include\IRelacionConConceptos.h">
+      <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RelacionConGrupo.h">
       <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
     </ClInclude>
   </ItemGroup>
@@ -206,9 +206,6 @@
     <ClCompile Include="source\RelacionesSeccion.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
     </ClCompile>
-    <ClCompile Include="source\RelacionConGrupo.cpp">
-      <Filter>Archivos de código fuente\relaciones</Filter>
-    </ClCompile>
     <ClCompile Include="source\IRelacionConConsultas.cpp">
       <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
     </ClCompile>
@@ -225,6 +222,9 @@
       <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
     </ClCompile>
     <ClCompile Include="source\IRelacionConConceptos.cpp">
+      <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RelacionConGrupo.cpp">
       <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
     </ClCompile>
   </ItemGroup>

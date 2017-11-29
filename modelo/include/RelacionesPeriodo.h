@@ -8,7 +8,7 @@
 
 // modelo
 #include <modelo/include/IRelaciones.h>
-#include <modelo/include/RelacionConGrupo.h>
+#include <modelo/include/IRelacionConConsultas.h>
 
 namespace visualizador
 {
@@ -17,7 +17,7 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionesPeriodo : public IRelaciones
+class RelacionesPeriodo : public IRelaciones, IRelacionConConsultas
 {
 public:
     RelacionesPeriodo(visualizador::aplicacion::ID* id_periodo = NULL);
@@ -52,7 +52,7 @@ private:
     unsigned long long int relacion_con_fecha_desde;
     unsigned long long int relacion_con_fecha_hasta;
 
-    RelacionConGrupo * relacion_con_consultas;
+    // RelacionConGrupo * relacion_con_consultas;
 
 };
 

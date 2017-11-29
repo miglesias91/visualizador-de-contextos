@@ -3,6 +3,8 @@
 // modelo
 #include <modelo/include/IEntidad.h>
 
+#include <modelo/include/RelacionesSeccion.h>
+
 namespace visualizador
 {
 namespace modelo
@@ -46,7 +48,7 @@ public:
 
 private:
 
-    //IRelacionConGrupo * relacion_consultas;
+    relaciones::RelacionesSeccion * relaciones_seccion;
 
 };
 

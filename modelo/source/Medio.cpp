@@ -39,3 +39,11 @@ IEntidad * Medio::clonar()
     clon->setContenido(this->getContenido()->clonar());
     return clon;
 }
+
+void Medio::vincular()
+{
+}
+
+void Medio::desvincular()
+{
+}
