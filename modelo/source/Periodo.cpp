@@ -43,49 +43,50 @@ Periodo::~Periodo()
 
 // METODOS
 
-void Periodo::crearContenido()
+void Periodo::crearJson()
 {
-	IJson* contenido = this->getContenido();
-	contenido->reset();
+	//IJson* json = this->getJson();
+ //   json->reset();
 
-	contenido->agregarAtributoValor("id_fecha_desde", this->getDesde()->getId()->numero());
-	contenido->agregarAtributoValor("id_fecha_hasta", this->getHasta()->getId()->numero());
+ //   json->agregarAtributoValor("id_fecha_desde", this->getDesde()->getId()->numero());
+ //   json->agregarAtributoValor("id_fecha_hasta", this->getHasta()->getId()->numero());
 }
 
-bool Periodo::parsearContenido(IJson* contenido)
+bool Periodo::parsearJson(IJson* json)
 {
-	unsigned long long int id_fecha_desde = contenido->getAtributoValorUint("id_fecha_desde");
-	unsigned long long int id_fecha_hasta = contenido->getAtributoValorUint("id_fecha_hasta");
+	//unsigned long long int id_fecha_desde = json->getAtributoValorUint("id_fecha_desde");
+	//unsigned long long int id_fecha_hasta = json->getAtributoValorUint("id_fecha_hasta");
 
-	Fecha* fecha_desde = new Fecha();
-	fecha_desde->setId(new visualizador::aplicacion::ID(id_fecha_desde));
+	//Fecha* fecha_desde = new Fecha();
+	//fecha_desde->setId(new visualizador::aplicacion::ID(id_fecha_desde));
 
-	Fecha* fecha_hasta = new Fecha();
-	fecha_hasta->setId(new visualizador::aplicacion::ID(id_fecha_hasta));
+	//Fecha* fecha_hasta = new Fecha();
+	//fecha_hasta->setId(new visualizador::aplicacion::ID(id_fecha_hasta));
 
-    bool contenido_limpio = true;
+ //   bool contenido_limpio = true;
 
-    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
-    {
-        this->setDesde(fecha_desde);
-    }
-    else
-    {
-        delete fecha_desde;
-        contenido_limpio = false;
-    }
+ //   if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
+ //   {
+ //       this->setDesde(fecha_desde);
+ //   }
+ //   else
+ //   {
+ //       delete fecha_desde;
+ //       contenido_limpio = false;
+ //   }
 
-    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
-    {
-        this->setHasta(fecha_hasta);
-    }
-    else
-    {
-        delete fecha_hasta;
-        contenido_limpio = false;
-    }
+ //   if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
+ //   {
+ //       this->setHasta(fecha_hasta);
+ //   }
+ //   else
+ //   {
+ //       delete fecha_hasta;
+ //       contenido_limpio = false;
+ //   }
 
-    return contenido_limpio;
+ //   return contenido_limpio;
+    return true;
 }
 
 std::string Periodo::prefijoGrupo()
@@ -107,7 +108,7 @@ IEntidad * Periodo::clonar()
 
     Periodo * clon = new Periodo(clon_desde, clon_hasta, this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
 }
 
@@ -135,6 +136,46 @@ void Periodo::setHasta(Fecha * hasta)
 {
 	this->hasta = hasta;
     this->hasta->sumarReferencia();
+}
+
+bool Periodo::recuperarContenidoDeRelaciones()
+{
+    unsigned long long int id_fecha_desde = this->relaciones_periodo->getRelacionConFechaDesde();
+    unsigned long long int id_fecha_hasta = this->relaciones_periodo->getRelacionConFechaHasta();
+
+    Fecha* fecha_desde = new Fecha();
+    fecha_desde->setId(new visualizador::aplicacion::ID(id_fecha_desde));
+
+    Fecha* fecha_hasta = new Fecha();
+    fecha_hasta->setId(new visualizador::aplicacion::ID(id_fecha_hasta));
+
+    bool contenido_limpio = true;
+
+    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
+    {
+        this->setDesde(fecha_desde);
+    }
+    else
+    {
+        delete fecha_desde;
+        contenido_limpio = false;
+    }
+
+    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
+    {
+        this->setHasta(fecha_hasta);
+    }
+    else
+    {
+        delete fecha_hasta;
+        contenido_limpio = false;
+    }
+
+    return contenido_limpio;
+}
+
+void Periodo::actualizarRelaciones()
+{
 }
 
 void Periodo::vincular()

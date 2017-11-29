@@ -43,26 +43,26 @@ void Termino::setValor(std::string valor)
 	this->valor = valor;
 }
 
-void Termino::relacionarConConcepto(Concepto * concepto)
-{
-    this->relaciones_termino->agregarRelacionConConcepto(concepto->getId());
-}
+//void Termino::relacionarConConcepto(visualizador::aplicacion::ID * id_concepto)
+//{
+//    this->relaciones_termino->agregarRelacionConConcepto(id_concepto);
+//}
 
 // METODOS
 
 // metodos de IContieneJson
 
-void Termino::crearContenido()
+void Termino::crearJson()
 {
-	IJson* contenido = this->getContenido();
-	contenido->reset();
+	IJson* json = this->getJson();
+    json->reset();
 
-	contenido->agregarAtributoValor("valor", this->getValor());
+    json->agregarAtributoValor("valor", this->getValor());
 }
 
-bool Termino::parsearContenido(IJson* contenido)
+bool Termino::parsearJson(IJson* json)
 {
-	std::string valor = contenido->getAtributoValorString("valor");
+	std::string valor = json->getAtributoValorString("valor");
 
 	this->setValor(valor);
 
@@ -87,11 +87,20 @@ IEntidad * Termino::clonar()
 {
     Termino * clon = new Termino(this->valor, this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
 }
 
 // metodos de IRelacionable
+
+bool Termino::recuperarContenidoDeRelaciones()
+{
+    return true;
+}
+
+void Termino::actualizarRelaciones()
+{
+}
 
 void Termino::vincular()
 {    

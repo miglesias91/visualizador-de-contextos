@@ -19,16 +19,36 @@ RelacionesConsulta::~RelacionesConsulta()
 
 // GETTERS
 
+unsigned long long int RelacionesConsulta::getRelacionConPeriodo()
+{
+    return this->relacion_con_periodo;
+}
+
+unsigned long long int RelacionesConsulta::getRelacionConReporte()
+{
+    return this->relacion_con_reporte;
+}
+
 // getters de IAlmacenable
 
 std::string RelacionesConsulta::getValorAlmacenable()
 {
-    this->crearContenido();
+    this->crearJson();
 
-    return this->getContenido()->jsonString();
+    return this->getJson()->jsonString();
 }
 
 // SETTERS
+
+void RelacionesConsulta::setRelacionConPeriodo(unsigned long long int id_periodo)
+{
+    this->relacion_con_periodo = id_periodo;
+}
+
+void RelacionesConsulta::setRelacionConReporte(unsigned long long int id_reporte)
+{
+    this->relacion_con_reporte = id_reporte;
+}
 
 // METODOS
 
@@ -38,7 +58,7 @@ void RelacionesConsulta::parsearValorAlmacenable(std::string valor_almacenable)
 {
     IJson json_almacenable(valor_almacenable);
 
-    this->parsearContenido(&json_almacenable);
+    this->parsearJson(&json_almacenable);
 }
 
 std::string RelacionesConsulta::prefijoGrupo()
@@ -53,7 +73,7 @@ unsigned int RelacionesConsulta::hashcode()
 
 // metodos de IContieneJson
 
-void RelacionesConsulta::crearContenido()
+void RelacionesConsulta::crearJson()
 {
     IJson * relaciones_consulta = new IJson();
 
@@ -64,15 +84,15 @@ void RelacionesConsulta::crearContenido()
     relaciones_consulta->agregarAtributoArray("ids_medios", this->getRelacionConMedios()->getIdsGrupoComoUint());
     relaciones_consulta->agregarAtributoArray("ids_secciones", this->getRelacionConSecciones()->getIdsGrupoComoUint());
 
-    IJson* contenido = this->getContenido();
-    contenido->reset();
+    IJson* json = this->getJson();
+    json->reset();
 
-    contenido->agregarAtributoJson("relaciones_consulta", relaciones_consulta);
+    json->agregarAtributoJson("relaciones_consulta", relaciones_consulta);
 }
 
-bool RelacionesConsulta::parsearContenido(IJson * contenido)
+bool RelacionesConsulta::parsearJson(IJson * json)
 {
-    IJson * json_relaciones_consulta = contenido->getAtributoValorJson("relaciones_consulta");
+    IJson * json_relaciones_consulta = json->getAtributoValorJson("relaciones_consulta");
 
     std::vector<unsigned long long int> ids_conceptos = json_relaciones_consulta->getAtributoArrayUint("ids_conceptos");
     for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)

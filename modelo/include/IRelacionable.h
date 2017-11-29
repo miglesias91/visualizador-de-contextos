@@ -26,6 +26,12 @@ public:
 
     // METODOS
 
+    virtual bool recuperarRelaciones();
+
+    virtual bool recuperarContenidoDeRelaciones() = 0;
+
+    virtual void actualizarRelaciones() = 0;
+
     virtual void vincular() = 0;
 
     virtual void desvincular() = 0;

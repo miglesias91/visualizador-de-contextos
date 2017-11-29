@@ -39,6 +39,8 @@ public:
     std::vector<Medio*> getMedios();
     std::vector<Seccion*> getSecciones();
 
+    relaciones::RelacionesConsulta * getRelacionesConsulta();
+
     // SETTERS
 
     void setPeriodo(Periodo* periodo);
@@ -48,13 +50,15 @@ public:
     void agregarMedio(Medio* medio);
     void agregarSeccion(Seccion* seccion);
 
+    void getRelacionesConsulta(relaciones::RelacionesConsulta * relaciones_consulta);
+
 	// METODOS
 
     // metodos de IContieneJson
 
-	virtual void crearContenido();
+	virtual void crearJson();
 
-	virtual bool parsearContenido(IJson* contenido);
+	virtual bool parsearJson(IJson* json);
     
     // metodos de IAlmacenable
 
@@ -67,6 +71,10 @@ public:
     virtual IEntidad * clonar();
 
     // metodos de IRelacionable
+
+    virtual bool recuperarContenidoDeRelaciones();
+
+    virtual void actualizarRelaciones();
 
     virtual void vincular();
 

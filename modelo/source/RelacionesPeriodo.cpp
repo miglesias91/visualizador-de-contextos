@@ -15,16 +15,36 @@ RelacionesPeriodo::~RelacionesPeriodo()
 
 // GETTERS
 
+unsigned long long int RelacionesPeriodo::getRelacionConFechaDesde()
+{
+    return this->relacion_con_fecha_desde;
+}
+
+unsigned long long int RelacionesPeriodo::getRelacionConFechaHasta()
+{
+    return this->relacion_con_fecha_hasta;
+}
+
 // getters de IAlmacenable
 
 std::string RelacionesPeriodo::getValorAlmacenable()
 {
-    this->crearContenido();
+    this->crearJson();
 
-    return this->getContenido()->jsonString();
+    return this->getJson()->jsonString();
 }
 
 // SETTERS
+
+void RelacionesPeriodo::setRelacionConFechaDesde(unsigned long long int id_fecha_desde)
+{
+    this->relacion_con_fecha_desde = id_fecha_desde;
+}
+
+void RelacionesPeriodo::setRelacionConFechaHasta(unsigned long long int id_fecha_hasta)
+{
+    this->relacion_con_fecha_hasta = id_fecha_hasta;
+}
 
 // METODOS
 
@@ -34,7 +54,7 @@ void RelacionesPeriodo::parsearValorAlmacenable(std::string valor_almacenable)
 {
     IJson json_almacenable(valor_almacenable);
 
-    this->parsearContenido(&json_almacenable);
+    this->parsearJson(&json_almacenable);
 }
 
 std::string RelacionesPeriodo::prefijoGrupo()
@@ -49,7 +69,7 @@ unsigned int RelacionesPeriodo::hashcode()
 
 // metodos de IContieneJson
 
-void RelacionesPeriodo::crearContenido()
+void RelacionesPeriodo::crearJson()
 {
     IJson * relaciones_periodo = new IJson();
 
@@ -58,15 +78,15 @@ void RelacionesPeriodo::crearContenido()
 
     relaciones_periodo->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 
-    IJson* contenido = this->getContenido();
-    contenido->reset();
+    IJson* json = this->getJson();
+    json->reset();
 
-    contenido->agregarAtributoJson("relaciones_periodo", relaciones_periodo);
+    json->agregarAtributoJson("relaciones_periodo", relaciones_periodo);
 }
 
-bool RelacionesPeriodo::parsearContenido(IJson * contenido)
+bool RelacionesPeriodo::parsearJson(IJson * json)
 {
-    IJson * json_relaciones_periodo = contenido->getAtributoValorJson("relaciones_periodo");
+    IJson * json_relaciones_periodo = json->getAtributoValorJson("relaciones_periodo");
 
     std::vector<unsigned long long int> ids_consultas = json_relaciones_periodo->getAtributoArrayUint("ids_consultas");
 

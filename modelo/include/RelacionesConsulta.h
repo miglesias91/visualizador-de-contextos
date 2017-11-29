@@ -1,8 +1,5 @@
 #pragma once
 
-// stl
-#include <functional>
-
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
@@ -28,12 +25,20 @@ public:
     virtual ~RelacionesConsulta();
 
     // GETTERS
+    
+    unsigned long long int getRelacionConPeriodo();
+    
+    unsigned long long int getRelacionConReporte();
 
     // getters de IAlmacenable
 
     virtual std::string getValorAlmacenable();
 
     // SETTERS
+
+    void setRelacionConPeriodo(unsigned long long int id_periodo);
+
+    void setRelacionConReporte(unsigned long long int id_reporte);
 
     // METODOS
 
@@ -47,9 +52,9 @@ public:
 
     // IContieneJson::
 
-    virtual void crearContenido();
+    virtual void crearJson();
 
-    virtual bool parsearContenido(IJson * contenido);
+    virtual bool parsearJson(IJson * json);
 
 private:
 

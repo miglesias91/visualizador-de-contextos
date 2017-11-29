@@ -2,6 +2,7 @@
 
 // modelo
 #include <modelo/include/IEntidad.h>
+#include <modelo/include/RelacionesMedio.h>
 
 namespace visualizador
 {
@@ -19,16 +20,20 @@ public:
 	virtual ~Medio();
 
 	// GETTERS
+    
+    relaciones::RelacionesMedio * getRelacionesMedio();
 
 	// SETTERS
+
+    void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
 
     // METODOS
 
     // metodos de IContieneJson
 
-    virtual void crearContenido();
+    virtual void crearJson();
 
-    virtual bool parsearContenido(IJson* contenido);
+    virtual bool parsearJson(IJson* json);
 
     // metodos de IAlmacenable
 
@@ -42,13 +47,17 @@ public:
 
     // metodos de IRelacionable
 
+    virtual bool recuperarContenidoDeRelaciones();
+
+    virtual void actualizarRelaciones();
+
     virtual void vincular();
 
     virtual void desvincular();
 
 private:
 
-    //IRelacionConGrupo * relacion_consultas;
+    relaciones::RelacionesMedio * relacion_medio;
 
 
 };

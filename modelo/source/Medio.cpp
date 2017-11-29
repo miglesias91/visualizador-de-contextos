@@ -13,11 +13,11 @@ Medio::~Medio()
 {
 }
 
-void Medio::crearContenido()
+void Medio::crearJson()
 {
 }
 
-bool Medio::parsearContenido(IJson* contenido)
+bool Medio::parsearJson(IJson* json)
 {
     return true;
 }
@@ -36,8 +36,17 @@ IEntidad * Medio::clonar()
 {
     Medio * clon = new Medio(this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
+}
+
+bool Medio::recuperarContenidoDeRelaciones()
+{
+    return true;
+}
+
+void Medio::actualizarRelaciones()
+{
 }
 
 void Medio::vincular()

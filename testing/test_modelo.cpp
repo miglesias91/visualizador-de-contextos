@@ -212,7 +212,7 @@ TEST(modelo, GettersYSettersConsulta)
 	delete consulta;
 }
 
-TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
+TEST(modelo, CreacionJsonYValorAlmacenableConcepto)
 {
 	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
@@ -235,9 +235,9 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 	Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion, "movilizacion");
 	concepto_movilizacion->asignarNuevoId();
 
-	concepto_movilizacion->crearContenido();
+	concepto_movilizacion->crearJson();
 
-	std::string json_contenido = concepto_movilizacion->getContenido()->jsonString();
+	std::string json_contenido = concepto_movilizacion->getJson()->jsonString();
 	std::string json_almacenable = concepto_movilizacion->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"ids_terminos\":[0,1,2]}", json_contenido.c_str());
@@ -246,7 +246,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConcepto)
 	delete concepto_movilizacion;
 }
 
-TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
+TEST(modelo, CreacionJsonYValorAlmacenableTermino)
 {
 	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
@@ -255,9 +255,9 @@ TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 	Termino* movilizacion = new Termino("movilizacion", "paro");
 	movilizacion->asignarNuevoId();
 
-	movilizacion->crearContenido();
+	movilizacion->crearJson();
 
-	std::string json_contenido = movilizacion->getContenido()->jsonString();
+	std::string json_contenido = movilizacion->getJson()->jsonString();
 	std::string json_almacenable = movilizacion->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"valor\":\"movilizacion\"}", json_contenido.c_str());
@@ -266,7 +266,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableTermino)
 	delete movilizacion;
 }
 
-TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
+TEST(modelo, CreacionJsonYValorAlmacenableFecha)
 {
 	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
@@ -275,9 +275,9 @@ TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 	Fecha* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
 	primero_de_enero->asignarNuevoId();
 
-	primero_de_enero->crearContenido();
+	primero_de_enero->crearJson();
 
-	std::string json_contenido = primero_de_enero->getContenido()->jsonString();
+	std::string json_contenido = primero_de_enero->getJson()->jsonString();
 	std::string json_almacenable = primero_de_enero->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"dia\":1,\"mes\":1,\"anio\":2017}", json_contenido.c_str());
@@ -286,7 +286,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenableFecha)
 	delete primero_de_enero;
 }
 
-TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
+TEST(modelo, CreacionJsonYValorAlmacenablePeriodo)
 {
 	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
@@ -301,9 +301,9 @@ TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 	Periodo* periodo_enero = new Periodo(primero_de_enero, primero_de_febrero);
 	periodo_enero->asignarNuevoId();
 
-	periodo_enero->crearContenido();
+	periodo_enero->crearJson();
 
-	std::string json_contenido_enero = periodo_enero->getContenido()->jsonString();
+	std::string json_contenido_enero = periodo_enero->getJson()->jsonString();
 	std::string json_almacenable = periodo_enero->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}", json_contenido_enero.c_str());
@@ -312,7 +312,7 @@ TEST(modelo, CreacionContenidoYValorAlmacenablePeriodo)
 	delete periodo_enero;
 }
 
-TEST(modelo, CreacionContenidoYValorAlmacenableConsulta)
+TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
 {
 	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
@@ -409,9 +409,9 @@ TEST(modelo, CreacionContenidoYValorAlmacenableConsulta)
 	Consulta* consulta = new Consulta(primavera_2017, reporte, conceptos, medios, secciones, "primavera_2017");
 	consulta->asignarNuevoId();
 
-	consulta->crearContenido();
+	consulta->crearJson();
 
-	std::string json_contenido_consulta = consulta->getContenido()->jsonString();
+	std::string json_contenido_consulta = consulta->getJson()->jsonString();
 	std::string json_almacenable = consulta->getValorAlmacenable();
 
 	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_contenido_consulta.c_str());

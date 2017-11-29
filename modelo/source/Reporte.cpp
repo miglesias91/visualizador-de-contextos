@@ -15,11 +15,11 @@ Reporte::~Reporte()
 {
 }
 
-void Reporte::crearContenido()
+void Reporte::crearJson()
 {
 }
 
-bool Reporte::parsearContenido(IJson* contenido)
+bool Reporte::parsearJson(IJson* json)
 {
     return true;
 }
@@ -38,8 +38,17 @@ IEntidad * Reporte::clonar()
 {
     Reporte * clon = new Reporte(this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
+}
+
+bool Reporte::recuperarContenidoDeRelaciones()
+{
+    return true;
+}
+
+void Reporte::actualizarRelaciones()
+{
 }
 
 void Reporte::vincular()

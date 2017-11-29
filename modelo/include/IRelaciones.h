@@ -17,8 +17,7 @@ public:
 
     // CONSTRUCTORES
 
-    IRelaciones(visualizador::aplicacion::ID* id_entidad = NULL, std::string grupo = "");
-    IRelaciones(IJson * contenido, visualizador::aplicacion::ID* id_entidad = NULL, std::string grupo = "");
+    IRelaciones(visualizador::aplicacion::ID* id_entidad, std::string grupo, IJson * json = new IJson());
     virtual ~IRelaciones();
 
     // GETTERS

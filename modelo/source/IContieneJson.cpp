@@ -2,24 +2,24 @@
 
 using namespace visualizador::modelo;
 
-IContieneJson::IContieneJson(IJson * contenido) : contenido(contenido)
+IContieneJson::IContieneJson(IJson * json) : json(json)
 {
 }
 
 IContieneJson::~IContieneJson()
 {
-    delete this->contenido;
-    this->contenido = NULL;
+    delete this->json;
+    this->json = NULL;
 }
 
-IJson * IContieneJson::getContenido()
+IJson * IContieneJson::getJson()
 {
-    return this->contenido;
+    return this->json;
 }
 
-void IContieneJson::setContenido(IJson * contenido)
+void IContieneJson::setJson(IJson * json)
 {
-    delete this->contenido;
+    delete this->json;
 
-    this->contenido = contenido;
+    this->json = json;
 }

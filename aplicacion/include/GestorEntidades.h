@@ -89,6 +89,7 @@ std::vector<ENTIDAD*> GestorEntidades::gestionar()
         this->entidades_existentes.push_back(entidad_recuperada);
 
         entidades_recuperadas.push_back(entidad_recuperada);
+
         delete *it;
     }
     grupo.clear();

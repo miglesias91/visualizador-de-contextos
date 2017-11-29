@@ -20,9 +20,9 @@ RelacionesFecha::~RelacionesFecha()
 
 std::string RelacionesFecha::getValorAlmacenable()
 {
-    this->crearContenido();
+    this->crearJson();
 
-    return this->getContenido()->jsonString();
+    return this->getJson()->jsonString();
 }
 
 // SETTERS
@@ -35,7 +35,7 @@ void RelacionesFecha::parsearValorAlmacenable(std::string valor_almacenable)
 {
     IJson json_almacenable(valor_almacenable);
 
-    this->parsearContenido(&json_almacenable);
+    this->parsearJson(&json_almacenable);
 }
 
 std::string RelacionesFecha::prefijoGrupo()
@@ -50,21 +50,21 @@ unsigned int RelacionesFecha::hashcode()
 
 // metodos de IContieneJson
 
-void RelacionesFecha::crearContenido()
+void RelacionesFecha::crearJson()
 {
     IJson * relaciones_fecha = new IJson();
 
     relaciones_fecha->agregarAtributoArray("ids_periodos", this->getRelacionConPeriodos()->getIdsGrupoComoUint());
 
-    IJson* contenido = this->getContenido();
-    contenido->reset();
+    IJson* json = this->getJson();
+    json->reset();
 
-    contenido->agregarAtributoJson("relaciones_fecha", relaciones_fecha);
+    json->agregarAtributoJson("relaciones_fecha", relaciones_fecha);
 }
 
-bool RelacionesFecha::parsearContenido(IJson * contenido)
+bool RelacionesFecha::parsearJson(IJson * json)
 {
-    IJson * json_relaciones_fecha = contenido->getAtributoValorJson("relaciones_fecha");
+    IJson * json_relaciones_fecha = json->getAtributoValorJson("relaciones_fecha");
 
     std::vector<unsigned long long int> ids_periodos = json_relaciones_fecha->getAtributoArrayUint("ids_periodos");
 

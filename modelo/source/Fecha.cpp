@@ -29,21 +29,21 @@ Fecha::~Fecha()
 
 // METODOS
 
-void Fecha::crearContenido()
+void Fecha::crearJson()
 {
-	IJson* contenido = this->getContenido();
-	contenido->reset();
+	IJson* json = this->getJson();
+    json->reset();
 
-	contenido->agregarAtributoValor("dia", this->getDia());
-	contenido->agregarAtributoValor("mes", this->getMes());
-	contenido->agregarAtributoValor("anio", this->getAnio());
+    json->agregarAtributoValor("dia", this->getDia());
+    json->agregarAtributoValor("mes", this->getMes());
+    json->agregarAtributoValor("anio", this->getAnio());
 }
 
-bool Fecha::parsearContenido(IJson* contenido)
+bool Fecha::parsearJson(IJson* json)
 {
-	unsigned long long int dia = contenido->getAtributoValorUint("dia");
-	unsigned long long int mes = contenido->getAtributoValorUint("mes");
-	unsigned long long int anio = contenido->getAtributoValorUint("anio");
+	unsigned long long int dia = json->getAtributoValorUint("dia");
+	unsigned long long int mes = json->getAtributoValorUint("mes");
+	unsigned long long int anio = json->getAtributoValorUint("anio");
 
 	this->dia = dia;
 	this->mes = mes;
@@ -66,7 +66,7 @@ IEntidad * Fecha::clonar()
 {
     Fecha * clon = new Fecha(this->dia, this->mes, this->anio, this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
 }
 
@@ -147,6 +147,15 @@ void Fecha::setMes(unsigned int mes)
 void Fecha::setAnio(unsigned int anio)
 {
 	this->anio = anio;
+}
+
+bool Fecha::recuperarContenidoDeRelaciones()
+{
+    return true;
+}
+
+void Fecha::actualizarRelaciones()
+{
 }
 
 void Fecha::vincular()

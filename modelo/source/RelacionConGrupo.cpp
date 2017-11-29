@@ -6,7 +6,7 @@
 using namespace visualizador::modelo::relaciones;
 using namespace visualizador;
 
-RelacionConGrupo::RelacionConGrupo() : /*IContieneJson(),*/ IHashable()
+RelacionConGrupo::RelacionConGrupo() : IHashable()
 {
 }
 

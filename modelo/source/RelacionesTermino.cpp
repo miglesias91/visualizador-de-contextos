@@ -28,9 +28,9 @@ RelacionesTermino::~RelacionesTermino()
 
 std::string RelacionesTermino::getValorAlmacenable()
 {
-    this->crearContenido();
+    this->crearJson();
 
-    return this->getContenido()->jsonString();
+    return this->getJson()->jsonString();
 }
 
 // SETTERS
@@ -41,7 +41,7 @@ void RelacionesTermino::parsearValorAlmacenable(std::string valor_almacenable)
 {
     IJson json_almacenable(valor_almacenable);
 
-    this->parsearContenido(&json_almacenable);
+    this->parsearJson(&json_almacenable);
 }
 
 std::string RelacionesTermino::prefijoGrupo()
@@ -56,21 +56,21 @@ unsigned int RelacionesTermino::hashcode()
 
 // metodos de IContieneJson
 
-void RelacionesTermino::crearContenido()
+void RelacionesTermino::crearJson()
 {
     IJson * relaciones_termino = new IJson();
 
     relaciones_termino->agregarAtributoArray("ids_conceptos", this->getRelacionConConceptos()->getIdsGrupoComoUint());
     
-    IJson* contenido = this->getContenido();
-    contenido->reset();
+    IJson* json = this->getJson();
+    json->reset();
 
-    contenido->agregarAtributoJson("relaciones_termino", relaciones_termino);
+    json->agregarAtributoJson("relaciones_termino", relaciones_termino);
 }
 
-bool RelacionesTermino::parsearContenido(IJson * contenido)
+bool RelacionesTermino::parsearJson(IJson * json)
 {
-    IJson * json_relaciones_termino = contenido->getAtributoValorJson("relaciones_termino");
+    IJson * json_relaciones_termino = json->getAtributoValorJson("relaciones_termino");
 
     std::vector<unsigned long long int> ids_conceptos = json_relaciones_termino->getAtributoArrayUint("ids_conceptos");
 

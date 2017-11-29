@@ -20,15 +20,19 @@ public:
 
     // GETTERS
 
+    relaciones::RelacionesSeccion * getRelacionesSeccion();
+
     // SETTERS
+
+    void setRelacionesSeccion(relaciones::RelacionesSeccion * relaciones_seccion);
 
 	// METODOS
 
     // metodos de IContieneJson
 
-	virtual void crearContenido();
+	virtual void crearJson();
 
-	virtual bool parsearContenido(IJson* contenido);
+	virtual bool parsearJson(IJson* json);
 
     // metodos de IAlmacenable
 
@@ -41,6 +45,10 @@ public:
     virtual IEntidad * clonar();
 
     // metodos de IRelacionable
+
+    virtual bool recuperarContenidoDeRelaciones();
+
+    virtual void actualizarRelaciones();
 
     virtual void vincular();
 

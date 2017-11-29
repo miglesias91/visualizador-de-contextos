@@ -15,11 +15,11 @@ Seccion::~Seccion()
 {
 }
 
-void Seccion::crearContenido()
+void Seccion::crearJson()
 {
 }
 
-bool Seccion::parsearContenido(IJson* contenido)
+bool Seccion::parsearJson(IJson* json)
 {
     return true;
 }
@@ -38,8 +38,17 @@ IEntidad * Seccion::clonar()
 {
     Seccion * clon = new Seccion(this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
+}
+
+bool Seccion::recuperarContenidoDeRelaciones()
+{
+    return true;
+}
+
+void Seccion::actualizarRelaciones()
+{
 }
 
 void Seccion::vincular()

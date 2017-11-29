@@ -26,18 +26,22 @@ public:
 	Fecha* getDesde();
 	Fecha* getHasta();
 
+    relaciones::RelacionesPeriodo * getRelacionesPeriodo();
+
 	// SETTERS
 
 	void setDesde(Fecha* desde);
 	void setHasta(Fecha* hasta);
 
+    void setRelacionesPeriodo(relaciones::RelacionesPeriodo * relaciones_periodo);
+
     // METODOS
 
     // metodos de IContieneJson
 
-    virtual void crearContenido();
+    virtual void crearJson();
 
-    virtual bool parsearContenido(IJson* contenido);
+    virtual bool parsearJson(IJson* json);
 
     // metodos de IAlmacenable
 
@@ -50,6 +54,10 @@ public:
     virtual IEntidad * clonar();
 
     // metodos de IRelacionable
+
+    virtual bool recuperarContenidoDeRelaciones();
+
+    virtual void actualizarRelaciones();
 
     virtual void vincular();
 

@@ -23,7 +23,7 @@ public:
 
 	// CONSTRUCTORES
 	IEntidad();
-    IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, IJson * contenido = new IJson());
+    IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, IJson * json = new IJson());
 
 	virtual ~IEntidad();
 
@@ -31,7 +31,7 @@ public:
 	
 	virtual std::string getEtiqueta();
     
-    // metodos IAlmacenable
+    // getters de IAlmacenable
 
     virtual std::string getValorAlmacenable();
 
@@ -39,17 +39,19 @@ public:
 
 	virtual void setEtiqueta(std::string etiqueta);
 
-    // metodos de IAlmacenable
+    // setters de IAlmacenable
 
     virtual void setId(visualizador::aplicacion::ID* id_termino);
 
 	// METODOS
 
-	virtual void parsearValorAlmacenable(std::string valor_almacenable);
-
     virtual IEntidad * clonar() = 0;
 
     static std::vector<IAlmacenable*> comoAlmacenables(std::vector<IEntidad*> entidades);
+
+    // metodos de IAlmacenable
+
+	virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
     // CONSULTAS
 

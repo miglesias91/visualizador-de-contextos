@@ -42,6 +42,8 @@ public:
 
     std::string getStringDDmesAAAA(std::string separador = "");
 
+    relaciones::RelacionesFecha * getRelacionesFecha();
+
 	// SETTERS
 
 	void setDia(std::string dia);
@@ -52,13 +54,15 @@ public:
 	void setMes(unsigned int mes);
 	void setAnio(unsigned int anio);
 
+    void setRelacionesFecha(relaciones::RelacionesFecha * relaciones_fecha);
+
     // METODOS
 
     // metodos de IContieneJson
 
-    virtual void crearContenido();
+    virtual void crearJson();
 
-    virtual bool parsearContenido(IJson* contenido);
+    virtual bool parsearJson(IJson* json);
 
     // metodos de IAlmacenable
 
@@ -72,6 +76,10 @@ public:
 
     // metodos de IRelacionable
 
+    virtual bool recuperarContenidoDeRelaciones();
+
+    virtual void actualizarRelaciones();
+    
     virtual void vincular();
 
     virtual void desvincular();

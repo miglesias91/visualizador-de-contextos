@@ -20,7 +20,7 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionConGrupo : /*public IContieneJson, */public IHashable
+class RelacionConGrupo : public IHashable
 {
 public:
     

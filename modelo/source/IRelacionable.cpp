@@ -1,6 +1,10 @@
 #include <modelo/include/IRelacionable.h>
 
+// aplicacion
+#include <aplicacion/include/IAdministradorAplicacion.h>
+
 using namespace visualizador::modelo::relaciones;
+using namespace visualizador;
 
 IRelacionable::IRelacionable(IRelaciones * relaciones) : relaciones(relaciones)
 {
@@ -27,6 +31,18 @@ IRelaciones * IRelacionable::getRelaciones()
 void IRelacionable::setRelaciones(IRelaciones * relaciones)
 {
     this->relaciones = relaciones;
+}
+
+bool IRelacionable::recuperarRelaciones()
+{
+    bool existe_relacion = aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(this->relaciones);
+
+    if (existe_relacion)
+    {
+        this->recuperarContenidoDeRelaciones();
+    }
+
+    return existe_relacion;
 }
 
 // METODOS

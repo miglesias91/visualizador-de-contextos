@@ -36,30 +36,53 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	unsigned int hashcode_irregularidad = termino_irregularidad->hashcode();
 	unsigned int hashcode_corrupcion = termino_corrupcion->hashcode();
 	unsigned int hashcode_concepto_corrupcion = concepto_corrupcion->hashcode();
+    
+    unsigned int hashcode_relaciones_irregularidad = termino_irregularidad->getRelaciones()->hashcode();
+    unsigned int hashcode_relaciones_corrupcion = termino_corrupcion->getRelaciones()->hashcode();
+    unsigned int hashcode_relaciones_concepto_corrupcion = concepto_corrupcion->getRelaciones()->hashcode();
 
-	IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
-	IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
-	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+    IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
+    IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad->getRelaciones());
+
+    IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
+    IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion->getRelaciones());
+    
+    IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+    IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion->getRelaciones());
 
 	Concepto* concepto_a_recuperar = new Concepto();
 	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
 
-	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+    IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+    IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar->getRelaciones());
+    concepto_a_recuperar->recuperarContenidoDeRelaciones();
 
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
-	ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
-	ASSERT_EQ(hashcode_concepto_corrupcion, concepto_a_recuperar->hashcode());
+    ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
+    ASSERT_EQ(hashcode_concepto_corrupcion, concepto_a_recuperar->hashcode());
+
+    ASSERT_EQ(hashcode_relaciones_concepto_corrupcion, concepto_a_recuperar->getRelaciones()->hashcode());
+    ASSERT_EQ(2, concepto_a_recuperar->getRelaciones()->getId()->numero());
+    ASSERT_EQ(0, concepto_a_recuperar->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(1, concepto_a_recuperar->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[1]);
 
 	ASSERT_STREQ("etiqueta_corurp", concepto_a_recuperar->getTerminos()[0]->getEtiqueta().c_str());
 	ASSERT_EQ(0, concepto_a_recuperar->getTerminos()[0]->getId()->numero());
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getTerminos()[0]->getValor().c_str());
-	ASSERT_EQ(hashcode_corrupcion, concepto_a_recuperar->getTerminos()[0]->hashcode());
+    ASSERT_EQ(hashcode_corrupcion, concepto_a_recuperar->getTerminos()[0]->hashcode());
 
+    ASSERT_EQ(hashcode_relaciones_corrupcion, concepto_a_recuperar->getTerminos()[0]->getRelaciones()->hashcode());
+    ASSERT_EQ(0, concepto_a_recuperar->getTerminos()[0]->getRelaciones()->getId()->numero());
+    ASSERT_EQ(2, concepto_a_recuperar->getTerminos()[0]->getRelacionesTermino()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
 
 	ASSERT_STREQ("etiqueta_irregular", concepto_a_recuperar->getTerminos()[1]->getEtiqueta().c_str());
 	ASSERT_EQ(1, concepto_a_recuperar->getTerminos()[1]->getId()->numero());
 	ASSERT_STREQ("irregularidad", concepto_a_recuperar->getTerminos()[1]->getValor().c_str());
 	ASSERT_EQ(hashcode_irregularidad, concepto_a_recuperar->getTerminos()[1]->hashcode());
+
+    ASSERT_EQ(hashcode_relaciones_irregularidad, concepto_a_recuperar->getTerminos()[1]->getRelaciones()->hashcode());
+    ASSERT_EQ(1, concepto_a_recuperar->getTerminos()[1]->getRelaciones()->getId()->numero());
+    ASSERT_EQ(2, concepto_a_recuperar->getTerminos()[1]->getRelacionesTermino()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
 
 	delete concepto_a_recuperar;
 	delete concepto_corrupcion;

@@ -1,8 +1,5 @@
 #pragma once
 
-// stl
-#include <functional>
-
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
@@ -46,13 +43,12 @@ public:
 
     // metodos de IContieneJson
 
-    virtual void crearContenido();
+    virtual void crearJson();
 
-    virtual bool parsearContenido(IJson * contenido);
+    virtual bool parsearJson(IJson * json);
 
 private:
-    
-    static std::hash<std::string> hasher;
+
 };
 
 };

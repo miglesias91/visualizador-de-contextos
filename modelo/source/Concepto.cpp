@@ -27,10 +27,12 @@ Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string
 
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
-        this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+        if (NULL != (*it)->getId())
+        {
+            this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+        }
         (*it)->sumarReferencia();
     }
-
 }
 
 Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), terminos(terminos), relaciones_concepto(NULL)
@@ -40,7 +42,10 @@ Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEnti
 
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
-        this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+        if (NULL != (*it)->getId())
+        {
+            this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+        }
         (*it)->sumarReferencia();
     }
 }
@@ -60,9 +65,21 @@ Concepto::~Concepto()
 
 // GETTERS
 
+relaciones::RelacionesConcepto * Concepto::getRelacionesConcepto()
+{
+    return this->relaciones_concepto;
+}
+
 std::vector<Termino*> Concepto::getTerminos()
 {
 	return this->terminos;
+}
+
+// SETTERS
+
+void Concepto::setRelacionesConcepto(relaciones::RelacionesConcepto * relaciones_concepto)
+{
+    this->relaciones_concepto = relaciones_concepto;
 }
 
 // METODOS
@@ -73,7 +90,13 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
 
     if (NULL != this->getId())
     {
-        termino_nuevo->relacionarConConcepto(this);
+        //termino_nuevo->relacionarConConcepto(this->getId());
+        termino_nuevo->getRelacionesTermino()->agregarRelacionConConcepto(this->getId());
+    }
+
+    if (NULL != termino_nuevo->getId())
+    {
+        this->relaciones_concepto->agregarRelacionConTermino(termino_nuevo->getId());
     }
 
     termino_nuevo->sumarReferencia();
@@ -81,7 +104,7 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
 
 // metodos IContieneJson
 
-void Concepto::crearContenido()
+void Concepto::crearJson()
 {
 	//std::vector<unsigned long long int> ids_terminos;
 	//for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
@@ -90,40 +113,41 @@ void Concepto::crearContenido()
 	//	ids_terminos.push_back(id);
 	//}
 
-	//IJson* contenido = this->getContenido();
+	//IJson* contenido = this->getJson();
 	//contenido->reset();
 
 	// contenido->agregarAtributoArray("ids_terminos", ids_terminos);
-    
-    this->relaciones_concepto->crearContenido();
-    this->setContenido(this->relaciones_concepto->getContenido());
+
+    //this->relaciones_concepto->crearJson();
+    //this->setJson(this->relaciones_concepto->getJson());
 }
 
-bool Concepto::parsearContenido(IJson* contenido)
+bool Concepto::parsearJson(IJson* json)
 {
 	// std::vector<unsigned long long int> ids_terminos = contenido->getAtributoArrayUint("ids_terminos");
 
-    this->relaciones_concepto->parsearContenido(contenido);
+//    this->relaciones_concepto->parsearJson(json);
 
-    std::vector<unsigned long long int> ids_terminos = this->relaciones_concepto->getRelacionConTerminos()->getIdsGrupoComoUint();
+ //   std::vector<unsigned long long int> ids_terminos = this->relaciones_concepto->getRelacionConTerminos()->getIdsGrupoComoUint();
 
-	Termino* termino_nuevo = NULL;
-    bool contenido_limpio = true;
-	for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
-	{
-		termino_nuevo = new Termino();
-		termino_nuevo->setId(new aplicacion::ID(*it));
-        if (aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo))
-        { // si el termino existe, lo agrego a la lista de terminos
-            this->agregarTermino(termino_nuevo);
-        }
-        else
-        { // si el termino no existe, entonces no lo agrego, lo elimino y seteo el 'concepto' como "entidad sucia" 
-            delete termino_nuevo;
-            contenido_limpio = false;
-        }
-	}
-    return contenido_limpio;
+	//Termino* termino_nuevo = NULL;
+ //   bool contenido_limpio = true;
+	//for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
+	//{
+	//	termino_nuevo = new Termino();
+	//	termino_nuevo->setId(new aplicacion::ID(*it));
+ //       if (aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo))
+ //       { // si el termino existe, lo agrego a la lista de terminos
+ //           this->agregarTermino(termino_nuevo);
+ //       }
+ //       else
+ //       { // si el termino no existe, entonces no lo agrego, lo elimino y seteo el 'concepto' como "entidad sucia" 
+ //           delete termino_nuevo;
+ //           contenido_limpio = false;
+ //       }
+	//}
+ //   return contenido_limpio;
+    return true;
 }
 
 // metodos IAlmacenable
@@ -132,7 +156,8 @@ void Concepto::setId(visualizador::aplicacion::ID* id)
 {
     IEntidad::setId(id);
 
-    this->relacionarTerminos();
+    //this->relacionarTerminos();
+    this->actualizarRelaciones();
 }
 
 std::string Concepto::prefijoGrupo()
@@ -170,7 +195,7 @@ IEntidad * Concepto::clonar()
 
     Concepto* clon = new Concepto(clon_terminos, this->getEtiqueta());
     clon->setId(this->getId()->copia());
-    clon->setContenido(this->getContenido()->clonar());
+    clon->setJson(this->getJson()->clonar());
     return clon;
 }
 
@@ -180,11 +205,44 @@ void Concepto::relacionarTerminos()
     {
         // ACA HACER QUE EN VEZ DE PASARLE 'this' LE PASE DIRECTAMENTE LE ID DEL CONCEPTO (al 'Termino*' o directo al 'RelacionesTermino*'),
         // ASI ME EVITO LOS FORWARD DECLARATION.
-        (*it)->relacionarConConcepto(this);
+        //(*it)->relacionarConConcepto(this);
+        (*it)->getRelacionesTermino()->agregarRelacionConConcepto(this->getId());
     }
 }
 
 // metodos de IRelacionable
+
+bool Concepto::recuperarContenidoDeRelaciones()
+{
+    std::vector<unsigned long long int> ids_terminos = this->relaciones_concepto->getRelacionConTerminos()->getIdsGrupoComoUint();
+
+    Termino* termino_nuevo = NULL;
+    bool contenido_limpio = true;
+    for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
+    {
+        termino_nuevo = new Termino();
+        termino_nuevo->setId(new aplicacion::ID(*it));
+        if (aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo))
+        { // si el termino existe, lo agrego a la lista de terminos
+            this->agregarTermino(termino_nuevo);
+        }
+        else
+        { // si el termino no existe, entonces no lo agrego, lo elimino y seteo el 'concepto' como "entidad sucia" 
+            delete termino_nuevo;
+            contenido_limpio = false;
+        }
+    }
+    return contenido_limpio;
+}
+
+void Concepto::actualizarRelaciones()
+{
+    for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
+    {
+        (*it)->getRelacionesTermino()->agregarRelacionConConcepto(this->getId());
+        this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
+    }
+}
 
 void Concepto::vincular()
 {

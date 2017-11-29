@@ -13,27 +13,27 @@ class IContieneJson
 public:
     // CONSTRUCTORES
 
-    IContieneJson(IJson * contenido = NULL);
+    IContieneJson(IJson * json = NULL);
     virtual ~IContieneJson();
 
     // GETTERS
 
-    virtual IJson * getContenido();
+    virtual IJson * getJson();
 
     // SETTERS
 
-    virtual void setContenido(IJson * contenido);
+    virtual void setJson(IJson * json);
 
     // METODOS
     
-    virtual void crearContenido() = 0;
+    virtual void crearJson() = 0;
 
     // parsea el contenido JSON, y devuelve 'true' si el contenido es correcto, devuelve 'false' si el contenido parseado no esta correcto.
-    virtual bool parsearContenido(IJson * contenido) = 0;
+    virtual bool parsearJson(IJson * json) = 0;
 
 private:
 
-    IJson * contenido;
+    IJson * json;
 };
 
 };

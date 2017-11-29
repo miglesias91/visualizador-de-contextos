@@ -20,9 +20,9 @@ RelacionesMedio::~RelacionesMedio()
 
 std::string RelacionesMedio::getValorAlmacenable()
 {
-    this->crearContenido();
+    this->crearJson();
 
-    return this->getContenido()->jsonString();
+    return this->getJson()->jsonString();
 }
 
 // SETTERS
@@ -35,7 +35,7 @@ void RelacionesMedio::parsearValorAlmacenable(std::string valor_almacenable)
 {
     IJson json_almacenable(valor_almacenable);
 
-    this->parsearContenido(&json_almacenable);
+    this->parsearJson(&json_almacenable);
 }
 
 std::string RelacionesMedio::prefijoGrupo()
@@ -50,24 +50,24 @@ unsigned int RelacionesMedio::hashcode()
 
 // metodos de IContieneJson
 
-void RelacionesMedio::crearContenido()
+void RelacionesMedio::crearJson()
 {
-    //this->relacion_con_conceptos->crearContenido();
-    //IJson* ids_conceptos = this->relacion_con_conceptos->getContenido();
+    //this->relacion_con_conceptos->crearJson();
+    //IJson* ids_conceptos = this->relacion_con_conceptos->getJson();
 
     IJson * relaciones_medio = new IJson();
 
     relaciones_medio->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
     
-    IJson* contenido = this->getContenido();
-    contenido->reset();
+    IJson* json = this->getJson();
+    json->reset();
 
-    contenido->agregarAtributoJson("relaciones_medio", relaciones_medio);
+    json->agregarAtributoJson("relaciones_medio", relaciones_medio);
 }
 
-bool RelacionesMedio::parsearContenido(IJson * contenido)
+bool RelacionesMedio::parsearJson(IJson * json)
 {
-    IJson * json_relaciones_medio = contenido->getAtributoValorJson("relaciones_medio");
+    IJson * json_relaciones_medio = json->getAtributoValorJson("relaciones_medio");
 
     std::vector<unsigned long long int> ids_consultas = json_relaciones_medio->getAtributoArrayUint("ids_consultas");
 

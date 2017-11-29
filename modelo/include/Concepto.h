@@ -13,8 +13,6 @@ namespace visualizador
 namespace modelo
 {
 
-    class Termino; // forward declaration
-
 class Concepto : public IEntidad
 {
 public:
@@ -31,9 +29,13 @@ public:
 
 	// GETTERS
 
+    relaciones::RelacionesConcepto * getRelacionesConcepto();
+
 	std::vector<Termino*> getTerminos();
 
 	// SETTERS
+
+    void setRelacionesConcepto(relaciones::RelacionesConcepto * relaciones_concepto);
 
 	void agregarTermino(Termino* termino_nuevo);
 
@@ -45,9 +47,9 @@ public:
 
     // metodos de IContieneJson
 
-	virtual void crearContenido();
+	virtual void crearJson();
 
-	virtual bool parsearContenido(IJson* contenido);
+	virtual bool parsearJson(IJson* json);
 	
     // metodos de IAlmacenable
 
@@ -60,6 +62,10 @@ public:
     virtual IEntidad * clonar();
 
     // metodos de IRelacionable
+    
+    virtual bool recuperarContenidoDeRelaciones();
+
+    virtual void actualizarRelaciones();
 
     virtual void vincular();
 
