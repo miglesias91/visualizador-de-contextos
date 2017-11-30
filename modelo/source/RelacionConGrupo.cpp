@@ -126,5 +126,5 @@ unsigned int RelacionConGrupo::hashcode()
         string_ids += (*it)->string();
     }
 
-    return IHashable::hashearString(string_ids);
+    return IHashable::hashear(string_ids);
 }

@@ -2,13 +2,13 @@
 
 using namespace visualizador::aplicacion;
 
-// aplicacion
-#include <aplicacion/include/ConfiguracionAplicacion.h>
-
 // almacenamiento
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 
-AdministradorAplicacionLocal::AdministradorAplicacionLocal() : admin_almacenamiento(NULL)
+// aplicacion
+#include <aplicacion/include/ConfiguracionAplicacion.h>
+
+AdministradorAplicacionLocal::AdministradorAplicacionLocal() : IAdministradorAplicacion()
 {
 	almacenamiento::IAdministradorAlmacenamiento::iniciar(ConfiguracionAplicacion::pathConfiguracion());
 

@@ -57,7 +57,7 @@ public:
 
 private:
 
-    relaciones::RelacionesMedio * relacion_medio;
+    relaciones::RelacionesMedio * relaciones_medio;
 
 
 };

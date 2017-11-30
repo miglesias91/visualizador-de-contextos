@@ -86,8 +86,6 @@ public:
 
 private:
 
-	static std::hash<unsigned int> hasher;
-
     static std::string nombres_meses[];
 
 	unsigned int dia;

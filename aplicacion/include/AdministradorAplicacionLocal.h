@@ -46,7 +46,7 @@ public:
     virtual void almacenarIDActual();
 
 private:
-    almacenamiento::IAdministradorAlmacenamiento* admin_almacenamiento;
+
 };
 
 };

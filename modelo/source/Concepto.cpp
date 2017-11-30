@@ -160,17 +160,18 @@ std::string Concepto::prefijoGrupo()
 
 unsigned int Concepto::hashcode()
 {
-	std::vector<Termino*> terminos = this->getTerminos();
+	//std::vector<Termino*> terminos = this->getTerminos();
 
-	std::sort(terminos.begin(), terminos.end(), IEntidad::comparador);
+	//std::sort(terminos.begin(), terminos.end(), IEntidad::comparador);
 
-	unsigned long long int hashcode_terminos = 0;
-	for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
-	{
-		hashcode_terminos += (*it)->hashcode();
-	}
+	//unsigned long long int hashcode_terminos = 0;
+	//for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
+	//{
+	//	hashcode_terminos += (*it)->hashcode();
+	//}
 
-	return hashcode_terminos;
+	//return hashcode_terminos;
+    return this->getRelacionesConcepto()->getRelacionConTerminos()->hashcode();
 }
 
 // metodos IEntidad
@@ -196,6 +197,8 @@ IEntidad * Concepto::clonar()
 
 bool Concepto::recuperarContenidoDeRelaciones()
 {
+    visualizador::aplicacion::GestorEntidades gestor_entidades;
+
     std::vector<unsigned long long int> ids_terminos = this->relaciones_concepto->getRelacionConTerminos()->getIdsGrupoComoUint();
 
     Termino* termino_nuevo = NULL;
@@ -204,7 +207,8 @@ bool Concepto::recuperarContenidoDeRelaciones()
     {
         termino_nuevo = new Termino();
         termino_nuevo->setId(new aplicacion::ID(*it));
-        if (aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo))
+        //if (aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(termino_nuevo))
+        if (gestor_entidades.recuperar(termino_nuevo))
         { // si el termino existe, lo agrego a la lista de terminos
             this->agregarTermino(termino_nuevo);
         }

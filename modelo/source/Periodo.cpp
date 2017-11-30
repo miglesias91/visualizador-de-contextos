@@ -4,7 +4,6 @@ using namespace visualizador::modelo;
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
-// #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 // CONSTRUCTORES
@@ -89,7 +88,7 @@ void Periodo::setHasta(Fecha * hasta)
 
     if (NULL != this->hasta->getId())
     {
-        this->relaciones_periodo->setRelacionConFechaDesde(this->hasta->getId()->numero());
+        this->relaciones_periodo->setRelacionConFechaHasta(this->hasta->getId()->numero());
     }
 }
 
@@ -180,6 +179,8 @@ IEntidad * Periodo::clonar()
 
 bool Periodo::recuperarContenidoDeRelaciones()
 {
+    visualizador::aplicacion::GestorEntidades gestor_entidades;
+
     unsigned long long int id_fecha_desde = this->relaciones_periodo->getRelacionConFechaDesde();
     unsigned long long int id_fecha_hasta = this->relaciones_periodo->getRelacionConFechaHasta();
 
@@ -191,7 +192,8 @@ bool Periodo::recuperarContenidoDeRelaciones()
 
     bool contenido_limpio = true;
 
-    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
+    //if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
+    if (gestor_entidades.recuperar(fecha_desde))
     {
         this->setDesde(fecha_desde);
     }
@@ -201,7 +203,8 @@ bool Periodo::recuperarContenidoDeRelaciones()
         contenido_limpio = false;
     }
 
-    if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
+    //if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
+    if (gestor_entidades.recuperar(fecha_hasta))
     {
         this->setHasta(fecha_hasta);
     }
@@ -216,11 +219,17 @@ bool Periodo::recuperarContenidoDeRelaciones()
 
 void Periodo::actualizarRelaciones()
 {
-    this->desde->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
-    this->relaciones_periodo->setRelacionConFechaDesde(this->desde->getId()->numero());
+    if (NULL != this->desde)
+    {
+        this->desde->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
+        this->relaciones_periodo->setRelacionConFechaDesde(this->desde->getId()->numero());
+    }
 
-    this->hasta->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
-    this->relaciones_periodo->setRelacionConFechaDesde(this->hasta->getId()->numero());
+    if (NULL != this->hasta)
+    {
+        this->hasta->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
+        this->relaciones_periodo->setRelacionConFechaHasta(this->hasta->getId()->numero());
+    }
 }
 
 void Periodo::vincular()

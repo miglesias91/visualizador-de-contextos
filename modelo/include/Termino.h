@@ -68,8 +68,6 @@ public:
 
 private:
 
-	static std::hash<std::string> hasher;
-
 	std::string valor;
 
     relaciones::RelacionesTermino * relaciones_termino;

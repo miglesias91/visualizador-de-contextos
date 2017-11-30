@@ -17,9 +17,9 @@ public:
 
     virtual unsigned int hashcode() = 0;
 
-    static unsigned int hashearString(std::string string_a_hashear);
+    static unsigned int hashear(std::string string_a_hashear);
 
-    static unsigned int hashearUInt(unsigned int uint_a_hashear);
+    static unsigned int hashear(unsigned int uint_a_hashear);
 
 private:
 

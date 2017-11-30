@@ -6,8 +6,6 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/GestorIDs.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-std::hash<std::string> Termino::hasher;
-
 Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino(), NULL), valor("")
 {
     this->relaciones_termino = new relaciones::RelacionesTermino();
@@ -78,7 +76,7 @@ std::string Termino::prefijoGrupo()
 
 unsigned int Termino::hashcode()
 {
-	return hasher(this->getValor());
+	return IHashable::hashear(this->getValor());
 }
 
 // metodos de IEntidad

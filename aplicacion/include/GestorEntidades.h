@@ -36,6 +36,9 @@ public:
     template <class ENTIDAD>
     ENTIDAD* clonar(visualizador::modelo::IEntidad* entidad_a_clonar);
 
+    // recupera la entidad junto con sus relaciones y el contenido de sus relaciones.
+    bool recuperar(visualizador::modelo::IEntidad* entidad_a_recuperar);
+
     // chequea que existe el termino en la lista de terminos de la ui.
     bool existe(visualizador::modelo::IEntidad* entidad_a_chequear);
 
@@ -71,28 +74,39 @@ private:
 template <class ENTIDAD>
 std::vector<ENTIDAD*> GestorEntidades::gestionar()
 {
-    std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
+    //std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
+
+    //ENTIDAD entidad_para_obtener_prefijo;
+    //this->admin_bd->recuperarGrupo(entidad_para_obtener_prefijo.prefijoGrupo(), grupo);
+
+    //ENTIDAD* entidad_recuperada = NULL;
+    //std::vector<ENTIDAD*> entidades_recuperadas;
+    //for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    //{
+    //    entidad_recuperada = new ENTIDAD();
+    //    unsigned long long int id = std::stoull((*it)->getClave());
+    //    entidad_recuperada->setId(new visualizador::aplicacion::ID(id));
+
+    //    entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
+
+    //    this->entidades_existentes.push_back(entidad_recuperada);
+
+    //    entidades_recuperadas.push_back(entidad_recuperada);
+
+    //    delete *it;
+    //}
+    //grupo.clear();
+
+    std::vector<ENTIDAD*> entidades_recuperadas;
 
     ENTIDAD entidad_para_obtener_prefijo;
-    this->admin_bd->recuperarGrupo(entidad_para_obtener_prefijo.prefijoGrupo(), grupo);
+    this->admin_app->recuperarGrupo<ENTIDAD>(entidad_para_obtener_prefijo.prefijoGrupo(), &entidades_recuperadas);
 
-    ENTIDAD* entidad_recuperada = NULL;
-    std::vector<ENTIDAD*> entidades_recuperadas;
-    for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    for (std::vector<ENTIDAD*>::iterator it = entidades_recuperadas.begin(); it != entidades_recuperadas.end(); it++)
     {
-        entidad_recuperada = new ENTIDAD();
-        unsigned long long int id = std::stoull((*it)->getClave());
-        entidad_recuperada->setId(new visualizador::aplicacion::ID(id));
-
-        entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
-
-        this->entidades_existentes.push_back(entidad_recuperada);
-
-        entidades_recuperadas.push_back(entidad_recuperada);
-
-        delete *it;
+        this->recuperar(*it);
+        this->entidades_existentes.push_back(*it);
     }
-    grupo.clear();
 
     return entidades_recuperadas;
 };
@@ -101,25 +115,35 @@ std::vector<ENTIDAD*> GestorEntidades::gestionar()
 template <class ENTIDAD>
 std::vector<ENTIDAD*> GestorEntidades::recuperar()
 {
-    std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
+    //std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
+
+    //ENTIDAD entidad_para_obtener_prefijo;
+    //this->admin_bd->recuperarGrupo(entidad_para_obtener_prefijo.prefijoGrupo(), grupo);
+
+    //ENTIDAD* entidad_recuperada = NULL;
+    //std::vector<ENTIDAD*> entidades_recuperadas;
+    //for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    //{
+    //    entidad_recuperada = new ENTIDAD();
+    //    unsigned long long int id = std::stoull((*it)->getClave());
+    //    entidad_recuperada->setId(new visualizador::aplicacion::ID(id));
+
+    //    entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
+
+    //    entidades_recuperadas.push_back(entidad_recuperada);
+    //    delete *it;
+    //}
+    //grupo.clear();
+
+    std::vector<ENTIDAD*> entidades_recuperadas;
 
     ENTIDAD entidad_para_obtener_prefijo;
-    this->admin_bd->recuperarGrupo(entidad_para_obtener_prefijo.prefijoGrupo(), grupo);
+    this->admin_app->recuperarGrupo<ENTIDAD>(entidad_para_obtener_prefijo.prefijoGrupo(), &entidades_recuperadas);
 
-    ENTIDAD* entidad_recuperada = NULL;
-    std::vector<ENTIDAD*> entidades_recuperadas;
-    for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    for (std::vector<ENTIDAD*>::iterator it = entidades_recuperadas.begin(); it != entidades_recuperadas.end(); it++)
     {
-        entidad_recuperada = new ENTIDAD();
-        unsigned long long int id = std::stoull((*it)->getClave());
-        entidad_recuperada->setId(new visualizador::aplicacion::ID(id));
-
-        entidad_recuperada->parsearValorAlmacenable((*it)->getValor());
-
-        entidades_recuperadas.push_back(entidad_recuperada);
-        delete *it;
+        this->recuperar(*it);
     }
-    grupo.clear();
 
     return entidades_recuperadas;
 };

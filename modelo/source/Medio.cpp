@@ -7,6 +7,8 @@ using namespace visualizador::modelo;
 
 Medio::Medio(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedio(), NULL)
 {
+    this->relaciones_medio= new relaciones::RelacionesMedio();
+    this->setRelaciones(this->relaciones_medio);
 }
 
 Medio::~Medio()
@@ -17,14 +19,14 @@ Medio::~Medio()
 
 relaciones::RelacionesMedio * Medio::getRelacionesMedio()
 {
-    return this->relacion_medio;;
+    return this->relaciones_medio;
 }
 
 // SETTERS
 
 void Medio::setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio)
 {
-    this->relacion_medio = relaciones_medio;
+    this->relaciones_medio = relaciones_medio;
 }
 
 // METODOS

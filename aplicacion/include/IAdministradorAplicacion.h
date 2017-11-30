@@ -3,8 +3,10 @@
 // stl
 #include <vector>
 
+// almacenamiento
+#include <almacenamiento/include/IAdministradorAlmacenamiento.h>
+
 // modelo
-// #include <modelo/include/IEntidad.h>
 #include <modelo/include/IAlmacenable.h>
 
 namespace visualizador
@@ -56,17 +58,52 @@ public:
 
     virtual bool modificar(std::vector<visualizador::modelo::IAlmacenable*> almacenables) = 0;
 
-    virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* almacenables) = 0;
+    // virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* almacenables) = 0;
+
+    template <class ENTIDAD>
+    bool recuperarGrupo(std::string prefijo_grupo, std::vector<ENTIDAD*>* entidades_recuperadas);
 
 	virtual unsigned long long int recuperarIDActual() = 0;
 
 	virtual void almacenarIDActual() = 0;
 
+protected:
+    // ATRIBUTOS
+
+    almacenamiento::IAdministradorAlmacenamiento* admin_almacenamiento;
+
 private:
 	// ATRIBUTOS
 
 	static IAdministradorAplicacion* administrador;
+    
 };
+
+template<typename ENTIDAD>
+bool IAdministradorAplicacion::recuperarGrupo(std::string prefijo_grupo, std::vector<ENTIDAD*>* entidades_recuperadas)
+{
+    std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
+
+    this->admin_almacenamiento->recuperarGrupo(prefijo_grupo, grupo);
+
+    ENTIDAD* entidad = NULL;
+    for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
+    {
+        entidad = new ENTIDAD();
+        unsigned long long int id = std::stoull((*it)->getClave());
+        entidad->setId(new visualizador::aplicacion::ID(id));
+
+        this->recuperar(entidad);
+
+        entidades_recuperadas->push_back(entidad);
+
+        delete *it;
+    }
+    grupo.clear();
+
+    return true;
+};
+
 
 };
 };

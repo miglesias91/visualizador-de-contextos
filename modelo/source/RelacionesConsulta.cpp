@@ -68,7 +68,8 @@ std::string RelacionesConsulta::prefijoGrupo()
 
 unsigned int RelacionesConsulta::hashcode()
 {
-    return this->getRelacionConConceptos()->hashcode();
+    return this->getRelacionConConceptos()->hashcode() + this->getRelacionConMedios()->hashcode() + this->getRelacionConSecciones()->hashcode() +
+        this->getRelacionConReporte() + this->getRelacionConPeriodo();
 }
 
 // metodos de IContieneJson
@@ -103,7 +104,7 @@ bool RelacionesConsulta::parsearJson(IJson * json)
     std::vector<unsigned long long int> ids_medios = json_relaciones_consulta->getAtributoArrayUint("ids_medios");
     for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
     {
-        this->getRelacionConSecciones()->agregarRelacion(*it);
+        this->getRelacionConMedios()->agregarRelacion(*it);
     }
 
     std::vector<unsigned long long int> ids_secciones = json_relaciones_consulta->getAtributoArrayUint("ids_secciones");

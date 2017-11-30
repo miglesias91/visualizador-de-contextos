@@ -13,7 +13,7 @@ typedef visualizador::aplicacion::IAdministradorAplicacion* (*admin)();
 
 IAdministradorAplicacion* IAdministradorAplicacion::administrador = NULL;
 
-IAdministradorAplicacion::IAdministradorAplicacion()
+IAdministradorAplicacion::IAdministradorAplicacion() : admin_almacenamiento(NULL)
 {
 }
 

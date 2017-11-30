@@ -74,7 +74,7 @@ void RelacionesPeriodo::crearJson()
     IJson * relaciones_periodo = new IJson();
 
     relaciones_periodo->agregarAtributoValor("id_fecha_desde", this->relacion_con_fecha_desde);
-    relaciones_periodo->agregarAtributoValor("id_fecha_hasta", this->relacion_con_fecha_desde);
+    relaciones_periodo->agregarAtributoValor("id_fecha_hasta", this->relacion_con_fecha_hasta);
 
     relaciones_periodo->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 

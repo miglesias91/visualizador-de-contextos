@@ -13,12 +13,12 @@ IHashable::~IHashable()
 {
 }
 
-unsigned int IHashable::hashearString(std::string string_a_hashear)
+unsigned int IHashable::hashear(std::string string_a_hashear)
 {
     return hasher_string(string_a_hashear);
 }
 
-unsigned int IHashable::hashearUInt(unsigned int uint_a_hashear)
+unsigned int IHashable::hashear(unsigned int uint_a_hashear)
 {
     return hasher_uint(uint_a_hashear);
 }

@@ -103,6 +103,43 @@ bool GestorEntidades::guardarCambios()
     return true;
 }
 
+bool GestorEntidades::recuperar(visualizador::modelo::IEntidad * entidad_a_recuperar)
+{
+    if (this->admin_app->recuperar(entidad_a_recuperar))
+    {
+        if (this->admin_app->recuperar(entidad_a_recuperar->getRelaciones()))
+        {
+            if(entidad_a_recuperar->recuperarContenidoDeRelaciones())
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool GestorEntidades::existe(visualizador::modelo::IEntidad * entidad_a_chequear)
+{
+    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_chequear->hashcode())
+        {
+            return true;
+        }
+    }
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_chequear->hashcode())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
 {
     // si ya existe la entidad, entonces devuelvo 'false' indicando que no se agregó la nueva entidad
@@ -190,25 +227,4 @@ visualizador::modelo::IEntidad * GestorEntidades::encontrar(visualizador::modelo
     }
 
     return NULL;
-}
-
-bool GestorEntidades::existe(visualizador::modelo::IEntidad * entidad_a_chequear)
-{
-    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
-    {
-        if ((*this->entidades_it)->hashcode() == entidad_a_chequear->hashcode())
-        {
-            return true;
-        }
-    }
-
-    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
-    {
-        if ((*this->entidades_it)->hashcode() == entidad_a_chequear->hashcode())
-        {
-            return true;
-        }
-    }
-
-    return false;
 }

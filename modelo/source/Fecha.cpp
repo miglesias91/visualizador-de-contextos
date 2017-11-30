@@ -5,8 +5,6 @@ using namespace visualizador::modelo;
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-std::hash<unsigned int> Fecha::hasher;
-
 std::string Fecha::nombres_meses[] = { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
 
 // CONSTRUCTORES
@@ -152,7 +150,7 @@ std::string Fecha::prefijoGrupo()
 
 unsigned int Fecha::hashcode()
 {
-    return hasher(this->dia) + hasher(this->mes) + hasher(this->anio);
+    return IHashable::hashear(this->dia) + IHashable::hashear(this->mes) + IHashable::hashear(this->anio);
 }
 
 // metodos de IEntidad

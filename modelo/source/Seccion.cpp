@@ -64,12 +64,12 @@ IEntidad * Seccion::clonar()
     return clon;
 }
 
+// metodos de IRelacionable
+
 bool Seccion::recuperarContenidoDeRelaciones()
 {
     return true;
 }
-
-// metodos de IRelacionable
 
 void Seccion::actualizarRelaciones()
 {
