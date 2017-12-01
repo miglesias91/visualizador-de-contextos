@@ -55,6 +55,8 @@ private:
 	rapidjson::Value* valor;
 
     rapidjson::Document * documento_alocador;
+
+    std::vector<IJson*> copia_atributos_json;
 };
 };
 };

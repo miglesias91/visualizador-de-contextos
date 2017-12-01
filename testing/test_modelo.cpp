@@ -208,8 +208,9 @@ TEST(modelo, GettersYSettersConsulta)
 
 	ASSERT_EQ(2, secciones.size());
 	ASSERT_STREQ("economia", secciones[1]->getEtiqueta().c_str());
+    
+    delete consulta;
 
-	delete consulta;
 }
 
 TEST(modelo, CreacionJsonYValorAlmacenableConcepto)
@@ -236,14 +237,15 @@ TEST(modelo, CreacionJsonYValorAlmacenableConcepto)
 	concepto_movilizacion->asignarNuevoId();
 
 	concepto_movilizacion->crearJson();
+    std::string json_entidad_almacenable = concepto_movilizacion->getValorAlmacenable();
 
-	std::string json_contenido = concepto_movilizacion->getJson()->jsonString();
-	std::string json_almacenable = concepto_movilizacion->getValorAlmacenable();
+    concepto_movilizacion->getRelaciones()->crearJson();
+    std::string json_relaciones_almacenable = concepto_movilizacion->getRelaciones()->getValorAlmacenable();
 
-	ASSERT_STREQ("{\"ids_terminos\":[0,1,2]}", json_contenido.c_str());
-	ASSERT_STREQ("{\"etiqueta\":\"movilizacion\",\"contenido\":{\"ids_terminos\":[0,1,2]}}", json_almacenable.c_str());
+    delete concepto_movilizacion;
 
-	delete concepto_movilizacion;
+	ASSERT_STREQ("{\"etiqueta\":\"movilizacion\",\"contenido\":{}}", json_entidad_almacenable.c_str());
+    ASSERT_STREQ("{\"relaciones_concepto\":{\"ids_terminos\":[0,1,2],\"ids_consultas\":[]}}", json_relaciones_almacenable.c_str());
 }
 
 TEST(modelo, CreacionJsonYValorAlmacenableTermino)
@@ -260,10 +262,10 @@ TEST(modelo, CreacionJsonYValorAlmacenableTermino)
 	std::string json_contenido = movilizacion->getJson()->jsonString();
 	std::string json_almacenable = movilizacion->getValorAlmacenable();
 
+    delete movilizacion;
+
 	ASSERT_STREQ("{\"valor\":\"movilizacion\"}", json_contenido.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"paro\",\"contenido\":{\"valor\":\"movilizacion\"}}", json_almacenable.c_str());
-
-	delete movilizacion;
 }
 
 TEST(modelo, CreacionJsonYValorAlmacenableFecha)
@@ -280,10 +282,10 @@ TEST(modelo, CreacionJsonYValorAlmacenableFecha)
 	std::string json_contenido = primero_de_enero->getJson()->jsonString();
 	std::string json_almacenable = primero_de_enero->getValorAlmacenable();
 
+    delete primero_de_enero;
+
 	ASSERT_STREQ("{\"dia\":1,\"mes\":1,\"anio\":2017}", json_contenido.c_str());
 	ASSERT_STREQ("{\"etiqueta\":\"primero_enero\",\"contenido\":{\"dia\":1,\"mes\":1,\"anio\":2017}}", json_almacenable.c_str());
-
-	delete primero_de_enero;
 }
 
 TEST(modelo, CreacionJsonYValorAlmacenablePeriodo)
@@ -302,14 +304,16 @@ TEST(modelo, CreacionJsonYValorAlmacenablePeriodo)
 	periodo_enero->asignarNuevoId();
 
 	periodo_enero->crearJson();
+	std::string json_entidad_almacenable = periodo_enero->getValorAlmacenable();
 
-	std::string json_contenido_enero = periodo_enero->getJson()->jsonString();
-	std::string json_almacenable = periodo_enero->getValorAlmacenable();
+    periodo_enero->getRelaciones()->crearJson();
+    std::string json_relaciones_almacenable = periodo_enero->getRelaciones()->getValorAlmacenable();
+    
+    delete periodo_enero;
 
-	ASSERT_STREQ("{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}", json_contenido_enero.c_str());
-	ASSERT_STREQ("{\"etiqueta\":\"\",\"contenido\":{\"id_fecha_desde\":0,\"id_fecha_hasta\":1}}", json_almacenable.c_str());
+    ASSERT_STREQ("{\"etiqueta\":\"\",\"contenido\":{}}", json_entidad_almacenable.c_str());
+    ASSERT_STREQ("{\"relaciones_periodo\":{\"id_fecha_desde\":0,\"id_fecha_hasta\":1,\"ids_consultas\":[]}}", json_relaciones_almacenable.c_str());
 
-	delete periodo_enero;
 }
 
 TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
@@ -410,14 +414,15 @@ TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
 	consulta->asignarNuevoId();
 
 	consulta->crearJson();
+	std::string json_entidad_almacenable = consulta->getValorAlmacenable();
 
-	std::string json_contenido_consulta = consulta->getJson()->jsonString();
-	std::string json_almacenable = consulta->getValorAlmacenable();
+    consulta->getRelaciones()->crearJson();
+    std::string json_relaciones_almacenable = consulta->getRelaciones()->getValorAlmacenable();
 
-	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_contenido_consulta.c_str());
-	ASSERT_STREQ("{\"etiqueta\":\"primavera_2017\",\"contenido\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}", json_almacenable.c_str());
+    delete consulta;
 
-	delete consulta;
+    ASSERT_STREQ("{\"etiqueta\":\"primavera_2017\",\"contenido\":{}}", json_entidad_almacenable.c_str());
+    ASSERT_STREQ("{\"relaciones_consulta\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}", json_relaciones_almacenable.c_str());
 }
 
 TEST(modelo, GettersYSettersIJson)
@@ -428,19 +433,25 @@ TEST(modelo, GettersYSettersIJson)
 
 	IJson* contenido = json->getAtributoValorJson("contenido");
 
-	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", contenido->jsonString().c_str());
+    std::string json_original = contenido->jsonString();
 
 	unsigned long long int id_periodo = contenido->getAtributoValorUint("id_periodo");
 	unsigned long long int id_reporte = contenido->getAtributoValorUint("id_reporte");
 	std::vector<unsigned long long int> ids_conceptos = contenido->getAtributoArrayUint("ids_conceptos");
 
-	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", contenido->jsonString().c_str());
-
 	std::vector<unsigned long long int> ids_medios = contenido->getAtributoArrayUint("ids_medios");
 	std::vector<unsigned long long int> ids_secciones = contenido->getAtributoArrayUint("ids_secciones");
 
-	ASSERT_STREQ("primavera_2017", etiqueta.c_str());
-	ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", contenido->jsonString().c_str());
+    std::string json_sin_modificar = contenido->jsonString();
+
+    delete json;
+    delete contenido;
+
+    ASSERT_STREQ("primavera_2017", etiqueta.c_str());
+
+    ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_original.c_str());
+
+    ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_sin_modificar.c_str());
 
 	ASSERT_EQ(2, id_periodo);
 	ASSERT_EQ(3, id_reporte);
@@ -454,7 +465,4 @@ TEST(modelo, GettersYSettersIJson)
 
 	ASSERT_EQ(17, ids_secciones[0]);
 	ASSERT_EQ(18, ids_secciones[1]);
-
-	delete json;
-	delete contenido;
 }

@@ -60,6 +60,8 @@ void RelacionesReporte::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_reporte", relaciones_reporte);
+
+    delete relaciones_reporte;
 }
 
 bool RelacionesReporte::parsearJson(IJson * json)
@@ -72,6 +74,8 @@ bool RelacionesReporte::parsearJson(IJson * json)
     {
         this->getRelacionConConsultas()->agregarRelacion(*it);
     }
+
+    delete json_relaciones_reporte;
 
     return true;
 }

@@ -60,6 +60,8 @@ void RelacionesFecha::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_fecha", relaciones_fecha);
+    
+    delete relaciones_fecha;
 }
 
 bool RelacionesFecha::parsearJson(IJson * json)
@@ -72,6 +74,8 @@ bool RelacionesFecha::parsearJson(IJson * json)
     {
         this->getRelacionConPeriodos()->agregarRelacion(*it);
     }
+
+    delete json_relaciones_fecha;
 
     return true;
 }

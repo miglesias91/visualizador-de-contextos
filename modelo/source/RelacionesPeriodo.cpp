@@ -82,6 +82,8 @@ void RelacionesPeriodo::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_periodo", relaciones_periodo);
+
+    delete relaciones_periodo;
 }
 
 bool RelacionesPeriodo::parsearJson(IJson * json)
@@ -97,6 +99,8 @@ bool RelacionesPeriodo::parsearJson(IJson * json)
 
     this->relacion_con_fecha_desde = json_relaciones_periodo->getAtributoValorUint("id_fecha_desde");
     this->relacion_con_fecha_hasta = json_relaciones_periodo->getAtributoValorUint("id_fecha_hasta");
+
+    delete json_relaciones_periodo;
 
     return true;
 }

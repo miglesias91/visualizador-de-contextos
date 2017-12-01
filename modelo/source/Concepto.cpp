@@ -32,7 +32,6 @@ Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string
         //    this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
         //}
         this->agregarTermino(*it);
-        (*it)->sumarReferencia();
     }
 }
 
@@ -48,7 +47,6 @@ Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEnti
         //    this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
         //}
         this->agregarTermino(*it);
-        (*it)->sumarReferencia();
     }
 }
 
@@ -89,6 +87,7 @@ void Concepto::setRelacionesConcepto(relaciones::RelacionesConcepto * relaciones
 void Concepto::agregarTermino(Termino* termino_nuevo)
 {
 	this->terminos.push_back(termino_nuevo);
+    termino_nuevo->sumarReferencia();
 
     if (NULL != this->getId())
     {
@@ -100,7 +99,6 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
         this->relaciones_concepto->agregarRelacionConTermino(termino_nuevo->getId());
     }
 
-    termino_nuevo->sumarReferencia();
 }
 
 // metodos IContieneJson

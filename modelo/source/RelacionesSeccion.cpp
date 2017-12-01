@@ -60,18 +60,22 @@ void RelacionesSeccion::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_seccion", relaciones_termino);
+
+    delete relaciones_termino;
 }
 
 bool RelacionesSeccion::parsearJson(IJson * json)
 {
-    IJson * json_relaciones_termino = json->getAtributoValorJson("relaciones_seccion");
+    IJson * json_relaciones_seccion = json->getAtributoValorJson("relaciones_seccion");
 
-    std::vector<unsigned long long int> ids_consultas = json_relaciones_termino->getAtributoArrayUint("ids_consultas");
+    std::vector<unsigned long long int> ids_consultas = json_relaciones_seccion->getAtributoArrayUint("ids_consultas");
 
     for (std::vector<unsigned long long int>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         this->getRelacionConConsultas()->agregarRelacion(*it);
     }
+
+    delete json_relaciones_seccion;
 
     return true;
 }

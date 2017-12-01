@@ -66,6 +66,8 @@ void RelacionesTermino::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_termino", relaciones_termino);
+
+    delete relaciones_termino;
 }
 
 bool RelacionesTermino::parsearJson(IJson * json)
@@ -78,6 +80,8 @@ bool RelacionesTermino::parsearJson(IJson * json)
     {
         this->getRelacionConConceptos()->agregarRelacion(*it);
     }
+
+    delete json_relaciones_termino;
 
     return true;
 }

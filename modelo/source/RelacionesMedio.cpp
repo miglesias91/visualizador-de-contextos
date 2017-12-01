@@ -63,6 +63,8 @@ void RelacionesMedio::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_medio", relaciones_medio);
+    
+    delete relaciones_medio;
 }
 
 bool RelacionesMedio::parsearJson(IJson * json)
@@ -75,6 +77,8 @@ bool RelacionesMedio::parsearJson(IJson * json)
     {
         this->getRelacionConConsultas()->agregarRelacion(*it);
     }
+
+    delete json_relaciones_medio;
 
     return true;
 }

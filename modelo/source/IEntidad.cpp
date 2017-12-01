@@ -40,11 +40,6 @@ std::string IEntidad::getValorAlmacenable()
     IJson* json_contenido = this->getJson();
 	json_almacenable.agregarAtributoJson("contenido", json_contenido);
 
-    // seteo las relaciones
-    //this->getRelaciones()->crearJson();
-    //IJson * json_relaciones = this->getRelaciones()->getJson();
-    //json_almacenable.agregarAtributoJson("relaciones", json_relaciones);
-
 	std::string string_almacenable = json_almacenable.jsonString();
 
 	return string_almacenable;
@@ -85,13 +80,6 @@ void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 	this->esta_limpia = this->parsearJson(json_contenido);
 
 	delete json_contenido;
-
-    // parseo relaciones
-    //IJson * json_relaciones = json_almacenable.getAtributoValorJson("relaciones");
-
-    //this->getRelaciones()->parsearJson(json_relaciones);
-
-    //delete json_relaciones;
 }
 
 std::vector<IAlmacenable*> IEntidad::comoAlmacenables(std::vector<IEntidad*> entidades)

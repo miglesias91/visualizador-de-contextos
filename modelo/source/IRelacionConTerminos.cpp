@@ -10,6 +10,11 @@ IRelacionConTerminos::IRelacionConTerminos(RelacionConGrupo * relacion_con_termi
 
 IRelacionConTerminos::~IRelacionConTerminos()
 {
+    if (NULL != this->relacion_con_terminos)
+    {
+        delete this->relacion_con_terminos;
+        this->relacion_con_terminos = NULL;
+    }
 }
 
 // GETTERS

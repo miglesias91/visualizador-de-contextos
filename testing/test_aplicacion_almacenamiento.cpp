@@ -478,9 +478,6 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
 {
     GestorIDs::setIdActual(200);
 
-	GestorEntidades gestor_conceptos;
-	gestor_conceptos.gestionar<Concepto>();
-
     Termino* termino1 = new Termino("termino_ok", "gestorentidad-almacenamiento-test");
     termino1->asignarNuevoId();
 
@@ -496,9 +493,14 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
 
     GestorEntidades gestor_terminos;
     gestor_terminos.gestionar<Termino>();
+
     gestor_terminos.almacenar(termino1);
     gestor_terminos.almacenar(termino2);
+
     gestor_terminos.guardarCambios();
+
+    GestorEntidades gestor_conceptos;
+    gestor_conceptos.gestionar<Concepto>();
 
     gestor_conceptos.almacenar(concepto1);
 

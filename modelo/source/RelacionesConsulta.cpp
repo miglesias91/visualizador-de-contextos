@@ -89,6 +89,8 @@ void RelacionesConsulta::crearJson()
     json->reset();
 
     json->agregarAtributoJson("relaciones_consulta", relaciones_consulta);
+
+    delete relaciones_consulta;
 }
 
 bool RelacionesConsulta::parsearJson(IJson * json)
@@ -115,6 +117,8 @@ bool RelacionesConsulta::parsearJson(IJson * json)
 
     this->relacion_con_periodo = json_relaciones_consulta->getAtributoValorUint("id_periodo");
     this->relacion_con_reporte = json_relaciones_consulta->getAtributoValorUint("id_reporte");
+
+    delete json_relaciones_consulta;
 
     return true;
 }

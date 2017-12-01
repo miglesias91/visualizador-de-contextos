@@ -56,6 +56,7 @@ Consulta::~Consulta()
             (*it) = NULL;
         }
 	}
+    this->conceptos.clear();
 
 	for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
 	{
@@ -65,6 +66,7 @@ Consulta::~Consulta()
             (*it) = NULL;
         }
 	}
+    this->medios.clear();
 
 	for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
 	{
@@ -74,12 +76,14 @@ Consulta::~Consulta()
             (*it) = NULL;
         }
 	}
+    this->secciones.clear();
 
     if (0 == this->periodo->restarReferencia())
     {
         delete this->periodo;
         periodo = NULL;
     }
+
     if (0 == this->reporte->restarReferencia())
     {
         delete this->reporte;
@@ -215,52 +219,51 @@ void Consulta::getRelacionesConsulta(relaciones::RelacionesConsulta * relaciones
 
 void Consulta::crearJson()
 {
-	// creo ids de conceptos
-	std::vector<unsigned long long int> ids_conceptos;
-	for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
-	{
-		unsigned long long int id = (*it)->getId()->numero();
-		ids_conceptos.push_back(id);
-	}
+	//// creo ids de conceptos
+	//std::vector<unsigned long long int> ids_conceptos;
+	//for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
+	//{
+	//	unsigned long long int id = (*it)->getId()->numero();
+	//	ids_conceptos.push_back(id);
+	//}
 
-	// creo ids de medios
-	std::vector<unsigned long long int> ids_medios;
-	for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
-	{
-		unsigned long long int id = (*it)->getId()->numero();
-		ids_medios.push_back(id);
-	}
+	//// creo ids de medios
+	//std::vector<unsigned long long int> ids_medios;
+	//for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+	//{
+	//	unsigned long long int id = (*it)->getId()->numero();
+	//	ids_medios.push_back(id);
+	//}
 
-	// creo ids de secciones
-	std::vector<unsigned long long int> ids_secciones;
-	for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
-	{
-		unsigned long long int id = (*it)->getId()->numero();
-		ids_secciones.push_back(id);
-	}
+	//// creo ids de secciones
+	//std::vector<unsigned long long int> ids_secciones;
+	//for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
+	//{
+	//	unsigned long long int id = (*it)->getId()->numero();
+	//	ids_secciones.push_back(id);
+	//}
 
-	IJson* json = this->getJson();
-    json->reset();
+	//IJson* json = this->getJson();
+ //   json->reset();
 
-	// agrego periodo
-    json->agregarAtributoValor("id_periodo", this->getPeriodo()->getId()->numero());
+	//// agrego periodo
+ //   json->agregarAtributoValor("id_periodo", this->getPeriodo()->getId()->numero());
 
-	// agrego reporte
-    json->agregarAtributoValor("id_reporte", this->getReporte()->getId()->numero());
+	//// agrego reporte
+ //   json->agregarAtributoValor("id_reporte", this->getReporte()->getId()->numero());
 
-	// agrego conceptos
-    json->agregarAtributoArray("ids_conceptos", ids_conceptos);
+	//// agrego conceptos
+ //   json->agregarAtributoArray("ids_conceptos", ids_conceptos);
 
-	// agrego medios
-    json->agregarAtributoArray("ids_medios", ids_medios);
+	//// agrego medios
+ //   json->agregarAtributoArray("ids_medios", ids_medios);
 
-	// agrego secciones
-    json->agregarAtributoArray("ids_secciones", ids_secciones);
+	//// agrego secciones
+ //   json->agregarAtributoArray("ids_secciones", ids_secciones);
 }
 
 bool Consulta::parsearJson(IJson* json)
 {
-     
  //   std::vector<unsigned long long int> ids_conceptos = json->getAtributoArrayUint("ids_conceptos");
  //   std::vector<unsigned long long int> ids_medios = json->getAtributoArrayUint("ids_medios");
  //   std::vector<unsigned long long int> ids_secciones = json->getAtributoArrayUint("ids_secciones");

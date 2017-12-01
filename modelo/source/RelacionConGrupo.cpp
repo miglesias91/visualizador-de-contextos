@@ -105,6 +105,7 @@ bool RelacionConGrupo::eliminarRelacion(aplicacion::ID * id)
     {
         if ((*it)->numero() == id->numero())
         {// si coincide, entonces lo elimino
+            delete *it;
             this->ids_grupo.erase(it);
             return true;
         }
