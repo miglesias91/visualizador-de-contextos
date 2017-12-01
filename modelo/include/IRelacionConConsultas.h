@@ -34,6 +34,8 @@ public:
 
     virtual void eliminarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta);
 
+    virtual void actualizarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta_nuevo, visualizador::aplicacion::ID * id_consulta_viejo);
+
 private:
 
     RelacionConGrupo * relacion_con_consulta;

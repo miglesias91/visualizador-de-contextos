@@ -34,6 +34,8 @@ public:
 
     virtual void eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto);
 
+    virtual void actualizarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto_nuevo, visualizador::aplicacion::ID * id_concepto_viejo);
+
 private:
 
     RelacionConGrupo * relacion_con_conceptos;

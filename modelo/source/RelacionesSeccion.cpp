@@ -79,3 +79,16 @@ bool RelacionesSeccion::parsearJson(IJson * json)
 
     return true;
 }
+
+IRelaciones * RelacionesSeccion::clonar()
+{
+    RelacionesSeccion * clon = new RelacionesSeccion(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        clon->agregarRelacionConConsulta(*it);
+    }
+
+    return clon;
+}

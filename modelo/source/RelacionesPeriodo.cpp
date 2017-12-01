@@ -104,3 +104,20 @@ bool RelacionesPeriodo::parsearJson(IJson * json)
 
     return true;
 }
+
+IRelaciones * RelacionesPeriodo::clonar()
+{
+    RelacionesPeriodo * clon = new RelacionesPeriodo(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        clon->agregarRelacionConConsulta(*it);
+    }
+
+    clon->setRelacionConFechaDesde(this->getRelacionConFechaDesde());
+
+    clon->setRelacionConFechaHasta(this->getRelacionConFechaHasta());
+
+    return clon;
+}

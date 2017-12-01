@@ -3,6 +3,7 @@
 using namespace visualizador::modelo;
 
 // aplicacion
+#include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Reporte::Reporte(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoReporte(), NULL), relaciones_reporte(NULL)
@@ -26,7 +27,13 @@ relaciones::RelacionesReporte * Reporte::getRelacionesReporte()
 
 void Reporte::setRelacionesReporte(relaciones::RelacionesReporte * relaciones_reporte)
 {
+    if (NULL != this->relaciones_reporte)
+    {
+        delete this->relaciones_reporte;
+    }
+
     this->relaciones_reporte = relaciones_reporte;
+    this->setRelaciones(this->relaciones_reporte);
 }
 
 // METODOS
@@ -61,6 +68,12 @@ IEntidad * Reporte::clonar()
     Reporte * clon = new Reporte(this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
+
+    visualizador::aplicacion::GestorRelaciones gestor_relaciones;
+    relaciones::RelacionesReporte * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesReporte>(this->getRelacionesReporte());
+
+    clon->setRelacionesReporte(relaciones_clon);
+
     return clon;
 }
 
@@ -71,14 +84,18 @@ bool Reporte::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Reporte::actualizarRelaciones()
+void Reporte::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
 {
 }
 
 void Reporte::vincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.vincular(this->relaciones_reporte, this->getId());
 }
 
 void Reporte::desvincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.desvincular(this->relaciones_reporte, this->getId());
 }

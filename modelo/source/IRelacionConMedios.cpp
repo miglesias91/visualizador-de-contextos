@@ -36,14 +36,15 @@ void IRelacionConMedios::setRelacionConMedios(RelacionConGrupo * relacion_con_me
 
 void IRelacionConMedios::agregarRelacionConMedio(visualizador::aplicacion::ID * id_medio)
 {
-    visualizador::aplicacion::ID * id_medio_copia = id_medio->copia();
-    if (false == this->relacion_con_medios->agregarRelacion(id_medio_copia))
-    {// si no lo agrego, entonces destruyo la copia.
-        delete id_medio_copia;
-    }
+    this->relacion_con_medios->agregarRelacion(id_medio);
 }
 
 void IRelacionConMedios::eliminarRelacionConMedio(visualizador::aplicacion::ID * id_medio)
 {
     this->relacion_con_medios->eliminarRelacion(id_medio);
+}
+
+void IRelacionConMedios::actualizarRelacionConMedio(visualizador::aplicacion::ID * id_medio_nuevo, visualizador::aplicacion::ID * id_medio_viejo)
+{
+    this->relacion_con_medios->actualizarRelacion(id_medio_nuevo, id_medio_viejo);
 }

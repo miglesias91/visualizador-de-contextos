@@ -34,6 +34,8 @@ public:
 
     virtual void eliminarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion);
 
+    virtual void actualizarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion_nuevo, visualizador::aplicacion::ID * id_seccion_viejo);
+
 private:
 
     RelacionConGrupo * relacion_con_secciones;

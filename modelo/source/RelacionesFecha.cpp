@@ -79,3 +79,16 @@ bool RelacionesFecha::parsearJson(IJson * json)
 
     return true;
 }
+
+IRelaciones * RelacionesFecha::clonar()
+{
+    RelacionesFecha * clon = new RelacionesFecha(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_periodos = this->getRelacionConPeriodos()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_periodos.begin(); it != ids_periodos.end(); it++)
+    {
+        clon->agregarRelacionConPeriodo(*it);
+    }
+
+    return clon;
+}

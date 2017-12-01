@@ -4,6 +4,7 @@ using namespace visualizador::modelo;
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
+#include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 // CONSTRUCTORES
@@ -15,9 +16,7 @@ Periodo::Periodo(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplica
     this->setRelaciones(this->relaciones_periodo);
 }
 
-Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL),
-    // desde(desde), hasta(hasta)
-    relaciones_periodo(NULL)
+Periodo::Periodo(Fecha * desde, Fecha * hasta, std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoPeriodo(), NULL), relaciones_periodo(NULL)
 {
     this->relaciones_periodo = new relaciones::RelacionesPeriodo();
     this->setRelaciones(this->relaciones_periodo);
@@ -94,7 +93,13 @@ void Periodo::setHasta(Fecha * hasta)
 
 void Periodo::setRelacionesPeriodo(relaciones::RelacionesPeriodo * relaciones_periodo)
 {
+    if (NULL != this->relaciones_periodo)
+    {
+        delete this->relaciones_periodo;
+    }
+
     this->relaciones_periodo = relaciones_periodo;
+    this->setRelaciones(this->relaciones_periodo);
 }
 
 
@@ -104,47 +109,10 @@ void Periodo::setRelacionesPeriodo(relaciones::RelacionesPeriodo * relaciones_pe
 
 void Periodo::crearJson()
 {
-    //IJson* json = this->getJson();
-    //   json->reset();
-
-    //   json->agregarAtributoValor("id_fecha_desde", this->getDesde()->getId()->numero());
-    //   json->agregarAtributoValor("id_fecha_hasta", this->getHasta()->getId()->numero());
 }
 
 bool Periodo::parsearJson(IJson* json)
 {
-    //unsigned long long int id_fecha_desde = json->getAtributoValorUint("id_fecha_desde");
-    //unsigned long long int id_fecha_hasta = json->getAtributoValorUint("id_fecha_hasta");
-
-    //Fecha* fecha_desde = new Fecha();
-    //fecha_desde->setId(new visualizador::aplicacion::ID(id_fecha_desde));
-
-    //Fecha* fecha_hasta = new Fecha();
-    //fecha_hasta->setId(new visualizador::aplicacion::ID(id_fecha_hasta));
-
-    //   bool contenido_limpio = true;
-
-    //   if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
-    //   {
-    //       this->setDesde(fecha_desde);
-    //   }
-    //   else
-    //   {
-    //       delete fecha_desde;
-    //       contenido_limpio = false;
-    //   }
-
-    //   if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
-    //   {
-    //       this->setHasta(fecha_hasta);
-    //   }
-    //   else
-    //   {
-    //       delete fecha_hasta;
-    //       contenido_limpio = false;
-    //   }
-
-    //   return contenido_limpio;
     return true;
 }
 
@@ -172,6 +140,12 @@ IEntidad * Periodo::clonar()
     Periodo * clon = new Periodo(clon_desde, clon_hasta, this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
+
+    visualizador::aplicacion::GestorRelaciones gestor_relaciones;
+    relaciones::RelacionesPeriodo * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesPeriodo>(this->getRelacionesPeriodo());
+
+    clon->setRelacionesPeriodo(relaciones_clon);
+
     return clon;
 }
 
@@ -192,7 +166,6 @@ bool Periodo::recuperarContenidoDeRelaciones()
 
     bool contenido_limpio = true;
 
-    //if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_desde))
     if (gestor_entidades.recuperar(fecha_desde))
     {
         this->setDesde(fecha_desde);
@@ -203,7 +176,6 @@ bool Periodo::recuperarContenidoDeRelaciones()
         contenido_limpio = false;
     }
 
-    //if (visualizador::aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(fecha_hasta))
     if (gestor_entidades.recuperar(fecha_hasta))
     {
         this->setHasta(fecha_hasta);
@@ -217,25 +189,41 @@ bool Periodo::recuperarContenidoDeRelaciones()
     return contenido_limpio;
 }
 
-void Periodo::actualizarRelaciones()
+void Periodo::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
 {
+    //if (NULL != this->desde)
+    //{
+    //    this->desde->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
+    //    this->relaciones_periodo->setRelacionConFechaDesde(this->desde->getId()->numero());
+    //}
+
+    //if (NULL != this->hasta)
+    //{
+    //    this->hasta->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
+    //    this->relaciones_periodo->setRelacionConFechaHasta(this->hasta->getId()->numero());
+    //}
+
     if (NULL != this->desde)
     {
-        this->desde->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
+        this->desde->getRelacionesFecha()->actualizarRelacionConPeriodo(id_nuevo, id_viejo);
         this->relaciones_periodo->setRelacionConFechaDesde(this->desde->getId()->numero());
     }
 
     if (NULL != this->hasta)
     {
-        this->hasta->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
+        this->hasta->getRelacionesFecha()->actualizarRelacionConPeriodo(id_nuevo, id_viejo);
         this->relaciones_periodo->setRelacionConFechaHasta(this->hasta->getId()->numero());
     }
 }
 
 void Periodo::vincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.vincular(this->relaciones_periodo, this->getId());
 }
 
 void Periodo::desvincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.desvincular(this->relaciones_periodo, this->getId());
 }

@@ -36,14 +36,15 @@ void IRelacionConTerminos::setRelacionConTerminos(RelacionConGrupo * relacion_co
 
 void IRelacionConTerminos::agregarRelacionConTermino(visualizador::aplicacion::ID * id_termino)
 {
-    visualizador::aplicacion::ID * id_termino_copia = id_termino->copia();
-    if (false == this->relacion_con_terminos->agregarRelacion(id_termino_copia))
-    {// si no lo agrego, entonces destruyo la copia.
-        delete id_termino_copia;
-    }
+    this->relacion_con_terminos->agregarRelacion(id_termino);
 }
 
 void IRelacionConTerminos::eliminarRelacionConTermino(visualizador::aplicacion::ID * id_termino)
 {
     this->relacion_con_terminos->eliminarRelacion(id_termino);
+}
+
+void IRelacionConTerminos::actualizarRelacionConTermino(visualizador::aplicacion::ID * id_termino_nuevo, visualizador::aplicacion::ID * id_termino_viejo)
+{
+    this->relacion_con_terminos->actualizarRelacion(id_termino_nuevo, id_termino_viejo);
 }

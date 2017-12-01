@@ -34,6 +34,8 @@ public:
 
     virtual void eliminarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo);
 
+    virtual void actualizarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo_nuevo, visualizador::aplicacion::ID * id_periodo_viejo);
+
 private:
 
     RelacionConGrupo * relacion_con_periodos;

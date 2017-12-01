@@ -47,9 +47,22 @@ public:
     virtual bool desvincular(modelo::relaciones::RelacionesSeccion * relaciones_seccion, aplicacion::ID * id_seccion);
     virtual bool desvincular(modelo::relaciones::RelacionesTermino * relaciones_termino, aplicacion::ID * id_termino);
 
+    // clona la entidad devolviendo un puntero de la clase especifica de la entidad.
+    // Similar al metodo "clonar" de cada entidad, solo que agrega el tipo de entidad indicado en <ENTIDAD>.
+    template <class RELACIONES>
+    RELACIONES* clonar(visualizador::modelo::relaciones::IRelaciones * relaciones_a_clonar);
+
 private:
 
 };
+
+
+template <class RELACIONES>
+RELACIONES* GestorRelaciones::clonar(visualizador::modelo::relaciones::IRelaciones * relaciones_a_clonar)
+{
+    visualizador::modelo::relaciones::IRelaciones * relaciones_clonada = relaciones_a_clonar->clonar();
+    return static_cast<RELACIONES*>(relaciones_clonada);
+}
 
 };
 };

@@ -3,6 +3,7 @@
 using namespace visualizador::modelo;
 
 // aplicacion
+#include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 std::string Fecha::nombres_meses[] = { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
@@ -111,7 +112,13 @@ void Fecha::setAnio(unsigned int anio)
 
 void Fecha::setRelacionesFecha(relaciones::RelacionesFecha * relaciones_fecha)
 {
+    if (NULL != this->relaciones_fecha)
+    {
+        delete this->relaciones_fecha;
+    }
+
     this->relaciones_fecha = relaciones_fecha;
+    this->setRelaciones(this->relaciones_fecha);
 }
 
 // METODOS
@@ -160,6 +167,12 @@ IEntidad * Fecha::clonar()
     Fecha * clon = new Fecha(this->dia, this->mes, this->anio, this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
+    
+    visualizador::aplicacion::GestorRelaciones gestor_relaciones;
+    relaciones::RelacionesFecha * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesFecha>(this->getRelacionesFecha());
+
+    clon->setRelacionesFecha(relaciones_clon);
+    
     return clon;
 }
 
@@ -170,14 +183,19 @@ bool Fecha::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Fecha::actualizarRelaciones()
+void Fecha::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
 {
+    // this->relaciones_fecha
 }
 
 void Fecha::vincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.vincular(this->relaciones_fecha, this->getId());
 }
 
 void Fecha::desvincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.desvincular(this->relaciones_fecha, this->getId());
 }

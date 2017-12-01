@@ -36,14 +36,15 @@ void IRelacionConPeriodos::setRelacionConPeriodos(RelacionConGrupo * relacion_co
 
 void IRelacionConPeriodos::agregarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo)
 {
-    visualizador::aplicacion::ID * id_periodo_copia = id_periodo->copia();
-    if (false == this->relacion_con_periodos->agregarRelacion(id_periodo_copia))
-    {// si no lo agrego, entonces destruyo la copia.
-        delete id_periodo_copia;
-    }
+    this->relacion_con_periodos->agregarRelacion(id_periodo);
 }
 
 void IRelacionConPeriodos::eliminarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo)
 {
     this->relacion_con_periodos->eliminarRelacion(id_periodo);
+}
+
+void IRelacionConPeriodos::actualizarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo_nuevo, visualizador::aplicacion::ID * id_periodo_viejo)
+{
+    this->relacion_con_periodos->actualizarRelacion(id_periodo_nuevo, id_periodo_viejo);
 }

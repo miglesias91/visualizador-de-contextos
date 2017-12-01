@@ -87,3 +87,22 @@ bool RelacionesConcepto::parsearJson(IJson * json)
 
     return true;
 }
+
+IRelaciones * RelacionesConcepto::clonar()
+{
+    RelacionesConcepto * clon = new RelacionesConcepto(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_consulta = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consulta.begin(); it != ids_consulta.end(); it++)
+    {
+        clon->agregarRelacionConConsulta(*it);
+    }
+
+    std::vector<visualizador::aplicacion::ID*> ids_termino = this->getRelacionConTerminos()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_termino.begin(); it != ids_termino.end(); it++)
+    {
+        clon->agregarRelacionConTermino(*it);
+    }
+
+    return clon;
+}

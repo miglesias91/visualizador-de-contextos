@@ -68,6 +68,13 @@ bool RelacionConGrupo::existeRelacion(aplicacion::ID * id)
 bool RelacionConGrupo::agregarRelacion(unsigned long long int id)
 {
     aplicacion::ID * nuevo_id = new aplicacion::ID(id);
+
+    bool agregado = this->agregarRelacion(nuevo_id);
+
+    delete nuevo_id;
+
+    return agregado;
+
     if (false == this->agregarRelacion(nuevo_id))
     {
         delete nuevo_id;
@@ -83,7 +90,7 @@ bool RelacionConGrupo::agregarRelacion(aplicacion::ID * id)
         return false;
     }
 
-    this->ids_grupo.push_back(id);
+    this->ids_grupo.push_back(id->copia());
 
     return true;
 }
@@ -112,6 +119,34 @@ bool RelacionConGrupo::eliminarRelacion(aplicacion::ID * id)
     }
 
     return false;
+}
+
+bool RelacionConGrupo::actualizarRelacion(unsigned long long int id_nuevo, unsigned long long int id_viejo)
+{
+    aplicacion::ID * id_aux_nuevo = new aplicacion::ID(id_nuevo);
+    aplicacion::ID * id_aux_viejo = new aplicacion::ID(id_viejo);
+
+    bool actualizacion = this->actualizarRelacion(id_aux_nuevo, id_aux_viejo);
+
+    delete id_aux_nuevo;
+    delete id_aux_viejo;
+
+    return actualizacion;
+}
+
+bool RelacionConGrupo::actualizarRelacion(aplicacion::ID * id_nuevo, aplicacion::ID * id_viejo)
+{
+    if (NULL == id_viejo)
+    {// si no hay id_viejo entonces agrego el nuevo de una.
+        return this->agregarRelacion(id_nuevo);
+    }
+
+    if (false == this->eliminarRelacion(id_viejo))
+    {
+        return false;
+    }
+    
+    return this->agregarRelacion(id_nuevo);
 }
 
 // metodos de IHashable

@@ -3,6 +3,7 @@
 using namespace visualizador::modelo;
 
 // aplicacion
+#include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Seccion::Seccion(std::string etiqueta) : IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoSeccion(), NULL), relaciones_seccion(NULL)
@@ -26,7 +27,13 @@ relaciones::RelacionesSeccion * Seccion::getRelacionesSeccion()
 
 void Seccion::setRelacionesSeccion(relaciones::RelacionesSeccion * relaciones_seccion)
 {
+    if (NULL != this->relaciones_seccion)
+    {
+        delete this->relaciones_seccion;
+    }
+
     this->relaciones_seccion = relaciones_seccion;
+    this->setRelaciones(this->relaciones_seccion);
 }
 
 // METODOS
@@ -61,6 +68,12 @@ IEntidad * Seccion::clonar()
     Seccion * clon = new Seccion(this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
+
+    visualizador::aplicacion::GestorRelaciones gestor_relaciones;
+    relaciones::RelacionesSeccion * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesSeccion>(this->getRelacionesSeccion());
+
+    clon->setRelacionesSeccion(relaciones_clon);
+
     return clon;
 }
 
@@ -71,14 +84,18 @@ bool Seccion::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Seccion::actualizarRelaciones()
+void Seccion::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
 {
 }
 
 void Seccion::vincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.vincular(this->relaciones_seccion, this->getId());
 }
 
 void Seccion::desvincular()
 {
+    visualizador::aplicacion::GestorRelaciones gestor;
+    gestor.desvincular(this->relaciones_seccion, this->getId());
 }

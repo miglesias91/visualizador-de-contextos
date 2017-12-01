@@ -34,6 +34,8 @@ public:
 
     virtual void eliminarRelacionConMedio(visualizador::aplicacion::ID * id_medio);
 
+    virtual void actualizarRelacionConMedio(visualizador::aplicacion::ID * id_medio_nuevo, visualizador::aplicacion::ID * id_medio_viejo);
+
 private:
 
     RelacionConGrupo * relacion_con_medios;

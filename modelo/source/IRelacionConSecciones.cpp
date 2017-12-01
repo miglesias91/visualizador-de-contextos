@@ -36,14 +36,15 @@ void IRelacionConSecciones::setRelacionConSecciones(RelacionConGrupo * relacion_
 
 void IRelacionConSecciones::agregarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion)
 {
-    visualizador::aplicacion::ID * id_seccion_copia = id_seccion->copia();
-    if (false == this->relacion_con_secciones->agregarRelacion(id_seccion_copia))
-    {// si no lo agrego, entonces destruyo la copia.
-        delete id_seccion_copia;
-    }
+    this->relacion_con_secciones->agregarRelacion(id_seccion);
 }
 
 void IRelacionConSecciones::eliminarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion)
 {
     this->relacion_con_secciones->eliminarRelacion(id_seccion);
+}
+
+void IRelacionConSecciones::actualizarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion_nuevo, visualizador::aplicacion::ID * id_seccion_viejo)
+{
+    this->relacion_con_secciones->actualizarRelacion(id_seccion_nuevo, id_seccion_viejo);
 }

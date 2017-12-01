@@ -563,3 +563,136 @@ TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
     ASSERT_EQ(false, existe2);
     ASSERT_EQ(false, existe3);
 }
+
+TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
+{
+
+    GestorIDs::setIdActual(300);
+
+    // 1ero: armo el modelo
+    Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
+    inicio_primavera_2017->asignarNuevoId();
+
+    Fecha* fin_primavera_2017 = new Fecha(21, 12, 2017);
+    fin_primavera_2017->asignarNuevoId();
+
+    Periodo* primavera_2017 = new Periodo(inicio_primavera_2017, fin_primavera_2017);
+    primavera_2017->asignarNuevoId();
+
+    Reporte* reporte = new Grafico("torta");
+    reporte->asignarNuevoId();
+
+    std::vector<Termino*> terminos_corrupcion;
+
+    Termino* termino_corrupcion = new Termino("corrupcion");
+    termino_corrupcion->asignarNuevoId();
+
+    Termino* termino_irregularidad = new Termino("corrupcion");
+    termino_irregularidad->asignarNuevoId();
+
+    terminos_corrupcion.push_back(termino_corrupcion);
+    terminos_corrupcion.push_back(termino_irregularidad);
+
+    Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
+    concepto_corrupcion->asignarNuevoId();
+
+    Termino* termino_crisis = new Termino("crisis");
+    termino_crisis->asignarNuevoId();
+
+    Termino* termino_conflicto = new Termino("conflicto");
+    termino_conflicto->asignarNuevoId();
+
+    Termino* termino_desorden = new Termino("desorden");
+    termino_desorden->asignarNuevoId();
+
+    std::vector<Termino*> terminos_crisis;
+    terminos_crisis.push_back(termino_crisis);
+    terminos_crisis.push_back(termino_conflicto);
+    terminos_crisis.push_back(termino_desorden);
+
+    Concepto* concepto_crisis = new Concepto(terminos_crisis, "crisis");
+    concepto_crisis->asignarNuevoId();
+
+    Termino* termino_movilizacion = new Termino("movilizacion");
+    termino_movilizacion->asignarNuevoId();
+
+    Termino* termino_paro = new Termino("paro");
+    termino_paro->asignarNuevoId();
+
+    Termino* termino_marcha = new Termino("marcha");
+    termino_marcha->asignarNuevoId();
+
+    std::vector<Termino*> terminos_movilizacion;
+    terminos_movilizacion.push_back(termino_movilizacion);
+    terminos_movilizacion.push_back(termino_paro);
+    terminos_movilizacion.push_back(termino_marcha);
+
+    Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion);
+    concepto_movilizacion->asignarNuevoId();
+
+    std::vector<Concepto*> conceptos;
+    conceptos.push_back(concepto_corrupcion);
+    conceptos.push_back(concepto_crisis);
+    conceptos.push_back(concepto_movilizacion);
+
+    // estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
+    Medio* medio_clarin = new Medio("clarin");
+    medio_clarin->asignarNuevoId();
+
+    Medio* medio_infobae = new Medio("infobae");
+    medio_infobae->asignarNuevoId();
+
+    std::vector<Medio*> medios;
+    medios.push_back(medio_clarin);
+    medios.push_back(medio_infobae);
+
+    // estos news de las secciones en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
+    Seccion* seccion_politica = new Seccion("politica");
+    seccion_politica->asignarNuevoId();
+
+    Seccion* seccion_economia = new Seccion("economia");
+    seccion_economia->asignarNuevoId();
+
+    std::vector<Seccion*> secciones;
+    secciones.push_back(seccion_politica);
+    secciones.push_back(seccion_economia);
+
+    Consulta* consulta = new Consulta(primavera_2017, reporte, conceptos, medios, secciones, "primavera_2017");
+    consulta->asignarNuevoId();
+
+    // 2do: guardo todas las entidades y sus relaciones.
+
+    GestorEntidades gestor_entidades;
+
+    gestor_entidades.almacenar(inicio_primavera_2017);
+    gestor_entidades.almacenar(fin_primavera_2017);
+    gestor_entidades.almacenar(primavera_2017);
+    gestor_entidades.almacenar(reporte);
+    gestor_entidades.almacenar(termino_corrupcion);
+    gestor_entidades.almacenar(termino_irregularidad);
+    gestor_entidades.almacenar(concepto_corrupcion);
+    gestor_entidades.almacenar(termino_crisis);
+    gestor_entidades.almacenar(termino_conflicto);
+    gestor_entidades.almacenar(termino_desorden);
+    gestor_entidades.almacenar(concepto_crisis);
+    gestor_entidades.almacenar(termino_movilizacion);
+    gestor_entidades.almacenar(termino_paro);
+    gestor_entidades.almacenar(termino_marcha);
+    gestor_entidades.almacenar(concepto_movilizacion);
+    gestor_entidades.almacenar(medio_clarin);
+    gestor_entidades.almacenar(medio_infobae);
+    gestor_entidades.almacenar(seccion_politica);
+    gestor_entidades.almacenar(seccion_economia);
+    gestor_entidades.almacenar(consulta);
+
+    gestor_entidades.guardarCambios();
+
+    // 3ero: elimino algunas entidades para ver si se cumplen los cambios en las relaciones.
+
+    gestor_entidades.eliminar(seccion_economia);
+    gestor_entidades.eliminar(medio_clarin);
+    gestor_entidades.eliminar(concepto_crisis);
+    gestor_entidades.eliminar(termino_movilizacion);
+
+    
+}

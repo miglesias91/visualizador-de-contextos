@@ -122,3 +122,31 @@ bool RelacionesConsulta::parsearJson(IJson * json)
 
     return true;
 }
+
+IRelaciones * RelacionesConsulta::clonar()
+{
+    RelacionesConsulta * clon = new RelacionesConsulta(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_medios = this->getRelacionConMedios()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    {
+        clon->agregarRelacionConMedio(*it);
+    }
+
+    std::vector<visualizador::aplicacion::ID*> ids_secciones = this->getRelacionConSecciones()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    {
+        clon->agregarRelacionConSeccion(*it);
+    }
+
+    std::vector<visualizador::aplicacion::ID*> ids_conceptos = this->getRelacionConConceptos()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    {
+        clon->agregarRelacionConConcepto(*it);
+    }
+
+    clon->setRelacionConReporte(this->getRelacionConReporte());
+    clon->setRelacionConPeriodo(this->getRelacionConPeriodo());
+
+    return clon;
+}

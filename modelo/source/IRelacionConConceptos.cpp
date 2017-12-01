@@ -36,14 +36,15 @@ void IRelacionConConceptos::setRelacionConConceptos(RelacionConGrupo * relacion_
 
 void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
 {
-    visualizador::aplicacion::ID * id_concepto_copia = id_concepto->copia();
-    if (false == this->relacion_con_conceptos->agregarRelacion(id_concepto_copia))
-    {// si no lo agrego, entonces destruyo la copia.
-        delete id_concepto_copia;
-    }
+    this->relacion_con_conceptos->agregarRelacion(id_concepto);
 }
 
 void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
 {
     this->relacion_con_conceptos->eliminarRelacion(id_concepto);
+}
+
+void IRelacionConConceptos::actualizarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto_nuevo, visualizador::aplicacion::ID * id_concepto_viejo)
+{
+    this->relacion_con_conceptos->actualizarRelacion(id_concepto_nuevo, id_concepto_viejo);
 }

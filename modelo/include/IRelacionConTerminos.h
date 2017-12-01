@@ -34,6 +34,8 @@ public:
 
     virtual void eliminarRelacionConTermino(visualizador::aplicacion::ID * id_termino);
 
+    virtual void actualizarRelacionConTermino(visualizador::aplicacion::ID * id_termino_nuevo, visualizador::aplicacion::ID * id_termino_viejo);
+
 private:
 
     RelacionConGrupo * relacion_con_terminos;

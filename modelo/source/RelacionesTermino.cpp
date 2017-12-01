@@ -86,3 +86,17 @@ bool RelacionesTermino::parsearJson(IJson * json)
     return true;
 }
 
+IRelaciones * RelacionesTermino::clonar()
+{
+    RelacionesTermino * clon = new RelacionesTermino(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_conceptos = this->getRelacionConConceptos()->getIdsGrupo();
+
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    {
+        clon->agregarRelacionConConcepto(*it);
+    }
+
+    return clon;
+}
+

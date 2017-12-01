@@ -28,6 +28,10 @@ public:
 
     // METODOS
 
+    virtual IRelaciones * clonar() = 0;
+
+    // metodos de IAlmacenable
+
     virtual void parsearValorAlmacenable(std::string valor_almacenable) = 0;
 
     virtual std::string prefijoGrupo() = 0;

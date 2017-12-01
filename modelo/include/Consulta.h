@@ -50,7 +50,7 @@ public:
     void agregarMedio(Medio* medio);
     void agregarSeccion(Seccion* seccion);
 
-    void getRelacionesConsulta(relaciones::RelacionesConsulta * relaciones_consulta);
+    void setRelacionesConsulta(relaciones::RelacionesConsulta * relaciones_consulta);
 
 	// METODOS
 
@@ -74,7 +74,7 @@ public:
 
     virtual bool recuperarContenidoDeRelaciones();
 
-    virtual void actualizarRelaciones();
+    virtual void actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo = NULL);
 
     virtual void vincular();
 

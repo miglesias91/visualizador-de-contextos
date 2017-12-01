@@ -47,6 +47,10 @@ public:
 
     virtual bool parsearJson(IJson * json);
 
+    // metodos de IRelaciones
+
+    virtual IRelaciones * clonar();
+
 private:
 
 };

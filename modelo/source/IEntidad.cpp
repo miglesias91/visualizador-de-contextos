@@ -59,11 +59,12 @@ void IEntidad::setId(visualizador::aplicacion::ID* id)
     if (NULL != this->getRelaciones())
     {
         this->getRelaciones()->setId(id->copia());
+
+        visualizador::aplicacion::ID * id_viejo = this->getId();
+        this->actualizarRelaciones(id, id_viejo);
     }
 
     IAlmacenable::setId(id);
-
-    this->actualizarRelaciones();
 }
 
 void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)

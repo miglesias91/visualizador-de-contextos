@@ -45,12 +45,15 @@ public:
 
     virtual bool agregarRelacion(unsigned long long int id);
 
-    // 'id' debe ser una COPIA, cuando se destruye la instancia se destruyen los ids que contiene la relacion.
     virtual bool agregarRelacion(aplicacion::ID * id);
 
     virtual bool eliminarRelacion(unsigned long long int id);
 
     virtual bool eliminarRelacion(aplicacion::ID * id);
+
+    virtual bool actualizarRelacion(unsigned long long int id_nuevo, unsigned long long int id_viejo);
+
+    virtual bool actualizarRelacion(aplicacion::ID * id_nuevo, aplicacion::ID * id_viejo);
 
     // metodos de IHashable
 

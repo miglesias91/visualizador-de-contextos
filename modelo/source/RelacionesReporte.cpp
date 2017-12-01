@@ -79,3 +79,8 @@ bool RelacionesReporte::parsearJson(IJson * json)
 
     return true;
 }
+
+IRelaciones * RelacionesReporte::clonar()
+{
+    return nullptr;
+}

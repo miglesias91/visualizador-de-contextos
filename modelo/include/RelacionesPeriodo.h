@@ -38,7 +38,7 @@ public:
 
     // METODOS
 
-    // IAlmacenable::
+    // metodos de IAlmacenable
 
     virtual void parsearValorAlmacenable(std::string valor_almacenable);
 
@@ -46,11 +46,15 @@ public:
 
     virtual unsigned int hashcode();
 
-    // IContieneJson::
+    // metodos de IContieneJson
 
     virtual void crearJson();
 
     virtual bool parsearJson(IJson * json);
+
+    // metodos de IRelaciones
+
+    virtual IRelaciones * clonar();
 
 private:
 

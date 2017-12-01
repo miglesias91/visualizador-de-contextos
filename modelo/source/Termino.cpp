@@ -43,7 +43,13 @@ void Termino::setValor(std::string valor)
 
 void Termino::setRelacionesTermino(relaciones::RelacionesTermino * relaciones_termino)
 {
+    if (NULL != this->relaciones_termino)
+    {
+        delete this->relaciones_termino;
+    }
+
     this->relaciones_termino = relaciones_termino;
+    this->setRelaciones(this->relaciones_termino);
 }
 
 // METODOS
@@ -86,6 +92,12 @@ IEntidad * Termino::clonar()
     Termino * clon = new Termino(this->valor, this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
+
+    visualizador::aplicacion::GestorRelaciones gestor;
+    relaciones::RelacionesTermino * relaciones_clon = gestor.clonar<relaciones::RelacionesTermino>(this->getRelacionesTermino());
+
+    clon->setRelacionesTermino(relaciones_clon);
+
     return clon;
 }
 
@@ -96,7 +108,7 @@ bool Termino::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Termino::actualizarRelaciones()
+void Termino::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
 {
 }
 
