@@ -58,7 +58,7 @@ std::string Seccion::prefijoGrupo()
 
 unsigned int Seccion::hashcode()
 {
-	return 0;
+	return IHashable::hashear(this->getGrupo() + this->getEtiqueta());
 }
 
 // metodos de IEntidad

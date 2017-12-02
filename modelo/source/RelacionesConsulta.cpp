@@ -134,7 +134,7 @@ IRelaciones * RelacionesConsulta::clonar()
     }
 
     std::vector<visualizador::aplicacion::ID*> ids_secciones = this->getRelacionConSecciones()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
     {
         clon->agregarRelacionConSeccion(*it);
     }

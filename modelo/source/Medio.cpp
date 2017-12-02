@@ -58,7 +58,7 @@ std::string Medio::prefijoGrupo()
 
 unsigned Medio::hashcode()
 {
-	return 0;
+    return IHashable::hashear(this->getGrupo() + this->getEtiqueta());
 }
 
 // metodos de IEntidad

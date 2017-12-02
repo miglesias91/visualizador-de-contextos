@@ -58,7 +58,7 @@ std::string Reporte::prefijoGrupo()
 
 unsigned int Reporte::hashcode()
 {
-	return 0;
+    return IHashable::hashear(this->getGrupo() + this->getEtiqueta());
 }
 
 // metodos IEntidad

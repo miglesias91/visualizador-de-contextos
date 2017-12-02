@@ -82,5 +82,13 @@ bool RelacionesReporte::parsearJson(IJson * json)
 
 IRelaciones * RelacionesReporte::clonar()
 {
-    return nullptr;
+    RelacionesReporte * clon = new RelacionesReporte(this->getId()->copia());
+
+    std::vector<visualizador::aplicacion::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        clon->agregarRelacionConConsulta(*it);
+    }
+
+    return clon;
 }

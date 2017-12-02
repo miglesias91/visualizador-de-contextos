@@ -110,7 +110,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	Termino* termino_corrupcion = new Termino("corrupcion");
 	termino_corrupcion->asignarNuevoId();
 
-	Termino* termino_irregularidad = new Termino("corrupcion");
+	Termino* termino_irregularidad = new Termino("irregularidad");
 	termino_irregularidad->asignarNuevoId();
 
 	terminos_corrupcion.push_back(termino_corrupcion);
@@ -342,7 +342,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	ASSERT_EQ(4, consulta_a_recuperar->getConceptos()[0]->getTerminos()[0]->getId()->numero());
 	ASSERT_EQ(hashcode_termino_corrupcion, consulta_a_recuperar->getConceptos()[0]->getTerminos()[0]->hashcode());
 
-	ASSERT_STREQ("corrupcion", consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getValor().c_str());
+	ASSERT_STREQ("irregularidad", consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getValor().c_str());
 	ASSERT_STREQ("", consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getEtiqueta().c_str());
 	ASSERT_EQ(5, consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->getId()->numero());
 	ASSERT_EQ(hashcode_termino_irregularidad, consulta_a_recuperar->getConceptos()[0]->getTerminos()[1]->hashcode());
@@ -587,7 +587,7 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
     Termino* termino_corrupcion = new Termino("corrupcion");
     termino_corrupcion->asignarNuevoId();
 
-    Termino* termino_irregularidad = new Termino("corrupcion");
+    Termino* termino_irregularidad = new Termino("irregularidad");
     termino_irregularidad->asignarNuevoId();
 
     terminos_corrupcion.push_back(termino_corrupcion);
@@ -689,10 +689,33 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
 
     // 3ero: elimino algunas entidades para ver si se cumplen los cambios en las relaciones.
 
-    gestor_entidades.eliminar(seccion_economia);
+    gestor_entidades.eliminar(seccion_politica);
     gestor_entidades.eliminar(medio_clarin);
     gestor_entidades.eliminar(concepto_crisis);
     gestor_entidades.eliminar(termino_movilizacion);
 
-    
+    gestor_entidades.guardarCambios();
+
+    // 4to: recupero la consulta a ver si se modificaron las relaciones.
+
+    Consulta* consulta_a_recuperar = new Consulta();
+    consulta_a_recuperar->setId(new ID(*consulta->getId()));
+
+    gestor_entidades.recuperar(consulta_a_recuperar);
+
+    // test relaciones consulta
+
+    ASSERT_EQ(318, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConSecciones()->getIdsGrupoComoUint()[0]);
+
+    ASSERT_EQ(316, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMedios()->getIdsGrupoComoUint()[0]);;
+
+    ASSERT_EQ(306, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(314, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConConceptos()->getIdsGrupoComoUint()[1]);
+
+    ASSERT_EQ(303, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConReporte());
+
+    ASSERT_EQ(302, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConPeriodo());
+
+    delete consulta;
+    delete consulta_a_recuperar;
 }
