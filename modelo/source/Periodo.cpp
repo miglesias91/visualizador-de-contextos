@@ -227,3 +227,8 @@ void Periodo::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_periodo, this->getId());
 }
+
+bool Periodo::tieneRelacionesDependientes()
+{
+    return false;
+}

@@ -199,3 +199,8 @@ void Fecha::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_fecha, this->getId());
 }
+
+bool Fecha::tieneRelacionesDependientes()
+{
+    return false;
+}

@@ -48,6 +48,8 @@ public:
 
     virtual IRelaciones * clonar();
 
+    // CONSULTAS
+
 private:
 
 };

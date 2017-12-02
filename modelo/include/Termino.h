@@ -66,6 +66,12 @@ public:
 
     virtual void desvincular();
 
+    // CONSULTAS
+
+    // consultas de IRelacionable
+
+    virtual bool tieneRelacionesDependientes();
+
 private:
 
 	std::string valor;

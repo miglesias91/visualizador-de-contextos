@@ -99,4 +99,3 @@ IRelaciones * RelacionesTermino::clonar()
 
     return clon;
 }
-

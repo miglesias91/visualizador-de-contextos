@@ -418,3 +418,8 @@ void Consulta::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_consulta, this->getId());
 }
+
+bool Consulta::tieneRelacionesDependientes()
+{
+    return false;
+}

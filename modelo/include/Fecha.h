@@ -84,6 +84,12 @@ public:
 
     virtual void desvincular();
 
+    // CONSULTAS
+
+    // consultas de IRelacionable
+
+    virtual bool tieneRelacionesDependientes();
+
 private:
 
     static std::string nombres_meses[];

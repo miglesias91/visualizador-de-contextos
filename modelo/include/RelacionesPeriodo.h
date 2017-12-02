@@ -56,6 +56,8 @@ public:
 
     virtual IRelaciones * clonar();
 
+    // CONSULTAS
+
 private:
 
     unsigned long long int relacion_con_fecha_desde;

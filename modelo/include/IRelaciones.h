@@ -38,6 +38,8 @@ public:
 
     virtual unsigned int hashcode() = 0;
 
+    // CONSULTAS
+
 private:
 
 };

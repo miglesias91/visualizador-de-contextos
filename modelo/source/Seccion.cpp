@@ -99,3 +99,8 @@ void Seccion::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_seccion, this->getId());
 }
+
+bool Seccion::tieneRelacionesDependientes()
+{
+    return false;
+}

@@ -88,6 +88,8 @@ void DialogoTerminos::on_action_eliminar_termino_triggered()
         QVariant data = item->data(Qt::UserRole);
         modelo::Termino* termino = data.value<modelo::Termino*>();
 
+        if(termino->getRelacionesTermino()->
+
         this->gestor_terminos.eliminar(termino);
 
         delete this->ui->lista_terminos->takeItem(ui->lista_terminos->row(item));

@@ -99,3 +99,8 @@ void Reporte::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_reporte, this->getId());
 }
+
+bool Reporte::tieneRelacionesDependientes()
+{
+    return false;
+}

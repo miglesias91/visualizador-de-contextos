@@ -201,3 +201,8 @@ void Concepto::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_concepto, this->getId());
 }
+
+bool Concepto::tieneRelacionesDependientes()
+{
+    return 0 == this->relaciones_concepto->getRelacionConConsultas()->getIdsGrupo().size();
+}

@@ -99,3 +99,8 @@ void Medio::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_medio, this->getId());
 }
+
+bool Medio::tieneRelacionesDependientes()
+{
+    return false;
+}

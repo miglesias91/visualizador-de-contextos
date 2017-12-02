@@ -123,3 +123,8 @@ void Termino::desvincular()
     visualizador::aplicacion::GestorRelaciones gestor;
     gestor.desvincular(this->relaciones_termino, this->getId());
 }
+
+bool Termino::tieneRelacionesDependientes()
+{
+    return false;
+}

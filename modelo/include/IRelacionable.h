@@ -36,6 +36,10 @@ public:
 
     virtual void desvincular() = 0;
 
+    // CONSULTAS
+    
+    virtual bool tieneRelacionesDependientes() = 0;
+
 private:
 
     IRelaciones * relaciones;

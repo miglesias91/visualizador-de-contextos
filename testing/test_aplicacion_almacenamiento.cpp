@@ -704,7 +704,6 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
     gestor_entidades.recuperar(consulta_a_recuperar);
 
     // test relaciones consulta
-
     ASSERT_EQ(318, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConSecciones()->getIdsGrupoComoUint()[0]);
 
     ASSERT_EQ(316, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMedios()->getIdsGrupoComoUint()[0]);;
@@ -715,6 +714,10 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
     ASSERT_EQ(303, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConReporte());
 
     ASSERT_EQ(302, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConPeriodo());
+
+    // test relaciones concepto
+    ASSERT_EQ(312, consulta_a_recuperar->getConceptos()[1]->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(313, consulta_a_recuperar->getConceptos()[1]->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[1]);
 
     delete consulta;
     delete consulta_a_recuperar;

@@ -33,6 +33,8 @@ void IRelacionable::setRelaciones(IRelaciones * relaciones)
     this->relaciones = relaciones;
 }
 
+// METODOS
+
 bool IRelacionable::recuperarRelaciones()
 {
     bool existe_relacion = aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(this->relaciones);
@@ -45,5 +47,9 @@ bool IRelacionable::recuperarRelaciones()
     return existe_relacion;
 }
 
-// METODOS
+// CONSULTAS
 
+bool IRelacionable::estaRelacionado()
+{
+    return this->relaciones->tieneRelaciones();
+}
