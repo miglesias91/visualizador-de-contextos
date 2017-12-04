@@ -21,30 +21,22 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
     std::vector<modelo::Concepto*> conceptos_actuales = this->gestor_conceptos.gestionar<modelo::Concepto>();
     for (std::vector<modelo::Concepto*>::iterator it = conceptos_actuales.begin(); it != conceptos_actuales.end(); it++)
     {
-        this->agregarConceptoALista(*it);
+        modelo::Concepto * clon = this->gestor_conceptos.clonar<modelo::Concepto>(*it);
+        this->agregarConceptoALista(clon);
     }
 
     this->cargarListaTerminos();
 
     this->ui->lista_conceptos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
     this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+
+    this->on_action_resetear_concepto_triggered();
 }
 
 DialogoConceptos::~DialogoConceptos()
 {
-    QListWidgetItem* item = nullptr;
-
-    // elimino los conceptos de la lista
-    unsigned int count = ui->lista_conceptos->count();
-    while (0 != ui->lista_conceptos->count())
-    {
-        count = ui->lista_conceptos->count();
-
-        item = ui->lista_conceptos->takeItem(0);
-        delete item;
-    }
-
     this->descargarListaTerminos();
+    this->descargarListaConceptos();
 
     delete ui;
 }
@@ -98,6 +90,8 @@ void DialogoConceptos::on_action_resetear_concepto_triggered()
     this->ui->lineedit_terminos->clear();
     this->ui->lista_terminos->clearSelection();
     this->ui->lista_conceptos->clearSelection();
+
+    this->on_action_estado_btn_eliminar_triggered();
 }
 
 void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
@@ -117,6 +111,8 @@ void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
 
 void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)
 {
+    concepto->sumarReferencia();
+
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(concepto);
@@ -137,6 +133,29 @@ void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)
     item->setText(texto_item.c_str());
 
     this->ui->lista_conceptos->insertItem(0, item);
+}
+
+void DialogoConceptos::descargarListaConceptos()
+{
+    QListWidgetItem* item = nullptr;
+
+    // elimino los conceptos de la lista
+    modelo::Concepto* concepto_lista = nullptr;
+    unsigned int count = ui->lista_conceptos->count();
+    while (0 != ui->lista_conceptos->count())
+    {
+        count = ui->lista_conceptos->count();
+
+        concepto_lista = this->ui->lista_conceptos->item(0)->data(Qt::UserRole).value<modelo::Concepto*>();
+
+        if (0 == concepto_lista->restarReferencia())
+        {
+            delete concepto_lista;
+        }
+
+        item = this->ui->lista_conceptos->takeItem(0);
+        delete item;
+    }
 }
 
 std::vector<modelo::Termino*> DialogoConceptos::terminosSeleccionados()

@@ -48,8 +48,3 @@ bool IRelacionable::recuperarRelaciones()
 }
 
 // CONSULTAS
-
-bool IRelacionable::estaRelacionado()
-{
-    return this->relaciones->tieneRelaciones();
-}

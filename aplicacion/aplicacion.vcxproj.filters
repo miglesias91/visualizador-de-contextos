@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Archivos de código fuente\comunicacion">
+      <UniqueIdentifier>{968bdc06-20f4-49a7-8cc9-1dff8b5904c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\comunicacion">
+      <UniqueIdentifier>{5e2f6c6f-1f6e-4acc-b405-46d30bf9f842}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ConfiguracionAplicacion.h">
@@ -35,6 +41,21 @@
     </ClInclude>
     <ClInclude Include="include\GestorRelaciones.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Advertencia.h">
+      <Filter>Archivos de encabezado\comunicacion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Error.h">
+      <Filter>Archivos de encabezado\comunicacion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Informacion.h">
+      <Filter>Archivos de encabezado\comunicacion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mensaje.h">
+      <Filter>Archivos de encabezado\comunicacion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Pregunta.h">
+      <Filter>Archivos de encabezado\comunicacion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +82,21 @@
     </ClCompile>
     <ClCompile Include="source\GestorRelaciones.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Advertencia.cpp">
+      <Filter>Archivos de código fuente\comunicacion</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Error.cpp">
+      <Filter>Archivos de código fuente\comunicacion</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Informacion.cpp">
+      <Filter>Archivos de código fuente\comunicacion</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mensaje.cpp">
+      <Filter>Archivos de código fuente\comunicacion</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Pregunta.cpp">
+      <Filter>Archivos de código fuente\comunicacion</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

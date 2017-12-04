@@ -14,29 +14,22 @@ DialogoPeriodos::DialogoPeriodos(QWidget *parent)
     std::vector<modelo::Periodo*> periodos_actuales = this->gestor_periodos.gestionar<modelo::Periodo>();
     for (std::vector<modelo::Periodo*>::iterator it = periodos_actuales.begin(); it != periodos_actuales.end(); it++)
     {
-        this->agregarPeriodoALista(*it);
+        modelo::Periodo * clon = this->gestor_periodos.clonar<modelo::Periodo>(*it);
+        this->agregarPeriodoALista(clon);
     }
 
     this->cargarComboboxesDesdeYHasta();
 
     this->ui->lista_periodos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+
+    this->on_action_limpiar_periodo_triggered();
 }
 
 DialogoPeriodos::~DialogoPeriodos()
 {
-    QListWidgetItem* item = nullptr;
-
-    // elimino los peridos de la lista
-    unsigned int count = ui->lista_periodos->count();
-    while (0 != ui->lista_periodos->count())
-    {
-        count = ui->lista_periodos->count();
-
-        item = ui->lista_periodos->takeItem(0);
-        delete item;
-    }
-
     this->descargarComboboxesDesdeYHasta();
+
+    this->descargarListaPeriodos();
 
     delete ui;
 }
@@ -86,10 +79,12 @@ void DialogoPeriodos::on_action_eliminar_periodo_triggered()
 
 void DialogoPeriodos::on_action_limpiar_periodo_triggered()
 {
-    this->ui->lbl_etiqueta->clear();
+    this->ui->lineedit_etiqueta->clear();
     this->ui->lista_periodos->clearSelection();
     this->ui->combobox_desde->setCurrentIndex(-1);
     this->ui->combobox_hasta->setCurrentIndex(-1);
+
+    this->on_action_estado_btn_eliminar_triggered();
 }
 
 void DialogoPeriodos::on_action_estado_btn_eliminar_triggered()
@@ -109,6 +104,8 @@ void DialogoPeriodos::on_action_estado_btn_eliminar_triggered()
 
 void DialogoPeriodos::agregarPeriodoALista(visualizador::modelo::Periodo * periodo)
 {
+    periodo->sumarReferencia();
+
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(periodo);
@@ -119,6 +116,29 @@ void DialogoPeriodos::agregarPeriodoALista(visualizador::modelo::Periodo * perio
     item->setText(texto_item.c_str());
 
     this->ui->lista_periodos->insertItem(0, item);
+}
+
+void DialogoPeriodos::descargarListaPeriodos()
+{
+    QListWidgetItem* item = nullptr;
+
+    // elimino los periodos de la lista
+    modelo::Periodo* periodo_lista = nullptr;
+    unsigned int count = ui->lista_periodos->count();
+    while (0 != ui->lista_periodos->count())
+    {
+        count = ui->lista_periodos->count();
+
+        periodo_lista = this->ui->lista_periodos->item(0)->data(Qt::UserRole).value<modelo::Periodo*>();
+
+        if (0 == periodo_lista->restarReferencia())
+        {
+            delete periodo_lista;
+        }
+
+        item = this->ui->lista_periodos->takeItem(0);
+        delete item;
+    }
 }
 
 void DialogoPeriodos::cargarComboboxesDesdeYHasta()

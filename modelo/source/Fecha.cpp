@@ -202,5 +202,5 @@ void Fecha::desvincular()
 
 bool Fecha::tieneRelacionesDependientes()
 {
-    return false;
+    return 0 != this->relaciones_fecha->getRelacionConPeriodos()->getIdsGrupo().size();
 }

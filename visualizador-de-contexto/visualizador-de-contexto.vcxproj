@@ -136,6 +136,7 @@
     <ClCompile Include="DialogoFechas.cpp" />
     <ClCompile Include="DialogoPeriodos.cpp" />
     <ClCompile Include="DialogoTerminos.cpp" />
+    <ClCompile Include="source\FabricaMensajes.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_DialogoConceptos.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -303,6 +304,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(qt-dir)5.9.1\msvc2015_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(qt-dir)5.9.1\msvc2015_64\include\QtCore" "-I$(qt-dir)5.9.1\msvc2015_64\include\QtGui" "-I$(qt-dir)5.9.1\msvc2015_64\include\QtWidgets"</Command>
     </CustomBuild>
+    <ClInclude Include="include\FabricaMensajes.h" />
     <ClInclude Include="GeneratedFiles\ui_DialogoConceptos.h" />
     <ClInclude Include="GeneratedFiles\ui_DialogoConsultas.h" />
     <ClInclude Include="GeneratedFiles\ui_DialogoFechas.h" />

@@ -39,6 +39,8 @@ private:
     // agregar un concepto a la lista de terminos de la ui.
     void agregarConceptoALista(visualizador::modelo::Concepto* concepto);
 
+    void descargarListaConceptos();
+
     std::vector<visualizador::modelo::Termino*> terminosSeleccionados();
 
     void cargarListaTerminos();

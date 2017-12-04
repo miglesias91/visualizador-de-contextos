@@ -204,5 +204,5 @@ void Concepto::desvincular()
 
 bool Concepto::tieneRelacionesDependientes()
 {
-    return 0 == this->relaciones_concepto->getRelacionConConsultas()->getIdsGrupo().size();
+    return 0 != this->relaciones_concepto->getRelacionConConsultas()->getIdsGrupo().size();
 }

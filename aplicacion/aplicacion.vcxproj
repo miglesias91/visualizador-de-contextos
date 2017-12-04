@@ -115,6 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Advertencia.h" />
+    <ClInclude Include="include\Error.h" />
+    <ClInclude Include="include\Informacion.h" />
+    <ClInclude Include="include\Mensaje.h" />
     <ClInclude Include="include\GestorRelaciones.h" />
     <ClInclude Include="include\GestorEntidades.h" />
     <ClInclude Include="include\AdministradorAplicacionLocal.h" />
@@ -122,8 +126,13 @@
     <ClInclude Include="include\GestorIDs.h" />
     <ClInclude Include="include\IAdministradorAplicacion.h" />
     <ClInclude Include="include\ID.h" />
+    <ClInclude Include="include\Pregunta.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Advertencia.cpp" />
+    <ClCompile Include="source\Error.cpp" />
+    <ClCompile Include="source\Informacion.cpp" />
+    <ClCompile Include="source\Mensaje.cpp" />
     <ClCompile Include="source\GestorRelaciones.cpp" />
     <ClCompile Include="source\GestorEntidades.cpp" />
     <ClCompile Include="source\AdministradorAplicacionLocal.cpp" />
@@ -132,6 +141,7 @@
     <ClCompile Include="source\IAdministradorAplicacion.cpp" />
     <ClCompile Include="source\ID.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\Pregunta.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -102,5 +102,5 @@ void Medio::desvincular()
 
 bool Medio::tieneRelacionesDependientes()
 {
-    return false;
+    return 0 != this->relaciones_medio->getRelacionConConsultas()->getIdsGrupo().size();
 }

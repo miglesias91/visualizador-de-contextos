@@ -191,18 +191,6 @@ bool Periodo::recuperarContenidoDeRelaciones()
 
 void Periodo::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
 {
-    //if (NULL != this->desde)
-    //{
-    //    this->desde->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
-    //    this->relaciones_periodo->setRelacionConFechaDesde(this->desde->getId()->numero());
-    //}
-
-    //if (NULL != this->hasta)
-    //{
-    //    this->hasta->getRelacionesFecha()->agregarRelacionConPeriodo(this->getId());
-    //    this->relaciones_periodo->setRelacionConFechaHasta(this->hasta->getId()->numero());
-    //}
-
     if (NULL != this->desde)
     {
         this->desde->getRelacionesFecha()->actualizarRelacionConPeriodo(id_nuevo, id_viejo);
@@ -230,5 +218,5 @@ void Periodo::desvincular()
 
 bool Periodo::tieneRelacionesDependientes()
 {
-    return false;
+    return 0 != this->relaciones_periodo->getRelacionConConsultas()->getIdsGrupo().size();
 }

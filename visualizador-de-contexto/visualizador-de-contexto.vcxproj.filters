@@ -53,6 +53,9 @@
     <ClCompile Include="DialogoConsultas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\FabricaMensajes.cpp">
+      <Filter>Source Files\comunicacion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -79,6 +82,12 @@
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
       <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Header Files\comunicacion">
+      <UniqueIdentifier>{37860bcf-6bbb-41a7-9c3c-d562371207a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\comunicacion">
+      <UniqueIdentifier>{30df6ebf-e078-4e69-9e8b-9fa4be10d6bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DialogoConsultas.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FabricaMensajes.h">
+      <Filter>Header Files\comunicacion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

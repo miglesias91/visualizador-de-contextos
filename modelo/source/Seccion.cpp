@@ -102,5 +102,5 @@ void Seccion::desvincular()
 
 bool Seccion::tieneRelacionesDependientes()
 {
-    return false;
+    return 0 != this->relaciones_seccion->getRelacionConConsultas()->getIdsGrupo().size();
 }

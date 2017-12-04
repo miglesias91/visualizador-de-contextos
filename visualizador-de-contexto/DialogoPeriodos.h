@@ -21,7 +21,7 @@ public:
     DialogoPeriodos(QWidget *parent = Q_NULLPTR);
     ~DialogoPeriodos();
 
-private slots:
+    private slots:
     void on_action_guardar_periodo_triggered();
 
     void on_action_limpiar_periodo_triggered();
@@ -39,6 +39,8 @@ private:
 
     void agregarPeriodoALista(visualizador::modelo::Periodo* periodo);
 
+    void descargarListaPeriodos();
+    
     void cargarComboboxesDesdeYHasta();
 
     void descargarComboboxesDesdeYHasta();

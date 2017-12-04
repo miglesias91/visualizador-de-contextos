@@ -14,7 +14,8 @@ DialogoFechas::DialogoFechas(QWidget *parent)
     std::vector<modelo::Fecha*> fechas_actuales = this->gestor_fechas.gestionar<modelo::Fecha>();
     for (std::vector<modelo::Fecha*>::iterator it = fechas_actuales.begin(); it != fechas_actuales.end(); it++)
     {
-        this->agregarFechaALista(*it);
+        modelo::Fecha * clon = this->gestor_fechas.clonar<modelo::Fecha>(*it);
+        this->agregarFechaALista(clon);
     }
 
     this->ui->lista_fechas->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
@@ -24,17 +25,7 @@ DialogoFechas::DialogoFechas(QWidget *parent)
 
 DialogoFechas::~DialogoFechas()
 {
-    QListWidgetItem* item = nullptr;
-
-    // elimino las fechas de la lista.
-    unsigned int count = ui->lista_fechas->count();
-    while (0 != ui->lista_fechas->count())
-    {
-        count = ui->lista_fechas->count();
-
-        item = ui->lista_fechas->takeItem(0);
-        delete item;
-    }
+    this->descargarListaFechas();
 
     delete ui;
 }
@@ -68,6 +59,8 @@ void DialogoFechas::on_action_limpiar_fecha_triggered()
     this->ui->lineedit_etiqueta->clear();
     this->ui->dateedit_fecha->setDate(QDate::currentDate());
     this->ui->lista_fechas->clearSelection();
+
+    this->on_action_estado_btn_eliminar_triggered();
 }
 
 void DialogoFechas::on_action_eliminar_fecha_triggered()
@@ -105,6 +98,8 @@ void DialogoFechas::on_action_estado_btn_eliminar_triggered()
 
 void DialogoFechas::agregarFechaALista(visualizador::modelo::Fecha * fecha)
 {
+    fecha->sumarReferencia();
+
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(fecha);
@@ -115,4 +110,27 @@ void DialogoFechas::agregarFechaALista(visualizador::modelo::Fecha * fecha)
     item->setText(texto_item.c_str());
 
     this->ui->lista_fechas->insertItem(0, item);
+}
+
+void DialogoFechas::descargarListaFechas()
+{
+    QListWidgetItem* item = nullptr;
+
+    // elimino las fechas de la lista
+    modelo::Fecha* fecha_lista = nullptr;
+    unsigned int count = ui->lista_fechas->count();
+    while (0 != ui->lista_fechas->count())
+    {
+        count = ui->lista_fechas->count();
+
+        fecha_lista = this->ui->lista_fechas->item(0)->data(Qt::UserRole).value<modelo::Fecha*>();
+
+        if (0 == fecha_lista->restarReferencia())
+        {
+            delete fecha_lista;
+        }
+
+        item = this->ui->lista_fechas->takeItem(0);
+        delete item;
+    }
 }

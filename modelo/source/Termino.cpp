@@ -126,5 +126,5 @@ void Termino::desvincular()
 
 bool Termino::tieneRelacionesDependientes()
 {
-    return false;
+    return 0 != this->relaciones_termino->getRelacionConConceptos()->getIdsGrupo().size();
 }

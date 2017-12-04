@@ -102,5 +102,5 @@ void Reporte::desvincular()
 
 bool Reporte::tieneRelacionesDependientes()
 {
-    return false;
+    return 0 != this->relaciones_reporte->getRelacionConConsultas()->getIdsGrupo().size();
 }

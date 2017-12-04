@@ -38,6 +38,9 @@ private:
     // agregar una fecha a la lista de fechas de la ui.
     void agregarFechaALista(visualizador::modelo::Fecha* fecha);
 
+    // descargo la lista de fechas
+    void descargarListaFechas();
+
     // ATRIBUTOS
 
     visualizador::aplicacion::GestorEntidades gestor_fechas;

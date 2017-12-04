@@ -2,6 +2,9 @@
 
 #include <QWidget>
 
+// qt
+#include <qmessagebox.h>
+
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
 
@@ -38,6 +41,10 @@ private:
 
 	// agregar un termino a la lista de terminos de la ui.
 	void agregarTerminoALista(visualizador::modelo::Termino* termino);
+
+    void descargarListaTerminos();
+
+    QMessageBox * crearAdvertenciaTerminoConRelacionesDependientes();
 
 	// ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_terminos;
