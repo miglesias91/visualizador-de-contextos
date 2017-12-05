@@ -2,6 +2,9 @@
 
 #include <QWidget>
 
+// qt
+#include <qmessagebox.h>
+
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
 
@@ -33,6 +36,8 @@ private slots:
 
     void on_action_estado_btn_eliminar_triggered();
 
+    void on_action_estado_btn_agregar_triggered();
+
 private:
     Ui::DialogoConceptos *ui;
 
@@ -48,6 +53,10 @@ private:
     void cargarListaTerminos();
 
     void descargarListaTerminos();
+
+    // mensajes
+
+    QMessageBox * crearInformacionConceptoExistente();
 
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_conceptos;

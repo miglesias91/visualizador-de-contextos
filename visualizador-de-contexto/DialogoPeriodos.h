@@ -2,6 +2,9 @@
 
 #include <QWidget>
 
+// qt
+#include <qmessagebox.h>
+
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
 
@@ -32,6 +35,8 @@ public:
 
     void on_action_estado_btn_eliminar_triggered();
 
+    void on_action_estado_btn_agregar_triggered();
+
 private:
     Ui::DialogoPeriodos *ui;
 
@@ -50,6 +55,11 @@ private:
     visualizador::modelo::Fecha * fechaDesdeSeleccionada();
     
     visualizador::modelo::Fecha * fechaHastaSeleccionada();
+
+    // MENSAJES
+
+    QMessageBox * crearInformacionPeriodoExistente();
+    QMessageBox * crearErrorFechaDesdeMayorAFechaHasta();
 
     // ATRIBUTOS
 

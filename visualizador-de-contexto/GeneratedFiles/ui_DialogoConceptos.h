@@ -35,6 +35,7 @@ public:
     QAction *action_eliminar_concepto;
     QAction *action_guardar_concepto;
     QAction *action_estado_btn_eliminar;
+    QAction *action_estado_btn_agregar;
     QDialogButtonBox *btnbox_conceptos;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *layout_general;
@@ -46,7 +47,7 @@ public:
     QVBoxLayout *layout_terminos;
     QLineEdit *lineedit_terminos;
     QListWidget *lista_terminos;
-    QPushButton *btn_guardar_concepto;
+    QPushButton *btn_agregar_concepto;
     QPushButton *btn_limpiar_concepto;
     QPushButton *btn_eliminar_concepto;
     QPushButton *btn_agregar_eliminar_terminos;
@@ -68,6 +69,8 @@ public:
         action_guardar_concepto->setObjectName(QStringLiteral("action_guardar_concepto"));
         action_estado_btn_eliminar = new QAction(DialogoConceptos);
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
+        action_estado_btn_agregar = new QAction(DialogoConceptos);
+        action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         btnbox_conceptos = new QDialogButtonBox(DialogoConceptos);
         btnbox_conceptos->setObjectName(QStringLiteral("btnbox_conceptos"));
         btnbox_conceptos->setGeometry(QRect(210, 310, 156, 23));
@@ -123,10 +126,10 @@ public:
 
         layout_opciones->setWidget(1, QFormLayout::SpanningRole, groupbox_terminos);
 
-        btn_guardar_concepto = new QPushButton(horizontalLayoutWidget);
-        btn_guardar_concepto->setObjectName(QStringLiteral("btn_guardar_concepto"));
+        btn_agregar_concepto = new QPushButton(horizontalLayoutWidget);
+        btn_agregar_concepto->setObjectName(QStringLiteral("btn_agregar_concepto"));
 
-        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_guardar_concepto);
+        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_agregar_concepto);
 
         btn_limpiar_concepto = new QPushButton(horizontalLayoutWidget);
         btn_limpiar_concepto->setObjectName(QStringLiteral("btn_limpiar_concepto"));
@@ -161,10 +164,11 @@ public:
         retranslateUi(DialogoConceptos);
         QObject::connect(btnbox_conceptos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
         QObject::connect(btnbox_conceptos, SIGNAL(rejected()), DialogoConceptos, SLOT(close()));
-        QObject::connect(btn_guardar_concepto, SIGNAL(released()), action_guardar_concepto, SLOT(trigger()));
+        QObject::connect(btn_agregar_concepto, SIGNAL(released()), action_guardar_concepto, SLOT(trigger()));
         QObject::connect(btn_limpiar_concepto, SIGNAL(released()), action_resetear_concepto, SLOT(trigger()));
         QObject::connect(btn_eliminar_concepto, SIGNAL(released()), action_eliminar_concepto, SLOT(trigger()));
         QObject::connect(lista_conceptos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
+        QObject::connect(lista_terminos, SIGNAL(itemSelectionChanged()), action_estado_btn_agregar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoConceptos);
     } // setupUi
@@ -192,9 +196,10 @@ public:
 #ifndef QT_NO_TOOLTIP
         action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoConceptos", "estado btn eliminar", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
+        action_estado_btn_agregar->setText(QApplication::translate("DialogoConceptos", "estado_btn_agregar", Q_NULLPTR));
         lbl_etiqueta->setText(QApplication::translate("DialogoConceptos", "etiqueta", Q_NULLPTR));
         groupbox_terminos->setTitle(QApplication::translate("DialogoConceptos", "terminos", Q_NULLPTR));
-        btn_guardar_concepto->setText(QApplication::translate("DialogoConceptos", "guardar", Q_NULLPTR));
+        btn_agregar_concepto->setText(QApplication::translate("DialogoConceptos", "agregar", Q_NULLPTR));
         btn_limpiar_concepto->setText(QApplication::translate("DialogoConceptos", "limpiar", Q_NULLPTR));
         btn_eliminar_concepto->setText(QApplication::translate("DialogoConceptos", "eliminar", Q_NULLPTR));
         btn_agregar_eliminar_terminos->setText(QApplication::translate("DialogoConceptos", "agregar/eliminar terminos", Q_NULLPTR));

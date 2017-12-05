@@ -45,6 +45,8 @@ private slots:
 
     void on_action_realizar_consulta_y_cerrar_triggered();
 
+    void on_action_resetear_periodo_triggered();
+
 private:
     Ui::DialogoConsultas *ui;
 

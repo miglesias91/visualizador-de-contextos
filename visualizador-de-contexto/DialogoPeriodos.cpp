@@ -1,6 +1,9 @@
 #include "DialogoPeriodos.h"
 #include "ui_DialogoPeriodos.h"
 
+// visualizador-de-contexto
+#include <visualizador-de-contexto/include/FabricaMensajes.h>
+
 using namespace visualizador;
 
 DialogoPeriodos::DialogoPeriodos(QWidget *parent)
@@ -41,6 +44,16 @@ void DialogoPeriodos::on_action_guardar_periodo_triggered()
     
     modelo::Fecha* fecha_hasta = this->fechaHastaSeleccionada();
 
+    if (*fecha_desde >= *fecha_hasta)
+    {
+        QMessageBox * error_fecha_desde_mayor_a_fecha_hasta = this->crearErrorFechaDesdeMayorAFechaHasta();
+        error_fecha_desde_mayor_a_fecha_hasta->exec();
+
+        delete error_fecha_desde_mayor_a_fecha_hasta;
+
+        return;
+    }
+
     modelo::Periodo* periodo_nuevo = new modelo::Periodo(fecha_desde, fecha_hasta, etiqueta);
 
     if (this->gestor_periodos.almacenar(periodo_nuevo))
@@ -50,6 +63,11 @@ void DialogoPeriodos::on_action_guardar_periodo_triggered()
     }
     else
     {
+        QMessageBox * informacion_periodo_existente = this->crearInformacionPeriodoExistente();
+        informacion_periodo_existente->exec();
+
+        delete informacion_periodo_existente;
+
         delete periodo_nuevo;
     }
 
@@ -106,7 +124,7 @@ void DialogoPeriodos::agregarPeriodoALista(visualizador::modelo::Periodo * perio
     QVariant data = QVariant::fromValue(periodo);
     item->setData(Qt::UserRole, data);
 
-    std::string texto_item = periodo->getEtiqueta() + " - [ " + periodo->getDesde()->getStringDDmesAAAA(" ") + " , " + periodo->getHasta()->getStringDDmesAAAA(" ") + " ]";
+    std::string texto_item = periodo->getEtiqueta() + " - [" + periodo->getDesde()->getStringDDmesAAAA(" ") + ", " + periodo->getHasta()->getStringDDmesAAAA(" ") + "]";
 
     item->setText(texto_item.c_str());
 
@@ -213,4 +231,25 @@ modelo::Fecha * DialogoPeriodos::fechaDesdeSeleccionada()
 modelo::Fecha * DialogoPeriodos::fechaHastaSeleccionada()
 {
     return this->ui->combobox_hasta->currentData(Qt::UserRole).value<modelo::Fecha*>();
+}
+
+// MENSAJES
+
+QMessageBox * DialogoPeriodos::crearInformacionPeriodoExistente()
+{
+    std::string texto = "El periodo que se quiere agregar ya existe!";
+    visualizador::aplicacion::comunicacion::Informacion informacion_periodo_existente(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_periodo_existente);
+}
+
+QMessageBox * DialogoPeriodos::crearErrorFechaDesdeMayorAFechaHasta()
+{
+    std::string texto = "La fecha 'hasta' debe ser menor a la fecha 'desde'.";
+    visualizador::aplicacion::comunicacion::Error error_fecha_desde_mayor_fecha_hasta(texto);
+    return comunicacion::FabricaMensajes::fabricar(&error_fecha_desde_mayor_fecha_hasta);
+}
+
+void DialogoPeriodos::on_action_estado_btn_agregar_triggered()
+{
+
 }

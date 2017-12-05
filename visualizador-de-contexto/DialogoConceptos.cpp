@@ -4,6 +4,9 @@
 // stl
 #include <memory>
 
+// visualizador-de-contexto
+#include <visualizador-de-contexto/include/FabricaMensajes.h>
+
 // modelo
 #include <modelo/include/Concepto.h>
 #include <modelo/include/Termino.h>
@@ -57,6 +60,11 @@ void DialogoConceptos::on_action_guardar_concepto_triggered()
     }
     else
     {
+        QMessageBox * informacion_concepto_existente = this->crearInformacionConceptoExistente();
+        informacion_concepto_existente->exec();
+
+        delete informacion_concepto_existente;
+
         delete concepto_nuevo;
     }
 
@@ -100,6 +108,11 @@ void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
     {
         this->ui->btn_eliminar_concepto->setEnabled(true);
     }
+}
+
+void DialogoConceptos::on_action_estado_btn_agregar_triggered()
+{
+
 }
 
 // METODOS PRIVADOS
@@ -222,4 +235,13 @@ void DialogoConceptos::descargarListaTerminos()
         item = this->ui->lista_terminos->takeItem(0);
         delete item;
     }
+}
+
+// mensajes
+
+QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
+{
+    std::string texto = "El concepto que se quiere agregar ya existe!";
+    visualizador::aplicacion::comunicacion::Informacion informacion_concepto_existente(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente);
 }

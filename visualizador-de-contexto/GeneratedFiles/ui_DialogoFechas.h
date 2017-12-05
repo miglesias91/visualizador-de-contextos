@@ -43,7 +43,7 @@ public:
     QLineEdit *lineedit_etiqueta;
     QLabel *lbl_fecha;
     QDateEdit *dateedit_fecha;
-    QPushButton *btn_guardar_fecha;
+    QPushButton *btn_agregar_fecha;
     QPushButton *btn_limpiar_fecha;
     QPushButton *btn_eliminar_fecha;
     QVBoxLayout *layout_lista;
@@ -106,10 +106,10 @@ public:
 
         layout_opciones->setWidget(1, QFormLayout::FieldRole, dateedit_fecha);
 
-        btn_guardar_fecha = new QPushButton(horizontalLayoutWidget);
-        btn_guardar_fecha->setObjectName(QStringLiteral("btn_guardar_fecha"));
+        btn_agregar_fecha = new QPushButton(horizontalLayoutWidget);
+        btn_agregar_fecha->setObjectName(QStringLiteral("btn_agregar_fecha"));
 
-        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_guardar_fecha);
+        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_agregar_fecha);
 
         btn_limpiar_fecha = new QPushButton(horizontalLayoutWidget);
         btn_limpiar_fecha->setObjectName(QStringLiteral("btn_limpiar_fecha"));
@@ -140,7 +140,7 @@ public:
         QObject::connect(lista_fechas, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
         QObject::connect(btnbox_fechas, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
         QObject::connect(btnbox_fechas, SIGNAL(rejected()), DialogoFechas, SLOT(close()));
-        QObject::connect(btn_guardar_fecha, SIGNAL(released()), action_guardar_fecha, SLOT(trigger()));
+        QObject::connect(btn_agregar_fecha, SIGNAL(released()), action_guardar_fecha, SLOT(trigger()));
         QObject::connect(btn_eliminar_fecha, SIGNAL(released()), action_eliminar_fecha, SLOT(trigger()));
         QObject::connect(btn_limpiar_fecha, SIGNAL(released()), action_limpiar_fecha, SLOT(trigger()));
 
@@ -158,7 +158,7 @@ public:
         lbl_etiqueta->setText(QApplication::translate("DialogoFechas", "etiqueta", Q_NULLPTR));
         lbl_fecha->setText(QApplication::translate("DialogoFechas", "fecha", Q_NULLPTR));
         dateedit_fecha->setDisplayFormat(QApplication::translate("DialogoFechas", "d/M/yyyy", Q_NULLPTR));
-        btn_guardar_fecha->setText(QApplication::translate("DialogoFechas", "guardar", Q_NULLPTR));
+        btn_agregar_fecha->setText(QApplication::translate("DialogoFechas", "agregar", Q_NULLPTR));
         btn_limpiar_fecha->setText(QApplication::translate("DialogoFechas", "limpiar", Q_NULLPTR));
         btn_eliminar_fecha->setText(QApplication::translate("DialogoFechas", "eliminar", Q_NULLPTR));
     } // retranslateUi

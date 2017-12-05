@@ -44,6 +44,11 @@ void DialogoFechas::on_action_guardar_fecha_triggered()
     }
     else
     {
+        QMessageBox * informacion_fecha_existente = this->crearInformacionFechaExistente();
+        informacion_fecha_existente->exec();
+
+        delete informacion_fecha_existente;
+
         delete fecha_nueva;
     }
 
@@ -155,9 +160,18 @@ void DialogoFechas::descargarListaFechas()
     }
 }
 
+// mensajes
+
 QMessageBox * DialogoFechas::crearAdvertenciaFechaConRelacionesDependientes()
 {
     std::string texto = "La fecha que se quiere eliminar forma parte de uno o mas periodos existentes. Para poder eliminar la fecha, primero elimine el periodo relacionado.";
     visualizador::aplicacion::comunicacion::Advertencia advertencia_fecha_con_relaciones_dependientes(texto);
     return comunicacion::FabricaMensajes::fabricar(&advertencia_fecha_con_relaciones_dependientes);
+}
+
+QMessageBox * DialogoFechas::crearInformacionFechaExistente()
+{
+    std::string texto = "La fecha que se quiere agregar ya existe!";
+    visualizador::aplicacion::comunicacion::Informacion informacion_fecha_existente(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_fecha_existente);
 }

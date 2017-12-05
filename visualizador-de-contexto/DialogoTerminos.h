@@ -35,6 +35,8 @@ private slots:
 
     void on_action_estado_btn_eliminar_triggered();
 
+    void on_action_estado_btn_agregar_triggered();
+
 private:
 
 	Ui::DialogoTerminos *ui;
@@ -46,7 +48,10 @@ private:
     // agregar un termino a la lista de terminos de la ui.
     void agregarTerminoALista(visualizador::modelo::Termino* termino);
 
+    // mensajes
+
     QMessageBox * crearAdvertenciaTerminoConRelacionesDependientes();
+    QMessageBox * crearInformacionTerminoExistente();
 
 	// ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_terminos;

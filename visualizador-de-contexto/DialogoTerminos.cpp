@@ -62,6 +62,11 @@ void DialogoTerminos::on_action_guardar_termino_triggered()
     }
     else
     {
+        QMessageBox * informacion_termino_existente = this->crearInformacionTerminoExistente();
+        informacion_termino_existente->exec();
+
+        delete informacion_termino_existente;
+
         delete termino_nuevo;
     }
 
@@ -153,6 +158,13 @@ QMessageBox * DialogoTerminos::crearAdvertenciaTerminoConRelacionesDependientes(
     return comunicacion::FabricaMensajes::fabricar(&advertencia_termino_con_relaciones_dependientes);
 }
 
+QMessageBox * DialogoTerminos::crearInformacionTerminoExistente()
+{
+    std::string texto = "El termino que se quiere agregar ya existe!";
+    visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
+}
+
 void DialogoTerminos::cargarListaTerminos()
 {
     std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
@@ -164,4 +176,9 @@ void DialogoTerminos::cargarListaTerminos()
     }
 
     this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+}
+
+void DialogoTerminos::on_action_estado_btn_agregar_triggered()
+{
+
 }

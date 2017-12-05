@@ -68,6 +68,11 @@ std::string Fecha::getStringDDMMAAAA(std::string separador)
     return this->getStringDia() + separador + this->getStringMes() + separador + this->getStringAnio();
 }
 
+std::string Fecha::getStringAAAAMMDD(std::string separador)
+{
+    return this->getStringAnio() + separador + this->getStringMes() + separador + this->getStringDia();
+}
+
 std::string Fecha::getStringDDmesAAAA(std::string separador)
 {
     return this->getStringDia() + separador + this->getNombreMes() + separador + this->getStringAnio();
@@ -203,4 +208,44 @@ void Fecha::desvincular()
 bool Fecha::tieneRelacionesDependientes()
 {
     return 0 != this->relaciones_fecha->getRelacionConPeriodos()->getIdsGrupo().size();
+}
+
+bool Fecha::operator<(Fecha & fecha_a_comparar)
+{
+    std::string string_esta_fecha = this->getStringAAAAMMDD();
+    std::string string_fecha_a_comparar = fecha_a_comparar.getStringAAAAMMDD();
+
+    return string_esta_fecha < string_fecha_a_comparar;
+}
+
+bool Fecha::operator>(Fecha & fecha_a_comparar)
+{
+    std::string string_esta_fecha = this->getStringAAAAMMDD();
+    std::string string_fecha_a_comparar = fecha_a_comparar.getStringAAAAMMDD();
+
+    return string_esta_fecha > string_fecha_a_comparar;
+}
+
+bool Fecha::operator<=(Fecha & fecha_a_comparar)
+{
+    std::string string_esta_fecha = this->getStringAAAAMMDD();
+    std::string string_fecha_a_comparar = fecha_a_comparar.getStringAAAAMMDD();
+
+    return string_esta_fecha <= string_fecha_a_comparar;
+}
+
+bool Fecha::operator>=(Fecha & fecha_a_comparar)
+{
+    std::string string_esta_fecha = this->getStringAAAAMMDD();
+    std::string string_fecha_a_comparar = fecha_a_comparar.getStringAAAAMMDD();
+
+    return string_esta_fecha >= string_fecha_a_comparar;
+}
+
+bool Fecha::operator==(Fecha & fecha_a_comparar)
+{
+    std::string string_esta_fecha = this->getStringAAAAMMDD();
+    std::string string_fecha_a_comparar = fecha_a_comparar.getStringAAAAMMDD();
+
+    return string_esta_fecha == string_fecha_a_comparar;
 }

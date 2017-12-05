@@ -35,6 +35,7 @@ public:
     QAction *action_eliminar_periodo;
     QAction *action_actualizar_y_cerrar;
     QAction *action_estado_btn_eliminar;
+    QAction *action_estado_btn_agregar;
     QDialogButtonBox *btnbox_periodos;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
@@ -45,7 +46,7 @@ public:
     QComboBox *combobox_desde;
     QLabel *lbl_hasta;
     QComboBox *combobox_hasta;
-    QPushButton *btn_guardar_periodo;
+    QPushButton *btn_agregar_periodo;
     QPushButton *btn_limpiar_periodo;
     QPushButton *btn_eliminar_periodo;
     QVBoxLayout *layout_lista;
@@ -66,6 +67,8 @@ public:
         action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
         action_estado_btn_eliminar = new QAction(DialogoPeriodos);
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
+        action_estado_btn_agregar = new QAction(DialogoPeriodos);
+        action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         btnbox_periodos = new QDialogButtonBox(DialogoPeriodos);
         btnbox_periodos->setObjectName(QStringLiteral("btnbox_periodos"));
         btnbox_periodos->setGeometry(QRect(210, 310, 156, 23));
@@ -111,10 +114,10 @@ public:
 
         layout_opciones->setWidget(2, QFormLayout::FieldRole, combobox_hasta);
 
-        btn_guardar_periodo = new QPushButton(horizontalLayoutWidget);
-        btn_guardar_periodo->setObjectName(QStringLiteral("btn_guardar_periodo"));
+        btn_agregar_periodo = new QPushButton(horizontalLayoutWidget);
+        btn_agregar_periodo->setObjectName(QStringLiteral("btn_agregar_periodo"));
 
-        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_guardar_periodo);
+        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_agregar_periodo);
 
         btn_limpiar_periodo = new QPushButton(horizontalLayoutWidget);
         btn_limpiar_periodo->setObjectName(QStringLiteral("btn_limpiar_periodo"));
@@ -144,10 +147,12 @@ public:
         retranslateUi(DialogoPeriodos);
         QObject::connect(btnbox_periodos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
         QObject::connect(btnbox_periodos, SIGNAL(rejected()), DialogoPeriodos, SLOT(close()));
-        QObject::connect(btn_guardar_periodo, SIGNAL(released()), action_guardar_periodo, SLOT(trigger()));
+        QObject::connect(btn_agregar_periodo, SIGNAL(released()), action_guardar_periodo, SLOT(trigger()));
         QObject::connect(btn_eliminar_periodo, SIGNAL(released()), action_eliminar_periodo, SLOT(trigger()));
         QObject::connect(btn_limpiar_periodo, SIGNAL(released()), action_limpiar_periodo, SLOT(trigger()));
         QObject::connect(lista_periodos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
+        QObject::connect(combobox_desde, SIGNAL(currentIndexChanged(int)), action_estado_btn_agregar, SLOT(trigger()));
+        QObject::connect(combobox_hasta, SIGNAL(currentIndexChanged(int)), action_estado_btn_agregar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoPeriodos);
     } // setupUi
@@ -160,10 +165,11 @@ public:
         action_eliminar_periodo->setText(QApplication::translate("DialogoPeriodos", "eliminar_periodo", Q_NULLPTR));
         action_actualizar_y_cerrar->setText(QApplication::translate("DialogoPeriodos", "actualizar_y_cerrar", Q_NULLPTR));
         action_estado_btn_eliminar->setText(QApplication::translate("DialogoPeriodos", "estado_btn_eliminar", Q_NULLPTR));
+        action_estado_btn_agregar->setText(QApplication::translate("DialogoPeriodos", "estado_btn_agregar", Q_NULLPTR));
         lbl_etiqueta->setText(QApplication::translate("DialogoPeriodos", "etiqueta", Q_NULLPTR));
         lbl_desde->setText(QApplication::translate("DialogoPeriodos", "desde", Q_NULLPTR));
         lbl_hasta->setText(QApplication::translate("DialogoPeriodos", "hasta", Q_NULLPTR));
-        btn_guardar_periodo->setText(QApplication::translate("DialogoPeriodos", "guardar", Q_NULLPTR));
+        btn_agregar_periodo->setText(QApplication::translate("DialogoPeriodos", "agregar", Q_NULLPTR));
         btn_limpiar_periodo->setText(QApplication::translate("DialogoPeriodos", "limpiar", Q_NULLPTR));
         btn_eliminar_periodo->setText(QApplication::translate("DialogoPeriodos", "eliminar", Q_NULLPTR));
     } // retranslateUi

@@ -81,9 +81,9 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QPushButton" name="btn_guardar_fecha">
+       <widget class="QPushButton" name="btn_agregar_fecha">
         <property name="text">
-         <string>guardar</string>
+         <string>agregar</string>
         </property>
        </widget>
       </item>
@@ -193,7 +193,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>btn_guardar_fecha</sender>
+   <sender>btn_agregar_fecha</sender>
    <signal>released()</signal>
    <receiver>action_guardar_fecha</receiver>
    <slot>trigger()</slot>

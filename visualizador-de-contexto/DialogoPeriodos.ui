@@ -69,9 +69,9 @@
        <widget class="QComboBox" name="combobox_hasta"/>
       </item>
       <item row="3" column="1">
-       <widget class="QPushButton" name="btn_guardar_periodo">
+       <widget class="QPushButton" name="btn_agregar_periodo">
         <property name="text">
-         <string>guardar</string>
+         <string>agregar</string>
         </property>
        </widget>
       </item>
@@ -125,6 +125,11 @@
     <string>estado_btn_eliminar</string>
    </property>
   </action>
+  <action name="action_estado_btn_agregar">
+   <property name="text">
+    <string>estado_btn_agregar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -162,7 +167,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>btn_guardar_periodo</sender>
+   <sender>btn_agregar_periodo</sender>
    <signal>released()</signal>
    <receiver>action_guardar_periodo</receiver>
    <slot>trigger()</slot>
@@ -218,6 +223,38 @@
     <hint type="sourcelabel">
      <x>424</x>
      <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combobox_desde</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>action_estado_btn_agregar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combobox_hasta</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>action_estado_btn_agregar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>169</x>
+     <y>73</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

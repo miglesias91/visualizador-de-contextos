@@ -122,7 +122,7 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
     if (this->existe(entidad_nueva))
     {
         // TODO implementar 'ExcepcionTerminoExistente'.
-        std::string mensaje("La entidad '" + entidad_nueva->getEtiqueta() + "' ya existe.");
+        // std::string mensaje("La entidad '" + entidad_nueva->getEtiqueta() + "' ya existe.");
         // throw std::exception(mensaje.c_str());
         return false;
     }

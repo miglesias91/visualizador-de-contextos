@@ -38,8 +38,6 @@ private slots:
 private:
     Ui::DialogoFechas *ui;
 
-    QMessageBox * crearAdvertenciaFechaConRelacionesDependientes();
-
     // agregar una fecha a la lista de fechas de la ui.
     void agregarFechaALista(visualizador::modelo::Fecha* fecha);
 
@@ -48,6 +46,11 @@ private:
 
     // descargo la lista de fechas
     void descargarListaFechas();
+
+    // mensajes
+
+    QMessageBox * crearAdvertenciaFechaConRelacionesDependientes();
+    QMessageBox * crearInformacionFechaExistente();
 
     // ATRIBUTOS
 

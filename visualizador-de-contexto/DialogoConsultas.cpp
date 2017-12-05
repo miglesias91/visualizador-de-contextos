@@ -34,12 +34,6 @@ DialogoConsultas::~DialogoConsultas()
     this->descargarLista<modelo::Seccion>(this->ui->lista_secciones);
     this->descargarLista<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
 
-    //this->descargarListaConceptos();
-    //this->descargarListaMedios();
-    //this->descargarListaPeriodos();
-    //this->descargarListaReportes();
-    //this->descargarListaSecciones();
-
     delete ui;
 }
 
@@ -80,12 +74,19 @@ void DialogoConsultas::on_action_setear_periodo_triggered()
     modelo::Periodo* periodo_seleccionado = periodos_seleccionados[0];
 
     std::string etiqueta_fecha = periodo_seleccionado->getEtiqueta();
-    QDate fecha_desde(periodo_seleccionado->getDesde()->getDia(), periodo_seleccionado->getDesde()->getMes(), periodo_seleccionado->getDesde()->getAnio());
-    QDate fecha_hasta(periodo_seleccionado->getHasta()->getDia(), periodo_seleccionado->getHasta()->getMes(), periodo_seleccionado->getHasta()->getAnio());
+    QDate fecha_desde(periodo_seleccionado->getDesde()->getAnio(), periodo_seleccionado->getDesde()->getMes(), periodo_seleccionado->getDesde()->getDia());
+    QDate fecha_hasta(periodo_seleccionado->getHasta()->getAnio(), periodo_seleccionado->getHasta()->getMes(), periodo_seleccionado->getHasta()->getDia());
 
     this->ui->lineedit_etiqueta_periodo->setText(periodo_seleccionado->getEtiqueta().c_str());
     this->ui->dateedit_desde->setDate(fecha_desde);
     this->ui->dateedit_hasta->setDate(fecha_hasta);
+}
+
+void DialogoConsultas::on_action_resetear_periodo_triggered()
+{
+    this->ui->lineedit_etiqueta_periodo->clear();
+    this->ui->dateedit_desde->setDate(QDate::currentDate());
+    this->ui->dateedit_hasta->setDate(QDate::currentDate());
 }
 
 void DialogoConsultas::on_action_agregar_medios_triggered()
@@ -173,6 +174,7 @@ void DialogoConsultas::cargarListaConceptos()
     std::vector<modelo::Concepto*> conceptos_actuales = gestor.recuperar<modelo::Concepto>();
     for (std::vector<modelo::Concepto*>::iterator it = conceptos_actuales.begin(); it != conceptos_actuales.end(); it++)
     {
+        (*it)->sumarReferencia();
         this->agregarConceptoALista(*it, this->ui->lista_conceptos);
     }
 
@@ -181,8 +183,6 @@ void DialogoConsultas::cargarListaConceptos()
 
 void DialogoConsultas::agregarConceptoALista(visualizador::modelo::Concepto * concepto, QListWidget * lista)
 {
-    concepto->sumarReferencia();
-
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(concepto);
@@ -208,9 +208,10 @@ void DialogoConsultas::agregarConceptoALista(visualizador::modelo::Concepto * co
 void DialogoConsultas::cargarListaPeriodos()
 {
     aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Periodo*> periodos_actuales = gestor.gestionar<modelo::Periodo>();
+    std::vector<modelo::Periodo*> periodos_actuales = gestor.recuperar<modelo::Periodo>();
     for (std::vector<modelo::Periodo*>::iterator it = periodos_actuales.begin(); it != periodos_actuales.end(); it++)
     {
+        (*it)->sumarReferencia();
         this->agregarPeriodoALista(*it, this->ui->lista_periodos);
     }
 
@@ -219,8 +220,6 @@ void DialogoConsultas::cargarListaPeriodos()
 
 void DialogoConsultas::agregarPeriodoALista(visualizador::modelo::Periodo * periodo, QListWidget * lista)
 {
-    periodo->sumarReferencia();
-
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(periodo);
@@ -236,9 +235,10 @@ void DialogoConsultas::agregarPeriodoALista(visualizador::modelo::Periodo * peri
 void DialogoConsultas::cargarListaMedios()
 {
     aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Medio*> medios_actuales = gestor.gestionar<modelo::Medio>();
+    std::vector<modelo::Medio*> medios_actuales = gestor.recuperar<modelo::Medio>();
     for (std::vector<modelo::Medio*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
     {
+        (*it)->sumarReferencia();
         this->agregarMedioALista(*it, this->ui->lista_medios);
     }
 
@@ -247,8 +247,6 @@ void DialogoConsultas::cargarListaMedios()
 
 void DialogoConsultas::agregarMedioALista(visualizador::modelo::Medio * medio, QListWidget * lista)
 {
-    medio->sumarReferencia();
-
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(medio);
@@ -264,9 +262,10 @@ void DialogoConsultas::agregarMedioALista(visualizador::modelo::Medio * medio, Q
 void DialogoConsultas::cargarListaSecciones()
 {
     aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Seccion*> secciones_actuales = gestor.gestionar<modelo::Seccion>();
+    std::vector<modelo::Seccion*> secciones_actuales = gestor.recuperar<modelo::Seccion>();
     for (std::vector<modelo::Seccion*>::iterator it = secciones_actuales.begin(); it != secciones_actuales.end(); it++)
     {
+        (*it)->sumarReferencia();
         this->agregarSeccionALista(*it, this->ui->lista_secciones);
     }
 
@@ -275,8 +274,6 @@ void DialogoConsultas::cargarListaSecciones()
 
 void DialogoConsultas::agregarSeccionALista(visualizador::modelo::Seccion * seccion, QListWidget * lista)
 {
-    seccion->sumarReferencia();
-
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(seccion);
@@ -292,9 +289,10 @@ void DialogoConsultas::agregarSeccionALista(visualizador::modelo::Seccion * secc
 void DialogoConsultas::cargarListaReportes()
 {
     aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Reporte*> reportes_actuales = gestor.gestionar<modelo::Reporte>();
+    std::vector<modelo::Reporte*> reportes_actuales = gestor.recuperar<modelo::Reporte>();
     for (std::vector<modelo::Reporte*>::iterator it = reportes_actuales.begin(); it != reportes_actuales.end(); it++)
     {
+        (*it)->sumarReferencia();
         this->agregarReporteALista(*it, this->ui->lista_reportes);
     }
 
@@ -303,8 +301,6 @@ void DialogoConsultas::cargarListaReportes()
 
 void DialogoConsultas::agregarReporteALista(visualizador::modelo::Reporte * reporte, QListWidget * lista)
 {
-    reporte->sumarReferencia();
-
     QListWidgetItem* item = new QListWidgetItem();
 
     QVariant data = QVariant::fromValue(reporte);

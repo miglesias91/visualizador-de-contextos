@@ -466,3 +466,25 @@ TEST(modelo, GettersYSettersIJson)
 	ASSERT_EQ(17, ids_secciones[0]);
 	ASSERT_EQ(18, ids_secciones[1]);
 }
+
+TEST(modelo, ComparacionFechas)
+{
+    Fecha primero_de_enero(1, 1, 2017);
+    Fecha primero_de_enero_2(1, 1, 2017);
+
+    Fecha primero_de_diciembre(1, 12, 2017);
+    Fecha primero_de_diciembre_2(1,12,2017);
+
+    ASSERT_EQ(true, primero_de_enero < primero_de_diciembre);
+    ASSERT_EQ(false, primero_de_enero > primero_de_diciembre);
+    ASSERT_EQ(false, primero_de_enero < primero_de_enero_2);
+    ASSERT_EQ(false, primero_de_enero > primero_de_enero_2);
+
+    ASSERT_EQ(true, primero_de_enero <= primero_de_diciembre);
+    ASSERT_EQ(false, primero_de_enero >= primero_de_diciembre);
+    ASSERT_EQ(true, primero_de_enero <= primero_de_enero_2);
+    ASSERT_EQ(true, primero_de_enero >= primero_de_enero_2);
+
+    ASSERT_EQ(true, primero_de_enero == primero_de_enero_2);
+    ASSERT_EQ(false, primero_de_enero == primero_de_diciembre);
+}

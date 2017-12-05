@@ -42,6 +42,8 @@ public:
 
     std::string getStringDDmesAAAA(std::string separador = "");
 
+    std::string getStringAAAAMMDD(std::string separador = "");
+
     relaciones::RelacionesFecha * getRelacionesFecha();
 
 	// SETTERS
@@ -90,6 +92,13 @@ public:
 
     virtual bool tieneRelacionesDependientes();
 
+    // OPERADORES
+
+    bool operator<(Fecha & fecha_a_comparar);
+    bool operator>(Fecha & fecha_a_comparar);
+    bool operator<=(Fecha & fecha_a_comparar);
+    bool operator>=(Fecha & fecha_a_comparar);
+    bool operator==(Fecha & fecha_a_comparar);
 private:
 
     static std::string nombres_meses[];
