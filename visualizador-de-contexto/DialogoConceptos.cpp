@@ -18,17 +18,9 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
     
     this->setAttribute(Qt::WA_DeleteOnClose);
 
-    std::vector<modelo::Concepto*> conceptos_actuales = this->gestor_conceptos.gestionar<modelo::Concepto>();
-    for (std::vector<modelo::Concepto*>::iterator it = conceptos_actuales.begin(); it != conceptos_actuales.end(); it++)
-    {
-        modelo::Concepto * clon = this->gestor_conceptos.clonar<modelo::Concepto>(*it);
-        this->agregarConceptoALista(clon);
-    }
+    this->cargarListaConceptos();
 
     this->cargarListaTerminos();
-
-    this->ui->lista_conceptos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
-    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 
     this->on_action_resetear_concepto_triggered();
 }
@@ -36,6 +28,7 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
 DialogoConceptos::~DialogoConceptos()
 {
     this->descargarListaTerminos();
+
     this->descargarListaConceptos();
 
     delete ui;
@@ -79,6 +72,8 @@ void DialogoConceptos::on_action_eliminar_concepto_triggered()
         modelo::Concepto* concepto = data.value<modelo::Concepto*>();
 
         this->gestor_conceptos.eliminar(concepto);
+
+        delete concepto;
 
         delete this->ui->lista_conceptos->takeItem(ui->lista_conceptos->row(item));
     }
@@ -133,6 +128,18 @@ void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)
     item->setText(texto_item.c_str());
 
     this->ui->lista_conceptos->insertItem(0, item);
+}
+
+void DialogoConceptos::cargarListaConceptos()
+{
+    std::vector<modelo::Concepto*> conceptos_actuales = this->gestor_conceptos.gestionar<modelo::Concepto>();
+    for (std::vector<modelo::Concepto*>::iterator it = conceptos_actuales.begin(); it != conceptos_actuales.end(); it++)
+    {
+        modelo::Concepto * clon = this->gestor_conceptos.clonar<modelo::Concepto>(*it);
+        this->agregarConceptoALista(clon);
+    }
+
+    this->ui->lista_conceptos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
 void DialogoConceptos::descargarListaConceptos()
@@ -190,6 +197,8 @@ void DialogoConceptos::cargarListaTerminos()
 
         this->ui->lista_terminos->insertItem(0, item);
     }
+
+    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
 void DialogoConceptos::descargarListaTerminos()

@@ -1,6 +1,9 @@
 #include "DialogoFechas.h"
 #include "ui_DialogoFechas.h"
 
+// visualizador-de-contexto
+#include <visualizador-de-contexto/include/FabricaMensajes.h>
+
 using namespace visualizador;
 
 DialogoFechas::DialogoFechas(QWidget *parent)
@@ -11,14 +14,7 @@ DialogoFechas::DialogoFechas(QWidget *parent)
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
-    std::vector<modelo::Fecha*> fechas_actuales = this->gestor_fechas.gestionar<modelo::Fecha>();
-    for (std::vector<modelo::Fecha*>::iterator it = fechas_actuales.begin(); it != fechas_actuales.end(); it++)
-    {
-        modelo::Fecha * clon = this->gestor_fechas.clonar<modelo::Fecha>(*it);
-        this->agregarFechaALista(clon);
-    }
-
-    this->ui->lista_fechas->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+    this->cargarListaFechas();
 
     this->on_action_limpiar_fecha_triggered();
 }
@@ -71,7 +67,19 @@ void DialogoFechas::on_action_eliminar_fecha_triggered()
         QVariant data = item->data(Qt::UserRole);
         modelo::Fecha* fecha = data.value<modelo::Fecha*>();
 
+        if (fecha->tieneRelacionesDependientes())
+        {
+            QMessageBox * advertencia_fecha_con_relaciones_dependientes = this->crearAdvertenciaFechaConRelacionesDependientes();
+            advertencia_fecha_con_relaciones_dependientes->exec();
+
+            delete advertencia_fecha_con_relaciones_dependientes;
+
+            return;
+        }
+
         this->gestor_fechas.eliminar(fecha);
+
+        delete fecha;
 
         delete this->ui->lista_fechas->takeItem(ui->lista_fechas->row(item));
     }
@@ -112,6 +120,18 @@ void DialogoFechas::agregarFechaALista(visualizador::modelo::Fecha * fecha)
     this->ui->lista_fechas->insertItem(0, item);
 }
 
+void DialogoFechas::cargarListaFechas()
+{
+    std::vector<modelo::Fecha*> fechas_actuales = this->gestor_fechas.gestionar<modelo::Fecha>();
+    for (std::vector<modelo::Fecha*>::iterator it = fechas_actuales.begin(); it != fechas_actuales.end(); it++)
+    {
+        modelo::Fecha * clon = this->gestor_fechas.clonar<modelo::Fecha>(*it);
+        this->agregarFechaALista(clon);
+    }
+
+    this->ui->lista_fechas->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+}
+
 void DialogoFechas::descargarListaFechas()
 {
     QListWidgetItem* item = nullptr;
@@ -133,4 +153,11 @@ void DialogoFechas::descargarListaFechas()
         item = this->ui->lista_fechas->takeItem(0);
         delete item;
     }
+}
+
+QMessageBox * DialogoFechas::crearAdvertenciaFechaConRelacionesDependientes()
+{
+    std::string texto = "La fecha que se quiere eliminar forma parte de uno o mas periodos existentes. Para poder eliminar la fecha, primero elimine el periodo relacionado.";
+    visualizador::aplicacion::comunicacion::Advertencia advertencia_fecha_con_relaciones_dependientes(texto);
+    return comunicacion::FabricaMensajes::fabricar(&advertencia_fecha_con_relaciones_dependientes);
 }

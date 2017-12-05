@@ -39,6 +39,8 @@ private:
 
     void agregarPeriodoALista(visualizador::modelo::Periodo* periodo);
 
+    void cargarListaPeriodos();
+
     void descargarListaPeriodos();
     
     void cargarComboboxesDesdeYHasta();

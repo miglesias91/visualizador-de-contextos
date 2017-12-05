@@ -11,16 +11,9 @@ DialogoPeriodos::DialogoPeriodos(QWidget *parent)
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
-    std::vector<modelo::Periodo*> periodos_actuales = this->gestor_periodos.gestionar<modelo::Periodo>();
-    for (std::vector<modelo::Periodo*>::iterator it = periodos_actuales.begin(); it != periodos_actuales.end(); it++)
-    {
-        modelo::Periodo * clon = this->gestor_periodos.clonar<modelo::Periodo>(*it);
-        this->agregarPeriodoALista(clon);
-    }
+    this->cargarListaPeriodos();
 
     this->cargarComboboxesDesdeYHasta();
-
-    this->ui->lista_periodos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 
     this->on_action_limpiar_periodo_triggered();
 }
@@ -73,6 +66,8 @@ void DialogoPeriodos::on_action_eliminar_periodo_triggered()
 
         this->gestor_periodos.eliminar(periodo);
 
+        delete periodo;
+
         delete this->ui->lista_periodos->takeItem(ui->lista_periodos->row(item));
     }
 }
@@ -116,6 +111,18 @@ void DialogoPeriodos::agregarPeriodoALista(visualizador::modelo::Periodo * perio
     item->setText(texto_item.c_str());
 
     this->ui->lista_periodos->insertItem(0, item);
+}
+
+void DialogoPeriodos::cargarListaPeriodos()
+{
+    std::vector<modelo::Periodo*> periodos_actuales = this->gestor_periodos.gestionar<modelo::Periodo>();
+    for (std::vector<modelo::Periodo*>::iterator it = periodos_actuales.begin(); it != periodos_actuales.end(); it++)
+    {
+        modelo::Periodo * clon = this->gestor_periodos.clonar<modelo::Periodo>(*it);
+        this->agregarPeriodoALista(clon);
+    }
+
+    this->ui->lista_periodos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
 void DialogoPeriodos::descargarListaPeriodos()

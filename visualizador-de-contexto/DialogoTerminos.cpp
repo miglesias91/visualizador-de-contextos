@@ -20,15 +20,7 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
-    std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
-
-	for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
-	{
-        modelo::Termino * clon = this->gestor_terminos.clonar<modelo::Termino>(*it);
-		this->agregarTerminoALista(clon);
-	}
-    
-    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+    this->cargarListaTerminos();
 
     this->on_action_resetear_termino_triggered();
 }
@@ -159,4 +151,17 @@ QMessageBox * DialogoTerminos::crearAdvertenciaTerminoConRelacionesDependientes(
     std::string texto = "El termino que se quiere eliminar forma parte de uno o mas conceptos existentes. Para poder eliminar el termino, primero elimine el concepto relacionado.";
     visualizador::aplicacion::comunicacion::Advertencia advertencia_termino_con_relaciones_dependientes(texto);
     return comunicacion::FabricaMensajes::fabricar(&advertencia_termino_con_relaciones_dependientes);
+}
+
+void DialogoTerminos::cargarListaTerminos()
+{
+    std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
+
+    for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
+    {
+        modelo::Termino * clon = this->gestor_terminos.clonar<modelo::Termino>(*it);
+        this->agregarTerminoALista(clon);
+    }
+
+    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }

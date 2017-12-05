@@ -39,10 +39,12 @@ private:
 
 	Ui::DialogoTerminos *ui;
 
-	// agregar un termino a la lista de terminos de la ui.
-	void agregarTerminoALista(visualizador::modelo::Termino* termino);
+    void cargarListaTerminos();
 
     void descargarListaTerminos();
+
+    // agregar un termino a la lista de terminos de la ui.
+    void agregarTerminoALista(visualizador::modelo::Termino* termino);
 
     QMessageBox * crearAdvertenciaTerminoConRelacionesDependientes();
 

@@ -2,6 +2,9 @@
 
 #include <QWidget>
 
+// qt
+#include <qmessagebox.h>
+
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
 
@@ -35,8 +38,13 @@ private slots:
 private:
     Ui::DialogoFechas *ui;
 
+    QMessageBox * crearAdvertenciaFechaConRelacionesDependientes();
+
     // agregar una fecha a la lista de fechas de la ui.
     void agregarFechaALista(visualizador::modelo::Fecha* fecha);
+
+    // descargo la lista de fechas
+    void cargarListaFechas();
 
     // descargo la lista de fechas
     void descargarListaFechas();
