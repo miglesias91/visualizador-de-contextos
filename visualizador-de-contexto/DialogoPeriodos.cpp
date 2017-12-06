@@ -98,6 +98,7 @@ void DialogoPeriodos::on_action_limpiar_periodo_triggered()
     this->ui->combobox_hasta->setCurrentIndex(-1);
 
     this->on_action_estado_btn_eliminar_triggered();
+    this->on_action_estado_btn_agregar_triggered();
 }
 
 void DialogoPeriodos::on_action_estado_btn_eliminar_triggered()
@@ -111,6 +112,21 @@ void DialogoPeriodos::on_action_estado_btn_eliminar_triggered()
     {
         this->ui->btn_eliminar_periodo->setEnabled(true);
     }
+}
+
+void DialogoPeriodos::on_action_estado_btn_agregar_triggered()
+{
+    int index_desde = this->ui->combobox_desde->currentIndex();
+    int index_hasta = this->ui->combobox_hasta->currentIndex();
+    if (index_desde != -1 && index_hasta != -1)
+    {
+        this->ui->btn_agregar_periodo->setEnabled(true);
+    }
+    else
+    {
+        this->ui->btn_agregar_periodo->setDisabled(true);
+    }
+
 }
 
 // METODOS INTERNOS
@@ -247,9 +263,4 @@ QMessageBox * DialogoPeriodos::crearErrorFechaDesdeMayorAFechaHasta()
     std::string texto = "La fecha 'hasta' debe ser menor a la fecha 'desde'.";
     visualizador::aplicacion::comunicacion::Error error_fecha_desde_mayor_fecha_hasta(texto);
     return comunicacion::FabricaMensajes::fabricar(&error_fecha_desde_mayor_fecha_hasta);
-}
-
-void DialogoPeriodos::on_action_estado_btn_agregar_triggered()
-{
-
 }

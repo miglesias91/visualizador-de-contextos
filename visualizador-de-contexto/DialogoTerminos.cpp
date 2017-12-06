@@ -44,8 +44,10 @@ void DialogoTerminos::on_action_resetear_termino_triggered()
 {
     this->ui->lineedit_etiqueta->clear();
     this->ui->lineedit_termino->clear();
+    this->ui->lista_terminos->clearSelection();
 
     this->on_action_estado_btn_eliminar_triggered();
+    this->on_action_estado_btn_agregar_triggered();
 }
 
 void DialogoTerminos::on_action_guardar_termino_triggered()
@@ -112,6 +114,18 @@ void DialogoTerminos::on_action_estado_btn_eliminar_triggered()
     }
 }
 
+void DialogoTerminos::on_action_estado_btn_agregar_triggered()
+{
+    std::string texto_termino = this->ui->lineedit_termino->text().toStdString();
+    if (0 == texto_termino.size())
+    {
+        this->ui->btn_agregar_termino->setDisabled(true);
+    }
+    else
+    {
+        this->ui->btn_agregar_termino->setEnabled(true);
+    }
+}
 
 // METODOS PRIVADOS
 
@@ -176,9 +190,4 @@ void DialogoTerminos::cargarListaTerminos()
     }
 
     this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
-}
-
-void DialogoTerminos::on_action_estado_btn_agregar_triggered()
-{
-
 }

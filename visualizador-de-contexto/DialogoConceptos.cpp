@@ -95,24 +95,33 @@ void DialogoConceptos::on_action_resetear_concepto_triggered()
     this->ui->lista_conceptos->clearSelection();
 
     this->on_action_estado_btn_eliminar_triggered();
+    this->on_action_estado_btn_agregar_triggered();
 }
 
 void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
 {
     int items_seleccionados = this->ui->lista_conceptos->selectedItems().size();
-    if (0 >= items_seleccionados)
+    if (0 < items_seleccionados)
     {
-        this->ui->btn_eliminar_concepto->setDisabled(true);
+        this->ui->btn_eliminar_concepto->setEnabled(true);
     }
     else
     {
-        this->ui->btn_eliminar_concepto->setEnabled(true);
+        this->ui->btn_eliminar_concepto->setDisabled(true);
     }
 }
 
 void DialogoConceptos::on_action_estado_btn_agregar_triggered()
 {
-
+    int items_seleccionados = this->ui->lista_terminos->selectedItems().size();
+    if (0 < items_seleccionados)
+    {
+        this->ui->btn_agregar_concepto->setEnabled(true);
+    }
+    else
+    {
+        this->ui->btn_agregar_concepto->setDisabled(true);
+    }
 }
 
 // METODOS PRIVADOS
