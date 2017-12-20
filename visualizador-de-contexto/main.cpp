@@ -8,7 +8,10 @@
 #include <aplicacion/include/GestorIDs.h>
 
 // vld
+
+#ifdef DEBUG | _DEBUG
 #include <vld.h>
+#endif
 
 using namespace visualizador;
 

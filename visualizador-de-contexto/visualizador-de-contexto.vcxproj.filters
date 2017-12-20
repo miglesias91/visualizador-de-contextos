@@ -56,6 +56,12 @@
     <ClCompile Include="source\FabricaMensajes.cpp">
       <Filter>Source Files\comunicacion</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoTerminos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_visualizadordecontexto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
