@@ -184,22 +184,6 @@ bool AdministradorAplicacionLocal::modificar(std::vector<visualizador::modelo::I
     return retorno;
 }
 
-bool AdministradorAplicacionLocal::recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* entidades)
-{
-	std::vector<almacenamiento::IAlmacenableClaveValor*> grupo;
-
-    this->admin_almacenamiento->recuperarGrupo(prefijo_grupo, grupo);
-
-    visualizador::modelo::IAlmacenable* entidad = NULL;
-	for (std::vector<almacenamiento::IAlmacenableClaveValor*>::iterator it = grupo.begin(); it != grupo.end(); it++)
-	{
-
-	}
-
-	return true;
-}
-
-
 unsigned long long int AdministradorAplicacionLocal::recuperarIDActual()
 {
     std::string clave = ConfiguracionAplicacion::claveIDActual();
