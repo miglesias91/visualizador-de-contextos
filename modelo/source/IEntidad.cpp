@@ -29,20 +29,20 @@ std::string IEntidad::getEtiqueta()
 
 std::string IEntidad::getValorAlmacenable()
 {
-	this->crearJson();
+    this->crearJson();
     
     IJson json_almacenable;
 
     // seteo la etiqueta
-	json_almacenable.agregarAtributoValor("etiqueta", this->getEtiqueta());
+    json_almacenable.agregarAtributoValor("etiqueta", this->getEtiqueta());
     
     // seteo el contenido
     IJson* json_contenido = this->getJson();
-	json_almacenable.agregarAtributoJson("contenido", json_contenido);
+    json_almacenable.agregarAtributoJson("contenido", json_contenido);
 
-	std::string string_almacenable = json_almacenable.jsonString();
+    std::string string_almacenable = json_almacenable.jsonString();
 
-	return string_almacenable;
+    return string_almacenable;
 }
 
 // SETTERS
