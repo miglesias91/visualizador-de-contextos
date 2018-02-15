@@ -32,7 +32,9 @@ public:
 
 	// GETTERS
 
-	static IAdministradorAplicacion* getInstancia();
+    almacenamiento::IAdministradorAlmacenamiento * getAdminAlmacenamiento();
+    
+    static IAdministradorAplicacion* getInstancia();
 
 	// SETTERS
 
@@ -68,9 +70,14 @@ public:
 	virtual void almacenarIDActual() = 0;
 
 protected:
+
+    void iniciarDB(std::string path_config_db);
+
     // ATRIBUTOS
 
     almacenamiento::IAdministradorAlmacenamiento* admin_almacenamiento;
+
+    unsigned long long int handler_almacenamiento;
 
 private:
 	// ATRIBUTOS

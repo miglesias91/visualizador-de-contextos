@@ -133,6 +133,7 @@ public:
         action_resetear_periodo->setObjectName(QStringLiteral("action_resetear_periodo"));
         opciones_consulta = new QTabWidget(DialogoConsultas);
         opciones_consulta->setObjectName(QStringLiteral("opciones_consulta"));
+        opciones_consulta->setEnabled(true);
         opciones_consulta->setGeometry(QRect(10, 10, 761, 471));
         tab_consulta = new QWidget();
         tab_consulta->setObjectName(QStringLiteral("tab_consulta"));
@@ -198,7 +199,12 @@ public:
 
         groupbox_secciones = new QGroupBox(gridLayoutWidget);
         groupbox_secciones->setObjectName(QStringLiteral("groupbox_secciones"));
+        groupbox_secciones->setEnabled(false);
         lista_secciones_en_consulta = new QListWidget(groupbox_secciones);
+        QFont font;
+        font.setItalic(true);
+        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_secciones_en_consulta);
+        __qlistwidgetitem->setFont(font);
         lista_secciones_en_consulta->setObjectName(QStringLiteral("lista_secciones_en_consulta"));
         lista_secciones_en_consulta->setGeometry(QRect(10, 20, 221, 131));
         btn_sacar_secciones = new QPushButton(groupbox_secciones);
@@ -241,7 +247,10 @@ public:
 
         groupbox_reportes = new QGroupBox(gridLayoutWidget);
         groupbox_reportes->setObjectName(QStringLiteral("groupbox_reportes"));
+        groupbox_reportes->setEnabled(false);
         lista_reportes_en_consulta = new QListWidget(groupbox_reportes);
+        QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(lista_reportes_en_consulta);
+        __qlistwidgetitem1->setFont(font);
         lista_reportes_en_consulta->setObjectName(QStringLiteral("lista_reportes_en_consulta"));
         lista_reportes_en_consulta->setGeometry(QRect(10, 20, 221, 131));
         btn_agregar_reportes = new QPushButton(groupbox_reportes);
@@ -338,6 +347,7 @@ public:
         opciones_consulta->addTab(tab_medios, QString());
         tab_secciones = new QWidget();
         tab_secciones->setObjectName(QStringLiteral("tab_secciones"));
+        tab_secciones->setEnabled(false);
         horizontalLayoutWidget_5 = new QWidget(tab_secciones);
         horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
         horizontalLayoutWidget_5->setGeometry(QRect(10, 9, 541, 291));
@@ -365,6 +375,7 @@ public:
         opciones_consulta->addTab(tab_secciones, QString());
         tab_reporte = new QWidget();
         tab_reporte->setObjectName(QStringLiteral("tab_reporte"));
+        tab_reporte->setEnabled(false);
         horizontalLayoutWidget_6 = new QWidget(tab_reporte);
         horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
         horizontalLayoutWidget_6->setGeometry(QRect(10, 10, 541, 291));
@@ -434,12 +445,26 @@ public:
         lbl_etiqueta->setText(QApplication::translate("DialogoConsultas", "etiqueta", Q_NULLPTR));
         btn_resetear_periodo->setText(QApplication::translate("DialogoConsultas", "resetear periodo", Q_NULLPTR));
         groupbox_secciones->setTitle(QApplication::translate("DialogoConsultas", "Secciones", Q_NULLPTR));
+
+        const bool __sortingEnabled = lista_secciones_en_consulta->isSortingEnabled();
+        lista_secciones_en_consulta->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem = lista_secciones_en_consulta->item(0);
+        ___qlistwidgetitem->setText(QApplication::translate("DialogoConsultas", "todas", Q_NULLPTR));
+        lista_secciones_en_consulta->setSortingEnabled(__sortingEnabled);
+
         btn_sacar_secciones->setText(QApplication::translate("DialogoConsultas", "sacar secciones", Q_NULLPTR));
         groupbox_conceptos->setTitle(QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
         btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "sacar conceptos", Q_NULLPTR));
         groupbox_medios->setTitle(QApplication::translate("DialogoConsultas", "Medios", Q_NULLPTR));
         btn_sacar_medios->setText(QApplication::translate("DialogoConsultas", "sacar medios", Q_NULLPTR));
         groupbox_reportes->setTitle(QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
+
+        const bool __sortingEnabled1 = lista_reportes_en_consulta->isSortingEnabled();
+        lista_reportes_en_consulta->setSortingEnabled(false);
+        QListWidgetItem *___qlistwidgetitem1 = lista_reportes_en_consulta->item(0);
+        ___qlistwidgetitem1->setText(QApplication::translate("DialogoConsultas", "gr\303\241fico de barras", Q_NULLPTR));
+        lista_reportes_en_consulta->setSortingEnabled(__sortingEnabled1);
+
         btn_agregar_reportes->setText(QApplication::translate("DialogoConsultas", "sacar reportes", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_consulta), QApplication::translate("DialogoConsultas", "Consulta", Q_NULLPTR));
         btn_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "agregar conceptos", Q_NULLPTR));

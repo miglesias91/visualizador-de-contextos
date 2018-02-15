@@ -10,14 +10,15 @@ using namespace visualizador::aplicacion;
 
 AdministradorAplicacionLocal::AdministradorAplicacionLocal() : IAdministradorAplicacion()
 {
-	almacenamiento::IAdministradorAlmacenamiento::iniciar(ConfiguracionAplicacion::pathConfiguracion());
+	//almacenamiento::IAdministradorAlmacenamiento::iniciar(ConfiguracionAplicacion::pathConfiguracion());
 
-    this->admin_almacenamiento = almacenamiento::IAdministradorAlmacenamiento::getInstancia();
+ //   this->admin_almacenamiento = almacenamiento::IAdministradorAlmacenamiento::getInstancia();
 }
 
 AdministradorAplicacionLocal::~AdministradorAplicacionLocal()
 {
-	almacenamiento::IAdministradorAlmacenamiento::liberar();
+	//almacenamiento::IAdministradorAlmacenamiento::liberar();
+    almacenamiento::IAdministradorAlmacenamiento::liberar(this->handler_almacenamiento);
 }
 
 bool AdministradorAplicacionLocal::abrirBD()
@@ -191,7 +192,7 @@ unsigned long long int AdministradorAplicacionLocal::recuperarIDActual()
 
     almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
 
-    bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->recuperar(clave_valor_a_recuperar);
+    bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia(this->handler_almacenamiento)->recuperar(clave_valor_a_recuperar);
 
     std::string string_id_actual = clave_valor_a_recuperar->getValor();
 
@@ -216,7 +217,7 @@ void AdministradorAplicacionLocal::almacenarIDActual()
 
     almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
 
-    bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia()->modificar(clave_valor_a_recuperar);
+    bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia(this->handler_almacenamiento)->modificar(clave_valor_a_recuperar);
 
     delete clave_valor_a_recuperar;
 }

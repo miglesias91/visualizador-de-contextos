@@ -4,7 +4,7 @@
 using namespace visualizador;
 
 DialogoConsultas::DialogoConsultas(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent), chart_view(NULL)
 {
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
@@ -29,10 +29,14 @@ DialogoConsultas::~DialogoConsultas()
     this->descargarLista<modelo::Periodo>(this->ui->lista_periodos);
 
     this->descargarLista<modelo::Reporte>(this->ui->lista_reportes);
-    this->descargarLista<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
+    // COMENTADA ESTA LINEA XQ HAY CARGADO POR DEFECTO 1 ITEM QUE NO SE PUEDE BORRAR. CUANDO SE SAQUE ESE ITEM SE TIENE Q VOLVER A USAR ESTA LINEA.
+    // this->descargarLista<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
 
     this->descargarLista<modelo::Seccion>(this->ui->lista_secciones);
-    this->descargarLista<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
+    // COMENTADA ESTA LINEA XQ HAY CARGADO POR DEFECTO 1 ITEM QUE NO SE PUEDE BORRAR. CUANDO SE SAQUE ESE ITEM SE TIENE Q VOLVER A USAR ESTA LINEA.
+    // this->descargarLista<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
+
+    delete this->chart_view;
 
     delete ui;
 }
@@ -163,7 +167,52 @@ void DialogoConsultas::on_action_sacar_reportes_triggered()
 
 void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
 {
-    this->close();
+    QtCharts::QBarSeries *barseries = new QtCharts::QBarSeries();
+
+    QtCharts::QBarSet * set0 = new QtCharts::QBarSet("Jane");
+    *set0 << 1 << 2 << 3 << 4 << 5 << 6;
+    barseries->append(set0);
+
+    QtCharts::QBarSet * set1 = new QtCharts::QBarSet("John");
+    *set1 << 5 << 0 << 0 << 4 << 0 << 7;
+    barseries->append(set1);
+
+    QtCharts::QBarSet * set2 = new QtCharts::QBarSet("Axel");
+    *set2 << 3 << 5 << 8 << 13 << 8 << 5;
+    barseries->append(set2);
+
+    QtCharts::QBarSet * set3 = new QtCharts::QBarSet("Mary");
+    *set3 << 5 << 6 << 7 << 3 << 4 << 5;
+    barseries->append(set3);
+
+    QtCharts::QBarSet * set4 = new QtCharts::QBarSet("Sam");
+    *set4 << 9 << 7 << 5 << 3 << 1 << 2;
+    barseries->append(set4);
+
+    QtCharts::QChart *chart = new QtCharts::QChart();
+    chart->addSeries(barseries);
+    chart->setTitle("Line and barchart example");
+
+    QStringList categories;
+    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
+    QtCharts::QBarCategoryAxis *axisX = new QtCharts::QBarCategoryAxis();
+    axisX->append(categories);
+    chart->setAxisX(axisX, barseries);
+    axisX->setRange(QString("Jan"), QString("Jun"));
+
+    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis();
+    chart->setAxisY(axisY, barseries);
+    axisY->setRange(0, 20);
+
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+    
+    this->chart_view = new QtCharts::QChartView(chart);
+    this->chart_view->setRenderHint(QPainter::Antialiasing);
+
+    chart_view->show();
+
+    // this->close();
 }
 
 // carga listas

@@ -22,13 +22,8 @@
         "prefijo_relaciones_seccion" : "013",
         "prefijo_relaciones_fecha" : "014",
         "prefijo_relaciones_periodo" : "015",
-        "prefijo_relaciones_medio" : "016"
-    },
+        "prefijo_relaciones_medio" : "016",
 
-    "almacenamiento" :
-    {
-        "path_db" : "C:/temp/db_visualizador-de-contexto-app--testing--debug",
-        "almacenamiento_local" : true,
-        "almacenamiento_distribuido" : false
+        "config_db_aplicacion" : "config_db_testing.json"
     }
 }

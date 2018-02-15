@@ -32,6 +32,8 @@ std::string ConfiguracionAplicacion::prefijo_relaciones_periodo;
 std::string ConfiguracionAplicacion::prefijo_relaciones_fecha;
 std::string ConfiguracionAplicacion::prefijo_relaciones_medio;
 
+std::string ConfiguracionAplicacion::archivo_config_db_aplicacion;
+
 std::string ConfiguracionAplicacion::clave_id_actual;
 
 const unsigned int ConfiguracionAplicacion::tamanio_alocador = 1024;
@@ -80,6 +82,8 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
     prefijo_relaciones_periodo = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesPeriodo().c_str()].GetString();
     prefijo_relaciones_fecha = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesFecha().c_str()].GetString();
     prefijo_relaciones_medio = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesMedio().c_str()].GetString();
+
+    archivo_config_db_aplicacion = config_app_json[ConfiguracionAplicacion::tagArchivoConfigDBAplicacion().c_str()].GetString();
 
 	// recorto el prefijo al tamanio indicado en el archivo de config.
 	prefijo_configuracion.erase(prefijo_configuracion.begin() + prefijo_tamanio, prefijo_configuracion.end());
@@ -217,10 +221,16 @@ std::string ConfiguracionAplicacion::prefijoRelacionesMedio()
     return prefijo_relaciones_medio;
 }
 
+std::string ConfiguracionAplicacion::archivoConfigDBAplicacion()
+{
+    return archivo_config_db_aplicacion;
+}
+
 std::string ConfiguracionAplicacion::claveIDActual()
 {
 	return "id_actual";
 }
+
 
 std::string ConfiguracionAplicacion::tagAplicacionLocal()
 {
@@ -327,6 +337,11 @@ std::string ConfiguracionAplicacion::tagPrefijoRelacionesFecha()
 std::string ConfiguracionAplicacion::tagPrefijoRelacionesMedio()
 {
     return "prefijo_relaciones_medio";
+}
+
+std::string ConfiguracionAplicacion::tagArchivoConfigDBAplicacion()
+{
+    return "config_db_aplicacion";
 }
 
 ConfiguracionAplicacion::ConfiguracionAplicacion()

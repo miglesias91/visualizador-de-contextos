@@ -155,9 +155,6 @@
     <ClCompile Include="source\Seccion.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="source\Termino.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="source\RelacionesTermino.cpp">
       <Filter>Archivos de código fuente\relaciones</Filter>
     </ClCompile>
@@ -226,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="source\RelacionConGrupo.cpp">
       <Filter>Archivos de código fuente\relaciones\relacion con</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Termino.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,14 @@
 
 // qt
 #include <qlistwidget.h>
+#include <qstringlist.h>
+
+#include <QtCharts/qchartview.h>
+#include <QtCharts/qbarseries.h>
+#include <QtCharts/qbarset.h>
+#include <QtCharts/qlegend.h>
+#include <QtCharts/qbarcategoryaxis.h>
+#include <QtCharts/qvalueaxis.h>
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
@@ -49,6 +57,8 @@ private slots:
 
 private:
     Ui::DialogoConsultas *ui;
+
+    QtCharts::QChartView * chart_view;
 
     // carga listas
 
@@ -130,7 +140,7 @@ void DialogoConsultas::descargarLista(QListWidget * lista)
 
         entidad_lista = lista->item(0)->data(Qt::UserRole).value<ENTIDAD*>();
 
-        if (0 == entidad_lista->restarReferencia())
+        if (entidad_lista != NULL && 0 == entidad_lista->restarReferencia())
         {
             delete entidad_lista;
         }

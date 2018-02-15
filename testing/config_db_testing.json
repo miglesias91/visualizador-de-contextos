@@ -1,0 +1,8 @@
+{
+    "almacenamiento" :
+    {
+        "path_db" : "C:/temp/db_visualizador-de-contexto-app--testing--debug",
+        "almacenamiento_local" : true,
+        "almacenamiento_distribuido" : false
+    }
+}

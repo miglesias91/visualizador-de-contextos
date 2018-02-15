@@ -62,6 +62,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_visualizadordecontexto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\GraficoDeBarras.cpp">
+      <Filter>Source Files\graficos</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Individuo.cpp">
+      <Filter>Source Files\graficos\modelo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -94,6 +100,18 @@
     </Filter>
     <Filter Include="Source Files\comunicacion">
       <UniqueIdentifier>{30df6ebf-e078-4e69-9e8b-9fa4be10d6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\graficos">
+      <UniqueIdentifier>{6d8cd9ab-14db-4598-b17e-200f83cb30e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graficos">
+      <UniqueIdentifier>{f20b43c7-689d-4382-92eb-04cfc9c71fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graficos\modelo">
+      <UniqueIdentifier>{057a1298-c558-407b-a43e-5bfdae70ed64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\graficos\modelo">
+      <UniqueIdentifier>{8e4f3645-a55b-4b83-80af-0e412dc0e445}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="include\FabricaMensajes.h">
       <Filter>Header Files\comunicacion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GraficoDeBarras.h">
+      <Filter>Header Files\graficos</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Individuo.h">
+      <Filter>Header Files\graficos\modelo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

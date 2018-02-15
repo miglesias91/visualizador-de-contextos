@@ -50,6 +50,8 @@ public:
     static std::string prefijoRelacionesMedio();
 
 	static std::string claveIDActual();
+    
+    static std::string archivoConfigDBAplicacion();
 
 	// TAGS
 
@@ -76,6 +78,8 @@ public:
     static std::string tagPrefijoRelacionesPeriodo();
     static std::string tagPrefijoRelacionesFecha();
     static std::string tagPrefijoRelacionesMedio();
+
+    static std::string tagArchivoConfigDBAplicacion();
 
 private:
 
@@ -107,6 +111,8 @@ private:
     static std::string prefijo_relaciones_periodo;
     static std::string prefijo_relaciones_fecha;
     static std::string prefijo_relaciones_medio;
+
+    static std::string archivo_config_db_aplicacion;
 
 	static std::string clave_id_actual;
 
