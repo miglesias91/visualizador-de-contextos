@@ -24,6 +24,7 @@
         "prefijo_relaciones_periodo" : "015",
         "prefijo_relaciones_medio" : "016",
 
-        "config_db_aplicacion" : "config_db_aplicacion.json"
+        "db_aplicacion_entidades" : "db_aplicacion_entidades.json",
+        "db_scraping" : "db_scraping.json"
     }
 }

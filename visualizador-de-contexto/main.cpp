@@ -19,8 +19,10 @@ int main(int argc, char *argv[])
 {
 	// INIT APP
 	aplicacion::IAdministradorAplicacion::iniciar("config_visualizador-de-contexto.json");
-	aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
-	aplicacion::IAdministradorAplicacion::getInstancia()->recuperarIDActual();
+	aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
+	aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
+
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminDatosScraping()->abrirBD();
 
 	// LANZAMIENTO INTERFAZ QT
 	QApplication a(argc, argv);
@@ -29,7 +31,8 @@ int main(int argc, char *argv[])
 	int retorno = a.exec();
 
 	// CIERRE APP
-	aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminDatosScraping()->cerrarBD();
 	aplicacion::IAdministradorAplicacion::liberar();
 
 	return retorno;

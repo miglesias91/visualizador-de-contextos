@@ -8,6 +8,7 @@ using namespace visualizador;
 
 GestorRelaciones::GestorRelaciones()
 {
+    this->admin_app = IAdministradorAplicacion::getInstanciaAdminEntidades();
 }
 
 GestorRelaciones::~GestorRelaciones()
@@ -23,10 +24,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesConcepto * relacio
     for (std::vector<aplicacion::ID*>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
     {
         modelo::relaciones::RelacionesTermino relaciones_termino((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_termino))
+        if (this->admin_app->recuperar(&relaciones_termino))
         {
             relaciones_termino.agregarRelacionConConcepto(id_concepto);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_termino);
+            this->admin_app->modificar(&relaciones_termino);
         }
     }
 
@@ -35,10 +36,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesConcepto * relacio
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.agregarRelacionConConcepto(id_concepto);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -52,10 +53,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesConsulta * relacio
     for (std::vector<aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         modelo::relaciones::RelacionesConcepto relaciones_concepto((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_concepto))
+        if (this->admin_app->recuperar(&relaciones_concepto))
         {
             relaciones_concepto.agregarRelacionConConsulta(id_consulta);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_concepto);
+            this->admin_app->modificar(&relaciones_concepto);
         }
     }
 
@@ -64,10 +65,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesConsulta * relacio
     for (std::vector<aplicacion::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
     {
         modelo::relaciones::RelacionesMedio relaciones_medio((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_medio))
+        if (this->admin_app->recuperar(&relaciones_medio))
         {
             relaciones_medio.agregarRelacionConConsulta(id_consulta);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_medio);
+            this->admin_app->modificar(&relaciones_medio);
         }
     }
 
@@ -76,29 +77,29 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesConsulta * relacio
     for (std::vector<aplicacion::ID*>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
     {
         modelo::relaciones::RelacionesSeccion relaciones_seccion((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_seccion))
+        if (this->admin_app->recuperar(&relaciones_seccion))
         {
             relaciones_seccion.agregarRelacionConConsulta(id_consulta);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_seccion);
+            this->admin_app->modificar(&relaciones_seccion);
         }
     }
 
     aplicacion::ID id_reporte(relaciones_consulta->getRelacionConReporte());
 
     modelo::relaciones::RelacionesReporte relaciones_reporte(id_reporte.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_reporte))
+    if (this->admin_app->recuperar(&relaciones_reporte))
     {
         relaciones_reporte.agregarRelacionConConsulta(id_consulta);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_reporte);
+        this->admin_app->modificar(&relaciones_reporte);
     }
 
     aplicacion::ID id_periodo(relaciones_consulta->getRelacionConPeriodo());
 
     modelo::relaciones::RelacionesPeriodo relaciones_periodo(id_periodo.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_periodo))
+    if (this->admin_app->recuperar(&relaciones_periodo))
     {
         relaciones_periodo.agregarRelacionConConsulta(id_consulta);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_periodo);
+        this->admin_app->modificar(&relaciones_periodo);
     }
 
     return true;
@@ -111,29 +112,29 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesPeriodo * relacion
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.setRelacionConPeriodo(id_periodo->numero());
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
     aplicacion::ID id_fecha_desde(relaciones_periodo->getRelacionConFechaDesde());
 
     modelo::relaciones::RelacionesFecha relaciones_fecha_desde(id_fecha_desde.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_fecha_desde))
+    if (this->admin_app->recuperar(&relaciones_fecha_desde))
     {
         relaciones_fecha_desde.agregarRelacionConPeriodo(id_periodo);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_fecha_desde);
+        this->admin_app->modificar(&relaciones_fecha_desde);
     }
 
     aplicacion::ID id_fecha_hasta(relaciones_periodo->getRelacionConFechaHasta());
 
     modelo::relaciones::RelacionesFecha relaciones_fecha_hasta(id_fecha_hasta.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_fecha_hasta))
+    if (this->admin_app->recuperar(&relaciones_fecha_hasta))
     {
         relaciones_fecha_hasta.agregarRelacionConPeriodo(id_periodo);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_fecha_hasta);
+        this->admin_app->modificar(&relaciones_fecha_hasta);
     }
 
     return true;
@@ -151,10 +152,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesMedio * relaciones
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.agregarRelacionConMedio(id_medio);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -168,10 +169,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesReporte * relacion
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.setRelacionConReporte(id_reporte->numero());
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -185,10 +186,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesSeccion * relacion
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.agregarRelacionConSeccion(id_seccion);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -202,10 +203,10 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesTermino * relacion
     for (std::vector<aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         modelo::relaciones::RelacionesConcepto relaciones_concepto((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_concepto))
+        if (this->admin_app->recuperar(&relaciones_concepto))
         {
             relaciones_concepto.agregarRelacionConTermino(id_termino);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_concepto);
+            this->admin_app->modificar(&relaciones_concepto);
         }
     }
 
@@ -221,10 +222,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConcepto * rela
     for (std::vector<aplicacion::ID*>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
     {
         modelo::relaciones::RelacionesTermino relaciones_termino((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_termino))
+        if (this->admin_app->recuperar(&relaciones_termino))
         {
             relaciones_termino.eliminarRelacionConConcepto(id_concepto);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_termino);
+            this->admin_app->modificar(&relaciones_termino);
         }
     }
 
@@ -233,10 +234,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConcepto * rela
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.eliminarRelacionConConcepto(id_concepto);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
 
     }
@@ -251,10 +252,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConsulta * rela
     for (std::vector<aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         modelo::relaciones::RelacionesConcepto relaciones_concepto((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_concepto))
+        if (this->admin_app->recuperar(&relaciones_concepto))
         {
             relaciones_concepto.eliminarRelacionConConsulta(id_consulta);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_concepto);
+            this->admin_app->modificar(&relaciones_concepto);
         }
     }
 
@@ -263,10 +264,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConsulta * rela
     for (std::vector<aplicacion::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
     {
         modelo::relaciones::RelacionesMedio relaciones_medio((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_medio))
+        if (this->admin_app->recuperar(&relaciones_medio))
         {
             relaciones_medio.eliminarRelacionConConsulta(id_consulta);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_medio);
+            this->admin_app->modificar(&relaciones_medio);
         }
     }
 
@@ -275,29 +276,29 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConsulta * rela
     for (std::vector<aplicacion::ID*>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
     {
         modelo::relaciones::RelacionesSeccion relaciones_seccion((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_seccion))
+        if (this->admin_app->recuperar(&relaciones_seccion))
         {
             relaciones_seccion.eliminarRelacionConConsulta(id_consulta);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_seccion);
+            this->admin_app->modificar(&relaciones_seccion);
         }
     }
 
     aplicacion::ID id_reporte(relaciones_consulta->getRelacionConReporte());
 
     modelo::relaciones::RelacionesReporte relaciones_reporte(id_reporte.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_reporte))
+    if (this->admin_app->recuperar(&relaciones_reporte))
     {
         relaciones_reporte.eliminarRelacionConConsulta(id_consulta);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_reporte);
+        this->admin_app->modificar(&relaciones_reporte);
     }
 
     aplicacion::ID id_periodo(relaciones_consulta->getRelacionConPeriodo());
 
     modelo::relaciones::RelacionesPeriodo relaciones_periodo(id_periodo.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_periodo))
+    if (this->admin_app->recuperar(&relaciones_periodo))
     {
         relaciones_periodo.eliminarRelacionConConsulta(id_consulta);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_periodo);
+        this->admin_app->modificar(&relaciones_periodo);
     }
 
     return true;
@@ -315,10 +316,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesMedio * relacio
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.eliminarRelacionConMedio(id_medio);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -332,29 +333,29 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesPeriodo * relac
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.setRelacionConPeriodo(0);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
     aplicacion::ID id_fecha_desde(relaciones_periodo->getRelacionConFechaDesde());
 
     modelo::relaciones::RelacionesFecha relaciones_fecha_desde(id_fecha_desde.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_fecha_desde))
+    if (this->admin_app->recuperar(&relaciones_fecha_desde))
     {
         relaciones_fecha_desde.eliminarRelacionConPeriodo(id_periodo);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_fecha_desde);
+        this->admin_app->modificar(&relaciones_fecha_desde);
     }
 
     aplicacion::ID id_fecha_hasta(relaciones_periodo->getRelacionConFechaHasta());
 
     modelo::relaciones::RelacionesFecha relaciones_fecha_hasta(id_fecha_hasta.copia());
-    if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_fecha_hasta))
+    if (this->admin_app->recuperar(&relaciones_fecha_hasta))
     {
         relaciones_fecha_hasta.eliminarRelacionConPeriodo(id_periodo);
-        IAdministradorAplicacion::getInstancia()->modificar(&relaciones_fecha_hasta);
+        this->admin_app->modificar(&relaciones_fecha_hasta);
     }
 
     return true;
@@ -367,10 +368,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesReporte * relac
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.setRelacionConReporte(0);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -384,10 +385,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesSeccion * relac
     for (std::vector<aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_consulta))
+        if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.eliminarRelacionConSeccion(id_seccion);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_consulta);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -401,10 +402,10 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesTermino * relac
     for (std::vector<aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         modelo::relaciones::RelacionesConcepto relaciones_concepto((*it)->copia());
-        if (IAdministradorAplicacion::getInstancia()->recuperar(&relaciones_concepto))
+        if (this->admin_app->recuperar(&relaciones_concepto))
         {
             relaciones_concepto.eliminarRelacionConTermino(id_termino);
-            IAdministradorAplicacion::getInstancia()->modificar(&relaciones_concepto);
+            this->admin_app->modificar(&relaciones_concepto);
         }
     }
 

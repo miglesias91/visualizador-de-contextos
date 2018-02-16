@@ -75,7 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -84,7 +84,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -95,7 +95,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -109,7 +109,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include\;$(repos-git)almacenamiento\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClInclude Include="include\Advertencia.h" />
     <ClInclude Include="include\Error.h" />
+    <ClInclude Include="include\GestorDatosScraping.h" />
     <ClInclude Include="include\Informacion.h" />
     <ClInclude Include="include\Mensaje.h" />
     <ClInclude Include="include\GestorRelaciones.h" />
@@ -133,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="source\Advertencia.cpp" />
     <ClCompile Include="source\Error.cpp" />
+    <ClCompile Include="source\GestorDatosScraping.cpp" />
     <ClCompile Include="source\Informacion.cpp" />
     <ClCompile Include="source\Mensaje.cpp" />
     <ClCompile Include="source\GestorRelaciones.cpp" />

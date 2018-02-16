@@ -67,7 +67,6 @@ private:
     std::vector<visualizador::modelo::IEntidad*>::iterator entidades_it;
 
     IAdministradorAplicacion * admin_app;
-    almacenamiento::IAdministradorAlmacenamiento * admin_bd;
     GestorRelaciones gestor_relaciones;
 };
 

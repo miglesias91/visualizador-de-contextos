@@ -37,7 +37,7 @@ void IRelacionable::setRelaciones(IRelaciones * relaciones)
 
 bool IRelacionable::recuperarRelaciones()
 {
-    bool existe_relacion = aplicacion::IAdministradorAplicacion::getInstancia()->recuperar(this->relaciones);
+    bool existe_relacion = aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(this->relaciones);
 
     if (existe_relacion)
     {

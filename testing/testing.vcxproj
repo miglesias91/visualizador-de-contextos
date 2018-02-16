@@ -82,12 +82,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(repos)googletest\googletest\include;$(repos-git)almacenamiento\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(repos)googletest\googletest\include;$(repos-git)almacenamiento\;$(repos-git)herramientas_desarrollo\;$(repos-git)scraping\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Debug;$(repos)googletest\googletest\build_x86\Debug;$(repos-git)almacenamiento\Debug;$(repos)rocksdb\build_x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Debug;$(repos)googletest\googletest\build_x86\Debug;$(repos-git)almacenamiento\Debug;$(repos-git)herramientas_desarrollo\Debug;$(repos-git)scraping\Debug;$(repos)rocksdb\build_x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>almacenamiento.lib;utiles.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -96,12 +96,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(repos)googletest\googletest\include;$(repos-git)almacenamiento\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(repos)googletest\googletest\include;$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(repos)googletest\googletest\build_x64\Debug;$(repos-git)almacenamiento\x64\Debug;$(repos)rocksdb\build_x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(repos-git)almacenamiento\x64\Debug;$(repos-git)herramientas_desarrollo\x64\Debug;$(repos-git)scraping\x64\Debug;$(repos)rocksdb\build_x64\Debug;$(repos)googletest\googletest\build_x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>almacenamiento.lib;utiles.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,13 +111,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(repos)googletest\googletest\include;$(repos-git)almacenamiento\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(repos)rapidjson\include;$(repos)googletest\googletest\include;$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)\Release;$(repos)googletest\googletest\build_x86\Release;$(repos-git)almacenamiento\Release;$(repos)rocksdb\build_x86\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Release;$(repos-git)almacenamiento\Release;$(repos-git)herramientas_desarrollo\Release;$(repos-git)scraping\Release;$(repos)rocksdb\build_x86\Release;$(repos)googletest\googletest\build_x86\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>almacenamiento.lib;utiles.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -132,8 +132,8 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)x64\Release;$(repos)googletest\googletest\build_x64\Release;$(repos-git)almacenamiento\x64\Release;$(repos)rocksdb\build_x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)x64\Release;$(repos-git)almacenamiento\x64\Release;$(repos-git)herramientas_desarrollo\x64\Release;$(repos-git)scraping\x64\Release;$(repos)rocksdb\build_x64\Release;$(repos)googletest\googletest\build_x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>almacenamiento.lib;utiles.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

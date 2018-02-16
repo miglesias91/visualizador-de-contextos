@@ -1,5 +1,8 @@
 #pragma once
 
+// aplicacion
+#include <aplicacion/include/IAdministradorAplicacion.h>
+
 // modelo
 #include <modelo/include/RelacionesConcepto.h>
 #include <modelo/include/RelacionesConsulta.h>
@@ -53,6 +56,8 @@ public:
     RELACIONES* clonar(visualizador::modelo::relaciones::IRelaciones * relaciones_a_clonar);
 
 private:
+
+    IAdministradorAplicacion * admin_app;
 
 };
 

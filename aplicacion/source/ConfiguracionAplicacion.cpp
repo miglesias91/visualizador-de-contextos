@@ -32,7 +32,9 @@ std::string ConfiguracionAplicacion::prefijo_relaciones_periodo;
 std::string ConfiguracionAplicacion::prefijo_relaciones_fecha;
 std::string ConfiguracionAplicacion::prefijo_relaciones_medio;
 
-std::string ConfiguracionAplicacion::archivo_config_db_aplicacion;
+std::string ConfiguracionAplicacion::archivo_config_db_aplicacion_entidades;
+
+std::string ConfiguracionAplicacion::archivo_config_db_scraping;
 
 std::string ConfiguracionAplicacion::clave_id_actual;
 
@@ -83,7 +85,9 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
     prefijo_relaciones_fecha = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesFecha().c_str()].GetString();
     prefijo_relaciones_medio = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesMedio().c_str()].GetString();
 
-    archivo_config_db_aplicacion = config_app_json[ConfiguracionAplicacion::tagArchivoConfigDBAplicacion().c_str()].GetString();
+    archivo_config_db_aplicacion_entidades = config_app_json[ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades().c_str()].GetString();
+
+    archivo_config_db_scraping = config_app_json[ConfiguracionAplicacion::tagArchivoConfigDBScraping().c_str()].GetString();
 
 	// recorto el prefijo al tamanio indicado en el archivo de config.
 	prefijo_configuracion.erase(prefijo_configuracion.begin() + prefijo_tamanio, prefijo_configuracion.end());
@@ -221,16 +225,20 @@ std::string ConfiguracionAplicacion::prefijoRelacionesMedio()
     return prefijo_relaciones_medio;
 }
 
-std::string ConfiguracionAplicacion::archivoConfigDBAplicacion()
+std::string ConfiguracionAplicacion::archivoConfigDBAplicacionEntidades()
 {
-    return archivo_config_db_aplicacion;
+    return archivo_config_db_aplicacion_entidades;
+}
+
+std::string ConfiguracionAplicacion::archivoConfigDBScraping()
+{
+    return archivo_config_db_scraping;
 }
 
 std::string ConfiguracionAplicacion::claveIDActual()
 {
 	return "id_actual";
 }
-
 
 std::string ConfiguracionAplicacion::tagAplicacionLocal()
 {
@@ -339,9 +347,14 @@ std::string ConfiguracionAplicacion::tagPrefijoRelacionesMedio()
     return "prefijo_relaciones_medio";
 }
 
-std::string ConfiguracionAplicacion::tagArchivoConfigDBAplicacion()
+std::string ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades()
 {
-    return "config_db_aplicacion";
+    return "db_aplicacion_entidades";
+}
+
+std::string ConfiguracionAplicacion::tagArchivoConfigDBScraping()
+{
+    return "db_scraping";
 }
 
 ConfiguracionAplicacion::ConfiguracionAplicacion()

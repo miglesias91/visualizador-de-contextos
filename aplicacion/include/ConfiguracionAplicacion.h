@@ -51,7 +51,9 @@ public:
 
 	static std::string claveIDActual();
     
-    static std::string archivoConfigDBAplicacion();
+    static std::string archivoConfigDBAplicacionEntidades();
+
+    static std::string archivoConfigDBScraping();
 
 	// TAGS
 
@@ -79,7 +81,9 @@ public:
     static std::string tagPrefijoRelacionesFecha();
     static std::string tagPrefijoRelacionesMedio();
 
-    static std::string tagArchivoConfigDBAplicacion();
+    static std::string tagArchivoConfigDBAplicacionEntidades();
+
+    static std::string tagArchivoConfigDBScraping();
 
 private:
 
@@ -112,7 +116,9 @@ private:
     static std::string prefijo_relaciones_fecha;
     static std::string prefijo_relaciones_medio;
 
-    static std::string archivo_config_db_aplicacion;
+    static std::string archivo_config_db_aplicacion_entidades;
+    
+    static std::string archivo_config_db_scraping;
 
 	static std::string clave_id_actual;
 

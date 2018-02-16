@@ -19,13 +19,11 @@ int main(int argc, char **argv)
 
     aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
 
-    aplicacion::IAdministradorAplicacion::getInstancia()->abrirBD();
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
 
 	int result = RUN_ALL_TESTS();
 
-    aplicacion::IAdministradorAplicacion::getInstancia()->cerrarBD();
-
-    aplicacion::IAdministradorAplicacion::getInstancia()->borrarBD();
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
 
     aplicacion::IAdministradorAplicacion::liberar();
 

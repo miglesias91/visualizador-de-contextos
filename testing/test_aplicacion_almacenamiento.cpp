@@ -41,20 +41,20 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
     unsigned int hashcode_relaciones_corrupcion = termino_corrupcion->getRelaciones()->hashcode();
     unsigned int hashcode_relaciones_concepto_corrupcion = concepto_corrupcion->getRelaciones()->hashcode();
 
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad->getRelaciones());
 
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_corrupcion);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_corrupcion->getRelaciones());
     
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion->getRelaciones());
 
 	Concepto* concepto_a_recuperar = new Concepto();
 	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
 
-    IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
-    IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(concepto_a_recuperar);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(concepto_a_recuperar->getRelaciones());
     concepto_a_recuperar->recuperarContenidoDeRelaciones();
 
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
@@ -228,54 +228,54 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
     unsigned int hashcode_relaciones_seccion_economia = seccion_economia->getRelaciones()->hashcode();
 
     // 4to: almaceno todo (con cada una de sus relaciones actualizadas y correctas.
-    IAdministradorAplicacion::getInstancia()->almacenar(inicio_primavera_2017);
-    IAdministradorAplicacion::getInstancia()->almacenar(inicio_primavera_2017->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(fin_primavera_2017);
-    IAdministradorAplicacion::getInstancia()->almacenar(fin_primavera_2017->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(primavera_2017);
-    IAdministradorAplicacion::getInstancia()->almacenar(primavera_2017->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(reporte);
-    IAdministradorAplicacion::getInstancia()->almacenar(reporte->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_crisis);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_crisis->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_conflicto);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_conflicto->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_desorden);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_desorden->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_crisis);
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_crisis->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_movilizacion);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_movilizacion->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_paro);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_paro->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_marcha);
-    IAdministradorAplicacion::getInstancia()->almacenar(termino_marcha->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_movilizacion);
-    IAdministradorAplicacion::getInstancia()->almacenar(concepto_movilizacion->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(medio_clarin);
-    IAdministradorAplicacion::getInstancia()->almacenar(medio_clarin->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(medio_infobae);
-    IAdministradorAplicacion::getInstancia()->almacenar(medio_infobae->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(seccion_politica);
-    IAdministradorAplicacion::getInstancia()->almacenar(seccion_politica->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(seccion_economia);
-    IAdministradorAplicacion::getInstancia()->almacenar(seccion_economia->getRelaciones());
-    IAdministradorAplicacion::getInstancia()->almacenar(consulta);
-    IAdministradorAplicacion::getInstancia()->almacenar(consulta->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(inicio_primavera_2017);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(inicio_primavera_2017->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(fin_primavera_2017);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(fin_primavera_2017->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(primavera_2017);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(primavera_2017->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(reporte);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(reporte->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_corrupcion);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_corrupcion->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_crisis);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_crisis->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_conflicto);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_conflicto->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_desorden);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_desorden->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_crisis);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_crisis->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_movilizacion);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_movilizacion->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_paro);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_paro->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_marcha);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_marcha->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_movilizacion);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_movilizacion->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(medio_clarin);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(medio_clarin->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(medio_infobae);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(medio_infobae->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(seccion_politica);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(seccion_politica->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(seccion_economia);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(seccion_economia->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(consulta);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(consulta->getRelaciones());
 
 	// 5to: AHORA RECUPERO TODO
 
 	Consulta* consulta_a_recuperar = new Consulta();
 	consulta_a_recuperar->setId(new ID(*consulta->getId()));
 
-    IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar);
-    IAdministradorAplicacion::getInstancia()->recuperar(consulta_a_recuperar->getRelaciones());
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(consulta_a_recuperar);
+    IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(consulta_a_recuperar->getRelaciones());
     consulta_a_recuperar->recuperarContenidoDeRelaciones();
 
 	// test consulta
@@ -453,20 +453,20 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 	concepto_corrupcion->asignarNuevoId();
 
-	IAdministradorAplicacion::getInstancia()->almacenar(termino_irregularidad);
-	IAdministradorAplicacion::getInstancia()->almacenar(termino_corrupcion);
-	IAdministradorAplicacion::getInstancia()->almacenar(concepto_corrupcion);
+	IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad);
+	IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_corrupcion);
+	IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion);
 
 	Concepto* concepto_a_recuperar = new Concepto();
 	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
 
-	IAdministradorAplicacion::getInstancia()->recuperar(concepto_a_recuperar);
+	IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(concepto_a_recuperar);
 
-	IAdministradorAplicacion::getInstancia()->cerrarBD();
+	IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
 	unsigned long long int id_actual = GestorIDs::getIdActual();
-	IAdministradorAplicacion::getInstancia()->abrirBD();
+	IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
 
-	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstancia()->recuperarIDActual();
+	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
 
 	delete concepto_corrupcion;
 	delete concepto_a_recuperar;

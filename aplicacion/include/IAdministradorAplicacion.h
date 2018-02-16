@@ -28,13 +28,17 @@ public:
 
 	static void crearAdministradorAplicacionDistribuida();
 
-	static bool administradorIniciado();
+    static bool administradorEntidadesIniciado();
+
+    static bool administradorDatosScrapingIniciado();
 
 	// GETTERS
 
     almacenamiento::IAdministradorAlmacenamiento * getAdminAlmacenamiento();
     
-    static IAdministradorAplicacion* getInstancia();
+    static IAdministradorAplicacion* getInstanciaAdminEntidades();
+
+    static IAdministradorAplicacion* getInstanciaAdminDatosScraping();
 
 	// SETTERS
 
@@ -82,7 +86,9 @@ protected:
 private:
 	// ATRIBUTOS
 
-	static IAdministradorAplicacion* administrador;
+    static IAdministradorAplicacion* administrador_entidades;
+
+    static IAdministradorAplicacion* administrador_datos_scraping;
     
 };
 

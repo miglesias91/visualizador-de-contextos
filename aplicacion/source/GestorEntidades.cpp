@@ -15,8 +15,7 @@ using namespace visualizador;
 
 GestorEntidades::GestorEntidades()
 {
-    this->admin_app = IAdministradorAplicacion::getInstancia();
-    this->admin_bd = this->admin_app->getAdminAlmacenamiento();
+    this->admin_app = IAdministradorAplicacion::getInstanciaAdminEntidades();
 }
 
 GestorEntidades::~GestorEntidades()

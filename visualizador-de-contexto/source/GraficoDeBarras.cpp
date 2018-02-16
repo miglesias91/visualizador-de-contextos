@@ -48,8 +48,6 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo> individuos, std:
 
     this->chart_view = new QtCharts::QChartView(chart);
     this->chart_view->setRenderHint(QPainter::Antialiasing);
-
-    chart_view->show();
 }
 
 GraficoDeBarras::~GraficoDeBarras()
@@ -106,5 +104,10 @@ void GraficoDeBarras::setRangoEjeYMax(double rango_eje_y_max)
 }
 
 // METODOS
+
+void GraficoDeBarras::mostrar()
+{
+    this->chart_view->show();
+}
 
 // CONSULTAS

@@ -4,6 +4,9 @@
 #include <functional>
 #include <string>
 
+// herramientas
+#include <utiles/include/Fecha.h>
+
 // modelo
 #include <modelo/include/IEntidad.h>
 
@@ -14,7 +17,7 @@ namespace visualizador
 namespace modelo
 {
 
-class Fecha : public IEntidad
+class Fecha : public herramientas::utiles::Fecha, public IEntidad
 {
 public:
 
@@ -28,33 +31,13 @@ public:
 
     // GETTERS
 
-	unsigned int getDia();
-	unsigned int getMes();
-	unsigned int getAnio();
-
-	std::string getStringDia();
-	std::string getStringMes();
-	std::string getStringAnio();
-
-    std::string getNombreMes();
-
-    std::string getStringDDMMAAAA(std::string separador = "");
-
-    std::string getStringDDmesAAAA(std::string separador = "");
-
-    std::string getStringAAAAMMDD(std::string separador = "");
+    // getters de IRelacionable
 
     relaciones::RelacionesFecha * getRelacionesFecha();
 
 	// SETTERS
 
-	void setDia(std::string dia);
-	void setMes(std::string mes);
-	void setAnio(std::string anio);
-
-	void setDia(unsigned int dia);
-	void setMes(unsigned int mes);
-	void setAnio(unsigned int anio);
+    // setters de IRelacionable
 
     void setRelacionesFecha(relaciones::RelacionesFecha * relaciones_fecha);
 
@@ -94,18 +77,7 @@ public:
 
     // OPERADORES
 
-    bool operator<(Fecha & fecha_a_comparar);
-    bool operator>(Fecha & fecha_a_comparar);
-    bool operator<=(Fecha & fecha_a_comparar);
-    bool operator>=(Fecha & fecha_a_comparar);
-    bool operator==(Fecha & fecha_a_comparar);
 private:
-
-    static std::string nombres_meses[];
-
-	unsigned int dia;
-	unsigned int mes;
-	unsigned int anio;
   
     relaciones::RelacionesFecha * relaciones_fecha;
 };

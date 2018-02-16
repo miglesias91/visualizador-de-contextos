@@ -11,7 +11,8 @@ using namespace visualizador::aplicacion;
 
 typedef visualizador::aplicacion::IAdministradorAplicacion* (*admin)();
 
-IAdministradorAplicacion* IAdministradorAplicacion::administrador = NULL;
+IAdministradorAplicacion* IAdministradorAplicacion::administrador_entidades = NULL;
+IAdministradorAplicacion* IAdministradorAplicacion::administrador_datos_scraping = NULL;
 
 IAdministradorAplicacion::IAdministradorAplicacion() : admin_almacenamiento(NULL), handler_almacenamiento(0)
 {
@@ -23,7 +24,7 @@ IAdministradorAplicacion::~IAdministradorAplicacion()
 
 void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 {
-	if (administradorIniciado())
+	if (administradorEntidadesIniciado())
 	{
 		// TODO agregar log.
 		std::cout << "Administrador ya fue iniciado." << std::endl;
@@ -45,25 +46,36 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 
 void IAdministradorAplicacion::liberar()
 {
-	if (true == administradorIniciado())
-	{
-		delete administrador;
-	}
+    if (true == administradorEntidadesIniciado())
+    {
+        delete administrador_entidades;
+    }
+
+    if (true == administradorDatosScrapingIniciado())
+    {
+        delete administrador_datos_scraping;
+    }
 }
 
 void IAdministradorAplicacion::crearAdministradorAplicacionLocal()
 {
-	//administrador = new AdministradorAplicacionLocal();
-    administrador = new AdministradorAplicacionLocal();
-    administrador->iniciarDB(ConfiguracionAplicacion::archivoConfigDBAplicacion());
+    administrador_entidades = new AdministradorAplicacionLocal();
+    administrador_entidades->iniciarDB(ConfiguracionAplicacion::archivoConfigDBAplicacionEntidades());
+
+    administrador_datos_scraping = new AdministradorAplicacionLocal();
+    administrador_datos_scraping->iniciarDB(ConfiguracionAplicacion::archivoConfigDBScraping());
 }
 
 void IAdministradorAplicacion::crearAdministradorAplicacionDistribuida() {};
 
-
-bool IAdministradorAplicacion::administradorIniciado()
+bool IAdministradorAplicacion::administradorEntidadesIniciado()
 {
-	return administrador != NULL;
+	return administrador_entidades != NULL;
+}
+
+bool IAdministradorAplicacion::administradorDatosScrapingIniciado()
+{
+    return administrador_datos_scraping != NULL;
 }
 
 // GETTERS
@@ -73,18 +85,29 @@ almacenamiento::IAdministradorAlmacenamiento * IAdministradorAplicacion::getAdmi
     return admin_almacenamiento;
 }
 
-IAdministradorAplicacion* IAdministradorAplicacion::getInstancia()
+IAdministradorAplicacion* IAdministradorAplicacion::getInstanciaAdminEntidades()
 {
-	if (administradorIniciado())
+	if (administradorEntidadesIniciado())
 	{
-		return administrador;
+		return administrador_entidades;
 	}
 	else
 	{
-		throw std::exception("Administrador de aplicacion no inicializado.");
+		throw std::exception("Administrador de entidades no inicializado.");
 	}
 }
 
+IAdministradorAplicacion* IAdministradorAplicacion::getInstanciaAdminDatosScraping()
+{
+    if (administradorEntidadesIniciado())
+    {
+        return administrador_datos_scraping;
+    }
+    else
+    {
+        throw std::exception("Administrador de datos de scraping no inicializado.");
+    }
+}
 
 void IAdministradorAplicacion::iniciarDB(std::string path_config_db)
 {

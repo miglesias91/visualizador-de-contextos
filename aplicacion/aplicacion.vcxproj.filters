@@ -57,6 +57,9 @@
     <ClInclude Include="include\Pregunta.h">
       <Filter>Archivos de encabezado\comunicacion</Filter>
     </ClInclude>
+    <ClInclude Include="include\GestorDatosScraping.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ConfiguracionAplicacion.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="source\Pregunta.cpp">
       <Filter>Archivos de código fuente\comunicacion</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GestorDatosScraping.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
