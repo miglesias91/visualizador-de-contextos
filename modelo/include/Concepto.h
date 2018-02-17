@@ -61,7 +61,7 @@ public:
     
     virtual bool recuperarContenidoDeRelaciones();
 
-    virtual void actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo = NULL);
+    virtual void actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo = NULL);
 
     virtual void vincular();
 

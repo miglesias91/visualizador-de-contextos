@@ -18,7 +18,7 @@ namespace relaciones
 class RelacionesConcepto : public IRelaciones, public IRelacionConTerminos, public IRelacionConConsultas
 {
 public:
-    RelacionesConcepto(visualizador::aplicacion::ID* id_concepto = NULL);
+    RelacionesConcepto(herramientas::utiles::ID* id_concepto = NULL);
     virtual ~RelacionesConcepto();
 
     // GETTERS

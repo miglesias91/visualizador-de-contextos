@@ -17,7 +17,7 @@ namespace relaciones
 class RelacionesFecha : public IRelaciones, public IRelacionConPeriodos
 {
 public:
-    RelacionesFecha(visualizador::aplicacion::ID* id_fecha = NULL);
+    RelacionesFecha(herramientas::utiles::ID* id_fecha = NULL);
     virtual ~RelacionesFecha();
 
     // GETTERS

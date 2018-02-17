@@ -17,7 +17,7 @@ namespace relaciones
 class RelacionesReporte : public IRelaciones, public IRelacionConConsultas
 {
 public:
-    RelacionesReporte(visualizador::aplicacion::ID* id_reporte = NULL);
+    RelacionesReporte(herramientas::utiles::ID* id_reporte = NULL);
     virtual ~RelacionesReporte();
 
     // GETTERS

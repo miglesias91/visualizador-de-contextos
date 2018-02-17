@@ -30,11 +30,11 @@ public:
 
     // METODOS
 
-    virtual void agregarRelacionConTermino(visualizador::aplicacion::ID * id_termino);
+    virtual void agregarRelacionConTermino(herramientas::utiles::ID * id_termino);
 
-    virtual void eliminarRelacionConTermino(visualizador::aplicacion::ID * id_termino);
+    virtual void eliminarRelacionConTermino(herramientas::utiles::ID * id_termino);
 
-    virtual void actualizarRelacionConTermino(visualizador::aplicacion::ID * id_termino_nuevo, visualizador::aplicacion::ID * id_termino_viejo);
+    virtual void actualizarRelacionConTermino(herramientas::utiles::ID * id_termino_nuevo, herramientas::utiles::ID * id_termino_viejo);
 
 private:
 

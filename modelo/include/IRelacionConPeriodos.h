@@ -30,11 +30,11 @@ public:
 
     // METODOS
 
-    virtual void agregarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo);
+    virtual void agregarRelacionConPeriodo(herramientas::utiles::ID * id_periodo);
 
-    virtual void eliminarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo);
+    virtual void eliminarRelacionConPeriodo(herramientas::utiles::ID * id_periodo);
 
-    virtual void actualizarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo_nuevo, visualizador::aplicacion::ID * id_periodo_viejo);
+    virtual void actualizarRelacionConPeriodo(herramientas::utiles::ID * id_periodo_nuevo, herramientas::utiles::ID * id_periodo_viejo);
 
 private:
 

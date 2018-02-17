@@ -4,7 +4,7 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesConsulta::RelacionesConsulta(visualizador::aplicacion::ID* id_consulta) :
+RelacionesConsulta::RelacionesConsulta(herramientas::utiles::ID* id_consulta) :
     IRelaciones(id_consulta, aplicacion::ConfiguracionAplicacion::prefijoRelacionesConsulta()),
     IRelacionConConceptos(new RelacionConGrupo()),
     IRelacionConMedios(new RelacionConGrupo()), 
@@ -127,20 +127,20 @@ IRelaciones * RelacionesConsulta::clonar()
 {
     RelacionesConsulta * clon = new RelacionesConsulta(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_medios = this->getRelacionConMedios()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_medios = this->getRelacionConMedios()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
     {
         clon->agregarRelacionConMedio(*it);
     }
 
-    std::vector<visualizador::aplicacion::ID*> ids_secciones = this->getRelacionConSecciones()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_secciones = this->getRelacionConSecciones()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
     {
         clon->agregarRelacionConSeccion(*it);
     }
 
-    std::vector<visualizador::aplicacion::ID*> ids_conceptos = this->getRelacionConConceptos()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_conceptos = this->getRelacionConConceptos()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         clon->agregarRelacionConConcepto(*it);
     }

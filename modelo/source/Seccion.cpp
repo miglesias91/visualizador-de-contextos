@@ -84,7 +84,7 @@ bool Seccion::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Seccion::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
+void Seccion::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
 }
 

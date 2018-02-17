@@ -30,7 +30,7 @@ public:
 
     static bool administradorEntidadesIniciado();
 
-    static bool administradorDatosScrapingIniciado();
+    // static bool administradorDatosScrapingIniciado();
 
 	// GETTERS
 
@@ -38,7 +38,7 @@ public:
     
     static IAdministradorAplicacion* getInstanciaAdminEntidades();
 
-    static IAdministradorAplicacion* getInstanciaAdminDatosScraping();
+    // static IAdministradorAplicacion* getInstanciaAdminDatosScraping();
 
 	// SETTERS
 
@@ -88,7 +88,7 @@ private:
 
     static IAdministradorAplicacion* administrador_entidades;
 
-    static IAdministradorAplicacion* administrador_datos_scraping;
+    // static IAdministradorAplicacion* administrador_datos_scraping;
     
 };
 
@@ -104,7 +104,8 @@ bool IAdministradorAplicacion::recuperarGrupo(std::string prefijo_grupo, std::ve
     {
         entidad = new ENTIDAD();
         unsigned long long int id = std::stoull((*it)->getClave());
-        entidad->setId(new visualizador::aplicacion::ID(id));
+        //entidad->setId(new herramientas::utiles::ID(id));
+        entidad->setId(new herramientas::utiles::ID(id));
 
         this->recuperar(entidad);
 

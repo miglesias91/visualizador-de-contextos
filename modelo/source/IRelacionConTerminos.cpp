@@ -34,17 +34,17 @@ void IRelacionConTerminos::setRelacionConTerminos(RelacionConGrupo * relacion_co
 // METODOS
 
 
-void IRelacionConTerminos::agregarRelacionConTermino(visualizador::aplicacion::ID * id_termino)
+void IRelacionConTerminos::agregarRelacionConTermino(herramientas::utiles::ID * id_termino)
 {
     this->relacion_con_terminos->agregarRelacion(id_termino);
 }
 
-void IRelacionConTerminos::eliminarRelacionConTermino(visualizador::aplicacion::ID * id_termino)
+void IRelacionConTerminos::eliminarRelacionConTermino(herramientas::utiles::ID * id_termino)
 {
     this->relacion_con_terminos->eliminarRelacion(id_termino);
 }
 
-void IRelacionConTerminos::actualizarRelacionConTermino(visualizador::aplicacion::ID * id_termino_nuevo, visualizador::aplicacion::ID * id_termino_viejo)
+void IRelacionConTerminos::actualizarRelacionConTermino(herramientas::utiles::ID * id_termino_nuevo, herramientas::utiles::ID * id_termino_viejo)
 {
     this->relacion_con_terminos->actualizarRelacion(id_termino_nuevo, id_termino_viejo);
 }

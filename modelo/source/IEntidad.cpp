@@ -54,13 +54,13 @@ void IEntidad::setEtiqueta(std::string etiqueta)
 
 // metodos de IAlmacenable
 
-void IEntidad::setId(visualizador::aplicacion::ID* id)
+void IEntidad::setId(herramientas::utiles::ID* id)
 {
     if (NULL != this->getRelaciones())
     {
         this->getRelaciones()->setId(id->copia());
 
-        visualizador::aplicacion::ID * id_viejo = this->getId();
+        herramientas::utiles::ID * id_viejo = this->getId();
         this->actualizarRelaciones(id, id_viejo);
     }
 

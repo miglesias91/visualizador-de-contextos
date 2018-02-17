@@ -12,7 +12,7 @@ RelacionConGrupo::RelacionConGrupo() : IHashable()
 
 RelacionConGrupo::~RelacionConGrupo()
 {
-    for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
         delete *it;
         *it = NULL;
@@ -21,7 +21,7 @@ RelacionConGrupo::~RelacionConGrupo()
 
 // GETTERS
 
-std::vector<aplicacion::ID*> RelacionConGrupo::getIdsGrupo()
+std::vector<herramientas::utiles::ID*> RelacionConGrupo::getIdsGrupo()
 {
     return this->ids_grupo;
 }
@@ -29,7 +29,7 @@ std::vector<aplicacion::ID*> RelacionConGrupo::getIdsGrupo()
 std::vector<unsigned long long int> RelacionConGrupo::getIdsGrupoComoUint()
 {
     std::vector<unsigned long long int> ids;
-    for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
         ids.push_back((*it)->numero());
     }
@@ -43,7 +43,7 @@ std::vector<unsigned long long int> RelacionConGrupo::getIdsGrupoComoUint()
 
 bool RelacionConGrupo::existeRelacion(unsigned long long int id)
 {
-    aplicacion::ID * id_aux = new aplicacion::ID(id);
+    herramientas::utiles::ID * id_aux = new herramientas::utiles::ID(id);
     
     bool existe = this->existeRelacion(id_aux);
 
@@ -52,9 +52,9 @@ bool RelacionConGrupo::existeRelacion(unsigned long long int id)
     return existe;
 }
 
-bool RelacionConGrupo::existeRelacion(aplicacion::ID * id)
+bool RelacionConGrupo::existeRelacion(herramientas::utiles::ID * id)
 {
-    for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
         if ((*it)->numero() == id->numero())
         {// si ya contiene el numero, entonces no agrego la relacion y devuelvo 'false'.
@@ -67,7 +67,7 @@ bool RelacionConGrupo::existeRelacion(aplicacion::ID * id)
 
 bool RelacionConGrupo::agregarRelacion(unsigned long long int id)
 {
-    aplicacion::ID * nuevo_id = new aplicacion::ID(id);
+    herramientas::utiles::ID * nuevo_id = new herramientas::utiles::ID(id);
 
     bool agregado = this->agregarRelacion(nuevo_id);
 
@@ -83,7 +83,7 @@ bool RelacionConGrupo::agregarRelacion(unsigned long long int id)
     return true;
 }
 
-bool RelacionConGrupo::agregarRelacion(aplicacion::ID * id)
+bool RelacionConGrupo::agregarRelacion(herramientas::utiles::ID * id)
 {
     if (this->existeRelacion(id))
     {
@@ -97,7 +97,7 @@ bool RelacionConGrupo::agregarRelacion(aplicacion::ID * id)
 
 bool RelacionConGrupo::eliminarRelacion(unsigned long long int id)
 {
-    aplicacion::ID * id_aux = new aplicacion::ID(id);
+    herramientas::utiles::ID * id_aux = new herramientas::utiles::ID(id);
 
     bool existe = this->eliminarRelacion(id_aux);
 
@@ -106,9 +106,9 @@ bool RelacionConGrupo::eliminarRelacion(unsigned long long int id)
     return existe;
 }
 
-bool RelacionConGrupo::eliminarRelacion(aplicacion::ID * id)
+bool RelacionConGrupo::eliminarRelacion(herramientas::utiles::ID * id)
 {
-    for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
         if ((*it)->numero() == id->numero())
         {// si coincide, entonces lo elimino
@@ -123,8 +123,8 @@ bool RelacionConGrupo::eliminarRelacion(aplicacion::ID * id)
 
 bool RelacionConGrupo::actualizarRelacion(unsigned long long int id_nuevo, unsigned long long int id_viejo)
 {
-    aplicacion::ID * id_aux_nuevo = new aplicacion::ID(id_nuevo);
-    aplicacion::ID * id_aux_viejo = new aplicacion::ID(id_viejo);
+    herramientas::utiles::ID * id_aux_nuevo = new herramientas::utiles::ID(id_nuevo);
+    herramientas::utiles::ID * id_aux_viejo = new herramientas::utiles::ID(id_viejo);
 
     bool actualizacion = this->actualizarRelacion(id_aux_nuevo, id_aux_viejo);
 
@@ -134,7 +134,7 @@ bool RelacionConGrupo::actualizarRelacion(unsigned long long int id_nuevo, unsig
     return actualizacion;
 }
 
-bool RelacionConGrupo::actualizarRelacion(aplicacion::ID * id_nuevo, aplicacion::ID * id_viejo)
+bool RelacionConGrupo::actualizarRelacion(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
     if (NULL == id_viejo)
     {// si no hay id_viejo entonces agrego el nuevo de una.
@@ -155,9 +155,9 @@ unsigned int RelacionConGrupo::hashcode()
 {
     std::string string_ids = "";
 
-    std::sort(this->ids_grupo.begin(), this->ids_grupo.end(), aplicacion::ID::comparador);
+    std::sort(this->ids_grupo.begin(), this->ids_grupo.end(), herramientas::utiles::ID::comparador);
 
-    for (std::vector<aplicacion::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = this->ids_grupo.begin(); it != this->ids_grupo.end(); it++)
     {
         string_ids += (*it)->string();
     }

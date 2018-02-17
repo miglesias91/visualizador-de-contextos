@@ -2,6 +2,8 @@
 
 using namespace visualizador::modelo;
 
+herramientas::utiles::GestorIDs IAlmacenable::gestor_ids;
+
 IAlmacenable::IAlmacenable(std::string grupo) : id(NULL), grupo(grupo), IHashable()
 {
 }
@@ -14,7 +16,7 @@ IAlmacenable::~IAlmacenable()
 
 // GETTERS
 
-visualizador::aplicacion::ID* IAlmacenable::getId()
+herramientas::utiles::ID* IAlmacenable::getId()
 {
     return this->id;
 }
@@ -24,9 +26,14 @@ std::string IAlmacenable::getGrupo()
     return this->grupo;
 }
 
+herramientas::utiles::GestorIDs * IAlmacenable::getGestorIDs()
+{
+    return &gestor_ids;
+}
+
 // SETTERS
 
-void IAlmacenable::setId(visualizador::aplicacion::ID* id)
+void IAlmacenable::setId(herramientas::utiles::ID* id)
 {
     if (NULL != this->id)
     {
@@ -45,7 +52,7 @@ void IAlmacenable::setGrupo(std::string grupo)
 
 void IAlmacenable::asignarNuevoId()
 {
-    this->setId(visualizador::aplicacion::GestorIDs::nuevoID());
+    this->setId(gestor_ids.nuevoID());
 }
 
 bool IAlmacenable::comparador(IAlmacenable * a, IAlmacenable * b)

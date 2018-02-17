@@ -4,10 +4,11 @@
 #include <vector>
 
 // scraping
-#include <almacenamiento/include/IAdministradorAlmacenamiento.h>
+#include <scraping/include/IAdministradorScraping.h>
+#include <preparacion/include/ResultadoAnalisisDiario.h>
 
 // herramientas
-// #include <>
+#include <utiles/include/Fecha.h>
 
 // aplicacion
 #include <aplicacion/include/IAdministradorAplicacion.h>
@@ -30,7 +31,8 @@ public:
 
     // METODOS
 
-    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> recuperarResultadosEntreRangoDeFechas(const herramientas::utiles::Fecha & desde, const herramientras::utiles::Fecha & hasta);
+    // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta);
 
     // CONSULTAS
 
@@ -38,7 +40,7 @@ private:
 
     // ATRIBUTOS
 
-    IAdministradorAplicacion * admin_datos_scraping;
+    scraping::IAdministradorScraping * admin_datos_scraping;
 };
 
 };

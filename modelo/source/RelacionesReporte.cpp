@@ -4,7 +4,7 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesReporte::RelacionesReporte(visualizador::aplicacion::ID* id_reporte) :
+RelacionesReporte::RelacionesReporte(herramientas::utiles::ID* id_reporte) :
     IRelaciones(id_reporte, aplicacion::ConfiguracionAplicacion::prefijoRelacionesReporte()),
     IRelacionConConsultas(new RelacionConGrupo())
 {
@@ -84,8 +84,8 @@ IRelaciones * RelacionesReporte::clonar()
 {
     RelacionesReporte * clon = new RelacionesReporte(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         clon->agregarRelacionConConsulta(*it);
     }

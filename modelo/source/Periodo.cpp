@@ -159,10 +159,10 @@ bool Periodo::recuperarContenidoDeRelaciones()
     unsigned long long int id_fecha_hasta = this->relaciones_periodo->getRelacionConFechaHasta();
 
     Fecha* fecha_desde = new Fecha();
-    fecha_desde->setId(new visualizador::aplicacion::ID(id_fecha_desde));
+    fecha_desde->setId(new herramientas::utiles::ID(id_fecha_desde));
 
     Fecha* fecha_hasta = new Fecha();
-    fecha_hasta->setId(new visualizador::aplicacion::ID(id_fecha_hasta));
+    fecha_hasta->setId(new herramientas::utiles::ID(id_fecha_hasta));
 
     bool contenido_limpio = true;
 
@@ -189,7 +189,7 @@ bool Periodo::recuperarContenidoDeRelaciones()
     return contenido_limpio;
 }
 
-void Periodo::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
+void Periodo::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
     if (NULL != this->desde)
     {

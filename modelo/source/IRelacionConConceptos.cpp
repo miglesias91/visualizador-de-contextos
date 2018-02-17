@@ -34,17 +34,17 @@ void IRelacionConConceptos::setRelacionConConceptos(RelacionConGrupo * relacion_
 // METODOS
 
 
-void IRelacionConConceptos::agregarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConConceptos::agregarRelacionConConcepto(herramientas::utiles::ID * id_concepto)
 {
     this->relacion_con_conceptos->agregarRelacion(id_concepto);
 }
 
-void IRelacionConConceptos::eliminarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto)
+void IRelacionConConceptos::eliminarRelacionConConcepto(herramientas::utiles::ID * id_concepto)
 {
     this->relacion_con_conceptos->eliminarRelacion(id_concepto);
 }
 
-void IRelacionConConceptos::actualizarRelacionConConcepto(visualizador::aplicacion::ID * id_concepto_nuevo, visualizador::aplicacion::ID * id_concepto_viejo)
+void IRelacionConConceptos::actualizarRelacionConConcepto(herramientas::utiles::ID * id_concepto_nuevo, herramientas::utiles::ID * id_concepto_viejo)
 {
     this->relacion_con_conceptos->actualizarRelacion(id_concepto_nuevo, id_concepto_viejo);
 }

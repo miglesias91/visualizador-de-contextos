@@ -161,7 +161,7 @@ bool Concepto::recuperarContenidoDeRelaciones()
     for (std::vector<unsigned long long int>::iterator it = ids_terminos.begin(); it != ids_terminos.end(); it++)
     {
         termino_nuevo = new Termino();
-        termino_nuevo->setId(new aplicacion::ID(*it));
+        termino_nuevo->setId(new herramientas::utiles::ID(*it));
         if (gestor_entidades.recuperar(termino_nuevo))
         { // si el termino existe, lo agrego a la lista de terminos
             this->agregarTermino(termino_nuevo);
@@ -175,7 +175,7 @@ bool Concepto::recuperarContenidoDeRelaciones()
     return contenido_limpio;
 }
 
-void Concepto::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
+void Concepto::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
     //for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     //{

@@ -51,7 +51,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
     IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion->getRelaciones());
 
 	Concepto* concepto_a_recuperar = new Concepto();
-	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
+	concepto_a_recuperar->setId(new herramientas::utiles::ID(*concepto_corrupcion->getId()));
 
     IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(concepto_a_recuperar);
     IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(concepto_a_recuperar->getRelaciones());
@@ -90,7 +90,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 {
-	GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
     // 1ero: armo el modelo
 	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
@@ -272,7 +272,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	// 5to: AHORA RECUPERO TODO
 
 	Consulta* consulta_a_recuperar = new Consulta();
-	consulta_a_recuperar->setId(new ID(*consulta->getId()));
+	consulta_a_recuperar->setId(new herramientas::utiles::ID(*consulta->getId()));
 
     IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(consulta_a_recuperar);
     IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(consulta_a_recuperar->getRelaciones());
@@ -438,7 +438,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 
 TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 {
-	GestorIDs::setIdActual(100);
+    IAlmacenable::getGestorIDs()->setIdActual(100);
 
 	Termino* termino_corrupcion = new Termino("corrupcion", "etiqueta_corurp");
 	termino_corrupcion->asignarNuevoId();
@@ -458,12 +458,12 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 	IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(concepto_corrupcion);
 
 	Concepto* concepto_a_recuperar = new Concepto();
-	concepto_a_recuperar->setId(new ID(*concepto_corrupcion->getId()));
+	concepto_a_recuperar->setId(new herramientas::utiles::ID(*concepto_corrupcion->getId()));
 
 	IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperar(concepto_a_recuperar);
 
 	IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
-	unsigned long long int id_actual = GestorIDs::getIdActual();
+	unsigned long long int id_actual = IAlmacenable::getGestorIDs()->getIdActual();
 	IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
 
 	unsigned long long int id_actual_recuperado = IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
@@ -476,7 +476,7 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarIDActualCorrectamente)
 
 TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
 {
-    GestorIDs::setIdActual(200);
+    IAlmacenable::getGestorIDs()->setIdActual(200);
 
     Termino* termino1 = new Termino("termino_ok", "gestorentidad-almacenamiento-test");
     termino1->asignarNuevoId();
@@ -518,7 +518,7 @@ TEST(aplicacionAlmacenamiento, GestorEntidadAlmacenarCorrectamente)
 
 TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
 {
-    GestorIDs::setIdActual(200);
+    IAlmacenable::getGestorIDs()->setIdActual(200);
 
     GestorEntidades gestor_conceptos;
     gestor_conceptos.gestionar<Concepto>();
@@ -566,8 +566,7 @@ TEST(aplicacionAlmacenamiento, GestorEntidadEliminarCorrectamente)
 
 TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
 {
-
-    GestorIDs::setIdActual(300);
+    IAlmacenable::getGestorIDs()->setIdActual(300);
 
     // 1ero: armo el modelo
     Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
@@ -699,7 +698,7 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
     // 4to: recupero la consulta a ver si se modificaron las relaciones.
 
     Consulta* consulta_a_recuperar = new Consulta();
-    consulta_a_recuperar->setId(new ID(*consulta->getId()));
+    consulta_a_recuperar->setId(new herramientas::utiles::ID(*consulta->getId()));
 
     gestor_entidades.recuperar(consulta_a_recuperar);
 

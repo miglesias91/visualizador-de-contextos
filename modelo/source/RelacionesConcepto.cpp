@@ -4,7 +4,7 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesConcepto::RelacionesConcepto(visualizador::aplicacion::ID* id_concepto) :
+RelacionesConcepto::RelacionesConcepto(herramientas::utiles::ID* id_concepto) :
     IRelaciones(id_concepto, aplicacion::ConfiguracionAplicacion::prefijoRelacionesConcepto()),
     IRelacionConTerminos(new RelacionConGrupo()),
     IRelacionConConsultas(new RelacionConGrupo())
@@ -92,14 +92,14 @@ IRelaciones * RelacionesConcepto::clonar()
 {
     RelacionesConcepto * clon = new RelacionesConcepto(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_consulta = this->getRelacionConConsultas()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consulta.begin(); it != ids_consulta.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_consulta = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consulta.begin(); it != ids_consulta.end(); it++)
     {
         clon->agregarRelacionConConsulta(*it);
     }
 
-    std::vector<visualizador::aplicacion::ID*> ids_termino = this->getRelacionConTerminos()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_termino.begin(); it != ids_termino.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_termino = this->getRelacionConTerminos()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_termino.begin(); it != ids_termino.end(); it++)
     {
         clon->agregarRelacionConTermino(*it);
     }

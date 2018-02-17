@@ -4,7 +4,7 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesPeriodo::RelacionesPeriodo(visualizador::aplicacion::ID* id_periodo) : IRelaciones(id_periodo, aplicacion::ConfiguracionAplicacion::prefijoRelacionesPeriodo()),
+RelacionesPeriodo::RelacionesPeriodo(herramientas::utiles::ID* id_periodo) : IRelaciones(id_periodo, aplicacion::ConfiguracionAplicacion::prefijoRelacionesPeriodo()),
     IRelacionConConsultas(new RelacionConGrupo()), relacion_con_fecha_desde(0), relacion_con_fecha_hasta(0)
 {
 }
@@ -109,8 +109,8 @@ IRelaciones * RelacionesPeriodo::clonar()
 {
     RelacionesPeriodo * clon = new RelacionesPeriodo(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         clon->agregarRelacionConConsulta(*it);
     }

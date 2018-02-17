@@ -30,11 +30,11 @@ public:
 
     // METODOS
 
-    virtual void agregarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion);
+    virtual void agregarRelacionConSeccion(herramientas::utiles::ID * id_seccion);
 
-    virtual void eliminarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion);
+    virtual void eliminarRelacionConSeccion(herramientas::utiles::ID * id_seccion);
 
-    virtual void actualizarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion_nuevo, visualizador::aplicacion::ID * id_seccion_viejo);
+    virtual void actualizarRelacionConSeccion(herramientas::utiles::ID * id_seccion_nuevo, herramientas::utiles::ID * id_seccion_viejo);
 
 private:
 

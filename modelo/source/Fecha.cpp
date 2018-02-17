@@ -106,7 +106,7 @@ bool Fecha::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Fecha::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
+void Fecha::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
     // this->relaciones_fecha
 }

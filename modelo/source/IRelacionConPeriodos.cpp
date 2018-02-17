@@ -34,17 +34,17 @@ void IRelacionConPeriodos::setRelacionConPeriodos(RelacionConGrupo * relacion_co
 // METODOS
 
 
-void IRelacionConPeriodos::agregarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo)
+void IRelacionConPeriodos::agregarRelacionConPeriodo(herramientas::utiles::ID * id_periodo)
 {
     this->relacion_con_periodos->agregarRelacion(id_periodo);
 }
 
-void IRelacionConPeriodos::eliminarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo)
+void IRelacionConPeriodos::eliminarRelacionConPeriodo(herramientas::utiles::ID * id_periodo)
 {
     this->relacion_con_periodos->eliminarRelacion(id_periodo);
 }
 
-void IRelacionConPeriodos::actualizarRelacionConPeriodo(visualizador::aplicacion::ID * id_periodo_nuevo, visualizador::aplicacion::ID * id_periodo_viejo)
+void IRelacionConPeriodos::actualizarRelacionConPeriodo(herramientas::utiles::ID * id_periodo_nuevo, herramientas::utiles::ID * id_periodo_viejo)
 {
     this->relacion_con_periodos->actualizarRelacion(id_periodo_nuevo, id_periodo_viejo);
 }

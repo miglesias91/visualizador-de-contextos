@@ -21,7 +21,7 @@ namespace relaciones
 class RelacionesConsulta : public IRelaciones, public IRelacionConConceptos, public IRelacionConMedios, public IRelacionConSecciones
 {
 public:
-    RelacionesConsulta(visualizador::aplicacion::ID* id_consulta = NULL);
+    RelacionesConsulta(herramientas::utiles::ID* id_consulta = NULL);
     virtual ~RelacionesConsulta();
 
     // GETTERS

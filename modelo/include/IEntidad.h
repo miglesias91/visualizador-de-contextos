@@ -41,7 +41,8 @@ public:
 
     // setters de IAlmacenable
 
-    virtual void setId(visualizador::aplicacion::ID* id_termino);
+    //virtual void setId(herramientas::utiles::ID* id_termino);
+    virtual void setId(herramientas::utiles::ID* id_termino);
 
 	// METODOS
 

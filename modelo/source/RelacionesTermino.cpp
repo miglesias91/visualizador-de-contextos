@@ -12,7 +12,7 @@ using namespace visualizador;
 
 // CONSTRUCTORES
 
-RelacionesTermino::RelacionesTermino(visualizador::aplicacion::ID* id_termino) :
+RelacionesTermino::RelacionesTermino(herramientas::utiles::ID* id_termino) :
     IRelaciones(id_termino, aplicacion::ConfiguracionAplicacion::prefijoRelacionesTermino()),
     IRelacionConConceptos(new RelacionConGrupo())
 {
@@ -90,9 +90,9 @@ IRelaciones * RelacionesTermino::clonar()
 {
     RelacionesTermino * clon = new RelacionesTermino(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_conceptos = this->getRelacionConConceptos()->getIdsGrupo();
+    std::vector<herramientas::utiles::ID*> ids_conceptos = this->getRelacionConConceptos()->getIdsGrupo();
 
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         clon->agregarRelacionConConcepto(*it);
     }

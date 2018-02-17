@@ -30,11 +30,11 @@ public:
 
     // METODOS
 
-    virtual void agregarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta);
+    virtual void agregarRelacionConConsulta(herramientas::utiles::ID * id_consulta);
 
-    virtual void eliminarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta);
+    virtual void eliminarRelacionConConsulta(herramientas::utiles::ID * id_consulta);
 
-    virtual void actualizarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta_nuevo, visualizador::aplicacion::ID * id_consulta_viejo);
+    virtual void actualizarRelacionConConsulta(herramientas::utiles::ID * id_consulta_nuevo, herramientas::utiles::ID * id_consulta_viejo);
 
 private:
 

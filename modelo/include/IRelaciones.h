@@ -17,7 +17,8 @@ public:
 
     // CONSTRUCTORES
 
-    IRelaciones(visualizador::aplicacion::ID* id_entidad, std::string grupo, IJson * json = new IJson());
+    //IRelaciones(herramientas::utiles::ID* id_entidad, std::string grupo, IJson * json = new IJson());
+    IRelaciones(herramientas::utiles::ID* id_entidad, std::string grupo, IJson * json = new IJson());
     virtual ~IRelaciones();
 
     // GETTERS

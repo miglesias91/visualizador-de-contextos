@@ -17,7 +17,7 @@ namespace relaciones
 class RelacionesSeccion : public IRelaciones, public IRelacionConConsultas
 {
 public:
-    RelacionesSeccion(visualizador::aplicacion::ID* id_seccion = NULL);
+    RelacionesSeccion(herramientas::utiles::ID* id_seccion = NULL);
     virtual ~RelacionesSeccion();
 
     // GETTERS

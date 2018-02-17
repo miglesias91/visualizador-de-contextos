@@ -1,0 +1,22 @@
+{
+    "scraping" :
+    {
+        "scraping_local" : true,
+        "scraping_distribuido" : false,
+        "prefijo_configuracion" : "000",
+
+        "prefijo_twitter" : "101",
+        "prefijo_html" : "102",
+        "prefijo_facebook" : "103",
+        "prefijo_rss" : "104",
+
+        "prefijo_medio" : "001",
+        "prefijo_contenido" : "002",
+        "prefijo_resultado_medio" : "003",
+        "prefijo_resultado_contenido" : "004",
+        "prefijo_resultado_diario" : "005",
+
+        "config_db_resultados_analisis_diario" : "config_db_resultados_analisis_diarios.json",
+        "config_db_info_scraping" : "config_db_info_scraping.json"
+    }
+}

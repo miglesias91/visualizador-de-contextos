@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 // modelo
 #include <modelo/include/IRelaciones.h>
 
@@ -30,7 +32,7 @@ public:
 
     virtual bool recuperarContenidoDeRelaciones() = 0;
 
-    virtual void actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo = NULL) = 0;
+    virtual void actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo = NULL) = 0;
 
     virtual void vincular() = 0;
 

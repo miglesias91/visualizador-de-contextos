@@ -33,17 +33,17 @@ void IRelacionConConsultas::setRelacionConConsultas(RelacionConGrupo * relacion_
 
 // METODOS
 
-void IRelacionConConsultas::agregarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta)
+void IRelacionConConsultas::agregarRelacionConConsulta(herramientas::utiles::ID * id_consulta)
 {
     this->relacion_con_consulta->agregarRelacion(id_consulta);
 }
 
-void IRelacionConConsultas::eliminarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta)
+void IRelacionConConsultas::eliminarRelacionConConsulta(herramientas::utiles::ID * id_consulta)
 {
     this->relacion_con_consulta->eliminarRelacion(id_consulta);
 }
 
-void IRelacionConConsultas::actualizarRelacionConConsulta(visualizador::aplicacion::ID * id_consulta_nuevo, visualizador::aplicacion::ID * id_consulta_viejo)
+void IRelacionConConsultas::actualizarRelacionConConsulta(herramientas::utiles::ID * id_consulta_nuevo, herramientas::utiles::ID * id_consulta_viejo)
 {
     this->relacion_con_consulta->actualizarRelacion(id_consulta_nuevo, id_consulta_viejo);
 }

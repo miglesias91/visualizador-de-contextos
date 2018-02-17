@@ -4,7 +4,7 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesFecha::RelacionesFecha(visualizador::aplicacion::ID* id_fecha) :
+RelacionesFecha::RelacionesFecha(herramientas::utiles::ID* id_fecha) :
     IRelaciones(id_fecha, aplicacion::ConfiguracionAplicacion::prefijoRelacionesFecha()),
     IRelacionConPeriodos(new RelacionConGrupo())
 {
@@ -84,8 +84,8 @@ IRelaciones * RelacionesFecha::clonar()
 {
     RelacionesFecha * clon = new RelacionesFecha(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_periodos = this->getRelacionConPeriodos()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_periodos.begin(); it != ids_periodos.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_periodos = this->getRelacionConPeriodos()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_periodos.begin(); it != ids_periodos.end(); it++)
     {
         clon->agregarRelacionConPeriodo(*it);
     }

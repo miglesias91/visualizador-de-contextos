@@ -4,7 +4,11 @@
 #include <string>
 
 // aplicacion
-#include <aplicacion/include/ID.h>
+// #include <aplicacion/include/ID.h>
+
+// herramientas
+#include <utiles/include/ID.h>
+#include <utiles/include/GestorIDs.h>
 
 // modelo
 #include <modelo/include/IHashable.h>
@@ -22,15 +26,17 @@ public:
 
     // GETTERS
 
-    virtual visualizador::aplicacion::ID* getId();
+    virtual herramientas::utiles::ID* getId();
 
     virtual std::string getGrupo();
 
     virtual std::string getValorAlmacenable() = 0;
+    
+    static herramientas::utiles::GestorIDs * getGestorIDs();
 
     // SETTERS
 
-    virtual void setId(visualizador::aplicacion::ID* id);
+    virtual void setId(herramientas::utiles::ID* id);
 
     virtual void setGrupo(std::string grupo);
 
@@ -48,7 +54,10 @@ private:
 
     // ATRIBUTOS
 
-    visualizador::aplicacion::ID* id;
+    static herramientas::utiles::GestorIDs gestor_ids;
+
+    //herramientas::utiles::ID* id;
+    herramientas::utiles::ID* id;
     std::string grupo;
 
 };

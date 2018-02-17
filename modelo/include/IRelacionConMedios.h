@@ -30,11 +30,11 @@ public:
 
     // METODOS
 
-    virtual void agregarRelacionConMedio(visualizador::aplicacion::ID * id_medio);
+    virtual void agregarRelacionConMedio(herramientas::utiles::ID * id_medio);
 
-    virtual void eliminarRelacionConMedio(visualizador::aplicacion::ID * id_medio);
+    virtual void eliminarRelacionConMedio(herramientas::utiles::ID * id_medio);
 
-    virtual void actualizarRelacionConMedio(visualizador::aplicacion::ID * id_medio_nuevo, visualizador::aplicacion::ID * id_medio_viejo);
+    virtual void actualizarRelacionConMedio(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo);
 
 private:
 

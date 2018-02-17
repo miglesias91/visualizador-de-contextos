@@ -1,6 +1,9 @@
 #include "DialogoConsultas.h"
 #include "ui_DialogoConsultas.h"
 
+// aplicacion
+#include <aplicacion/include/GestorDatosScraping.h>
+
 using namespace visualizador;
 
 DialogoConsultas::DialogoConsultas(QWidget *parent)
@@ -211,6 +214,12 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     this->chart_view->setRenderHint(QPainter::Antialiasing);
 
     chart_view->show();
+
+    aplicacion::GestorDatosScraping gestor_datos;
+
+    herramientas::utiles::Fecha desde(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year());
+    herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
 
     // this->close();
 }

@@ -20,7 +20,7 @@ public:
 
     // CONSTRUCTORES
 
-    RelacionesTermino(visualizador::aplicacion::ID* id_termino = NULL);
+    RelacionesTermino(herramientas::utiles::ID* id_termino = NULL);
     virtual ~RelacionesTermino();
 
     // GETTERS

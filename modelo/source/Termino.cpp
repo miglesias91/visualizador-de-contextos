@@ -108,7 +108,7 @@ bool Termino::recuperarContenidoDeRelaciones()
     return true;
 }
 
-void Termino::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
+void Termino::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
 }
 

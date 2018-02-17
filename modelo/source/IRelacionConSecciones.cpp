@@ -34,17 +34,17 @@ void IRelacionConSecciones::setRelacionConSecciones(RelacionConGrupo * relacion_
 // METODOS
 
 
-void IRelacionConSecciones::agregarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion)
+void IRelacionConSecciones::agregarRelacionConSeccion(herramientas::utiles::ID * id_seccion)
 {
     this->relacion_con_secciones->agregarRelacion(id_seccion);
 }
 
-void IRelacionConSecciones::eliminarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion)
+void IRelacionConSecciones::eliminarRelacionConSeccion(herramientas::utiles::ID * id_seccion)
 {
     this->relacion_con_secciones->eliminarRelacion(id_seccion);
 }
 
-void IRelacionConSecciones::actualizarRelacionConSeccion(visualizador::aplicacion::ID * id_seccion_nuevo, visualizador::aplicacion::ID * id_seccion_viejo)
+void IRelacionConSecciones::actualizarRelacionConSeccion(herramientas::utiles::ID * id_seccion_nuevo, herramientas::utiles::ID * id_seccion_viejo)
 {
     this->relacion_con_secciones->actualizarRelacion(id_seccion_nuevo, id_seccion_viejo);
 }

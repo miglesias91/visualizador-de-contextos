@@ -17,7 +17,7 @@ namespace relaciones
 class RelacionesMedio : public IRelaciones, public IRelacionConConsultas
 {
 public:
-    RelacionesMedio(visualizador::aplicacion::ID* id_medio = NULL);
+    RelacionesMedio(herramientas::utiles::ID* id_medio = NULL);
     virtual ~RelacionesMedio();
 
     // GETTERS

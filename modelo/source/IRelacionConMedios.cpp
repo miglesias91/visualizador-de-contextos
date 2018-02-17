@@ -34,17 +34,17 @@ void IRelacionConMedios::setRelacionConMedios(RelacionConGrupo * relacion_con_me
 // METODOS
 
 
-void IRelacionConMedios::agregarRelacionConMedio(visualizador::aplicacion::ID * id_medio)
+void IRelacionConMedios::agregarRelacionConMedio(herramientas::utiles::ID * id_medio)
 {
     this->relacion_con_medios->agregarRelacion(id_medio);
 }
 
-void IRelacionConMedios::eliminarRelacionConMedio(visualizador::aplicacion::ID * id_medio)
+void IRelacionConMedios::eliminarRelacionConMedio(herramientas::utiles::ID * id_medio)
 {
     this->relacion_con_medios->eliminarRelacion(id_medio);
 }
 
-void IRelacionConMedios::actualizarRelacionConMedio(visualizador::aplicacion::ID * id_medio_nuevo, visualizador::aplicacion::ID * id_medio_viejo)
+void IRelacionConMedios::actualizarRelacionConMedio(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo)
 {
     this->relacion_con_medios->actualizarRelacion(id_medio_nuevo, id_medio_viejo);
 }

@@ -4,7 +4,7 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-RelacionesMedio::RelacionesMedio(visualizador::aplicacion::ID* id_medio) :
+RelacionesMedio::RelacionesMedio(herramientas::utiles::ID* id_medio) :
     IRelaciones(id_medio, aplicacion::ConfiguracionAplicacion::prefijoRelacionesMedio()),
     IRelacionConConsultas(new RelacionConGrupo())
 {
@@ -87,8 +87,8 @@ IRelaciones * RelacionesMedio::clonar()
 {
     RelacionesMedio * clon = new RelacionesMedio(this->getId()->copia());
 
-    std::vector<visualizador::aplicacion::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
-    for (std::vector<visualizador::aplicacion::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_consultas = this->getRelacionConConsultas()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
     {
         clon->agregarRelacionConConsulta(*it);
     }

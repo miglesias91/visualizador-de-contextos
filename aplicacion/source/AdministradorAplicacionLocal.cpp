@@ -202,7 +202,8 @@ unsigned long long int AdministradorAplicacionLocal::recuperarIDActual()
         id_actual = std::stoull(string_id_actual);
     }
 
-    GestorIDs::setIdActual(id_actual);
+    //GestorIDs::setIdActual(id_actual);
+    modelo::IAlmacenable::getGestorIDs()->setIdActual(id_actual);
 
     delete clave_valor_a_recuperar;
 
@@ -213,7 +214,7 @@ void AdministradorAplicacionLocal::almacenarIDActual()
 {
     std::string clave = ConfiguracionAplicacion::claveIDActual();
     std::string grupo = ConfiguracionAplicacion::prefijoConfiguracion();
-    std::string valor = std::to_string(GestorIDs::getIdActual());
+    std::string valor = std::to_string(modelo::IAlmacenable::getGestorIDs()->getIdActual());
 
     almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
 

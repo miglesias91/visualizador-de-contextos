@@ -301,7 +301,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
     {
         concepto_nuevo = new Concepto();
-        concepto_nuevo->setId(new visualizador::aplicacion::ID(*it));
+        concepto_nuevo->setId(new herramientas::utiles::ID(*it));
         if (gestor_entidades.recuperar(concepto_nuevo))
         {
             this->agregarConcepto(concepto_nuevo);
@@ -317,7 +317,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
     {
         medio_nuevo = new Medio();
-        medio_nuevo->setId(new visualizador::aplicacion::ID(*it));
+        medio_nuevo->setId(new herramientas::utiles::ID(*it));
         if (gestor_entidades.recuperar(medio_nuevo))
         {
             this->agregarMedio(medio_nuevo);
@@ -333,7 +333,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     for (std::vector<unsigned long long int>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
     {
         seccion_nueva = new Seccion();
-        seccion_nueva->setId(new visualizador::aplicacion::ID(*it));
+        seccion_nueva->setId(new herramientas::utiles::ID(*it));
         if (gestor_entidades.recuperar(seccion_nueva))
         {
             this->agregarSeccion(seccion_nueva);
@@ -349,7 +349,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     unsigned long long int id_reporte = this->relaciones_consulta->getRelacionConReporte();
 
     Periodo* periodo_nuevo = new Periodo();
-    periodo_nuevo->setId(new visualizador::aplicacion::ID(id_periodo));
+    periodo_nuevo->setId(new herramientas::utiles::ID(id_periodo));
     if (gestor_entidades.recuperar(periodo_nuevo))
     {
         this->setPeriodo(periodo_nuevo);
@@ -361,7 +361,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     }
 
     Reporte* reporte_nuevo = new Reporte();
-    reporte_nuevo->setId(new visualizador::aplicacion::ID(id_reporte));
+    reporte_nuevo->setId(new herramientas::utiles::ID(id_reporte));
     if (gestor_entidades.recuperar(reporte_nuevo))
     {
         this->setReporte(reporte_nuevo);
@@ -374,7 +374,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     return contenido_limpio;
 }
 
-void Consulta::actualizarRelaciones(visualizador::aplicacion::ID * id_nuevo, visualizador::aplicacion::ID * id_viejo)
+void Consulta::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
     for (std::vector<Concepto*>::iterator it = this->conceptos.begin(); it != this->conceptos.end(); it++)
     {

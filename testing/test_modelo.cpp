@@ -20,9 +20,7 @@ using namespace visualizador::modelo;
 
 TEST(modelo, GettersYSettersConceptoYTerminos)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
 	std::vector<Termino*> terminos;
 
@@ -78,9 +76,7 @@ TEST(modelo, GettersYSettersConceptoYTerminos)
 
 TEST(modelo, GettersYSettersConsulta)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
 	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017, "comienzo_primavera_2017");
 	inicio_primavera_2017->asignarNuevoId();
@@ -215,9 +211,7 @@ TEST(modelo, GettersYSettersConsulta)
 
 TEST(modelo, CreacionJsonYValorAlmacenableConcepto)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
 	Termino* termino_movilizacion = new Termino("movilizacion");
 	termino_movilizacion->asignarNuevoId();
@@ -250,9 +244,7 @@ TEST(modelo, CreacionJsonYValorAlmacenableConcepto)
 
 TEST(modelo, CreacionJsonYValorAlmacenableTermino)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
 	Termino* movilizacion = new Termino("movilizacion", "paro");
 	movilizacion->asignarNuevoId();
@@ -270,8 +262,6 @@ TEST(modelo, CreacionJsonYValorAlmacenableTermino)
 
 TEST(modelo, CreacionJsonYValorAlmacenableFecha)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
 	visualizador::aplicacion::GestorIDs::setIdActual(0);
 
 	Fecha* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
@@ -290,9 +280,7 @@ TEST(modelo, CreacionJsonYValorAlmacenableFecha)
 
 TEST(modelo, CreacionJsonYValorAlmacenablePeriodo)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
 	Fecha* primero_de_enero = new Fecha(1, 1, 2017);
 	primero_de_enero->asignarNuevoId();
@@ -318,9 +306,7 @@ TEST(modelo, CreacionJsonYValorAlmacenablePeriodo)
 
 TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
 {
-	//visualizador::aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
-
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
+    IAlmacenable::getGestorIDs()->setIdActual(0);
 
 	Fecha* inicio_primavera_2017 = new Fecha(21, 9, 2017);
 	inicio_primavera_2017->asignarNuevoId();
