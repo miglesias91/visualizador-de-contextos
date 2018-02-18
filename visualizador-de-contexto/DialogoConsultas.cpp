@@ -1,6 +1,9 @@
 #include "DialogoConsultas.h"
 #include "ui_DialogoConsultas.h"
 
+// scraping
+#include <scraping/include/GestorMedios.h>
+
 // aplicacion
 #include <aplicacion/include/GestorDatosScraping.h>
 
@@ -221,7 +224,14 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
 
-    // this->close();
+    for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
+    {
+        delete *it;
+    }
+
+    // categorias = lista de medios
+    // individuos = conceptos. cada posicion en el array corresponde a un valor de cada categoria
+
 }
 
 // carga listas
@@ -292,13 +302,34 @@ void DialogoConsultas::agregarPeriodoALista(visualizador::modelo::Periodo * peri
 
 void DialogoConsultas::cargarListaMedios()
 {
-    aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Medio*> medios_actuales = gestor.recuperar<modelo::Medio>();
+    // recupero las cuentas de twitter   
+    scraping::aplicacion::GestorMedios gestor_medios;
+
+    std::vector<scraping::twitter::modelo::Cuenta*> cuentas_twitter_existentes;
+    gestor_medios.recuperarCuentasDeTwitter(cuentas_twitter_existentes);
+
+    // agrego las cuentas de twitter a la lista de medios.
+    std::vector<modelo::Medio*> medios_actuales;
+    modelo::Medio* medio = NULL;
+    for (std::vector<scraping::twitter::modelo::Cuenta*>::iterator it = cuentas_twitter_existentes.begin(); it != cuentas_twitter_existentes.end(); it++)
+    {
+        medio = new modelo::Medio("@" + (*it)->getNombre());
+
+        medios_actuales.push_back(medio);
+    }
+
     for (std::vector<modelo::Medio*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
     {
         (*it)->sumarReferencia();
         this->agregarMedioALista(*it, this->ui->lista_medios);
     }
+
+    // borro las cuentas de twitter
+    for (std::vector<scraping::twitter::modelo::Cuenta*>::iterator it = cuentas_twitter_existentes.begin(); it != cuentas_twitter_existentes.end(); it++)
+    {
+        delete *it;
+    }
+    cuentas_twitter_existentes.clear();
 
     this->ui->lista_medios->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
@@ -384,17 +415,47 @@ void DialogoConsultas::sacarItemsSeleccionados(QListWidget * lista)
 
 std::vector<modelo::Concepto*> DialogoConsultas::conceptosSeleccionados()
 {
-    return std::vector<modelo::Concepto*>();
+    std::vector<modelo::Concepto*> conceptos_seleccionados;
+
+    // recupero los conceptos de la lista
+    modelo::Concepto* concepto_lista = nullptr;
+    for (unsigned int i = 0; i < ui->lista_conceptos_en_consulta->count(); i++)
+    {
+        concepto_lista = this->ui->lista_conceptos_en_consulta->item(0)->data(Qt::UserRole).value<modelo::Concepto*>();
+        
+        conceptos_seleccionados.push_back(concepto_lista);
+    }
+
+    return conceptos_seleccionados;
 }
 
-std::vector<modelo::Periodo*> DialogoConsultas::periodosSeleccionados()
+//std::vector<modelo::Periodo*> DialogoConsultas::periodosSeleccionados()
+//{
+//    return std::vector<modelo::Periodo*>();
+//}
+
+modelo::Periodo* DialogoConsultas::periodoSeleccionado()
 {
-    return std::vector<modelo::Periodo*>();
+    visualizador::modelo::Fecha * desde = new visualizador::modelo::Fecha(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year(), "desde_seleccionado");
+    visualizador::modelo::Fecha * hasta = new visualizador::modelo::Fecha(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year(), "hasta_seleccionado");
+
+    return new modelo::Periodo(desde, hasta, "periodo_seleccionado");
 }
 
 std::vector<modelo::Medio*> DialogoConsultas::mediosSeleccionados()
 {
-    return std::vector<modelo::Medio*>();
+    std::vector<modelo::Medio*> medios_seleccionados;
+
+    // recupero los medios de la lista
+    modelo::Medio* medio_lista = nullptr;
+    for (unsigned int i = 0; i < ui->lista_medios_en_consulta->count(); i++)
+    {
+        medio_lista = this->ui->lista_medios_en_consulta->item(0)->data(Qt::UserRole).value<modelo::Medio*>();
+
+        medios_seleccionados.push_back(medio_lista);
+    }
+
+    return medios_seleccionados;
 }
 
 std::vector<modelo::Seccion*> DialogoConsultas::seccionesSeleccionados()

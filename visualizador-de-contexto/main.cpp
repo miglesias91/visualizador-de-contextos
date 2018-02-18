@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
     scraping::IAdministradorScraping::crearAdministradorScrapingLocal();
 
     scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->abrirBD();
+    scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
 
 	// LANZAMIENTO INTERFAZ QT
 	QApplication a(argc, argv);
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
 	int retorno = a.exec();
 
     // CIERRE INFO SCRAPING
+    scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
     scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->cerrarBD();
     scraping::IAdministradorScraping::liberar();
 

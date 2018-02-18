@@ -86,7 +86,8 @@ private:
 
     std::vector<modelo::Concepto*> conceptosSeleccionados();
 
-    std::vector<modelo::Periodo*> periodosSeleccionados();
+    //std::vector<modelo::Periodo*> periodosSeleccionados();
+    modelo::Periodo* periodoSeleccionado();
 
     std::vector<modelo::Medio*> mediosSeleccionados();
 
