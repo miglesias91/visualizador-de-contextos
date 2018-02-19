@@ -25,6 +25,8 @@ int main(int argc, char **argv)
 
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
 
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->borrarBD();
+
     aplicacion::IAdministradorAplicacion::liberar();
 
 	std::getchar();

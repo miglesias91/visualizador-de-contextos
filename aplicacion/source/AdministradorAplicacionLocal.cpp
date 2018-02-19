@@ -10,14 +10,10 @@ using namespace visualizador::aplicacion;
 
 AdministradorAplicacionLocal::AdministradorAplicacionLocal() : IAdministradorAplicacion()
 {
-	//almacenamiento::IAdministradorAlmacenamiento::iniciar(ConfiguracionAplicacion::pathConfiguracion());
-
- //   this->admin_almacenamiento = almacenamiento::IAdministradorAlmacenamiento::getInstancia();
 }
 
 AdministradorAplicacionLocal::~AdministradorAplicacionLocal()
 {
-	//almacenamiento::IAdministradorAlmacenamiento::liberar();
     almacenamiento::IAdministradorAlmacenamiento::liberar(this->handler_almacenamiento);
 }
 

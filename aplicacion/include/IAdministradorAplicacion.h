@@ -30,15 +30,11 @@ public:
 
     static bool administradorEntidadesIniciado();
 
-    // static bool administradorDatosScrapingIniciado();
-
 	// GETTERS
 
     almacenamiento::IAdministradorAlmacenamiento * getAdminAlmacenamiento();
     
     static IAdministradorAplicacion* getInstanciaAdminEntidades();
-
-    // static IAdministradorAplicacion* getInstanciaAdminDatosScraping();
 
 	// SETTERS
 
@@ -64,8 +60,6 @@ public:
 
     virtual bool modificar(std::vector<visualizador::modelo::IAlmacenable*> almacenables) = 0;
 
-    // virtual bool recuperarGrupo(std::string prefijo_grupo, std::vector<visualizador::modelo::IAlmacenable*>* almacenables) = 0;
-
     template <class ENTIDAD>
     bool recuperarGrupo(std::string prefijo_grupo, std::vector<ENTIDAD*>* entidades_recuperadas);
 
@@ -87,8 +81,6 @@ private:
 	// ATRIBUTOS
 
     static IAdministradorAplicacion* administrador_entidades;
-
-    // static IAdministradorAplicacion* administrador_datos_scraping;
     
 };
 
@@ -104,7 +96,6 @@ bool IAdministradorAplicacion::recuperarGrupo(std::string prefijo_grupo, std::ve
     {
         entidad = new ENTIDAD();
         unsigned long long int id = std::stoull((*it)->getClave());
-        //entidad->setId(new herramientas::utiles::ID(id));
         entidad->setId(new herramientas::utiles::ID(id));
 
         this->recuperar(entidad);
