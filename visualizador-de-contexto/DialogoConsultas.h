@@ -20,6 +20,8 @@
 #include <modelo/include/Consulta.h>
 
 // visualizador
+#include <visualizador-de-contexto/include/GraficoDeBarras.h>
+
 #include <declaraciones_metatipos.h>
 
 namespace Ui { class DialogoConsultas; };
@@ -58,7 +60,7 @@ private slots:
 private:
     Ui::DialogoConsultas *ui;
 
-    QtCharts::QChartView * chart_view;
+    graficos::GraficoDeBarras * grafico_fuerza_en_noticia;
 
     // carga listas
 

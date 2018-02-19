@@ -10,7 +10,7 @@
 using namespace visualizador;
 
 DialogoConsultas::DialogoConsultas(QWidget *parent)
-    : QWidget(parent), chart_view(NULL)
+    : QWidget(parent), grafico_fuerza_en_noticia(NULL)
 {
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
@@ -42,7 +42,10 @@ DialogoConsultas::~DialogoConsultas()
     // COMENTADA ESTA LINEA XQ HAY CARGADO POR DEFECTO 1 ITEM QUE NO SE PUEDE BORRAR. CUANDO SE SAQUE ESE ITEM SE TIENE Q VOLVER A USAR ESTA LINEA.
     // this->descargarLista<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
 
-    delete this->chart_view;
+    if (NULL != this->grafico_fuerza_en_noticia)
+    {
+        delete this->grafico_fuerza_en_noticia;
+    }
 
     delete ui;
 }
@@ -173,65 +176,63 @@ void DialogoConsultas::on_action_sacar_reportes_triggered()
 
 void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
 {
-    QtCharts::QBarSeries *barseries = new QtCharts::QBarSeries();
-
-    QtCharts::QBarSet * set0 = new QtCharts::QBarSet("Jane");
-    *set0 << 1 << 2 << 3 << 4 << 5 << 6;
-    barseries->append(set0);
-
-    QtCharts::QBarSet * set1 = new QtCharts::QBarSet("John");
-    *set1 << 5 << 0 << 0 << 4 << 0 << 7;
-    barseries->append(set1);
-
-    QtCharts::QBarSet * set2 = new QtCharts::QBarSet("Axel");
-    *set2 << 3 << 5 << 8 << 13 << 8 << 5;
-    barseries->append(set2);
-
-    QtCharts::QBarSet * set3 = new QtCharts::QBarSet("Mary");
-    *set3 << 5 << 6 << 7 << 3 << 4 << 5;
-    barseries->append(set3);
-
-    QtCharts::QBarSet * set4 = new QtCharts::QBarSet("Sam");
-    *set4 << 9 << 7 << 5 << 3 << 1 << 2;
-    barseries->append(set4);
-
-    QtCharts::QChart *chart = new QtCharts::QChart();
-    chart->addSeries(barseries);
-    chart->setTitle("Line and barchart example");
-
-    QStringList categories;
-    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
-    QtCharts::QBarCategoryAxis *axisX = new QtCharts::QBarCategoryAxis();
-    axisX->append(categories);
-    chart->setAxisX(axisX, barseries);
-    axisX->setRange(QString("Jan"), QString("Jun"));
-
-    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis();
-    chart->setAxisY(axisY, barseries);
-    axisY->setRange(0, 20);
-
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
-    
-    this->chart_view = new QtCharts::QChartView(chart);
-    this->chart_view->setRenderHint(QPainter::Antialiasing);
-
-    chart_view->show();
-
     aplicacion::GestorDatosScraping gestor_datos;
 
     herramientas::utiles::Fecha desde(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year());
     herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
 
+    std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
+    std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
+
+    std::vector<graficos::modelo::Individuo*> individuos;
+
+    for (std::vector<modelo::Concepto*>::iterator it_conceptos = conceptos_seleccionados.begin(); it_conceptos != conceptos_seleccionados.end(); it_conceptos++)
+    {
+        std::vector<double> datos_individuo;
+        for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
+        {
+            float fuerza_concepto_en_medio = 0.0f;
+            for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it_resultados = resultados.begin(); it_resultados != resultados.end(); it_resultados++)
+            {
+                scraping::preparacion::ResultadoAnalisisMedio* resultado_medio = (*it_resultados)->getResultadoMedio((*it_medios)->getId()->numero());
+
+                if (NULL == resultado_medio)
+                {
+                    continue;
+                }
+
+                std::vector<modelo::Termino*> terminos_a_analizar = (*it_conceptos)->getTerminos();
+                for (std::vector<modelo::Termino*>::iterator it_terminos = terminos_a_analizar.begin(); it_terminos != terminos_a_analizar.end(); it_terminos++)
+                {
+                    float fuerza_termino = resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza((*it_terminos)->getValor());
+                    fuerza_concepto_en_medio += fuerza_termino;
+                }
+            }
+            datos_individuo.push_back(fuerza_concepto_en_medio);
+        }
+        graficos::modelo::Individuo * nuevo_individuo = new graficos::modelo::Individuo((*it_conceptos)->getEtiqueta(), datos_individuo);
+        individuos.push_back(nuevo_individuo);
+    }
+
+    std::vector<std::string> categorias;
+    for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
+    {
+        categorias.push_back((*it_medios)->getEtiqueta());
+    }
+
+    if (NULL != this->grafico_fuerza_en_noticia)
+    {
+        delete this->grafico_fuerza_en_noticia;
+    }
+
+    this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDmesAAAA(" ") + " hasta " + hasta.getStringDDmesAAAA(" "));
+    this->grafico_fuerza_en_noticia->mostrar();
+
     for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
     {
         delete *it;
     }
-
-    // categorias = lista de medios
-    // individuos = conceptos. cada posicion en el array corresponde a un valor de cada categoria
-
 }
 
 // carga listas
@@ -314,6 +315,7 @@ void DialogoConsultas::cargarListaMedios()
     for (std::vector<scraping::twitter::modelo::Cuenta*>::iterator it = cuentas_twitter_existentes.begin(); it != cuentas_twitter_existentes.end(); it++)
     {
         medio = new modelo::Medio("@" + (*it)->getNombre());
+        medio->setId((*it)->getId()->copia());
 
         medios_actuales.push_back(medio);
     }
@@ -421,7 +423,7 @@ std::vector<modelo::Concepto*> DialogoConsultas::conceptosSeleccionados()
     modelo::Concepto* concepto_lista = nullptr;
     for (unsigned int i = 0; i < ui->lista_conceptos_en_consulta->count(); i++)
     {
-        concepto_lista = this->ui->lista_conceptos_en_consulta->item(0)->data(Qt::UserRole).value<modelo::Concepto*>();
+        concepto_lista = this->ui->lista_conceptos_en_consulta->item(i)->data(Qt::UserRole).value<modelo::Concepto*>();
         
         conceptos_seleccionados.push_back(concepto_lista);
     }
@@ -450,7 +452,7 @@ std::vector<modelo::Medio*> DialogoConsultas::mediosSeleccionados()
     modelo::Medio* medio_lista = nullptr;
     for (unsigned int i = 0; i < ui->lista_medios_en_consulta->count(); i++)
     {
-        medio_lista = this->ui->lista_medios_en_consulta->item(0)->data(Qt::UserRole).value<modelo::Medio*>();
+        medio_lista = this->ui->lista_medios_en_consulta->item(i)->data(Qt::UserRole).value<modelo::Medio*>();
 
         medios_seleccionados.push_back(medio_lista);
     }

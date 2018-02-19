@@ -2,16 +2,16 @@
 
 using namespace graficos;
 
-GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta) :
+GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta) :
     individuos(individuos), categorias(categorias), rango_eje_y_min(rango_eje_y_min), rango_eje_y_max(rango_eje_y_max), etiqueta(etiqueta), chart_view(NULL)
 {
     QtCharts::QBarSeries * series = new QtCharts::QBarSeries();
 
-    for (std::vector<modelo::Individuo>::iterator it_individuo = this->individuos.begin(); it_individuo != this->individuos.end(); it_individuo++)
+    for (std::vector<modelo::Individuo*>::iterator it_individuo = this->individuos.begin(); it_individuo != this->individuos.end(); it_individuo++)
     {
-        QtCharts::QBarSet * set = new QtCharts::QBarSet(it_individuo->getNombre().c_str());
+        QtCharts::QBarSet * set = new QtCharts::QBarSet((*it_individuo)->getNombre().c_str());
 
-        std::vector<double> datos_individuo = it_individuo->getDatos();
+        std::vector<double> datos_individuo = (*it_individuo)->getDatos();
 
         for (std::vector<double>::iterator it_datos = datos_individuo.begin(); it_datos != datos_individuo.end(); it_datos++)
         {
@@ -52,16 +52,21 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo> individuos, std:
 
 GraficoDeBarras::~GraficoDeBarras()
 {
-    if (NULL != this->chart_view)
+    //if (NULL != this->chart_view)
+    //{
+    //    delete this->chart_view;
+    //    this->chart_view = NULL;
+    //}
+
+    for (std::vector<modelo::Individuo*>::iterator it_individuo = this->individuos.begin(); it_individuo != this->individuos.end(); it_individuo++)
     {
-        delete this->chart_view;
-        this->chart_view = NULL;
+        delete *it_individuo;
     }
 }
 
 // GETTERS
 
-std::vector<modelo::Individuo> GraficoDeBarras::getIndividuos()
+std::vector<modelo::Individuo*> GraficoDeBarras::getIndividuos()
 {
     return this->individuos;
 }
@@ -83,7 +88,7 @@ double GraficoDeBarras::getRangoEjeYMax()
 
 // SETTERS
 
-void GraficoDeBarras::setIndividuos(std::vector<modelo::Individuo> individuos)
+void GraficoDeBarras::setIndividuos(std::vector<modelo::Individuo*> individuos)
 {
     this->individuos = individuos;
 }

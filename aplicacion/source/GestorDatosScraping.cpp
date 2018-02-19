@@ -23,27 +23,26 @@ GestorDatosScraping::~GestorDatosScraping()
 // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
 std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorDatosScraping::recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta)
 {
-    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados;
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_recuperados;
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_entre_rango;
 
-    this->admin_datos_scraping->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), &resultados);
+    this->admin_datos_scraping->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), &resultados_recuperados);
 
-    for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
+    for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados_recuperados.begin(); it != resultados_recuperados.end(); it++)
     {
         herramientas::utiles::Fecha fecha_resultado = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD((*it)->getId()->string());
 
-        if (fecha_resultado < desde || fecha_resultado > hasta)
-        {
+        if (desde < fecha_resultado && fecha_resultado < hasta)
+        {// si esta dentro del rango de fecha, lo pongo en el vector que voy a devolver.
+            resultados_entre_rango.push_back(*it);
+        }
+        else
+        {// si NO esta dentro del rango, libero la memoria.
             delete *it;
-            it = resultados.erase(it);
-
-            if (resultados.end() == it)
-            {
-                break;
-            }
         }
     }
 
-    return resultados;
+    return resultados_entre_rango;
 }
 
 // CONSULTAS
