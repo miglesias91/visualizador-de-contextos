@@ -52,11 +52,11 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
 
 GraficoDeBarras::~GraficoDeBarras()
 {
-    //if (NULL != this->chart_view)
-    //{
-    //    delete this->chart_view;
-    //    this->chart_view = NULL;
-    //}
+    if (NULL != this->chart_view)
+    {
+        delete this->chart_view;
+        this->chart_view = NULL;
+    }
 
     for (std::vector<modelo::Individuo*>::iterator it_individuo = this->individuos.begin(); it_individuo != this->individuos.end(); it_individuo++)
     {
