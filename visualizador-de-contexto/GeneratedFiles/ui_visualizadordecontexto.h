@@ -33,6 +33,7 @@ public:
     QAction *action_abrir_fechas;
     QAction *action_abrir_periodos;
     QAction *action_abrir_consulta;
+    QAction *action_abrir_medios_twitter;
     QWidget *centralWidget;
     QWidget *gridLayoutWidget;
     QVBoxLayout *verticalLayout;
@@ -41,6 +42,7 @@ public:
     QPushButton *btn_conceptos;
     QPushButton *btn_fechas;
     QPushButton *btn_periodos;
+    QPushButton *btn_medios_twitter;
     QPushButton *btn_consulta;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -66,11 +68,13 @@ public:
         action_abrir_consulta = new QAction(visualizadordecontextoClass);
         action_abrir_consulta->setObjectName(QStringLiteral("action_abrir_consulta"));
         action_abrir_consulta->setCheckable(true);
+        action_abrir_medios_twitter = new QAction(visualizadordecontextoClass);
+        action_abrir_medios_twitter->setObjectName(QStringLiteral("action_abrir_medios_twitter"));
         centralWidget = new QWidget(visualizadordecontextoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget = new QWidget(centralWidget);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(110, 3, 361, 306));
+        gridLayoutWidget->setGeometry(QRect(110, 3, 361, 341));
         verticalLayout = new QVBoxLayout(gridLayoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -110,6 +114,11 @@ public:
 
         verticalLayout->addWidget(btn_periodos);
 
+        btn_medios_twitter = new QPushButton(gridLayoutWidget);
+        btn_medios_twitter->setObjectName(QStringLiteral("btn_medios_twitter"));
+
+        verticalLayout->addWidget(btn_medios_twitter);
+
         btn_consulta = new QPushButton(gridLayoutWidget);
         btn_consulta->setObjectName(QStringLiteral("btn_consulta"));
 
@@ -133,6 +142,7 @@ public:
         QObject::connect(btn_fechas, SIGNAL(released()), action_abrir_fechas, SLOT(trigger()));
         QObject::connect(btn_periodos, SIGNAL(released()), action_abrir_periodos, SLOT(trigger()));
         QObject::connect(btn_consulta, SIGNAL(released()), action_abrir_consulta, SLOT(trigger()));
+        QObject::connect(btn_medios_twitter, SIGNAL(released()), action_abrir_medios_twitter, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(visualizadordecontextoClass);
     } // setupUi
@@ -166,11 +176,16 @@ public:
 #ifndef QT_NO_SHORTCUT
         action_abrir_consulta->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+A", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+        action_abrir_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "abrir_medios_twitter", Q_NULLPTR));
+#ifndef QT_NO_SHORTCUT
+        action_abrir_medios_twitter->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+W", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
         lbl_titulo->setText(QApplication::translate("visualizadordecontextoClass", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; color:#2e3343;\">Visualizador</span></p><p align=\"center\"><span style=\" font-size:28pt; color:#2e3343;\">de contexto</span></p></body></html>", Q_NULLPTR));
         btn_terminos->setText(QApplication::translate("visualizadordecontextoClass", "terminos", Q_NULLPTR));
         btn_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "conceptos", Q_NULLPTR));
         btn_fechas->setText(QApplication::translate("visualizadordecontextoClass", "fechas", Q_NULLPTR));
         btn_periodos->setText(QApplication::translate("visualizadordecontextoClass", "periodos", Q_NULLPTR));
+        btn_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "cuentas de twitter", Q_NULLPTR));
         btn_consulta->setText(QApplication::translate("visualizadordecontextoClass", "consulta", Q_NULLPTR));
     } // retranslateUi
 

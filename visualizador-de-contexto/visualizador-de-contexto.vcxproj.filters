@@ -56,17 +56,26 @@
     <ClCompile Include="source\FabricaMensajes.cpp">
       <Filter>Source Files\comunicacion</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DialogoTerminos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_visualizadordecontexto.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\GraficoDeBarras.cpp">
       <Filter>Source Files\graficos</Filter>
     </ClCompile>
     <ClCompile Include="source\Individuo.cpp">
       <Filter>Source Files\graficos\modelo</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DialogoMediosTwitter.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoMediosTwitter.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoMediosTwitter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoTerminos.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_visualizadordecontexto.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +163,12 @@
     <CustomBuild Include="DialogoConsultas.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="DialogoMediosTwitter.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DialogoMediosTwitter.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_visualizadordecontexto.h">
@@ -185,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="include\Individuo.h">
       <Filter>Header Files\graficos\modelo</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DialogoMediosTwitter.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

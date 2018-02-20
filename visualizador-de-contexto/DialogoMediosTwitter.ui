@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogoMediosTwitter</class>
+ <widget class="QWidget" name="DialogoMediosTwitter">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>577</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DialogoMediosTwitter</string>
+  </property>
+  <widget class="QDialogButtonBox" name="btnbox_medios_twitter">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>310</y>
+     <width>156</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>551</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="layout_general">
+    <item>
+     <layout class="QFormLayout" name="layout_opciones">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lbl_etiqueta">
+        <property name="text">
+         <string>etiqueta</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineedit_etiqueta"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbl_nombre_usuario">
+        <property name="text">
+         <string>nombre de usuario</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineedit_nombre_usuario">
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="btn_agregar">
+        <property name="text">
+         <string>agregar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btn_limpiar">
+        <property name="text">
+         <string>limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="btn_eliminar">
+        <property name="text">
+         <string>eliminar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="layout_lista">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QListWidget" name="lista_medios_twitter"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <action name="action_actualizar_y_cerrar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>actualiza_y_cerrar</string>
+   </property>
+   <property name="toolTip">
+    <string>actualizar y cerrar</string>
+   </property>
+  </action>
+  <action name="action_resetear_cuenta">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>resetear_cuenta</string>
+   </property>
+   <property name="toolTip">
+    <string>resetear cuenta</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="action_guardar_cuenta">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>guardar_cuenta</string>
+   </property>
+   <property name="toolTip">
+    <string>guardar cuenta</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="action_eliminar_cuenta">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>eliminar_cuenta</string>
+   </property>
+   <property name="toolTip">
+    <string>eliminar cuenta</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="action_estado_btn_eliminar">
+   <property name="text">
+    <string>estado_btn_eliminar</string>
+   </property>
+   <property name="toolTip">
+    <string>estado btn eliminar</string>
+   </property>
+  </action>
+  <action name="action_estado_btn_agregar">
+   <property name="text">
+    <string>estado_btn_agregar</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>lista_medios_twitter</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>action_estado_btn_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineedit_nombre_usuario</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>action_estado_btn_agregar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_medios_twitter</sender>
+   <signal>accepted()</signal>
+   <receiver>action_actualizar_y_cerrar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_medios_twitter</sender>
+   <signal>rejected()</signal>
+   <receiver>DialogoMediosTwitter</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>287</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>172</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_limpiar</sender>
+   <signal>released()</signal>
+   <receiver>action_resetear_cuenta</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_eliminar</sender>
+   <signal>released()</signal>
+   <receiver>action_eliminar_cuenta</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_agregar</sender>
+   <signal>released()</signal>
+   <receiver>action_guardar_cuenta</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>194</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

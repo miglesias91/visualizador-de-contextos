@@ -20,7 +20,7 @@
       <x>110</x>
       <y>3</y>
       <width>361</width>
-      <height>306</height>
+      <height>341</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -83,6 +83,13 @@
       <widget class="QPushButton" name="btn_periodos">
        <property name="text">
         <string>periodos</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_medios_twitter">
+       <property name="text">
+        <string>cuentas de twitter</string>
        </property>
       </widget>
      </item>
@@ -176,6 +183,14 @@
     <string>Ctrl+A</string>
    </property>
   </action>
+  <action name="action_abrir_medios_twitter">
+   <property name="text">
+    <string>abrir_medios_twitter</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -253,6 +268,22 @@
     <hint type="sourcelabel">
      <x>275</x>
      <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_medios_twitter</sender>
+   <signal>released()</signal>
+   <receiver>action_abrir_medios_twitter</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>335</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

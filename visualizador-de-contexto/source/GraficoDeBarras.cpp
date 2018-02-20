@@ -48,6 +48,9 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
 
     this->chart_view = new QtCharts::QChartView(chart);
     this->chart_view->setRenderHint(QPainter::Antialiasing);
+
+    this->chart_view->setMinimumWidth(850);
+    this->chart_view->setMinimumHeight(1000);
 }
 
 GraficoDeBarras::~GraficoDeBarras()

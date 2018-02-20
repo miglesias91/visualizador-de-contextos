@@ -38,3 +38,9 @@ void visualizadordecontexto::on_action_abrir_consulta_triggered()
     this->dialogo_consultas = new DialogoConsultas();
     this->dialogo_consultas->show();
 }
+
+void visualizadordecontexto::on_action_abrir_medios_twitter_triggered()
+{
+    this->dialogo_medios_twitter = new DialogoMediosTwitter();
+    this->dialogo_medios_twitter->show();
+}
