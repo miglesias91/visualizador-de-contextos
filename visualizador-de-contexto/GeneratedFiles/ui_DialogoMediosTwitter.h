@@ -29,6 +29,12 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoMediosTwitter
 {
 public:
+    QAction *action_actualizar_y_cerrar;
+    QAction *action_resetear_cuenta;
+    QAction *action_guardar_cuenta;
+    QAction *action_eliminar_cuenta;
+    QAction *action_estado_btn_eliminar;
+    QAction *action_estado_btn_agregar;
     QDialogButtonBox *btnbox_medios_twitter;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *layout_general;
@@ -48,13 +54,29 @@ public:
         if (DialogoMediosTwitter->objectName().isEmpty())
             DialogoMediosTwitter->setObjectName(QStringLiteral("DialogoMediosTwitter"));
         DialogoMediosTwitter->resize(577, 345);
+        action_actualizar_y_cerrar = new QAction(DialogoMediosTwitter);
+        action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
+        action_actualizar_y_cerrar->setCheckable(true);
+        action_resetear_cuenta = new QAction(DialogoMediosTwitter);
+        action_resetear_cuenta->setObjectName(QStringLiteral("action_resetear_cuenta"));
+        action_resetear_cuenta->setCheckable(true);
+        action_guardar_cuenta = new QAction(DialogoMediosTwitter);
+        action_guardar_cuenta->setObjectName(QStringLiteral("action_guardar_cuenta"));
+        action_guardar_cuenta->setCheckable(true);
+        action_eliminar_cuenta = new QAction(DialogoMediosTwitter);
+        action_eliminar_cuenta->setObjectName(QStringLiteral("action_eliminar_cuenta"));
+        action_eliminar_cuenta->setCheckable(true);
+        action_estado_btn_eliminar = new QAction(DialogoMediosTwitter);
+        action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
+        action_estado_btn_agregar = new QAction(DialogoMediosTwitter);
+        action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         btnbox_medios_twitter = new QDialogButtonBox(DialogoMediosTwitter);
         btnbox_medios_twitter->setObjectName(QStringLiteral("btnbox_medios_twitter"));
-        btnbox_medios_twitter->setGeometry(QRect(200, 300, 156, 23));
+        btnbox_medios_twitter->setGeometry(QRect(210, 310, 156, 23));
         btnbox_medios_twitter->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         horizontalLayoutWidget = new QWidget(DialogoMediosTwitter);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 0, 551, 291));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 551, 291));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
         layout_general->setSpacing(6);
         layout_general->setContentsMargins(11, 11, 11, 11);
@@ -114,6 +136,13 @@ public:
 
 
         retranslateUi(DialogoMediosTwitter);
+        QObject::connect(lista_medios_twitter, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
+        QObject::connect(lineedit_nombre_usuario, SIGNAL(textEdited(QString)), action_estado_btn_agregar, SLOT(trigger()));
+        QObject::connect(btnbox_medios_twitter, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
+        QObject::connect(btnbox_medios_twitter, SIGNAL(rejected()), DialogoMediosTwitter, SLOT(close()));
+        QObject::connect(btn_limpiar, SIGNAL(released()), action_resetear_cuenta, SLOT(trigger()));
+        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar_cuenta, SLOT(trigger()));
+        QObject::connect(btn_agregar, SIGNAL(released()), action_guardar_cuenta, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoMediosTwitter);
     } // setupUi
@@ -121,6 +150,36 @@ public:
     void retranslateUi(QWidget *DialogoMediosTwitter)
     {
         DialogoMediosTwitter->setWindowTitle(QApplication::translate("DialogoMediosTwitter", "DialogoMediosTwitter", Q_NULLPTR));
+        action_actualizar_y_cerrar->setText(QApplication::translate("DialogoMediosTwitter", "actualiza_y_cerrar", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_actualizar_y_cerrar->setToolTip(QApplication::translate("DialogoMediosTwitter", "actualizar y cerrar", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        action_resetear_cuenta->setText(QApplication::translate("DialogoMediosTwitter", "resetear_cuenta", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_resetear_cuenta->setToolTip(QApplication::translate("DialogoMediosTwitter", "resetear cuenta", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_SHORTCUT
+        action_resetear_cuenta->setShortcut(QApplication::translate("DialogoMediosTwitter", "Ctrl+A", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        action_guardar_cuenta->setText(QApplication::translate("DialogoMediosTwitter", "guardar_cuenta", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_guardar_cuenta->setToolTip(QApplication::translate("DialogoMediosTwitter", "guardar cuenta", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_SHORTCUT
+        action_guardar_cuenta->setShortcut(QApplication::translate("DialogoMediosTwitter", "Ctrl+G", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        action_eliminar_cuenta->setText(QApplication::translate("DialogoMediosTwitter", "eliminar_cuenta", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_eliminar_cuenta->setToolTip(QApplication::translate("DialogoMediosTwitter", "eliminar cuenta", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_SHORTCUT
+        action_eliminar_cuenta->setShortcut(QApplication::translate("DialogoMediosTwitter", "Ctrl+D", Q_NULLPTR));
+#endif // QT_NO_SHORTCUT
+        action_estado_btn_eliminar->setText(QApplication::translate("DialogoMediosTwitter", "estado_btn_eliminar", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoMediosTwitter", "estado btn eliminar", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        action_estado_btn_agregar->setText(QApplication::translate("DialogoMediosTwitter", "estado_btn_agregar", Q_NULLPTR));
         lbl_etiqueta->setText(QApplication::translate("DialogoMediosTwitter", "etiqueta", Q_NULLPTR));
         lbl_nombre_usuario->setText(QApplication::translate("DialogoMediosTwitter", "nombre de usuario", Q_NULLPTR));
         lineedit_nombre_usuario->setPlaceholderText(QString());
