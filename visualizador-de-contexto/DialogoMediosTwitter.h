@@ -2,6 +2,21 @@
 
 #include <QWidget>
 
+// qt
+#include <qmessagebox.h>
+
+// aplicacion
+#include <aplicacion/include/GestorEntidades.h>
+
+// scraping::extraccion
+#include <extraccion/include/Medio.h>
+
+// scraping::twitter
+#include <twitter/include/Cuenta.h>
+
+// visualizador
+#include <declaraciones_metatipos.h>
+
 namespace Ui { class DialogoMediosTwitter; };
 
 class DialogoMediosTwitter : public QWidget
@@ -27,4 +42,18 @@ private slots:
 
 private:
     Ui::DialogoMediosTwitter *ui;
+
+    void cargarListaMediosTwitter();
+
+    void descargarListaMediosTwitter();
+
+    // agregar un termino a la lista de terminos de la ui.
+    void agregarMedioTwitterALista(modelo::Medio * medio);
+
+    // mensajes
+
+    QMessageBox * crearInformacionMedioTwitterExistente();
+
+    // ATRIBUTOS
+    visualizador::aplicacion::GestorEntidades gestor_medios;
 };

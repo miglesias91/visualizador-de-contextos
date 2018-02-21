@@ -6,7 +6,8 @@ using namespace visualizador;
 
 RelacionesMedio::RelacionesMedio(herramientas::utiles::ID* id_medio) :
     IRelaciones(id_medio, aplicacion::ConfiguracionAplicacion::prefijoRelacionesMedio()),
-    IRelacionConConsultas(new RelacionConGrupo())
+    IRelacionConConsultas(new RelacionConGrupo()),
+    id_medio_a_scrapear(0)
 {
 }
 
@@ -23,6 +24,11 @@ std::string RelacionesMedio::getValorAlmacenable()
     this->crearJson();
 
     return this->getJson()->jsonString();
+}
+
+void RelacionesMedio::setIDMedioAScrapear(unsigned long long int id_medio_a_scrapear)
+{
+    this->id_medio_a_scrapear = id_medio_a_scrapear;
 }
 
 // SETTERS
@@ -52,24 +58,27 @@ unsigned int RelacionesMedio::hashcode()
 
 void RelacionesMedio::crearJson()
 {
-    //this->relacion_con_conceptos->crearJson();
-    //IJson* ids_conceptos = this->relacion_con_conceptos->getJson();
-
     IJson * relaciones_medio = new IJson();
 
     relaciones_medio->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
     
+    relaciones_medio->agregarAtributoValor("id_medio_a_scrapear", this->id_medio_a_scrapear);
+
     IJson* json = this->getJson();
     json->reset();
 
     json->agregarAtributoJson("relaciones_medio", relaciones_medio);
-    
+
     delete relaciones_medio;
 }
 
 bool RelacionesMedio::parsearJson(IJson * json)
 {
     IJson * json_relaciones_medio = json->getAtributoValorJson("relaciones_medio");
+    
+    unsigned long long int id_medio_a_scrapear = json_relaciones_medio->getAtributoValorUint("id_medio_a_scrapear");
+
+    this->setIDMedioAScraperar(id_medio_a_scrapear);
 
     std::vector<unsigned long long int> ids_consultas = json_relaciones_medio->getAtributoArrayUint("ids_consultas");
 

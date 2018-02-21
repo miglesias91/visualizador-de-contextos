@@ -1,5 +1,8 @@
 #pragma once
 
+// scraping::extraccion
+#include <extraccion/include/Medio.h>
+
 // modelo
 #include <modelo/include/IEntidad.h>
 #include <modelo/include/RelacionesMedio.h>
@@ -20,10 +23,18 @@ public:
 	virtual ~Medio();
 
 	// GETTERS
-    
+
+    std::string getPrefijoGrupoMedio();
+
+    scraping::extraccion::Medio * getMedioAScrapear();
+
     relaciones::RelacionesMedio * getRelacionesMedio();
 
 	// SETTERS
+
+    void setPrefijoGrupoMedio(std::string prefijo_grupo_medio);
+
+    void setMedioAScrapear(scraping::extraccion::Medio * medio_a_scrapear);
 
     void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
 
@@ -63,9 +74,13 @@ public:
 
 private:
 
+    // ATRIBUTOS
+
     relaciones::RelacionesMedio * relaciones_medio;
 
+    std::string prefijo_grupo_medio;
 
+    scraping::extraccion::Medio * medio_a_scrapear;
 };
 
 };

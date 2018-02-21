@@ -8,6 +8,8 @@ using namespace visualizador::aplicacion;
 GestorDatosScraping::GestorDatosScraping()
 {
     this->admin_datos_scraping = scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario();
+
+    this->admin_info_scraping = scraping::IAdministradorScraping::getInstanciaAdminInfo();
 }
 
 GestorDatosScraping::~GestorDatosScraping()
@@ -19,6 +21,27 @@ GestorDatosScraping::~GestorDatosScraping()
 // SETTERS
 
 // METODOS
+
+bool GestorDatosScraping::almacenarMedio(scraping::extraccion::Medio * medio_a_almacenar)
+{
+    medio_a_almacenar->setGrupo(medio_a_almacenar->getGrupoMedio());
+
+    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenar(medio_a_almacenar);
+}
+
+bool GestorDatosScraping::recuperarMedio(scraping::extraccion::Medio * medio_a_recuperar)
+{
+    medio_a_recuperar->setGrupo(medio_a_recuperar->getGrupoMedio());
+
+    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperar(medio_a_recuperar);
+}
+
+bool GestorDatosScraping::eliminarMedio(scraping::extraccion::Medio * medio_a_eliminar)
+{
+    medio_a_eliminar->setGrupo(medio_a_eliminar->getGrupoMedio());
+
+    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->eliminar(medio_a_eliminar);
+}
 
 // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
 std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorDatosScraping::recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta)

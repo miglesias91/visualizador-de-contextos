@@ -28,6 +28,8 @@ public:
 
     // SETTERS
 
+    virtual void setIDMedioAScrapear(unsigned long long int id_medio_a_scrapear);
+
     // METODOS
 
     // metodos de IAlmacenable
@@ -51,6 +53,8 @@ public:
     // CONSULTAS
 
 private:
+
+    unsigned long long int id_medio_a_scrapear;
 
 };
 
