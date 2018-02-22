@@ -68,7 +68,7 @@ std::string RelacionesConsulta::prefijoGrupo()
 
 unsigned int RelacionesConsulta::hashcode()
 {
-    return this->getRelacionConConceptos()->hashcode() + this->getRelacionConMedios()->hashcode() + this->getRelacionConSecciones()->hashcode() +
+    return this->getRelacionConConceptos()->hashcode() + this->getRelacionConMediosTwitter()->hashcode() + this->getRelacionConSecciones()->hashcode() +
         this->getRelacionConReporte() + this->getRelacionConPeriodo();
 }
 
@@ -82,7 +82,7 @@ void RelacionesConsulta::crearJson()
     relaciones_consulta->agregarAtributoValor("id_reporte", this->relacion_con_reporte);
 
     relaciones_consulta->agregarAtributoArray("ids_conceptos", this->getRelacionConConceptos()->getIdsGrupoComoUint());
-    relaciones_consulta->agregarAtributoArray("ids_medios", this->getRelacionConMedios()->getIdsGrupoComoUint());
+    relaciones_consulta->agregarAtributoArray("ids_medios_twitter", this->getRelacionConMediosTwitter()->getIdsGrupoComoUint());
     relaciones_consulta->agregarAtributoArray("ids_secciones", this->getRelacionConSecciones()->getIdsGrupoComoUint());
 
     IJson* json = this->getJson();
@@ -103,10 +103,10 @@ bool RelacionesConsulta::parsearJson(IJson * json)
         this->getRelacionConConceptos()->agregarRelacion(*it);
     }
 
-    std::vector<unsigned long long int> ids_medios = json_relaciones_consulta->getAtributoArrayUint("ids_medios");
-    for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    std::vector<unsigned long long int> ids_medios_twitter = json_relaciones_consulta->getAtributoArrayUint("ids_medios_twitter");
+    for (std::vector<unsigned long long int>::iterator it = ids_medios_twitter.begin(); it != ids_medios_twitter.end(); it++)
     {
-        this->getRelacionConMedios()->agregarRelacion(*it);
+        this->getRelacionConMediosTwitter()->agregarRelacion(*it);
     }
 
     std::vector<unsigned long long int> ids_secciones = json_relaciones_consulta->getAtributoArrayUint("ids_secciones");
@@ -127,10 +127,10 @@ IRelaciones * RelacionesConsulta::clonar()
 {
     RelacionesConsulta * clon = new RelacionesConsulta(this->getId()->copia());
 
-    std::vector<herramientas::utiles::ID*> ids_medios = this->getRelacionConMedios()->getIdsGrupo();
-    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    std::vector<herramientas::utiles::ID*> ids_medios_twitter = this->getRelacionConMediosTwitter()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios_twitter.begin(); it != ids_medios_twitter.end(); it++)
     {
-        clon->agregarRelacionConMedio(*it);
+        clon->agregarRelacionConMedioTwitter(*it);
     }
 
     std::vector<herramientas::utiles::ID*> ids_secciones = this->getRelacionConSecciones()->getIdsGrupo();

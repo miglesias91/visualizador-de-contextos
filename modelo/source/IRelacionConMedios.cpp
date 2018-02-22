@@ -4,47 +4,47 @@ using namespace visualizador::modelo::relaciones;
 using namespace visualizador::modelo;
 using namespace visualizador;
 
-IRelacionConMedios::IRelacionConMedios(RelacionConGrupo * relacion_con_medios) : relacion_con_medios(relacion_con_medios)
+IRelacionConMedios::IRelacionConMedios(RelacionConGrupo * relacion_con_medios) : relacion_con_medios_twitter(relacion_con_medios)
 {
 }
 
 IRelacionConMedios::~IRelacionConMedios()
 {
-    if (NULL != this->relacion_con_medios)
+    if (NULL != this->relacion_con_medios_twitter)
     {
-        delete this->relacion_con_medios;
-        this->relacion_con_medios = NULL;
+        delete this->relacion_con_medios_twitter;
+        this->relacion_con_medios_twitter = NULL;
     }
 }
 
 // GETTERS
 
-RelacionConGrupo * IRelacionConMedios::getRelacionConMedios()
+RelacionConGrupo * IRelacionConMedios::getRelacionConMediosTwitter()
 {
-    return this->relacion_con_medios;
+    return this->relacion_con_medios_twitter;
 }
 
 // SETTERS
 
-void IRelacionConMedios::setRelacionConMedios(RelacionConGrupo * relacion_con_medios)
+void IRelacionConMedios::setRelacionConMediosTwitter(RelacionConGrupo * relacion_con_medios_twitter)
 {
-    this->relacion_con_medios = relacion_con_medios;
+    this->relacion_con_medios_twitter = relacion_con_medios_twitter;
 }
 
 // METODOS
 
 
-void IRelacionConMedios::agregarRelacionConMedio(herramientas::utiles::ID * id_medio)
+void IRelacionConMedios::agregarRelacionConMedioTwitter(herramientas::utiles::ID * id_medio)
 {
-    this->relacion_con_medios->agregarRelacion(id_medio);
+    this->relacion_con_medios_twitter->agregarRelacion(id_medio);
 }
 
-void IRelacionConMedios::eliminarRelacionConMedio(herramientas::utiles::ID * id_medio)
+void IRelacionConMedios::eliminarRelacionConMedioTwitter(herramientas::utiles::ID * id_medio)
 {
-    this->relacion_con_medios->eliminarRelacion(id_medio);
+    this->relacion_con_medios_twitter->eliminarRelacion(id_medio);
 }
 
-void IRelacionConMedios::actualizarRelacionConMedio(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo)
+void IRelacionConMedios::actualizarRelacionConMedioTwitter(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo)
 {
-    this->relacion_con_medios->actualizarRelacion(id_medio_nuevo, id_medio_viejo);
+    this->relacion_con_medios_twitter->actualizarRelacion(id_medio_nuevo, id_medio_viejo);
 }

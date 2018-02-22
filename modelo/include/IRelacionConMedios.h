@@ -22,23 +22,23 @@ public:
 
     // GETTERS
 
-    RelacionConGrupo * getRelacionConMedios();
+    RelacionConGrupo * getRelacionConMediosTwitter();
 
     // SETTERS
 
-    void setRelacionConMedios(RelacionConGrupo * relacion_con_medios);
+    void setRelacionConMediosTwitter(RelacionConGrupo * relacion_con_medios);
 
     // METODOS
 
-    virtual void agregarRelacionConMedio(herramientas::utiles::ID * id_medio);
+    virtual void agregarRelacionConMedioTwitter(herramientas::utiles::ID * id_medio);
 
-    virtual void eliminarRelacionConMedio(herramientas::utiles::ID * id_medio);
+    virtual void eliminarRelacionConMedioTwitter(herramientas::utiles::ID * id_medio);
 
-    virtual void actualizarRelacionConMedio(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo);
+    virtual void actualizarRelacionConMedioTwitter(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo);
 
 private:
 
-    RelacionConGrupo * relacion_con_medios;
+    RelacionConGrupo * relacion_con_medios_twitter;
 };
 
 };

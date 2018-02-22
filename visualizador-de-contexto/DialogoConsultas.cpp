@@ -314,7 +314,7 @@ void DialogoConsultas::cargarListaMedios()
     modelo::Medio* medio = NULL;
     for (std::vector<scraping::twitter::modelo::Cuenta*>::iterator it = cuentas_twitter_existentes.begin(); it != cuentas_twitter_existentes.end(); it++)
     {
-        medio = new modelo::Medio("@" + (*it)->getNombre());
+        medio = new modelo::MedioTwitter("@" + (*it)->getNombre());
         medio->setId((*it)->getId()->copia());
 
         medios_actuales.push_back(medio);

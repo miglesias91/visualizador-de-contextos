@@ -22,6 +22,8 @@ public:
 
     // GETTERS
 
+    virtual unsigned long long int getIDMedioAScrapear();
+
     // getters de IAlmacenable
 
     virtual std::string getValorAlmacenable();

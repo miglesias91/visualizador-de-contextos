@@ -26,12 +26,17 @@ std::string RelacionesMedio::getValorAlmacenable()
     return this->getJson()->jsonString();
 }
 
+unsigned long long int RelacionesMedio::getIDMedioAScrapear()
+{
+    return this->id_medio_a_scrapear;
+}
+
+// SETTERS
+
 void RelacionesMedio::setIDMedioAScrapear(unsigned long long int id_medio_a_scrapear)
 {
     this->id_medio_a_scrapear = id_medio_a_scrapear;
 }
-
-// SETTERS
 
 // METODOS
 
@@ -78,7 +83,7 @@ bool RelacionesMedio::parsearJson(IJson * json)
     
     unsigned long long int id_medio_a_scrapear = json_relaciones_medio->getAtributoValorUint("id_medio_a_scrapear");
 
-    this->setIDMedioAScraperar(id_medio_a_scrapear);
+    this->setIDMedioAScrapear(id_medio_a_scrapear);
 
     std::vector<unsigned long long int> ids_consultas = json_relaciones_medio->getAtributoArrayUint("ids_consultas");
 
@@ -101,6 +106,8 @@ IRelaciones * RelacionesMedio::clonar()
     {
         clon->agregarRelacionConConsulta(*it);
     }
+
+    clon->setIDMedioAScrapear(this->id_medio_a_scrapear);
 
     return clon;
 }

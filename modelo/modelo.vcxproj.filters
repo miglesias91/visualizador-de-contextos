@@ -31,6 +31,12 @@
     <Filter Include="Archivos de encabezado\relaciones\relacion con">
       <UniqueIdentifier>{84438530-b1a3-4caa-bfee-0bd890b3c8a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\medios">
+      <UniqueIdentifier>{d1c3683c-47e4-4322-b4d0-04f3108ccd3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\medios">
+      <UniqueIdentifier>{6d8a36ae-48b4-4ad6-844d-f47e49aeb632}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Termino.h">
@@ -129,6 +135,9 @@
     <ClInclude Include="include\RelacionConGrupo.h">
       <Filter>Archivos de encabezado\relaciones\relacion con</Filter>
     </ClInclude>
+    <ClInclude Include="include\MedioTwitter.h">
+      <Filter>Archivos de encabezado\medios</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Concepto.cpp">
@@ -226,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="source\Termino.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MedioTwitter.cpp">
+      <Filter>Archivos de código fuente\medios</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

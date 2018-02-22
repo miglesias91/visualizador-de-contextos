@@ -101,7 +101,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)x64\Debug;$(repos-git)almacenamiento\x64\Debug;$(repos-git)herramientas_desarrollo\x64\Debug;$(repos-git)scraping\x64\Debug;$(repos)rocksdb\build_x64\Debug;$(repos)googletest\googletest\build_x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>almacenamiento.lib;utiles.lib;scraping.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>almacenamiento.lib;utiles.lib;scraping.lib;twitter.lib;extraccion.lib;preparacion.lib;analisis.lib;WrapperRocksDB.lib;rocksdb.lib;aplicacion.lib;modelo.lib;gtest.lib;gtest_main.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

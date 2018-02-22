@@ -23,6 +23,8 @@ std::string ConfiguracionAplicacion::prefijo_periodo;
 std::string ConfiguracionAplicacion::prefijo_fecha;
 std::string ConfiguracionAplicacion::prefijo_medio;
 
+std::string ConfiguracionAplicacion::prefijo_medio_twitter;
+
 std::string ConfiguracionAplicacion::prefijo_relaciones_concepto;
 std::string ConfiguracionAplicacion::prefijo_relaciones_termino;
 std::string ConfiguracionAplicacion::prefijo_relaciones_consulta;
@@ -43,38 +45,40 @@ rapidjson::Document ConfiguracionAplicacion::documento_alocador;
 
 void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configuracion)
 {
-	std::ifstream archivo(path_archivo_configuracion);
+    std::ifstream archivo(path_archivo_configuracion);
 
     path_config = path_archivo_configuracion;
 
-	if (false == archivo.good())
-	{
-		throw - 1;
-	}
+    if (false == archivo.good())
+    {
+        throw - 1;
+    }
 
-	std::ostringstream sstream;
-	sstream << archivo.rdbuf();
-	const std::string string_config(sstream.str());
+    std::ostringstream sstream;
+    sstream << archivo.rdbuf();
+    const std::string string_config(sstream.str());
 
-	rapidjson::Document config_json;
-	config_json.Parse(string_config.c_str());
+    rapidjson::Document config_json;
+    config_json.Parse(string_config.c_str());
 
     rapidjson::Value & config_app_json = config_json["aplicacion"];
 
-	aplicacion_local = config_app_json[ConfiguracionAplicacion::tagAplicacionLocal().c_str()].GetBool();
-	aplicacion_distribuida = config_app_json[ConfiguracionAplicacion::tagAplicacionDistribuida().c_str()].GetBool();
-	prefijo_habilitado = config_app_json[ConfiguracionAplicacion::tagPrefijoHabilitado().c_str()].GetBool();
-	prefijo_tamanio = config_app_json[ConfiguracionAplicacion::tagPrefijoTamanio().c_str()].GetUint();
+    aplicacion_local = config_app_json[ConfiguracionAplicacion::tagAplicacionLocal().c_str()].GetBool();
+    aplicacion_distribuida = config_app_json[ConfiguracionAplicacion::tagAplicacionDistribuida().c_str()].GetBool();
+    prefijo_habilitado = config_app_json[ConfiguracionAplicacion::tagPrefijoHabilitado().c_str()].GetBool();
+    prefijo_tamanio = config_app_json[ConfiguracionAplicacion::tagPrefijoTamanio().c_str()].GetUint();
 
-	prefijo_configuracion = config_app_json[ConfiguracionAplicacion::tagPrefijoConfiguracion().c_str()].GetString();
-	prefijo_concepto = config_app_json[ConfiguracionAplicacion::tagPrefijoConcepto().c_str()].GetString();
-	prefijo_termino = config_app_json[ConfiguracionAplicacion::tagPrefijoTermino().c_str()].GetString();
-	prefijo_consulta = config_app_json[ConfiguracionAplicacion::tagPrefijoConsulta().c_str()].GetString();
-	prefijo_reporte = config_app_json[ConfiguracionAplicacion::tagPrefijoReporte().c_str()].GetString();
-	prefijo_seccion = config_app_json[ConfiguracionAplicacion::tagPrefijoSeccion().c_str()].GetString();
-	prefijo_periodo = config_app_json[ConfiguracionAplicacion::tagPrefijoPeriodo().c_str()].GetString();
-	prefijo_fecha = config_app_json[ConfiguracionAplicacion::tagPrefijoFecha().c_str()].GetString();
-	prefijo_medio = config_app_json[ConfiguracionAplicacion::tagPrefijoMedio().c_str()].GetString();
+    prefijo_configuracion = config_app_json[ConfiguracionAplicacion::tagPrefijoConfiguracion().c_str()].GetString();
+    prefijo_concepto = config_app_json[ConfiguracionAplicacion::tagPrefijoConcepto().c_str()].GetString();
+    prefijo_termino = config_app_json[ConfiguracionAplicacion::tagPrefijoTermino().c_str()].GetString();
+    prefijo_consulta = config_app_json[ConfiguracionAplicacion::tagPrefijoConsulta().c_str()].GetString();
+    prefijo_reporte = config_app_json[ConfiguracionAplicacion::tagPrefijoReporte().c_str()].GetString();
+    prefijo_seccion = config_app_json[ConfiguracionAplicacion::tagPrefijoSeccion().c_str()].GetString();
+    prefijo_periodo = config_app_json[ConfiguracionAplicacion::tagPrefijoPeriodo().c_str()].GetString();
+    prefijo_fecha = config_app_json[ConfiguracionAplicacion::tagPrefijoFecha().c_str()].GetString();
+    prefijo_medio = config_app_json[ConfiguracionAplicacion::tagPrefijoMedio().c_str()].GetString();
+
+    prefijo_medio_twitter = config_app_json[ConfiguracionAplicacion::tagPrefijoMedioTwitter().c_str()].GetString();
 
     prefijo_relaciones_concepto = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesConcepto().c_str()].GetString();
     prefijo_relaciones_termino = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesTermino().c_str()].GetString();
@@ -182,6 +186,11 @@ std::string ConfiguracionAplicacion::prefijoFecha()
 std::string ConfiguracionAplicacion::prefijoMedio()
 {
 	return prefijo_medio;
+}
+
+std::string ConfiguracionAplicacion::prefijoMedioTwitter()
+{
+    return prefijo_medio_twitter;
 }
 
 // relaciones
@@ -304,6 +313,11 @@ std::string ConfiguracionAplicacion::tagPrefijoFecha()
 std::string ConfiguracionAplicacion::tagPrefijoMedio()
 {
 	return "prefijo_medio";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoMedioTwitter()
+{
+    return "prefijo_medio_twitter";
 }
 
 // RELACIONES

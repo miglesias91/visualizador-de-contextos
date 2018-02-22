@@ -4,6 +4,9 @@
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
+// modelo
+#include <modelo/include/MedioTwitter.h>
+
 // scraping
 #include <scraping/include/ConfiguracionScraping.h>
 
@@ -48,10 +51,10 @@ void DialogoMediosTwitter::on_action_guardar_cuenta_triggered()
     std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
     std::string nombre_usuario = this->ui->lineedit_nombre_usuario->text().toStdString();
 
-    modelo::Medio * medio_nuevo = new modelo::Medio(etiqueta);
+    modelo::MedioTwitter * medio_nuevo = new modelo::MedioTwitter(etiqueta);
 
-    scraping::extraccion::Medio * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_usuario);
-    medio_nuevo->setMedioAScrapear(nueva_cuenta);
+    scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_usuario);
+    medio_nuevo->setCuentaAScrapear(nueva_cuenta);
 
     if (this->gestor_medios.almacenar(medio_nuevo))
     {
@@ -115,11 +118,11 @@ void DialogoMediosTwitter::on_action_estado_btn_agregar_triggered()
 
 void DialogoMediosTwitter::cargarListaMediosTwitter()
 {
-    std::vector<modelo::Medio*> medios_actuales = this->gestor_medios.gestionar<modelo::Medio>();
+    std::vector<modelo::MedioTwitter*> medios_actuales = this->gestor_medios.gestionar<modelo::MedioTwitter>();
 
-    for (std::vector<modelo::Medio*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
+    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
     {
-        modelo::Medio * clon = this->gestor_medios.clonar<modelo::Medio>(*it);
+        modelo::MedioTwitter * clon = this->gestor_medios.clonar<modelo::MedioTwitter>(*it);
         this->agregarMedioTwitterALista(clon);
     }
 
@@ -149,18 +152,16 @@ void DialogoMediosTwitter::descargarListaMediosTwitter()
     }
 }
 
-void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::Medio * medio)
+void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medio_twitter)
 {
-    medio->sumarReferencia();
+    medio_twitter->sumarReferencia();
 
     QListWidgetItem* item = new QListWidgetItem();
 
-    QVariant data = QVariant::fromValue(medio);
+    QVariant data = QVariant::fromValue(medio_twitter);
     item->setData(Qt::UserRole, data);
 
-    std::string nombre_de_usuario = static_cast<scraping::twitter::modelo::Cuenta*>(medio->getMedioAScrapear())->getNombre();
-
-    item->setText((medio->getEtiqueta() + "(@" + nombre_de_usuario + ")").c_str());
+    item->setText((medio_twitter->getEtiqueta() + "(@" + medio_twitter->getCuentaAScrapear()->getNombre() + ")").c_str());
 
     this->ui->lista_medios_twitter->insertItem(0, item);
 }

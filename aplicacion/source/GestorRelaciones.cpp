@@ -60,9 +60,9 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesConsulta * relacio
         }
     }
 
-    std::vector<herramientas::utiles::ID*> ids_medios = relaciones_consulta->getRelacionConMedios()->getIdsGrupo();
+    std::vector<herramientas::utiles::ID*> ids_medios_twitter = relaciones_consulta->getRelacionConMediosTwitter()->getIdsGrupo();
 
-    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios_twitter.begin(); it != ids_medios_twitter.end(); it++)
     {
         modelo::relaciones::RelacionesMedio relaciones_medio((*it)->copia());
         if (this->admin_app->recuperar(&relaciones_medio))
@@ -145,7 +145,7 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesFecha * relaciones
     return true;
 }
 
-bool GestorRelaciones::vincular(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+bool GestorRelaciones::vincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
 {
     std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
 
@@ -154,7 +154,7 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesMedio * relaciones
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
         if (this->admin_app->recuperar(&relaciones_consulta))
         {
-            relaciones_consulta.agregarRelacionConMedio(id_medio);
+            relaciones_consulta.agregarRelacionConMedioTwitter(id_medio);
             this->admin_app->modificar(&relaciones_consulta);
         }
     }
@@ -259,7 +259,7 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConsulta * rela
         }
     }
 
-    std::vector<herramientas::utiles::ID*> ids_medios = relaciones_consulta->getRelacionConMedios()->getIdsGrupo();
+    std::vector<herramientas::utiles::ID*> ids_medios = relaciones_consulta->getRelacionConMediosTwitter()->getIdsGrupo();
 
     for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
     {
@@ -309,7 +309,7 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesFecha * relacio
     return false;
 }
 
-bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+bool GestorRelaciones::desvincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
 {
     std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
 
@@ -318,7 +318,7 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesMedio * relacio
         modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
         if (this->admin_app->recuperar(&relaciones_consulta))
         {
-            relaciones_consulta.eliminarRelacionConMedio(id_medio);
+            relaciones_consulta.eliminarRelacionConMedioTwitter(id_medio);
             this->admin_app->modificar(&relaciones_consulta);
         }
     }

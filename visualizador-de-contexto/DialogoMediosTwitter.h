@@ -48,7 +48,7 @@ private:
     void descargarListaMediosTwitter();
 
     // agregar un termino a la lista de terminos de la ui.
-    void agregarMedioTwitterALista(modelo::Medio * medio);
+    void agregarMedioTwitterALista(modelo::MedioTwitter * medio_twitter);
 
     // mensajes
 

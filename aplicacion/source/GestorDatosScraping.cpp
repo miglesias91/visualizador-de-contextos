@@ -43,6 +43,11 @@ bool GestorDatosScraping::eliminarMedio(scraping::extraccion::Medio * medio_a_el
     return scraping::IAdministradorScraping::getInstanciaAdminInfo()->eliminar(medio_a_eliminar);
 }
 
+bool GestorDatosScraping::almacenarIDActualMedio()
+{
+    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenarIDActual<scraping::extraccion::Medio>();
+}
+
 // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
 std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorDatosScraping::recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta)
 {

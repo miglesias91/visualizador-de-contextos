@@ -11,6 +11,7 @@
 #include <modelo/include/Reporte.h>
 #include <modelo/include/Seccion.h>
 #include <modelo/include/Medio.h>
+#include <modelo/include/MedioTwitter.h>
 
 Q_DECLARE_METATYPE(visualizador::modelo::Concepto*)
 Q_DECLARE_METATYPE(visualizador::modelo::Consulta*)
@@ -20,3 +21,4 @@ Q_DECLARE_METATYPE(visualizador::modelo::Termino*)
 Q_DECLARE_METATYPE(visualizador::modelo::Reporte*)
 Q_DECLARE_METATYPE(visualizador::modelo::Seccion*)
 Q_DECLARE_METATYPE(visualizador::modelo::Medio*)
+Q_DECLARE_METATYPE(visualizador::modelo::MedioTwitter*)

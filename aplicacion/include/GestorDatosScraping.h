@@ -40,6 +40,8 @@ public:
 
     bool almacenarMedio(scraping::extraccion::Medio * medio_a_almacenar);
 
+    bool almacenarIDActualMedio();
+
     // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta);
 

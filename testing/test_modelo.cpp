@@ -145,13 +145,13 @@ TEST(modelo, GettersYSettersConsulta)
 	conceptos.push_back(concepto_movilizacion);
 
 	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
-	Medio* medio_clarin = new Medio("clarin");
+	MedioTwitter* medio_clarin = new MedioTwitter("clarin");
 	medio_clarin->asignarNuevoId();
 
-	Medio* medio_infobae = new Medio("infobae");
+	MedioTwitter* medio_infobae = new MedioTwitter("infobae");
 	medio_infobae->asignarNuevoId();
 
-	std::vector<Medio*> medios;
+	std::vector<MedioTwitter*> medios;
 	medios.push_back(medio_clarin);
 	medios.push_back(medio_infobae);
 
@@ -173,7 +173,7 @@ TEST(modelo, GettersYSettersConsulta)
 	Periodo* periodo_recuperado = consulta->getPeriodo();
 	Reporte* reporte_recuperado = consulta->getReporte();
 	conceptos = consulta->getConceptos();
-	medios = consulta->getMedios();
+	medios = consulta->getMediosTwitter();
 	secciones = consulta->getSecciones();
 
 	ASSERT_STREQ("primavera_2017", nombre.c_str());
@@ -375,13 +375,13 @@ TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
 	conceptos.push_back(concepto_movilizacion);
 
 	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
-	Medio* medio_clarin = new Medio("clarin");
+	MedioTwitter* medio_clarin = new MedioTwitter("clarin");
 	medio_clarin->asignarNuevoId();
 
-	Medio* medio_infobae = new Medio("infobae");
+	MedioTwitter* medio_infobae = new MedioTwitter("infobae");
 	medio_infobae->asignarNuevoId();
 
-	std::vector<Medio*> medios;
+	std::vector<MedioTwitter*> medios;
 	medios.push_back(medio_clarin);
 	medios.push_back(medio_infobae);
 
@@ -408,7 +408,7 @@ TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
     delete consulta;
 
     ASSERT_STREQ("{\"etiqueta\":\"primavera_2017\",\"contenido\":{}}", json_entidad_almacenable.c_str());
-    ASSERT_STREQ("{\"relaciones_consulta\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}", json_relaciones_almacenable.c_str());
+    ASSERT_STREQ("{\"relaciones_consulta\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios_twitter\":[15,16],\"ids_secciones\":[17,18]}}", json_relaciones_almacenable.c_str());
 }
 
 TEST(modelo, GettersYSettersIJson)

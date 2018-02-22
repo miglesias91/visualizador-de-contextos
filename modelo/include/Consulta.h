@@ -9,6 +9,7 @@
 #include <modelo/include/Concepto.h>
 #include <modelo/include/Seccion.h>
 #include <modelo/include/Medio.h>
+#include <modelo/include/MedioTwitter.h>
 #include <modelo/include/Periodo.h>
 #include <modelo/include/Reporte.h>
 
@@ -26,7 +27,7 @@ public:
 
 	Consulta(std::string etiqueta = "");
 	
-	Consulta(Periodo* periodo, Reporte* reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta = "");
+	Consulta(Periodo* periodo, Reporte* reporte, std::vector<Concepto*> conceptos, std::vector<MedioTwitter*> medios_twitter, std::vector<Seccion*> secciones, std::string etiqueta = "");
 
 	virtual ~Consulta();
 
@@ -36,7 +37,7 @@ public:
     Reporte* getReporte();
 
     std::vector<Concepto*> getConceptos();
-    std::vector<Medio*> getMedios();
+    std::vector<MedioTwitter*> getMediosTwitter();
     std::vector<Seccion*> getSecciones();
 
     relaciones::RelacionesConsulta * getRelacionesConsulta();
@@ -47,7 +48,7 @@ public:
     void setReporte(Reporte* reporte);
 
     void agregarConcepto(Concepto* concepto);
-    void agregarMedio(Medio* medio);
+    void agregarMedioTwitter(MedioTwitter* medio_twitter);
     void agregarSeccion(Seccion* seccion);
 
     void setRelacionesConsulta(relaciones::RelacionesConsulta * relaciones_consulta);
@@ -92,7 +93,7 @@ private:
 	Reporte* reporte;
 
 	std::vector<Concepto*> conceptos;
-	std::vector<Medio*> medios;
+	std::vector<MedioTwitter*> medios_twitter;
 	std::vector<Seccion*> secciones;
 
     relaciones::RelacionesConsulta * relaciones_consulta;

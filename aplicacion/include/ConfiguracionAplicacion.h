@@ -38,7 +38,9 @@ public:
 	static std::string prefijoSeccion();
 	static std::string prefijoPeriodo();
 	static std::string prefijoFecha();
-	static std::string prefijoMedio();
+    static std::string prefijoMedio();
+
+    static std::string prefijoMedioTwitter();
 
     static std::string prefijoRelacionesConcepto();
     static std::string prefijoRelacionesTermino();
@@ -71,6 +73,8 @@ public:
 	static std::string tagPrefijoPeriodo();
 	static std::string tagPrefijoFecha();
 	static std::string tagPrefijoMedio();
+
+    static std::string tagPrefijoMedioTwitter();
 
     static std::string tagPrefijoRelacionesConcepto();
     static std::string tagPrefijoRelacionesTermino();
@@ -106,6 +110,8 @@ private:
 	static std::string prefijo_periodo;
 	static std::string prefijo_fecha;
 	static std::string prefijo_medio;
+
+    static std::string prefijo_medio_twitter;
 
     static std::string prefijo_relaciones_concepto;
     static std::string prefijo_relaciones_termino;

@@ -159,13 +159,13 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	conceptos.push_back(concepto_movilizacion);
 
 	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
-	Medio* medio_clarin = new Medio("clarin");
+    MedioTwitter* medio_clarin = new MedioTwitter("clarin");
 	medio_clarin->asignarNuevoId();
 
-	Medio* medio_infobae = new Medio("infobae");
+    MedioTwitter* medio_infobae = new MedioTwitter("infobae");
 	medio_infobae->asignarNuevoId();
 
-	std::vector<Medio*> medios;
+	std::vector<MedioTwitter*> medios;
 	medios.push_back(medio_clarin);
 	medios.push_back(medio_infobae);
 
@@ -289,8 +289,8 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
     ASSERT_EQ(17, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConSecciones()->getIdsGrupoComoUint()[0]);
     ASSERT_EQ(18, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConSecciones()->getIdsGrupoComoUint()[1]);
 
-    ASSERT_EQ(15, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMedios()->getIdsGrupoComoUint()[0]);
-    ASSERT_EQ(16, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMedios()->getIdsGrupoComoUint()[1]);
+    ASSERT_EQ(15, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMediosTwitter()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(16, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMediosTwitter()->getIdsGrupoComoUint()[1]);
 
     ASSERT_EQ(6, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
     ASSERT_EQ(10, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConConceptos()->getIdsGrupoComoUint()[1]);
@@ -317,20 +317,20 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
     ASSERT_EQ(hashcode_relaciones_seccion_economia, consulta_a_recuperar->getSecciones()[1]->getRelaciones()->hashcode());
 
 	// test medios
-	ASSERT_STREQ("clarin", consulta_a_recuperar->getMedios()[0]->getEtiqueta().c_str());
-	ASSERT_EQ(15, consulta_a_recuperar->getMedios()[0]->getId()->numero());
-	ASSERT_EQ(hashcode_medio_clarin, consulta_a_recuperar->getMedios()[0]->hashcode());
+	ASSERT_STREQ("clarin", consulta_a_recuperar->getMediosTwitter()[0]->getEtiqueta().c_str());
+	ASSERT_EQ(15, consulta_a_recuperar->getMediosTwitter()[0]->getId()->numero());
+	ASSERT_EQ(hashcode_medio_clarin, consulta_a_recuperar->getMediosTwitter()[0]->hashcode());
 
-	ASSERT_STREQ("infobae", consulta_a_recuperar->getMedios()[1]->getEtiqueta().c_str());
-	ASSERT_EQ(16, consulta_a_recuperar->getMedios()[1]->getId()->numero());
-	ASSERT_EQ(hashcode_medio_infobae, consulta_a_recuperar->getMedios()[1]->hashcode());
+	ASSERT_STREQ("infobae", consulta_a_recuperar->getMediosTwitter()[1]->getEtiqueta().c_str());
+	ASSERT_EQ(16, consulta_a_recuperar->getMediosTwitter()[1]->getId()->numero());
+	ASSERT_EQ(hashcode_medio_infobae, consulta_a_recuperar->getMediosTwitter()[1]->hashcode());
 
     // test relaciones medios
-    ASSERT_EQ(19, consulta_a_recuperar->getMedios()[0]->getRelacionesMedio()->getRelacionConConsultas()->getIdsGrupoComoUint()[0]);
-    ASSERT_EQ(hashcode_relaciones_medio_clarin, consulta_a_recuperar->getMedios()[0]->getRelaciones()->hashcode());
+    ASSERT_EQ(19, consulta_a_recuperar->getMediosTwitter()[0]->getRelacionesMedio()->getRelacionConConsultas()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(hashcode_relaciones_medio_clarin, consulta_a_recuperar->getMediosTwitter()[0]->getRelaciones()->hashcode());
 
-    ASSERT_EQ(19, consulta_a_recuperar->getMedios()[1]->getRelacionesMedio()->getRelacionConConsultas()->getIdsGrupoComoUint()[0]);
-    ASSERT_EQ(hashcode_relaciones_medio_infobae, consulta_a_recuperar->getMedios()[1]->getRelaciones()->hashcode());
+    ASSERT_EQ(19, consulta_a_recuperar->getMediosTwitter()[1]->getRelacionesMedio()->getRelacionConConsultas()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(hashcode_relaciones_medio_infobae, consulta_a_recuperar->getMediosTwitter()[1]->getRelaciones()->hashcode());
 
 	// test concepto 0
 	ASSERT_STREQ("corrupcion", consulta_a_recuperar->getConceptos()[0]->getEtiqueta().c_str());
@@ -635,13 +635,13 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
     conceptos.push_back(concepto_movilizacion);
 
     // estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
-    Medio* medio_clarin = new Medio("clarin");
+    MedioTwitter* medio_clarin = new MedioTwitter("clarin");
     medio_clarin->asignarNuevoId();
 
-    Medio* medio_infobae = new Medio("infobae");
+    MedioTwitter* medio_infobae = new MedioTwitter("infobae");
     medio_infobae->asignarNuevoId();
 
-    std::vector<Medio*> medios;
+    std::vector<MedioTwitter*> medios;
     medios.push_back(medio_clarin);
     medios.push_back(medio_infobae);
 
@@ -705,7 +705,7 @@ TEST(aplicacionAlmacenamiento, GestorEntidadVinculacionRelacionesCorrecta)
     // test relaciones consulta
     ASSERT_EQ(318, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConSecciones()->getIdsGrupoComoUint()[0]);
 
-    ASSERT_EQ(316, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMedios()->getIdsGrupoComoUint()[0]);;
+    ASSERT_EQ(316, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConMediosTwitter()->getIdsGrupoComoUint()[0]);;
 
     ASSERT_EQ(306, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
     ASSERT_EQ(314, consulta_a_recuperar->getRelacionesConsulta()->getRelacionConConceptos()->getIdsGrupoComoUint()[1]);

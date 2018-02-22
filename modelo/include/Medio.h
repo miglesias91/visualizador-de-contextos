@@ -16,25 +16,21 @@ class Medio : public IEntidad
 {
 public:
 
-	// CONSTRUCTORES
+    // CONSTRUCTORES
 
-	Medio(std::string etiqueta = "");
+    Medio(std::string tipo_medio, std::string etiqueta = "");
 
-	virtual ~Medio();
+    virtual ~Medio();
 
-	// GETTERS
+    // GETTERS
 
-    std::string getPrefijoGrupoMedio();
-
-    scraping::extraccion::Medio * getMedioAScrapear();
+    // scraping::extraccion::Medio * getMedioAScrapear();
 
     relaciones::RelacionesMedio * getRelacionesMedio();
 
 	// SETTERS
 
-    void setPrefijoGrupoMedio(std::string prefijo_grupo_medio);
-
-    void setMedioAScrapear(scraping::extraccion::Medio * medio_a_scrapear);
+    // void setMedioAScrapear(scraping::extraccion::Medio * medio_a_scrapear);
 
     void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
 
@@ -42,19 +38,19 @@ public:
 
     // metodos de IContieneJson
 
-    virtual void crearJson();
+    //virtual void crearJson();
 
-    virtual bool parsearJson(IJson* json);
+    //virtual bool parsearJson(IJson* json);
 
     // metodos de IAlmacenable
 
-    virtual std::string prefijoGrupo();
+    //virtual std::string prefijoGrupo();
 
-    virtual unsigned int hashcode();
+    //virtual unsigned int hashcode();
 
     // metodos de IEntidad
 
-    virtual IEntidad * clonar();
+    //virtual IEntidad * clonar();
 
     // metodos de IRelacionable
 
@@ -77,10 +73,6 @@ private:
     // ATRIBUTOS
 
     relaciones::RelacionesMedio * relaciones_medio;
-
-    std::string prefijo_grupo_medio;
-
-    scraping::extraccion::Medio * medio_a_scrapear;
 };
 
 };

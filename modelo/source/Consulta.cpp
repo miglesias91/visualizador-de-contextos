@@ -16,7 +16,7 @@ Consulta::Consulta(std::string etiqueta) :
     this->setRelaciones(this->relaciones_consulta);
 }
 
-Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<Medio*> medios, std::vector<Seccion*> secciones, std::string etiqueta)
+Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> conceptos, std::vector<MedioTwitter*> medios_twitter, std::vector<Seccion*> secciones, std::string etiqueta)
 	: IEntidad(etiqueta, visualizador::aplicacion::ConfiguracionAplicacion::prefijoConsulta(), NULL), relaciones_consulta(NULL)
 {
     this->relaciones_consulta = new relaciones::RelacionesConsulta();
@@ -31,10 +31,10 @@ Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> 
         this->agregarConcepto(*it);
     }
 
-    for (std::vector<Medio*>::iterator it = medios.begin(); it != medios.end(); it++)
+    for (std::vector<MedioTwitter*>::iterator it = medios_twitter.begin(); it != medios_twitter.end(); it++)
     {
         // (*it)->sumarReferencia();
-        this->agregarMedio(*it);
+        this->agregarMedioTwitter(*it);
     }
 
     for (std::vector<Seccion*>::iterator it = secciones.begin(); it != secciones.end(); it++)
@@ -56,7 +56,7 @@ Consulta::~Consulta()
 	}
     this->conceptos.clear();
 
-	for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+	for (std::vector<MedioTwitter*>::iterator it = this->medios_twitter.begin(); it != this->medios_twitter.end(); it++)
 	{
         if (0 == (*it)->restarReferencia())
         {
@@ -64,7 +64,7 @@ Consulta::~Consulta()
             (*it) = NULL;
         }
 	}
-    this->medios.clear();
+    this->medios_twitter.clear();
 
 	for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
 	{
@@ -106,9 +106,9 @@ std::vector<Concepto*> Consulta::getConceptos()
 	return this->conceptos;
 }
 
-std::vector<Medio*> Consulta::getMedios()
+std::vector<MedioTwitter*> Consulta::getMediosTwitter()
 {
-	return this->medios;
+	return this->medios_twitter;
 }
 
 std::vector<Seccion*> Consulta::getSecciones()
@@ -172,20 +172,20 @@ void Consulta::agregarConcepto(Concepto * concepto)
     }
 }
 
-void Consulta::agregarMedio(Medio * medio)
+void Consulta::agregarMedioTwitter(MedioTwitter * medio_twitter)
 {
-	this->medios.push_back(medio);
-    medio->sumarReferencia();
+	this->medios_twitter.push_back(medio_twitter);
+    medio_twitter->sumarReferencia();
 
     if (NULL != this->getId())
     {
-        medio->getRelacionesMedio()->agregarRelacionConConsulta(this->getId());
+        medio_twitter->getRelacionesMedio()->agregarRelacionConConsulta(this->getId());
     }
 
-    if (NULL != medio->getId())
+    if (NULL != medio_twitter->getId())
     {
         //this->relaciones_consulta->getRelacionConMedios()->agregarRelacion(medio->getId()->copia());
-        this->relaciones_consulta->agregarRelacionConMedio(medio->getId());
+        this->relaciones_consulta->agregarRelacionConMedioTwitter(medio_twitter->getId());
     }
 }
 
@@ -239,7 +239,7 @@ std::string Consulta::prefijoGrupo()
 
 unsigned int Consulta::hashcode()
 {
-    return this->getRelacionesConsulta()->getRelacionConConceptos()->hashcode() + this->getRelacionesConsulta()->getRelacionConMedios()->hashcode() + this->getRelacionesConsulta()->getRelacionConSecciones()->hashcode() +
+    return this->getRelacionesConsulta()->getRelacionConConceptos()->hashcode() + this->getRelacionesConsulta()->getRelacionConMediosTwitter()->hashcode() + this->getRelacionesConsulta()->getRelacionConSecciones()->hashcode() +
         this->getRelacionesConsulta()->getRelacionConReporte() + this->getRelacionesConsulta()->getRelacionConPeriodo();
 }
 
@@ -259,10 +259,10 @@ IEntidad * Consulta::clonar()
         clon_conceptos.push_back(clon_concepto);
     }
 
-    std::vector<Medio*> clon_medios;
-    for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+    std::vector<MedioTwitter*> clon_medios;
+    for (std::vector<MedioTwitter*>::iterator it = this->medios_twitter.begin(); it != this->medios_twitter.end(); it++)
     {
-        Medio * clon_medio = gestor.clonar<Medio>((*it));
+        MedioTwitter * clon_medio = gestor.clonar<MedioTwitter>((*it));
         clon_medios.push_back(clon_medio);
     }
 
@@ -292,7 +292,7 @@ bool Consulta::recuperarContenidoDeRelaciones()
     visualizador::aplicacion::GestorEntidades gestor_entidades;
 
     std::vector<unsigned long long int> ids_conceptos = this->relaciones_consulta->getRelacionConConceptos()->getIdsGrupoComoUint();
-    std::vector<unsigned long long int> ids_medios = this->relaciones_consulta->getRelacionConMedios()->getIdsGrupoComoUint();
+    std::vector<unsigned long long int> ids_medios_twitter = this->relaciones_consulta->getRelacionConMediosTwitter()->getIdsGrupoComoUint();
     std::vector<unsigned long long int> ids_secciones = this->relaciones_consulta->getRelacionConSecciones()->getIdsGrupoComoUint();
 
     bool contenido_limpio = true;
@@ -313,14 +313,14 @@ bool Consulta::recuperarContenidoDeRelaciones()
         }
     }
 
-    Medio* medio_nuevo = NULL;
-    for (std::vector<unsigned long long int>::iterator it = ids_medios.begin(); it != ids_medios.end(); it++)
+    MedioTwitter* medio_nuevo = NULL;
+    for (std::vector<unsigned long long int>::iterator it = ids_medios_twitter.begin(); it != ids_medios_twitter.end(); it++)
     {
-        medio_nuevo = new Medio();
+        medio_nuevo = new MedioTwitter();
         medio_nuevo->setId(new herramientas::utiles::ID(*it));
         if (gestor_entidades.recuperar(medio_nuevo))
         {
-            this->agregarMedio(medio_nuevo);
+            this->agregarMedioTwitter(medio_nuevo);
         }
         else
         {
@@ -382,10 +382,10 @@ void Consulta::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herrami
         this->relaciones_consulta->agregarRelacionConConcepto((*it)->getId());
     }
 
-    for (std::vector<Medio*>::iterator it = this->medios.begin(); it != this->medios.end(); it++)
+    for (std::vector<MedioTwitter*>::iterator it = this->medios_twitter.begin(); it != this->medios_twitter.end(); it++)
     {
         (*it)->getRelacionesMedio()->actualizarRelacionConConsulta(id_nuevo, id_viejo);
-        this->relaciones_consulta->agregarRelacionConMedio((*it)->getId());
+        this->relaciones_consulta->agregarRelacionConMedioTwitter((*it)->getId());
     }
 
     for (std::vector<Seccion*>::iterator it = this->secciones.begin(); it != this->secciones.end(); it++)
