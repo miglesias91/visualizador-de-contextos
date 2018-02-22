@@ -10,7 +10,13 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-MedioTwitter::MedioTwitter(std::string etiqueta) : Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioTwitter() ,etiqueta), cuenta_a_scrapear(NULL)
+MedioTwitter::MedioTwitter() :
+    Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioTwitter(), ""), nombre_usuario(""), cuenta_a_scrapear(NULL)
+{
+}
+
+MedioTwitter::MedioTwitter(std::string nombre_usuario, std::string etiqueta) :
+    Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioTwitter() ,etiqueta), nombre_usuario(nombre_usuario), cuenta_a_scrapear(NULL)
 {
 }
 
@@ -24,6 +30,11 @@ MedioTwitter::~MedioTwitter()
 }
 
 // GETTERS
+
+std::string MedioTwitter::getNombreUsuario()
+{
+    return this->nombre_usuario;
+}
 
 scraping::twitter::modelo::Cuenta * MedioTwitter::getCuentaAScrapear()
 {
@@ -42,6 +53,9 @@ void MedioTwitter::setCuentaAScrapear(scraping::twitter::modelo::Cuenta * cuenta
     this->cuenta_a_scrapear = cuenta_a_scrapear;
 
     this->nombre_usuario = this->cuenta_a_scrapear->getNombre();
+    this->fecha_tweet_mas_antiguo = this->cuenta_a_scrapear->getFechaContenidoHistoricoMasAntiguo();
+    this->fecha_tweet_mas_antiguo = this->cuenta_a_scrapear->getFechaContenidoHistoricoMasReciente();
+    this->cantidad_tweets_analizados = this->cuenta_a_scrapear->getCantidadDeContenidosHistoricos();
 
     this->getRelacionesMedio()->setIDMedioAScrapear(this->cuenta_a_scrapear->getId()->numero());
 }
@@ -73,14 +87,14 @@ std::string MedioTwitter::prefijoGrupo()
 
 unsigned MedioTwitter::hashcode()
 {
-    return IHashable::hashear(this->getGrupo() + this->getEtiqueta() + this->nombre_usuario);
+    return IHashable::hashear(this->getNombreUsuario());
 }
 
 // metodos de IEntidad
 
 IEntidad * MedioTwitter::clonar()
 {
-    MedioTwitter * clon = new MedioTwitter(this->getEtiqueta());
+    MedioTwitter * clon = new MedioTwitter(this->getNombreUsuario(), this->getEtiqueta());
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
 
@@ -110,10 +124,15 @@ bool MedioTwitter::recuperarContenidoDeRelaciones()
     scraping::twitter::modelo::Cuenta * cuenta_a_scrapear = new scraping::twitter::modelo::Cuenta();
     cuenta_a_scrapear->setId(new herramientas::utiles::ID(this->getRelacionesMedio()->getIDMedioAScrapear()));
 
-    this->setCuentaAScrapear(cuenta_a_scrapear);
 
     visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-    return gestor_datos_scraping.recuperarMedio(cuenta_a_scrapear);
+    bool existe_datos_scraping = gestor_datos_scraping.recuperarMedio(cuenta_a_scrapear);
+    if (existe_datos_scraping)
+    {
+        this->setCuentaAScrapear(cuenta_a_scrapear);
+    }
+
+    return existe_datos_scraping;
 }
 
 void MedioTwitter::vincular()
@@ -127,8 +146,6 @@ void MedioTwitter::vincular()
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.vincularMedioTwitter(this->getRelacionesMedio(), this->getId());
-
-    //Medio::vincular();
 }
 
 void MedioTwitter::desvincular()
@@ -141,5 +158,4 @@ void MedioTwitter::desvincular()
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.desvincularMedioTwitter(this->getRelacionesMedio(), this->getId());
-    //Medio::desvincular();
 }

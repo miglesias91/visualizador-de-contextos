@@ -51,15 +51,20 @@ void DialogoMediosTwitter::on_action_guardar_cuenta_triggered()
     std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
     std::string nombre_usuario = this->ui->lineedit_nombre_usuario->text().toStdString();
 
-    modelo::MedioTwitter * medio_nuevo = new modelo::MedioTwitter(etiqueta);
+    modelo::MedioTwitter * medio_nuevo = new modelo::MedioTwitter(nombre_usuario, etiqueta);
 
-    scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_usuario);
-    medio_nuevo->setCuentaAScrapear(nueva_cuenta);
-
-    if (this->gestor_medios.almacenar(medio_nuevo))
+    if (false == this->gestor_medios.existe(medio_nuevo))
     {
-        // si se pudo agregar correctamente, lo agrego en la lista visible.
+        // si NO existe, creo su cuenta de scraping asociada y se la seteo...
+        scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_usuario);
+        nueva_cuenta->asignarNuevoId();
+        medio_nuevo->setCuentaAScrapear(nueva_cuenta);
+
+        // y lo agrego en la lista visible.
         this->agregarMedioTwitterALista(medio_nuevo);
+
+        // ahora si la almaceno.
+        this->gestor_medios.almacenar(medio_nuevo);
     }
     else
     {
@@ -80,7 +85,7 @@ void DialogoMediosTwitter::on_action_eliminar_cuenta_triggered()
     foreach(QListWidgetItem * item, items)
     {
         QVariant data = item->data(Qt::UserRole);
-        modelo::Medio* medio = data.value<modelo::Medio*>();
+        modelo::MedioTwitter* medio = data.value<modelo::MedioTwitter*>();
 
         this->gestor_medios.eliminar(medio);
 
@@ -134,13 +139,13 @@ void DialogoMediosTwitter::descargarListaMediosTwitter()
     QListWidgetItem* item = nullptr;
 
     // elimino los periodos de la lista
-    modelo::Medio* medio_lista = nullptr;
+    modelo::MedioTwitter* medio_lista = nullptr;
     unsigned int count = ui->lista_medios_twitter->count();
     while (0 != ui->lista_medios_twitter->count())
     {
         count = ui->lista_medios_twitter->count();
 
-        medio_lista = this->ui->lista_medios_twitter->item(0)->data(Qt::UserRole).value<modelo::Medio*>();
+        medio_lista = this->ui->lista_medios_twitter->item(0)->data(Qt::UserRole).value<modelo::MedioTwitter*>();
 
         if (0 == medio_lista->restarReferencia())
         {
@@ -161,7 +166,24 @@ void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medi
     QVariant data = QVariant::fromValue(medio_twitter);
     item->setData(Qt::UserRole, data);
 
-    item->setText((medio_twitter->getEtiqueta() + "(@" + medio_twitter->getCuentaAScrapear()->getNombre() + ")").c_str());
+    std::string etiqueta = medio_twitter->getEtiqueta();
+    std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
+
+    std::string info_analisis = "sin contenido para visualizar";
+
+    unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
+    if (cantidad_de_tweets_historicos != 0)
+    {
+        std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringAAAAMMDD("/");
+        std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringAAAAMMDD("/");
+        std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
+
+        info_analisis = fecha_tweets_mas_antiguo + " - " + fecha_tweets_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
+    }
+
+    std::string texto_item = etiqueta + " (" + nombre_usuario + ") | " + info_analisis;
+    
+    item->setText(texto_item.c_str());
 
     this->ui->lista_medios_twitter->insertItem(0, item);
 }

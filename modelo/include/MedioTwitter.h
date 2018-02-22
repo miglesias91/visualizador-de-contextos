@@ -17,11 +17,15 @@ public:
 
 	// CONSTRUCTORES
 
-    MedioTwitter(std::string etiqueta = "");
+    MedioTwitter();
+
+    MedioTwitter(std::string nombre_usuario, std::string etiqueta = "");
 
 	virtual ~MedioTwitter();
 
 	// GETTERS
+
+    virtual std::string getNombreUsuario();
 
     virtual scraping::twitter::modelo::Cuenta * getCuentaAScrapear();
 
@@ -73,10 +77,9 @@ private:
 
     std::string nombre_usuario;
 
-    // fecha creacion
-    // fecha primer tweet analizado
-    // foto
-    // etc etc...
+    herramientas::utiles::Fecha fecha_tweet_mas_reciente;
+    herramientas::utiles::Fecha fecha_tweet_mas_antiguo;
+    unsigned long long int cantidad_tweets_analizados;
 
     scraping::twitter::modelo::Cuenta * cuenta_a_scrapear;
 };

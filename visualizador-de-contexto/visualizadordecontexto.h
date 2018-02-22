@@ -31,6 +31,8 @@ private slots:
 
     void on_action_abrir_medios_twitter_triggered();
 
+    void on_action_analizar_ctx_triggered();
+
 private:
 	Ui::visualizadordecontextoClass ui;
 

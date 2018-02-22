@@ -29,8 +29,8 @@ DialogoConsultas::~DialogoConsultas()
     this->descargarLista<modelo::Concepto>(this->ui->lista_conceptos);
     this->descargarLista<modelo::Concepto>(this->ui->lista_conceptos_en_consulta);
 
-    this->descargarLista<modelo::Medio>(this->ui->lista_medios);
-    this->descargarLista<modelo::Medio>(this->ui->lista_medios_en_consulta);
+    this->descargarLista<modelo::MedioTwitter>(this->ui->lista_medios);
+    this->descargarLista<modelo::MedioTwitter>(this->ui->lista_medios_en_consulta);
 
     this->descargarLista<modelo::Periodo>(this->ui->lista_periodos);
 
@@ -104,9 +104,9 @@ void DialogoConsultas::on_action_resetear_periodo_triggered()
 
 void DialogoConsultas::on_action_agregar_medios_triggered()
 {
-    std::vector<modelo::Medio*> medios_seleccionados = this->itemsSeleccionados<modelo::Medio>(this->ui->lista_medios);
+    std::vector<modelo::MedioTwitter*> medios_seleccionados = this->itemsSeleccionados<modelo::MedioTwitter>(this->ui->lista_medios);
 
-    for (std::vector<modelo::Medio*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
+    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
     {
         this->agregarMedioALista(*it, this->ui->lista_medios_en_consulta);
     }
@@ -116,9 +116,9 @@ void DialogoConsultas::on_action_agregar_medios_triggered()
 
 void DialogoConsultas::on_action_sacar_medios_triggered()
 {
-    std::vector<modelo::Medio*> medios_seleccionados = this->itemsSeleccionados<modelo::Medio>(this->ui->lista_medios_en_consulta);
+    std::vector<modelo::MedioTwitter*> medios_seleccionados = this->itemsSeleccionados<modelo::MedioTwitter>(this->ui->lista_medios_en_consulta);
 
-    for (std::vector<modelo::Medio*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
+    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
     {
         this->agregarMedioALista(*it, this->ui->lista_medios);
     }
@@ -303,47 +303,30 @@ void DialogoConsultas::agregarPeriodoALista(visualizador::modelo::Periodo * peri
 
 void DialogoConsultas::cargarListaMedios()
 {
-    // recupero las cuentas de twitter   
-    scraping::aplicacion::GestorMedios gestor_medios;
+    // recupero las cuentas de twitter
+    visualizador::aplicacion::GestorEntidades gestor_entidades;
+    std::vector<modelo::MedioTwitter*> medios_actuales = gestor_entidades.gestionar<modelo::MedioTwitter>();
 
-    std::vector<scraping::twitter::modelo::Cuenta*> cuentas_twitter_existentes;
-    gestor_medios.recuperarCuentasDeTwitter(cuentas_twitter_existentes);
-
-    // agrego las cuentas de twitter a la lista de medios.
-    std::vector<modelo::Medio*> medios_actuales;
-    modelo::Medio* medio = NULL;
-    for (std::vector<scraping::twitter::modelo::Cuenta*>::iterator it = cuentas_twitter_existentes.begin(); it != cuentas_twitter_existentes.end(); it++)
-    {
-        medio = new modelo::MedioTwitter("@" + (*it)->getNombre());
-        medio->setId((*it)->getId()->copia());
-
-        medios_actuales.push_back(medio);
-    }
-
-    for (std::vector<modelo::Medio*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
+    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
     {
         (*it)->sumarReferencia();
         this->agregarMedioALista(*it, this->ui->lista_medios);
     }
 
-    // borro las cuentas de twitter
-    for (std::vector<scraping::twitter::modelo::Cuenta*>::iterator it = cuentas_twitter_existentes.begin(); it != cuentas_twitter_existentes.end(); it++)
-    {
-        delete *it;
-    }
-    cuentas_twitter_existentes.clear();
-
     this->ui->lista_medios->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
-void DialogoConsultas::agregarMedioALista(visualizador::modelo::Medio * medio, QListWidget * lista)
+void DialogoConsultas::agregarMedioALista(visualizador::modelo::MedioTwitter * medio_twitter, QListWidget * lista)
 {
     QListWidgetItem* item = new QListWidgetItem();
 
-    QVariant data = QVariant::fromValue(medio);
+    QVariant data = QVariant::fromValue(medio_twitter);
     item->setData(Qt::UserRole, data);
 
-    std::string texto_item = medio->getEtiqueta();
+    std::string etiqueta = medio_twitter->getEtiqueta();
+    std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
+    
+    std::string texto_item = etiqueta + "(" + nombre_usuario + ")";
 
     item->setText(texto_item.c_str());
 
@@ -452,7 +435,7 @@ std::vector<modelo::Medio*> DialogoConsultas::mediosSeleccionados()
     modelo::Medio* medio_lista = nullptr;
     for (unsigned int i = 0; i < ui->lista_medios_en_consulta->count(); i++)
     {
-        medio_lista = this->ui->lista_medios_en_consulta->item(i)->data(Qt::UserRole).value<modelo::Medio*>();
+        medio_lista = this->ui->lista_medios_en_consulta->item(i)->data(Qt::UserRole).value<modelo::MedioTwitter*>();
 
         medios_seleccionados.push_back(medio_lista);
     }
@@ -523,13 +506,13 @@ void DialogoConsultas::descargarListaMedios()
     QListWidgetItem* item = nullptr;
 
     // elimino los medios de la lista
-    modelo::Medio* medio_lista = nullptr;
+    modelo::MedioTwitter* medio_lista = nullptr;
     unsigned int count = ui->lista_medios->count();
     while (0 != ui->lista_medios->count())
     {
         count = ui->lista_medios->count();
 
-        medio_lista = this->ui->lista_medios->item(0)->data(Qt::UserRole).value<modelo::Medio*>();
+        medio_lista = this->ui->lista_medios->item(0)->data(Qt::UserRole).value<modelo::MedioTwitter*>();
 
         if (0 == medio_lista->restarReferencia())
         {

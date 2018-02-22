@@ -71,13 +71,13 @@ private:
     void agregarPeriodoALista(visualizador::modelo::Periodo* periodo, QListWidget * lista);
 
     void cargarListaMedios();
-    void agregarMedioALista(visualizador::modelo::Medio* periodo, QListWidget * lista);
+    void agregarMedioALista(visualizador::modelo::MedioTwitter* medio_twitter, QListWidget * lista);
 
     void cargarListaSecciones();
-    void agregarSeccionALista(visualizador::modelo::Seccion* periodo, QListWidget * lista);
+    void agregarSeccionALista(visualizador::modelo::Seccion* seccion, QListWidget * lista);
 
     void cargarListaReportes();
-    void agregarReporteALista(visualizador::modelo::Reporte* periodo, QListWidget * lista);
+    void agregarReporteALista(visualizador::modelo::Reporte* reporte, QListWidget * lista);
 
     // obtener seleccionados de listas
 

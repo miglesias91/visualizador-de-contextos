@@ -44,3 +44,8 @@ void visualizadordecontexto::on_action_abrir_medios_twitter_triggered()
     this->dialogo_medios_twitter = new DialogoMediosTwitter();
     this->dialogo_medios_twitter->show();
 }
+
+void visualizadordecontexto::on_action_analizar_ctx_triggered()
+{
+
+}

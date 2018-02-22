@@ -34,9 +34,11 @@ public:
     QAction *action_abrir_periodos;
     QAction *action_abrir_consulta;
     QAction *action_abrir_medios_twitter;
+    QAction *action_analizar_ctx;
     QWidget *centralWidget;
-    QWidget *gridLayoutWidget;
-    QVBoxLayout *verticalLayout;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *layout_opciones;
+    QVBoxLayout *layout_entidades;
     QLabel *lbl_titulo;
     QPushButton *btn_terminos;
     QPushButton *btn_conceptos;
@@ -44,6 +46,7 @@ public:
     QPushButton *btn_periodos;
     QPushButton *btn_medios_twitter;
     QPushButton *btn_consulta;
+    QPushButton *btn_analizar_ctx;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -70,18 +73,33 @@ public:
         action_abrir_consulta->setCheckable(true);
         action_abrir_medios_twitter = new QAction(visualizadordecontextoClass);
         action_abrir_medios_twitter->setObjectName(QStringLiteral("action_abrir_medios_twitter"));
+        action_abrir_medios_twitter->setCheckable(true);
+        action_analizar_ctx = new QAction(visualizadordecontextoClass);
+        action_analizar_ctx->setObjectName(QStringLiteral("action_analizar_ctx"));
+        action_analizar_ctx->setCheckable(true);
         centralWidget = new QWidget(visualizadordecontextoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayoutWidget = new QWidget(centralWidget);
-        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(110, 3, 361, 341));
-        verticalLayout = new QVBoxLayout(gridLayoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        lbl_titulo = new QLabel(gridLayoutWidget);
+        verticalLayoutWidget = new QWidget(centralWidget);
+        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(160, 10, 281, 328));
+        layout_opciones = new QVBoxLayout(verticalLayoutWidget);
+        layout_opciones->setSpacing(6);
+        layout_opciones->setContentsMargins(11, 11, 11, 11);
+        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
+        layout_opciones->setContentsMargins(0, 0, 0, 0);
+        layout_entidades = new QVBoxLayout();
+        layout_entidades->setSpacing(6);
+        layout_entidades->setObjectName(QStringLiteral("layout_entidades"));
+        lbl_titulo = new QLabel(verticalLayoutWidget);
         lbl_titulo->setObjectName(QStringLiteral("lbl_titulo"));
+        QFont font;
+        font.setFamily(QStringLiteral("Adobe Heiti Std R"));
+        font.setPointSize(8);
+        font.setBold(false);
+        font.setItalic(true);
+        font.setWeight(50);
+        font.setStyleStrategy(QFont::PreferAntialias);
+        lbl_titulo->setFont(font);
         lbl_titulo->setFrameShape(QFrame::NoFrame);
         lbl_titulo->setFrameShadow(QFrame::Plain);
         lbl_titulo->setLineWidth(2);
@@ -92,37 +110,72 @@ public:
         lbl_titulo->setWordWrap(false);
         lbl_titulo->setMargin(0);
 
-        verticalLayout->addWidget(lbl_titulo);
+        layout_entidades->addWidget(lbl_titulo);
 
-        btn_terminos = new QPushButton(gridLayoutWidget);
+        btn_terminos = new QPushButton(verticalLayoutWidget);
         btn_terminos->setObjectName(QStringLiteral("btn_terminos"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(10);
+        btn_terminos->setFont(font1);
 
-        verticalLayout->addWidget(btn_terminos);
+        layout_entidades->addWidget(btn_terminos);
 
-        btn_conceptos = new QPushButton(gridLayoutWidget);
+        btn_conceptos = new QPushButton(verticalLayoutWidget);
         btn_conceptos->setObjectName(QStringLiteral("btn_conceptos"));
+        btn_conceptos->setFont(font1);
 
-        verticalLayout->addWidget(btn_conceptos);
+        layout_entidades->addWidget(btn_conceptos);
 
-        btn_fechas = new QPushButton(gridLayoutWidget);
+        btn_fechas = new QPushButton(verticalLayoutWidget);
         btn_fechas->setObjectName(QStringLiteral("btn_fechas"));
+        btn_fechas->setFont(font1);
 
-        verticalLayout->addWidget(btn_fechas);
+        layout_entidades->addWidget(btn_fechas);
 
-        btn_periodos = new QPushButton(gridLayoutWidget);
+        btn_periodos = new QPushButton(verticalLayoutWidget);
         btn_periodos->setObjectName(QStringLiteral("btn_periodos"));
+        btn_periodos->setFont(font1);
 
-        verticalLayout->addWidget(btn_periodos);
+        layout_entidades->addWidget(btn_periodos);
 
-        btn_medios_twitter = new QPushButton(gridLayoutWidget);
+        btn_medios_twitter = new QPushButton(verticalLayoutWidget);
         btn_medios_twitter->setObjectName(QStringLiteral("btn_medios_twitter"));
+        btn_medios_twitter->setFont(font1);
 
-        verticalLayout->addWidget(btn_medios_twitter);
+        layout_entidades->addWidget(btn_medios_twitter);
 
-        btn_consulta = new QPushButton(gridLayoutWidget);
+        btn_consulta = new QPushButton(verticalLayoutWidget);
         btn_consulta->setObjectName(QStringLiteral("btn_consulta"));
+        btn_consulta->setFont(font1);
 
-        verticalLayout->addWidget(btn_consulta);
+        layout_entidades->addWidget(btn_consulta);
+
+
+        layout_opciones->addLayout(layout_entidades);
+
+        btn_analizar_ctx = new QPushButton(verticalLayoutWidget);
+        btn_analizar_ctx->setObjectName(QStringLiteral("btn_analizar_ctx"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(btn_analizar_ctx->sizePolicy().hasHeightForWidth());
+        btn_analizar_ctx->setSizePolicy(sizePolicy);
+        btn_analizar_ctx->setMinimumSize(QSize(0, 40));
+        btn_analizar_ctx->setSizeIncrement(QSize(0, 0));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(20);
+        font2.setBold(false);
+        font2.setItalic(false);
+        font2.setUnderline(false);
+        font2.setWeight(50);
+        font2.setStrikeOut(false);
+        font2.setKerning(true);
+        font2.setStyleStrategy(QFont::PreferAntialias);
+        btn_analizar_ctx->setFont(font2);
+
+        layout_opciones->addWidget(btn_analizar_ctx);
 
         visualizadordecontextoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(visualizadordecontextoClass);
@@ -143,6 +196,7 @@ public:
         QObject::connect(btn_periodos, SIGNAL(released()), action_abrir_periodos, SLOT(trigger()));
         QObject::connect(btn_consulta, SIGNAL(released()), action_abrir_consulta, SLOT(trigger()));
         QObject::connect(btn_medios_twitter, SIGNAL(released()), action_abrir_medios_twitter, SLOT(trigger()));
+        QObject::connect(btn_analizar_ctx, SIGNAL(released()), action_analizar_ctx, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(visualizadordecontextoClass);
     } // setupUi
@@ -180,6 +234,7 @@ public:
 #ifndef QT_NO_SHORTCUT
         action_abrir_medios_twitter->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+W", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
+        action_analizar_ctx->setText(QApplication::translate("visualizadordecontextoClass", "analizar_ctx", Q_NULLPTR));
         lbl_titulo->setText(QApplication::translate("visualizadordecontextoClass", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; color:#2e3343;\">Visualizador</span></p><p align=\"center\"><span style=\" font-size:28pt; color:#2e3343;\">de contexto</span></p></body></html>", Q_NULLPTR));
         btn_terminos->setText(QApplication::translate("visualizadordecontextoClass", "terminos", Q_NULLPTR));
         btn_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "conceptos", Q_NULLPTR));
@@ -187,6 +242,7 @@ public:
         btn_periodos->setText(QApplication::translate("visualizadordecontextoClass", "periodos", Q_NULLPTR));
         btn_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "cuentas de twitter", Q_NULLPTR));
         btn_consulta->setText(QApplication::translate("visualizadordecontextoClass", "consulta", Q_NULLPTR));
+        btn_analizar_ctx->setText(QApplication::translate("visualizadordecontextoClass", "analizar contexto", Q_NULLPTR));
     } // retranslateUi
 
 };
