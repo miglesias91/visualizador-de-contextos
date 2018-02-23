@@ -26,7 +26,6 @@
 
         "prefijo_medio_twitter" : "017",
 
-        "db_aplicacion_entidades" : "db_aplicacion_entidades.json",
-        "db_scraping" : "db_scraping.json"
+        "db_aplicacion_entidades" : "db_aplicacion_entidades.json"
     }
 }

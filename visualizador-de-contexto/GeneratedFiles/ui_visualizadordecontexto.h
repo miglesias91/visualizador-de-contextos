@@ -36,6 +36,8 @@ public:
     QAction *action_abrir_consulta;
     QAction *action_abrir_medios_twitter;
     QAction *action_analizar_ctx;
+    QAction *action_deshabilitar_menu;
+    QAction *action_habilitar_menu;
     QWidget *centralWidget;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *layout_opciones;
@@ -79,11 +81,17 @@ public:
         action_analizar_ctx = new QAction(visualizadordecontextoClass);
         action_analizar_ctx->setObjectName(QStringLiteral("action_analizar_ctx"));
         action_analizar_ctx->setCheckable(true);
+        action_deshabilitar_menu = new QAction(visualizadordecontextoClass);
+        action_deshabilitar_menu->setObjectName(QStringLiteral("action_deshabilitar_menu"));
+        action_deshabilitar_menu->setCheckable(true);
+        action_habilitar_menu = new QAction(visualizadordecontextoClass);
+        action_habilitar_menu->setObjectName(QStringLiteral("action_habilitar_menu"));
+        action_habilitar_menu->setCheckable(true);
         centralWidget = new QWidget(visualizadordecontextoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(160, 10, 281, 361));
+        verticalLayoutWidget->setGeometry(QRect(160, 0, 281, 341));
         layout_opciones = new QVBoxLayout(verticalLayoutWidget);
         layout_opciones->setSpacing(6);
         layout_opciones->setContentsMargins(11, 11, 11, 11);
@@ -180,9 +188,10 @@ public:
 
         layout_opciones->addWidget(btn_analizar_ctx);
 
-        bar_analizar_ctx = new QProgressBar(verticalLayoutWidget);
+        bar_analizar_ctx = new QProgressBar(centralWidget);
         bar_analizar_ctx->setObjectName(QStringLiteral("bar_analizar_ctx"));
         bar_analizar_ctx->setEnabled(false);
+        bar_analizar_ctx->setGeometry(QRect(160, 340, 281, 10));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -195,9 +204,6 @@ public:
         bar_analizar_ctx->setValue(0);
         bar_analizar_ctx->setTextVisible(false);
         bar_analizar_ctx->setInvertedAppearance(false);
-
-        layout_opciones->addWidget(bar_analizar_ctx);
-
         visualizadordecontextoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(visualizadordecontextoClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -256,6 +262,8 @@ public:
         action_abrir_medios_twitter->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+W", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
         action_analizar_ctx->setText(QApplication::translate("visualizadordecontextoClass", "analizar_ctx", Q_NULLPTR));
+        action_deshabilitar_menu->setText(QApplication::translate("visualizadordecontextoClass", "deshabilitar_menu", Q_NULLPTR));
+        action_habilitar_menu->setText(QApplication::translate("visualizadordecontextoClass", "habilitar_menu", Q_NULLPTR));
         lbl_titulo->setText(QApplication::translate("visualizadordecontextoClass", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; color:#2e3343;\">Visualizador</span></p><p align=\"center\"><span style=\" font-size:28pt; color:#2e3343;\">de contexto</span></p></body></html>", Q_NULLPTR));
         btn_terminos->setText(QApplication::translate("visualizadordecontextoClass", "terminos", Q_NULLPTR));
         btn_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "conceptos", Q_NULLPTR));

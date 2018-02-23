@@ -75,9 +75,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(qt-dir)5.9.1\msvc2015\lib;$(SolutionDir)Debug;$(repos-git)almacenamiento\Debug;$(repos-git)herramientas_desarrollo\Debug;$(repos-git)scraping\Debug;$(repos)rocksdb\build_x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Debug;$(qt-dir)5.9.1\msvc2015\lib;$(repos-git)almacenamiento\Debug;$(repos-git)herramientas_desarrollo\Debug;$(repos-git)scraping\Debug;$(repos)rocksdb\build_x86\Debug;$(repos)cpprestsdk\Binaries\Win32\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Chartsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;modelo.lib;aplicacion.lib;almacenamiento.lib;utiles.lib;scraping.lib;preparacion.lib;analisis.lib;extraccion.lib;twitter.lib;WrapperRocksDB.lib;rocksdb.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Chartsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;modelo.lib;aplicacion.lib;scraping.lib;depuracion.lib;preparacion.lib;analisis.lib;extraccion.lib;twitter.lib;utiles.lib;protocolos.lib;casablanca_wrapper.lib;cpprest141d_2_10.lib;almacenamiento.lib;WrapperRocksDB.lib;rocksdb.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,7 +110,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(qt-dir)5.9.1\msvc2015\lib;$(SolutionDir)Release;$(repos-git)almacenamiento\Release;$(repos-git)herramientas_desarrollo\Release;$(repos)rocksdb\build_x86\Release;$(repos-git)scraping\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;modelo.lib;aplicacion.lib;almacenamiento.lib;utiles.lib;scraping.lib;preparacion.lib;analisis.lib;extraccion.lib;twitter.lib;WrapperRocksDB.lib;rocksdb.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;modelo.lib;aplicacion.lib;scraping.lib;depuracion.lib;preparacion.lib;analisis.lib;extraccion.lib;twitter.lib;utiles.lib;protocolos.lib;casablanca_wrapper.lib;cpprest141_2_10.lib;WrapperRocksDB.lib;almacenamiento.lib;rocksdb.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

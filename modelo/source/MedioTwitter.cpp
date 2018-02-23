@@ -124,7 +124,6 @@ bool MedioTwitter::recuperarContenidoDeRelaciones()
     scraping::twitter::modelo::Cuenta * cuenta_a_scrapear = new scraping::twitter::modelo::Cuenta();
     cuenta_a_scrapear->setId(new herramientas::utiles::ID(this->getRelacionesMedio()->getIDMedioAScrapear()));
 
-
     visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
     bool existe_datos_scraping = gestor_datos_scraping.recuperarMedio(cuenta_a_scrapear);
     if (existe_datos_scraping)

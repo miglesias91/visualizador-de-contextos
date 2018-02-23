@@ -91,7 +91,7 @@ private:
     //std::vector<modelo::Periodo*> periodosSeleccionados();
     modelo::Periodo* periodoSeleccionado();
 
-    std::vector<modelo::Medio*> mediosSeleccionados();
+    std::vector<modelo::MedioTwitter*> mediosSeleccionados();
 
     std::vector<modelo::Seccion*> seccionesSeleccionados();
 

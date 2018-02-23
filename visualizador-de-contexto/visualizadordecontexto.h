@@ -3,6 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_visualizadordecontexto.h"
 
+// qt
+#include <qfuturewatcher.h>
+
 // interfaz
 #include <visualizador-de-contexto/DialogoTerminos.h>
 #include <visualizador-de-contexto/DialogoConceptos.h>
@@ -17,6 +20,12 @@ class visualizadordecontexto : public QMainWindow
 
 public:
 	visualizadordecontexto(QWidget *parent = Q_NULLPTR);
+
+    void emitirProgreso(int progreso) { emit senialProgresoAnalisisCTX(progreso); }
+
+signals:
+
+    void senialProgresoAnalisisCTX(int);
 
 private slots:
     void on_action_abrir_terminos_triggered();
@@ -33,8 +42,21 @@ private slots:
 
     void on_action_analizar_ctx_triggered();
 
+    void on_action_deshabilitar_menu_triggered();
+
+    void on_action_habilitar_menu_triggered();
+
+
 private:
 	Ui::visualizadordecontextoClass ui;
+
+    // METODOS PRIVADOS
+
+    void analizarCTX();
+
+    // ATRIBUTOS
+
+    QFutureWatcher<void> observador;
 
 	// DIALOGOS
 

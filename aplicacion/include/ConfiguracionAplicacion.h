@@ -55,8 +55,6 @@ public:
     
     static std::string archivoConfigDBAplicacionEntidades();
 
-    static std::string archivoConfigDBScraping();
-
 	// TAGS
 
 	static std::string tagAplicacionLocal();
@@ -86,8 +84,6 @@ public:
     static std::string tagPrefijoRelacionesMedio();
 
     static std::string tagArchivoConfigDBAplicacionEntidades();
-
-    static std::string tagArchivoConfigDBScraping();
 
 private:
 
@@ -123,8 +119,6 @@ private:
     static std::string prefijo_relaciones_medio;
 
     static std::string archivo_config_db_aplicacion_entidades;
-    
-    static std::string archivo_config_db_scraping;
 
 	static std::string clave_id_actual;
 

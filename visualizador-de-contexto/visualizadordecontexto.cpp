@@ -5,6 +5,10 @@
 #include <chrono>
 #include <thread>
 
+// qt
+#include <QtConcurrent/qtconcurrentrun.h>
+#include <qprogressdialog.h>
+
 // scraping
 #include <scraping/include/GestorTareas.h>
 
@@ -12,6 +16,8 @@ visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     : QMainWindow(parent), dialogo_terminos(NULL), dialogo_conceptos(NULL), dialogo_fechas(NULL), dialogo_periodos(NULL), dialogo_consultas(NULL)
 {
 	ui.setupUi(this);
+
+    this->ui.bar_analizar_ctx->hide();
 }
 
 void visualizadordecontexto::on_action_abrir_terminos_triggered()
@@ -50,32 +56,52 @@ void visualizadordecontexto::on_action_abrir_medios_twitter_triggered()
     this->dialogo_medios_twitter->show();
 }
 
-void dormir(unsigned long long int mili)
-{
-    std::this_thread::sleep_for(std::chrono::milliseconds(mili));
-}
-
 void visualizadordecontexto::on_action_analizar_ctx_triggered()
 {    
-    std::thread deshabilitar_botones(dormir, 3000);
+    QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this, &visualizadordecontexto::on_action_deshabilitar_menu_triggered);
+    QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
+    QObject::connect(&(this->observador), &QFutureWatcher<void>::finished, this, &visualizadordecontexto::on_action_habilitar_menu_triggered);
+    QObject::connect(&(this->observador), &QFutureWatcher<void>::finished, this->ui.bar_analizar_ctx, &QProgressBar::hide);
 
-    std::thread deshabilitar_botones(desactivar);
+    QObject::connect(this, &visualizadordecontexto::senialProgresoAnalisisCTX, this->ui.bar_analizar_ctx, &QProgressBar::setValue);
 
+    QFuture<void> funcion = QtConcurrent::run(this, &visualizadordecontexto::analizarCTX);
 
+    this->observador.setFuture(funcion);
+}
+
+void visualizadordecontexto::on_action_deshabilitar_menu_triggered()
+{
     this->ui.btn_terminos->setEnabled(false);
     this->ui.btn_conceptos->setEnabled(false);
     this->ui.btn_fechas->setEnabled(false);
     this->ui.btn_periodos->setEnabled(false);
     this->ui.btn_medios_twitter->setEnabled(false);
     this->ui.btn_consulta->setEnabled(false);
+    this->ui.btn_analizar_ctx->setEnabled(false);
+}
 
-    deshabilitar_botones.join();
-
+void visualizadordecontexto::on_action_habilitar_menu_triggered()
+{
     this->ui.btn_terminos->setEnabled(true);
     this->ui.btn_conceptos->setEnabled(true);
     this->ui.btn_fechas->setEnabled(true);
     this->ui.btn_periodos->setEnabled(true);
     this->ui.btn_medios_twitter->setEnabled(true);
     this->ui.btn_consulta->setEnabled(true);
+    this->ui.btn_analizar_ctx->setEnabled(true);
+}
 
+// metodos privados
+
+void visualizadordecontexto::analizarCTX()
+{
+    scraping::aplicacion::GestorTareas::scrapearTwitter();
+    this->emitirProgreso(33);
+
+    scraping::aplicacion::GestorTareas::depurarYAnalizarTwitter();
+    this->emitirProgreso(66);
+    
+    scraping::aplicacion::GestorTareas::prepararYAlmacenarTwitter();
+    this->emitirProgreso(100);
 }

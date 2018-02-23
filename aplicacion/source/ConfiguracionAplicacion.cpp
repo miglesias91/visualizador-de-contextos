@@ -36,8 +36,6 @@ std::string ConfiguracionAplicacion::prefijo_relaciones_medio;
 
 std::string ConfiguracionAplicacion::archivo_config_db_aplicacion_entidades;
 
-std::string ConfiguracionAplicacion::archivo_config_db_scraping;
-
 std::string ConfiguracionAplicacion::clave_id_actual;
 
 const unsigned int ConfiguracionAplicacion::tamanio_alocador = 1024;
@@ -90,8 +88,6 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
     prefijo_relaciones_medio = config_app_json[ConfiguracionAplicacion::tagPrefijoRelacionesMedio().c_str()].GetString();
 
     archivo_config_db_aplicacion_entidades = config_app_json[ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades().c_str()].GetString();
-
-    archivo_config_db_scraping = config_app_json[ConfiguracionAplicacion::tagArchivoConfigDBScraping().c_str()].GetString();
 
 	// recorto el prefijo al tamanio indicado en el archivo de config.
 	prefijo_configuracion.erase(prefijo_configuracion.begin() + prefijo_tamanio, prefijo_configuracion.end());
@@ -239,11 +235,6 @@ std::string ConfiguracionAplicacion::archivoConfigDBAplicacionEntidades()
     return archivo_config_db_aplicacion_entidades;
 }
 
-std::string ConfiguracionAplicacion::archivoConfigDBScraping()
-{
-    return archivo_config_db_scraping;
-}
-
 std::string ConfiguracionAplicacion::claveIDActual()
 {
 	return "id_actual";
@@ -364,11 +355,6 @@ std::string ConfiguracionAplicacion::tagPrefijoRelacionesMedio()
 std::string ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades()
 {
     return "db_aplicacion_entidades";
-}
-
-std::string ConfiguracionAplicacion::tagArchivoConfigDBScraping()
-{
-    return "db_scraping";
 }
 
 ConfiguracionAplicacion::ConfiguracionAplicacion()

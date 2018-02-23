@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>10</y>
+      <y>0</y>
       <width>281</width>
-      <height>361</height>
+      <height>341</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="layout_opciones">
@@ -191,40 +191,46 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QProgressBar" name="bar_analizar_ctx">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>4</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Calibri</family>
-        </font>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="textVisible">
-        <bool>false</bool>
-       </property>
-       <property name="invertedAppearance">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </widget>
+   <widget class="QProgressBar" name="bar_analizar_ctx">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>340</y>
+      <width>281</width>
+      <height>10</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>4</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+     </font>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+    <property name="textVisible">
+     <bool>false</bool>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -324,6 +330,22 @@
    </property>
    <property name="text">
     <string>analizar_ctx</string>
+   </property>
+  </action>
+  <action name="action_deshabilitar_menu">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>deshabilitar_menu</string>
+   </property>
+  </action>
+  <action name="action_habilitar_menu">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>habilitar_menu</string>
    </property>
   </action>
  </widget>

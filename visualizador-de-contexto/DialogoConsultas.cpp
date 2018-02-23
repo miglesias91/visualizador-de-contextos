@@ -182,7 +182,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
 
-    std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
+    std::vector<modelo::MedioTwitter*> medios_seleccionados = this->mediosSeleccionados();
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
     std::vector<graficos::modelo::Individuo*> individuos;
@@ -190,12 +190,12 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     for (std::vector<modelo::Concepto*>::iterator it_conceptos = conceptos_seleccionados.begin(); it_conceptos != conceptos_seleccionados.end(); it_conceptos++)
     {
         std::vector<double> datos_individuo;
-        for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
+        for (std::vector<modelo::MedioTwitter*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
         {
             float fuerza_concepto_en_medio = 0.0f;
             for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it_resultados = resultados.begin(); it_resultados != resultados.end(); it_resultados++)
             {
-                scraping::preparacion::ResultadoAnalisisMedio* resultado_medio = (*it_resultados)->getResultadoMedio((*it_medios)->getId()->numero());
+                scraping::preparacion::ResultadoAnalisisMedio* resultado_medio = (*it_resultados)->getResultadoMedio((*it_medios)->getCuentaAScrapear()->getId()->numero());
 
                 if (NULL == resultado_medio)
                 {
@@ -216,7 +216,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     }
 
     std::vector<std::string> categorias;
-    for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
+    for (std::vector<modelo::MedioTwitter*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
     {
         categorias.push_back((*it_medios)->getEtiqueta());
     }
@@ -305,7 +305,7 @@ void DialogoConsultas::cargarListaMedios()
 {
     // recupero las cuentas de twitter
     visualizador::aplicacion::GestorEntidades gestor_entidades;
-    std::vector<modelo::MedioTwitter*> medios_actuales = gestor_entidades.gestionar<modelo::MedioTwitter>();
+    std::vector<modelo::MedioTwitter*> medios_actuales = gestor_entidades.recuperar<modelo::MedioTwitter>();
 
     for (std::vector<modelo::MedioTwitter*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
     {
@@ -427,12 +427,12 @@ modelo::Periodo* DialogoConsultas::periodoSeleccionado()
     return new modelo::Periodo(desde, hasta, "periodo_seleccionado");
 }
 
-std::vector<modelo::Medio*> DialogoConsultas::mediosSeleccionados()
+std::vector<modelo::MedioTwitter*> DialogoConsultas::mediosSeleccionados()
 {
-    std::vector<modelo::Medio*> medios_seleccionados;
+    std::vector<modelo::MedioTwitter*> medios_seleccionados;
 
     // recupero los medios de la lista
-    modelo::Medio* medio_lista = nullptr;
+    modelo::MedioTwitter* medio_lista = nullptr;
     for (unsigned int i = 0; i < ui->lista_medios_en_consulta->count(); i++)
     {
         medio_lista = this->ui->lista_medios_en_consulta->item(i)->data(Qt::UserRole).value<modelo::MedioTwitter*>();
