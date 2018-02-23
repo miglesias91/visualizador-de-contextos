@@ -159,10 +159,10 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	conceptos.push_back(concepto_movilizacion);
 
 	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
-    MedioTwitter* medio_clarin = new MedioTwitter("clarin");
+    MedioTwitter* medio_clarin = new MedioTwitter("clarincom", "twitter_clarin");
 	medio_clarin->asignarNuevoId();
 
-    MedioTwitter* medio_infobae = new MedioTwitter("infobae");
+    MedioTwitter* medio_infobae = new MedioTwitter("infobae", "twitter_infobae");
 	medio_infobae->asignarNuevoId();
 
 	std::vector<MedioTwitter*> medios;
@@ -317,11 +317,13 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
     ASSERT_EQ(hashcode_relaciones_seccion_economia, consulta_a_recuperar->getSecciones()[1]->getRelaciones()->hashcode());
 
 	// test medios
-	ASSERT_STREQ("clarin", consulta_a_recuperar->getMediosTwitter()[0]->getEtiqueta().c_str());
+    ASSERT_STREQ("twitter_clarin", consulta_a_recuperar->getMediosTwitter()[0]->getEtiqueta().c_str());
+    ASSERT_STREQ("clarincom", consulta_a_recuperar->getMediosTwitter()[0]->getNombreUsuario().c_str());
 	ASSERT_EQ(15, consulta_a_recuperar->getMediosTwitter()[0]->getId()->numero());
 	ASSERT_EQ(hashcode_medio_clarin, consulta_a_recuperar->getMediosTwitter()[0]->hashcode());
 
-	ASSERT_STREQ("infobae", consulta_a_recuperar->getMediosTwitter()[1]->getEtiqueta().c_str());
+    ASSERT_STREQ("twitter_infobae", consulta_a_recuperar->getMediosTwitter()[1]->getEtiqueta().c_str());
+    ASSERT_STREQ("infobae", consulta_a_recuperar->getMediosTwitter()[1]->getNombreUsuario().c_str());
 	ASSERT_EQ(16, consulta_a_recuperar->getMediosTwitter()[1]->getId()->numero());
 	ASSERT_EQ(hashcode_medio_infobae, consulta_a_recuperar->getMediosTwitter()[1]->hashcode());
 

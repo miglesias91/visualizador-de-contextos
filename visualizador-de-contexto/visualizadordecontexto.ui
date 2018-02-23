@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>581</width>
+    <height>433</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>160</x>
       <y>10</y>
       <width>281</width>
-      <height>328</height>
+      <height>361</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="layout_opciones">
@@ -137,6 +137,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btn_consulta">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="font">
           <font>
            <family>Calibri</family>
@@ -188,6 +191,39 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QProgressBar" name="bar_analizar_ctx">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>4</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Calibri</family>
+        </font>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="textVisible">
+        <bool>false</bool>
+       </property>
+       <property name="invertedAppearance">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -196,7 +232,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>581</width>
      <height>21</height>
     </rect>
    </property>

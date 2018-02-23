@@ -145,10 +145,10 @@ TEST(modelo, GettersYSettersConsulta)
 	conceptos.push_back(concepto_movilizacion);
 
 	// estos news de los medios en verdad no deberian usarse nunca. (PONER LOS NEW COMO METODOS PRIVADOS.
-	MedioTwitter* medio_clarin = new MedioTwitter("clarin");
+	MedioTwitter* medio_clarin = new MedioTwitter("clarincom", "twitter_clarin");
 	medio_clarin->asignarNuevoId();
 
-	MedioTwitter* medio_infobae = new MedioTwitter("infobae");
+	MedioTwitter* medio_infobae = new MedioTwitter("infobae", "twitter_infobae");
 	medio_infobae->asignarNuevoId();
 
 	std::vector<MedioTwitter*> medios;
@@ -200,7 +200,8 @@ TEST(modelo, GettersYSettersConsulta)
 	ASSERT_STREQ("desorden", conceptos[1]->getTerminos()[2]->getEtiqueta().c_str());
 
 	ASSERT_EQ(2, medios.size());
-	ASSERT_STREQ("clarin", medios[0]->getEtiqueta().c_str());
+    ASSERT_STREQ("twitter_clarin", medios[0]->getEtiqueta().c_str());
+    ASSERT_STREQ("clarincom", medios[0]->getNombreUsuario().c_str());
 
 	ASSERT_EQ(2, secciones.size());
 	ASSERT_STREQ("economia", secciones[1]->getEtiqueta().c_str());

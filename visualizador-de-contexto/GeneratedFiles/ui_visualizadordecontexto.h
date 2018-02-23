@@ -17,6 +17,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -47,6 +48,7 @@ public:
     QPushButton *btn_medios_twitter;
     QPushButton *btn_consulta;
     QPushButton *btn_analizar_ctx;
+    QProgressBar *bar_analizar_ctx;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -55,7 +57,7 @@ public:
     {
         if (visualizadordecontextoClass->objectName().isEmpty())
             visualizadordecontextoClass->setObjectName(QStringLiteral("visualizadordecontextoClass"));
-        visualizadordecontextoClass->resize(600, 400);
+        visualizadordecontextoClass->resize(581, 433);
         action_abrir_terminos = new QAction(visualizadordecontextoClass);
         action_abrir_terminos->setObjectName(QStringLiteral("action_abrir_terminos"));
         action_abrir_terminos->setCheckable(true);
@@ -81,7 +83,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(160, 10, 281, 328));
+        verticalLayoutWidget->setGeometry(QRect(160, 10, 281, 361));
         layout_opciones = new QVBoxLayout(verticalLayoutWidget);
         layout_opciones->setSpacing(6);
         layout_opciones->setContentsMargins(11, 11, 11, 11);
@@ -147,6 +149,7 @@ public:
 
         btn_consulta = new QPushButton(verticalLayoutWidget);
         btn_consulta->setObjectName(QStringLiteral("btn_consulta"));
+        btn_consulta->setEnabled(true);
         btn_consulta->setFont(font1);
 
         layout_entidades->addWidget(btn_consulta);
@@ -177,10 +180,28 @@ public:
 
         layout_opciones->addWidget(btn_analizar_ctx);
 
+        bar_analizar_ctx = new QProgressBar(verticalLayoutWidget);
+        bar_analizar_ctx->setObjectName(QStringLiteral("bar_analizar_ctx"));
+        bar_analizar_ctx->setEnabled(false);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(bar_analizar_ctx->sizePolicy().hasHeightForWidth());
+        bar_analizar_ctx->setSizePolicy(sizePolicy1);
+        bar_analizar_ctx->setMinimumSize(QSize(0, 4));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        bar_analizar_ctx->setFont(font3);
+        bar_analizar_ctx->setValue(0);
+        bar_analizar_ctx->setTextVisible(false);
+        bar_analizar_ctx->setInvertedAppearance(false);
+
+        layout_opciones->addWidget(bar_analizar_ctx);
+
         visualizadordecontextoClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(visualizadordecontextoClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
+        menuBar->setGeometry(QRect(0, 0, 581, 21));
         visualizadordecontextoClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(visualizadordecontextoClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
