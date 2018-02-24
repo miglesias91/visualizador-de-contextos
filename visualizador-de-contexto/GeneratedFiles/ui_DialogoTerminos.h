@@ -38,8 +38,6 @@ public:
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *layout_general;
     QFormLayout *layout_opciones;
-    QLabel *lbl_etiqueta;
-    QLineEdit *lineedit_etiqueta;
     QLabel *lbl_termino;
     QLineEdit *lineedit_termino;
     QPushButton *btn_agregar_termino;
@@ -53,7 +51,7 @@ public:
     {
         if (DialogoTerminos->objectName().isEmpty())
             DialogoTerminos->setObjectName(QStringLiteral("DialogoTerminos"));
-        DialogoTerminos->resize(577, 345);
+        DialogoTerminos->resize(800, 400);
         action_actualizar_y_cerrar = new QAction(DialogoTerminos);
         action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
         action_actualizar_y_cerrar->setCheckable(true);
@@ -72,7 +70,7 @@ public:
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         horizontalLayoutWidget = new QWidget(DialogoTerminos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 551, 291));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
         layout_general->setSpacing(6);
         layout_general->setContentsMargins(11, 11, 11, 11);
@@ -81,40 +79,45 @@ public:
         layout_opciones = new QFormLayout();
         layout_opciones->setSpacing(6);
         layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
-        lbl_etiqueta = new QLabel(horizontalLayoutWidget);
-        lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
-
-        layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
-
-        lineedit_etiqueta = new QLineEdit(horizontalLayoutWidget);
-        lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
-
-        layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
-
         lbl_termino = new QLabel(horizontalLayoutWidget);
         lbl_termino->setObjectName(QStringLiteral("lbl_termino"));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(12);
+        lbl_termino->setFont(font);
 
-        layout_opciones->setWidget(1, QFormLayout::LabelRole, lbl_termino);
+        layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_termino);
 
         lineedit_termino = new QLineEdit(horizontalLayoutWidget);
         lineedit_termino->setObjectName(QStringLiteral("lineedit_termino"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(10);
+        font1.setItalic(false);
+        lineedit_termino->setFont(font1);
 
-        layout_opciones->setWidget(1, QFormLayout::FieldRole, lineedit_termino);
+        layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_termino);
 
         btn_agregar_termino = new QPushButton(horizontalLayoutWidget);
         btn_agregar_termino->setObjectName(QStringLiteral("btn_agregar_termino"));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(11);
+        btn_agregar_termino->setFont(font2);
 
-        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_agregar_termino);
+        layout_opciones->setWidget(1, QFormLayout::FieldRole, btn_agregar_termino);
 
         btn_limpiar_termino = new QPushButton(horizontalLayoutWidget);
         btn_limpiar_termino->setObjectName(QStringLiteral("btn_limpiar_termino"));
+        btn_limpiar_termino->setFont(font2);
 
-        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_limpiar_termino);
+        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_limpiar_termino);
 
         btn_eliminar = new QPushButton(horizontalLayoutWidget);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+        btn_eliminar->setFont(font2);
 
-        layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_eliminar);
+        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_eliminar);
 
 
         layout_general->addLayout(layout_opciones);
@@ -124,6 +127,7 @@ public:
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         lista_terminos = new QListWidget(horizontalLayoutWidget);
         lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
+        lista_terminos->setFont(font1);
 
         layout_lista->addWidget(lista_terminos);
 
@@ -132,7 +136,12 @@ public:
 
         btnbox_terminos = new QDialogButtonBox(DialogoTerminos);
         btnbox_terminos->setObjectName(QStringLiteral("btnbox_terminos"));
-        btnbox_terminos->setGeometry(QRect(210, 310, 156, 23));
+        btnbox_terminos->setGeometry(QRect(325, 370, 156, 23));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(11);
+        font3.setItalic(true);
+        btnbox_terminos->setFont(font3);
         btnbox_terminos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
         retranslateUi(DialogoTerminos);
@@ -149,7 +158,7 @@ public:
 
     void retranslateUi(QWidget *DialogoTerminos)
     {
-        DialogoTerminos->setWindowTitle(QApplication::translate("DialogoTerminos", "DialogoTerminos", Q_NULLPTR));
+        DialogoTerminos->setWindowTitle(QApplication::translate("DialogoTerminos", "T\303\251rminos", Q_NULLPTR));
         action_actualizar_y_cerrar->setText(QApplication::translate("DialogoTerminos", "actualiza_y_cerrar", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         action_actualizar_y_cerrar->setToolTip(QApplication::translate("DialogoTerminos", "actualizar y cerrar", Q_NULLPTR));
@@ -180,11 +189,10 @@ public:
         action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoTerminos", "estado btn eliminar", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         action_estado_btn_agregar->setText(QApplication::translate("DialogoTerminos", "estado_btn_agregar", Q_NULLPTR));
-        lbl_etiqueta->setText(QApplication::translate("DialogoTerminos", "etiqueta", Q_NULLPTR));
-        lbl_termino->setText(QApplication::translate("DialogoTerminos", "termino", Q_NULLPTR));
-        btn_agregar_termino->setText(QApplication::translate("DialogoTerminos", "agregar", Q_NULLPTR));
-        btn_limpiar_termino->setText(QApplication::translate("DialogoTerminos", "limpiar", Q_NULLPTR));
-        btn_eliminar->setText(QApplication::translate("DialogoTerminos", "eliminar", Q_NULLPTR));
+        lbl_termino->setText(QApplication::translate("DialogoTerminos", "T\303\251rmino", Q_NULLPTR));
+        btn_agregar_termino->setText(QApplication::translate("DialogoTerminos", "Agregar", Q_NULLPTR));
+        btn_limpiar_termino->setText(QApplication::translate("DialogoTerminos", "Limpiar", Q_NULLPTR));
+        btn_eliminar->setText(QApplication::translate("DialogoTerminos", "Eliminar", Q_NULLPTR));
     } // retranslateUi
 
 };

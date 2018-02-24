@@ -53,7 +53,7 @@ public:
     {
         if (DialogoFechas->objectName().isEmpty())
             DialogoFechas->setObjectName(QStringLiteral("DialogoFechas"));
-        DialogoFechas->resize(577, 345);
+        DialogoFechas->resize(800, 400);
         action_guardar_fecha = new QAction(DialogoFechas);
         action_guardar_fecha->setObjectName(QStringLiteral("action_guardar_fecha"));
         action_guardar_fecha->setCheckable(true);
@@ -67,11 +67,16 @@ public:
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         btnbox_fechas = new QDialogButtonBox(DialogoFechas);
         btnbox_fechas->setObjectName(QStringLiteral("btnbox_fechas"));
-        btnbox_fechas->setGeometry(QRect(210, 310, 156, 23));
+        btnbox_fechas->setGeometry(QRect(325, 370, 156, 23));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(12);
+        font.setItalic(true);
+        btnbox_fechas->setFont(font);
         btnbox_fechas->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         horizontalLayoutWidget = new QWidget(DialogoFechas);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 551, 291));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
         layout_general->setSpacing(6);
         layout_general->setContentsMargins(11, 11, 11, 11);
@@ -82,21 +87,35 @@ public:
         layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
         lbl_etiqueta = new QLabel(horizontalLayoutWidget);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(12);
+        lbl_etiqueta->setFont(font1);
 
         layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
 
         lineedit_etiqueta = new QLineEdit(horizontalLayoutWidget);
         lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
+        QFont font2;
+        font2.setPointSize(10);
+        font2.setItalic(true);
+        lineedit_etiqueta->setFont(font2);
 
         layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
 
         lbl_fecha = new QLabel(horizontalLayoutWidget);
         lbl_fecha->setObjectName(QStringLiteral("lbl_fecha"));
+        lbl_fecha->setFont(font1);
 
         layout_opciones->setWidget(1, QFormLayout::LabelRole, lbl_fecha);
 
         dateedit_fecha = new QDateEdit(horizontalLayoutWidget);
         dateedit_fecha->setObjectName(QStringLiteral("dateedit_fecha"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(10);
+        font3.setItalic(false);
+        dateedit_fecha->setFont(font3);
         dateedit_fecha->setWrapping(false);
         dateedit_fecha->setFrame(true);
         dateedit_fecha->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
@@ -108,16 +127,22 @@ public:
 
         btn_agregar_fecha = new QPushButton(horizontalLayoutWidget);
         btn_agregar_fecha->setObjectName(QStringLiteral("btn_agregar_fecha"));
+        QFont font4;
+        font4.setFamily(QStringLiteral("Calibri"));
+        font4.setPointSize(11);
+        btn_agregar_fecha->setFont(font4);
 
         layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_agregar_fecha);
 
         btn_limpiar_fecha = new QPushButton(horizontalLayoutWidget);
         btn_limpiar_fecha->setObjectName(QStringLiteral("btn_limpiar_fecha"));
+        btn_limpiar_fecha->setFont(font4);
 
         layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_limpiar_fecha);
 
         btn_eliminar_fecha = new QPushButton(horizontalLayoutWidget);
         btn_eliminar_fecha->setObjectName(QStringLiteral("btn_eliminar_fecha"));
+        btn_eliminar_fecha->setFont(font4);
 
         layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_eliminar_fecha);
 
@@ -129,6 +154,10 @@ public:
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         lista_fechas = new QListWidget(horizontalLayoutWidget);
         lista_fechas->setObjectName(QStringLiteral("lista_fechas"));
+        QFont font5;
+        font5.setFamily(QStringLiteral("Calibri"));
+        font5.setPointSize(10);
+        lista_fechas->setFont(font5);
 
         layout_lista->addWidget(lista_fechas);
 
@@ -149,18 +178,18 @@ public:
 
     void retranslateUi(QWidget *DialogoFechas)
     {
-        DialogoFechas->setWindowTitle(QApplication::translate("DialogoFechas", "DialogoFechas", Q_NULLPTR));
+        DialogoFechas->setWindowTitle(QApplication::translate("DialogoFechas", "Fechas", Q_NULLPTR));
         action_guardar_fecha->setText(QApplication::translate("DialogoFechas", "guardar_fecha", Q_NULLPTR));
         action_limpiar_fecha->setText(QApplication::translate("DialogoFechas", "limpiar_fecha", Q_NULLPTR));
         action_eliminar_fecha->setText(QApplication::translate("DialogoFechas", "eliminar_fecha", Q_NULLPTR));
         action_actualizar_y_cerrar->setText(QApplication::translate("DialogoFechas", "actualizar_y_cerrar", Q_NULLPTR));
         action_estado_btn_eliminar->setText(QApplication::translate("DialogoFechas", "estado_btn_eliminar", Q_NULLPTR));
-        lbl_etiqueta->setText(QApplication::translate("DialogoFechas", "etiqueta", Q_NULLPTR));
-        lbl_fecha->setText(QApplication::translate("DialogoFechas", "fecha", Q_NULLPTR));
+        lbl_etiqueta->setText(QApplication::translate("DialogoFechas", "Etiqueta", Q_NULLPTR));
+        lbl_fecha->setText(QApplication::translate("DialogoFechas", "Fecha", Q_NULLPTR));
         dateedit_fecha->setDisplayFormat(QApplication::translate("DialogoFechas", "d/M/yyyy", Q_NULLPTR));
-        btn_agregar_fecha->setText(QApplication::translate("DialogoFechas", "agregar", Q_NULLPTR));
-        btn_limpiar_fecha->setText(QApplication::translate("DialogoFechas", "limpiar", Q_NULLPTR));
-        btn_eliminar_fecha->setText(QApplication::translate("DialogoFechas", "eliminar", Q_NULLPTR));
+        btn_agregar_fecha->setText(QApplication::translate("DialogoFechas", "Agregar", Q_NULLPTR));
+        btn_limpiar_fecha->setText(QApplication::translate("DialogoFechas", "Limpiar", Q_NULLPTR));
+        btn_eliminar_fecha->setText(QApplication::translate("DialogoFechas", "Eliminar", Q_NULLPTR));
     } // retranslateUi
 
 };

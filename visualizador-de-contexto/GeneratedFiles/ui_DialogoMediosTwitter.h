@@ -42,10 +42,10 @@ public:
     QLabel *lbl_etiqueta;
     QLineEdit *lineedit_etiqueta;
     QLabel *lbl_nombre_usuario;
-    QLineEdit *lineedit_nombre_usuario;
     QPushButton *btn_agregar;
     QPushButton *btn_limpiar;
     QPushButton *btn_eliminar;
+    QLineEdit *lineedit_nombre_usuario;
     QVBoxLayout *layout_lista;
     QListWidget *lista_medios_twitter;
 
@@ -53,7 +53,7 @@ public:
     {
         if (DialogoMediosTwitter->objectName().isEmpty())
             DialogoMediosTwitter->setObjectName(QStringLiteral("DialogoMediosTwitter"));
-        DialogoMediosTwitter->resize(577, 345);
+        DialogoMediosTwitter->resize(800, 400);
         action_actualizar_y_cerrar = new QAction(DialogoMediosTwitter);
         action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
         action_actualizar_y_cerrar->setCheckable(true);
@@ -72,11 +72,16 @@ public:
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         btnbox_medios_twitter = new QDialogButtonBox(DialogoMediosTwitter);
         btnbox_medios_twitter->setObjectName(QStringLiteral("btnbox_medios_twitter"));
-        btnbox_medios_twitter->setGeometry(QRect(210, 310, 156, 23));
+        btnbox_medios_twitter->setGeometry(QRect(325, 370, 156, 23));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(11);
+        font.setItalic(true);
+        btnbox_medios_twitter->setFont(font);
         btnbox_medios_twitter->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         horizontalLayoutWidget = new QWidget(DialogoMediosTwitter);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 551, 291));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
         layout_general->setSpacing(6);
         layout_general->setContentsMargins(11, 11, 11, 11);
@@ -87,38 +92,60 @@ public:
         layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
         lbl_etiqueta = new QLabel(horizontalLayoutWidget);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(12);
+        lbl_etiqueta->setFont(font1);
 
         layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
 
         lineedit_etiqueta = new QLineEdit(horizontalLayoutWidget);
         lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(10);
+        font2.setItalic(true);
+        lineedit_etiqueta->setFont(font2);
 
         layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
 
         lbl_nombre_usuario = new QLabel(horizontalLayoutWidget);
         lbl_nombre_usuario->setObjectName(QStringLiteral("lbl_nombre_usuario"));
+        lbl_nombre_usuario->setFont(font1);
 
         layout_opciones->setWidget(1, QFormLayout::LabelRole, lbl_nombre_usuario);
 
-        lineedit_nombre_usuario = new QLineEdit(horizontalLayoutWidget);
-        lineedit_nombre_usuario->setObjectName(QStringLiteral("lineedit_nombre_usuario"));
-
-        layout_opciones->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_usuario);
-
         btn_agregar = new QPushButton(horizontalLayoutWidget);
         btn_agregar->setObjectName(QStringLiteral("btn_agregar"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(11);
+        btn_agregar->setFont(font3);
 
         layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_agregar);
 
         btn_limpiar = new QPushButton(horizontalLayoutWidget);
         btn_limpiar->setObjectName(QStringLiteral("btn_limpiar"));
+        btn_limpiar->setFont(font3);
 
         layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_limpiar);
 
         btn_eliminar = new QPushButton(horizontalLayoutWidget);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+        btn_eliminar->setFont(font3);
 
         layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_eliminar);
+
+        lineedit_nombre_usuario = new QLineEdit(horizontalLayoutWidget);
+        lineedit_nombre_usuario->setObjectName(QStringLiteral("lineedit_nombre_usuario"));
+        QFont font4;
+        font4.setFamily(QStringLiteral("Calibri"));
+        font4.setPointSize(10);
+        font4.setBold(false);
+        font4.setWeight(50);
+        lineedit_nombre_usuario->setFont(font4);
+
+        layout_opciones->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_usuario);
 
 
         layout_general->addLayout(layout_opciones);
@@ -128,6 +155,10 @@ public:
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         lista_medios_twitter = new QListWidget(horizontalLayoutWidget);
         lista_medios_twitter->setObjectName(QStringLiteral("lista_medios_twitter"));
+        QFont font5;
+        font5.setFamily(QStringLiteral("Calibri"));
+        font5.setPointSize(10);
+        lista_medios_twitter->setFont(font5);
 
         layout_lista->addWidget(lista_medios_twitter);
 
@@ -149,7 +180,7 @@ public:
 
     void retranslateUi(QWidget *DialogoMediosTwitter)
     {
-        DialogoMediosTwitter->setWindowTitle(QApplication::translate("DialogoMediosTwitter", "DialogoMediosTwitter", Q_NULLPTR));
+        DialogoMediosTwitter->setWindowTitle(QApplication::translate("DialogoMediosTwitter", "Cuentas de Twitter", Q_NULLPTR));
         action_actualizar_y_cerrar->setText(QApplication::translate("DialogoMediosTwitter", "actualiza_y_cerrar", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         action_actualizar_y_cerrar->setToolTip(QApplication::translate("DialogoMediosTwitter", "actualizar y cerrar", Q_NULLPTR));
@@ -180,12 +211,13 @@ public:
         action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoMediosTwitter", "estado btn eliminar", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         action_estado_btn_agregar->setText(QApplication::translate("DialogoMediosTwitter", "estado_btn_agregar", Q_NULLPTR));
-        lbl_etiqueta->setText(QApplication::translate("DialogoMediosTwitter", "etiqueta", Q_NULLPTR));
-        lbl_nombre_usuario->setText(QApplication::translate("DialogoMediosTwitter", "nombre de usuario", Q_NULLPTR));
+        lbl_etiqueta->setText(QApplication::translate("DialogoMediosTwitter", "Etiqueta", Q_NULLPTR));
+        lbl_nombre_usuario->setText(QApplication::translate("DialogoMediosTwitter", "Nombre de usuario", Q_NULLPTR));
+        btn_agregar->setText(QApplication::translate("DialogoMediosTwitter", "Agregar", Q_NULLPTR));
+        btn_limpiar->setText(QApplication::translate("DialogoMediosTwitter", "Limpiar", Q_NULLPTR));
+        btn_eliminar->setText(QApplication::translate("DialogoMediosTwitter", "Eliminar", Q_NULLPTR));
+        lineedit_nombre_usuario->setText(QString());
         lineedit_nombre_usuario->setPlaceholderText(QString());
-        btn_agregar->setText(QApplication::translate("DialogoMediosTwitter", "agregar", Q_NULLPTR));
-        btn_limpiar->setText(QApplication::translate("DialogoMediosTwitter", "limpiar", Q_NULLPTR));
-        btn_eliminar->setText(QApplication::translate("DialogoMediosTwitter", "eliminar", Q_NULLPTR));
     } // retranslateUi
 
 };

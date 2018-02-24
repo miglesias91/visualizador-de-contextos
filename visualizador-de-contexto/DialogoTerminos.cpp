@@ -42,7 +42,6 @@ void DialogoTerminos::on_action_actualizar_y_cerrar_triggered()
 
 void DialogoTerminos::on_action_resetear_termino_triggered()
 {
-    this->ui->lineedit_etiqueta->clear();
     this->ui->lineedit_termino->clear();
     this->ui->lista_terminos->clearSelection();
 
@@ -52,10 +51,9 @@ void DialogoTerminos::on_action_resetear_termino_triggered()
 
 void DialogoTerminos::on_action_guardar_termino_triggered()
 {
-    std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
     std::string termino = this->ui->lineedit_termino->text().toStdString();
 
-    modelo::Termino* termino_nuevo = new modelo::Termino(termino, etiqueta);
+    modelo::Termino* termino_nuevo = new modelo::Termino(termino, termino);
 
     if(this->gestor_terminos.almacenar(termino_nuevo))
     {

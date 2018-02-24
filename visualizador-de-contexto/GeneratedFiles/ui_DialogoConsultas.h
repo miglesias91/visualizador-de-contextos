@@ -73,6 +73,7 @@ public:
     QListWidget *lista_reportes_en_consulta;
     QPushButton *btn_agregar_reportes;
     QDialogButtonBox *btnbox_consulta;
+    QPushButton *btn_realizar_consulta;
     QWidget *tab_conceptos;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *layout_conceptos;
@@ -108,7 +109,7 @@ public:
     {
         if (DialogoConsultas->objectName().isEmpty())
             DialogoConsultas->setObjectName(QStringLiteral("DialogoConsultas"));
-        DialogoConsultas->resize(780, 487);
+        DialogoConsultas->resize(800, 487);
         action_agregar_conceptos = new QAction(DialogoConsultas);
         action_agregar_conceptos->setObjectName(QStringLiteral("action_agregar_conceptos"));
         action_sacar_conceptos = new QAction(DialogoConsultas);
@@ -134,7 +135,16 @@ public:
         opciones_consulta = new QTabWidget(DialogoConsultas);
         opciones_consulta->setObjectName(QStringLiteral("opciones_consulta"));
         opciones_consulta->setEnabled(true);
-        opciones_consulta->setGeometry(QRect(10, 10, 761, 471));
+        opciones_consulta->setGeometry(QRect(10, 10, 781, 471));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(12);
+        font.setItalic(false);
+        opciones_consulta->setFont(font);
+        opciones_consulta->setDocumentMode(true);
+        opciones_consulta->setTabsClosable(false);
+        opciones_consulta->setMovable(false);
+        opciones_consulta->setTabBarAutoHide(false);
         tab_consulta = new QWidget();
         tab_consulta->setObjectName(QStringLiteral("tab_consulta"));
         gridLayoutWidget = new QWidget(tab_consulta);
@@ -147,6 +157,10 @@ public:
         layout_consulta->setContentsMargins(0, 0, 0, 0);
         groupbox_periodo = new QGroupBox(gridLayoutWidget);
         groupbox_periodo->setObjectName(QStringLiteral("groupbox_periodo"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(12);
+        groupbox_periodo->setFont(font1);
         formLayoutWidget = new QWidget(groupbox_periodo);
         formLayoutWidget->setObjectName(QStringLiteral("formLayoutWidget"));
         formLayoutWidget->setGeometry(QRect(10, 20, 221, 161));
@@ -157,33 +171,45 @@ public:
         layout_periodo->setContentsMargins(0, 0, 0, 0);
         lbl_desde = new QLabel(formLayoutWidget);
         lbl_desde->setObjectName(QStringLiteral("lbl_desde"));
+        QFont font2;
+        font2.setPointSize(10);
+        lbl_desde->setFont(font2);
 
         layout_periodo->setWidget(1, QFormLayout::LabelRole, lbl_desde);
 
         dateedit_desde = new QDateEdit(formLayoutWidget);
         dateedit_desde->setObjectName(QStringLiteral("dateedit_desde"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(10);
+        font3.setItalic(true);
+        dateedit_desde->setFont(font3);
         dateedit_desde->setButtonSymbols(QAbstractSpinBox::NoButtons);
 
         layout_periodo->setWidget(1, QFormLayout::FieldRole, dateedit_desde);
 
         lbl_hasta = new QLabel(formLayoutWidget);
         lbl_hasta->setObjectName(QStringLiteral("lbl_hasta"));
+        lbl_hasta->setFont(font2);
 
         layout_periodo->setWidget(2, QFormLayout::LabelRole, lbl_hasta);
 
         dateedit_hasta = new QDateEdit(formLayoutWidget);
         dateedit_hasta->setObjectName(QStringLiteral("dateedit_hasta"));
+        dateedit_hasta->setFont(font3);
         dateedit_hasta->setButtonSymbols(QAbstractSpinBox::NoButtons);
 
         layout_periodo->setWidget(2, QFormLayout::FieldRole, dateedit_hasta);
 
         lbl_etiqueta = new QLabel(formLayoutWidget);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
+        lbl_etiqueta->setFont(font2);
 
         layout_periodo->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
 
         lineedit_etiqueta_periodo = new QLineEdit(formLayoutWidget);
         lineedit_etiqueta_periodo->setObjectName(QStringLiteral("lineedit_etiqueta_periodo"));
+        lineedit_etiqueta_periodo->setFont(font3);
         lineedit_etiqueta_periodo->setDragEnabled(false);
         lineedit_etiqueta_periodo->setReadOnly(true);
 
@@ -191,6 +217,9 @@ public:
 
         btn_resetear_periodo = new QPushButton(formLayoutWidget);
         btn_resetear_periodo->setObjectName(QStringLiteral("btn_resetear_periodo"));
+        QFont font4;
+        font4.setPointSize(11);
+        btn_resetear_periodo->setFont(font4);
 
         layout_periodo->setWidget(3, QFormLayout::FieldRole, btn_resetear_periodo);
 
@@ -200,21 +229,28 @@ public:
         groupbox_secciones = new QGroupBox(gridLayoutWidget);
         groupbox_secciones->setObjectName(QStringLiteral("groupbox_secciones"));
         groupbox_secciones->setEnabled(false);
+        groupbox_secciones->setFont(font1);
         lista_secciones_en_consulta = new QListWidget(groupbox_secciones);
-        QFont font;
-        font.setItalic(true);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_secciones_en_consulta);
-        __qlistwidgetitem->setFont(font);
+        __qlistwidgetitem->setFont(font3);
         lista_secciones_en_consulta->setObjectName(QStringLiteral("lista_secciones_en_consulta"));
         lista_secciones_en_consulta->setGeometry(QRect(10, 20, 221, 131));
+        lista_secciones_en_consulta->setFont(font2);
         btn_sacar_secciones = new QPushButton(groupbox_secciones);
         btn_sacar_secciones->setObjectName(QStringLiteral("btn_sacar_secciones"));
-        btn_sacar_secciones->setGeometry(QRect(70, 160, 98, 23));
+        btn_sacar_secciones->setGeometry(QRect(40, 160, 169, 23));
+        btn_sacar_secciones->setFont(font4);
 
         layout_consulta->addWidget(groupbox_secciones, 1, 1, 1, 1);
 
         groupbox_conceptos = new QGroupBox(gridLayoutWidget);
         groupbox_conceptos->setObjectName(QStringLiteral("groupbox_conceptos"));
+        QFont font5;
+        font5.setFamily(QStringLiteral("Calibri"));
+        font5.setPointSize(12);
+        font5.setBold(false);
+        font5.setWeight(50);
+        groupbox_conceptos->setFont(font5);
         verticalLayoutWidget = new QWidget(groupbox_conceptos);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(10, 20, 221, 331));
@@ -225,50 +261,66 @@ public:
         layout_concepto_consulta->setContentsMargins(0, 0, 0, 0);
         lista_conceptos_en_consulta = new QListWidget(verticalLayoutWidget);
         lista_conceptos_en_consulta->setObjectName(QStringLiteral("lista_conceptos_en_consulta"));
+        lista_conceptos_en_consulta->setFont(font3);
 
         layout_concepto_consulta->addWidget(lista_conceptos_en_consulta);
 
         btn_sacar_conceptos = new QPushButton(groupbox_conceptos);
         btn_sacar_conceptos->setObjectName(QStringLiteral("btn_sacar_conceptos"));
-        btn_sacar_conceptos->setGeometry(QRect(70, 360, 98, 23));
+        btn_sacar_conceptos->setGeometry(QRect(40, 360, 169, 23));
+        btn_sacar_conceptos->setFont(font4);
 
         layout_consulta->addWidget(groupbox_conceptos, 0, 0, 2, 1);
 
         groupbox_medios = new QGroupBox(gridLayoutWidget);
         groupbox_medios->setObjectName(QStringLiteral("groupbox_medios"));
+        groupbox_medios->setFont(font1);
         lista_medios_en_consulta = new QListWidget(groupbox_medios);
         lista_medios_en_consulta->setObjectName(QStringLiteral("lista_medios_en_consulta"));
         lista_medios_en_consulta->setGeometry(QRect(10, 20, 221, 131));
+        lista_medios_en_consulta->setFont(font3);
         btn_sacar_medios = new QPushButton(groupbox_medios);
         btn_sacar_medios->setObjectName(QStringLiteral("btn_sacar_medios"));
-        btn_sacar_medios->setGeometry(QRect(70, 160, 98, 23));
+        btn_sacar_medios->setGeometry(QRect(40, 160, 169, 23));
+        btn_sacar_medios->setFont(font4);
 
         layout_consulta->addWidget(groupbox_medios, 0, 3, 1, 1);
 
         groupbox_reportes = new QGroupBox(gridLayoutWidget);
         groupbox_reportes->setObjectName(QStringLiteral("groupbox_reportes"));
         groupbox_reportes->setEnabled(false);
+        groupbox_reportes->setFont(font1);
         lista_reportes_en_consulta = new QListWidget(groupbox_reportes);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem1->setFont(font);
+        __qlistwidgetitem1->setFont(font3);
         lista_reportes_en_consulta->setObjectName(QStringLiteral("lista_reportes_en_consulta"));
         lista_reportes_en_consulta->setGeometry(QRect(10, 20, 221, 131));
+        lista_reportes_en_consulta->setFont(font2);
         btn_agregar_reportes = new QPushButton(groupbox_reportes);
         btn_agregar_reportes->setObjectName(QStringLiteral("btn_agregar_reportes"));
-        btn_agregar_reportes->setGeometry(QRect(70, 160, 98, 23));
+        btn_agregar_reportes->setGeometry(QRect(40, 160, 169, 23));
+        btn_agregar_reportes->setFont(font4);
 
         layout_consulta->addWidget(groupbox_reportes, 1, 3, 1, 1);
 
         btnbox_consulta = new QDialogButtonBox(tab_consulta);
         btnbox_consulta->setObjectName(QStringLiteral("btnbox_consulta"));
-        btnbox_consulta->setGeometry(QRect(300, 420, 156, 23));
-        btnbox_consulta->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        btnbox_consulta->setGeometry(QRect(381, 420, 80, 23));
+        QFont font6;
+        font6.setPointSize(11);
+        font6.setItalic(true);
+        btnbox_consulta->setFont(font6);
+        btnbox_consulta->setStandardButtons(QDialogButtonBox::Cancel);
+        btn_realizar_consulta = new QPushButton(tab_consulta);
+        btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
+        btn_realizar_consulta->setGeometry(QRect(260, 420, 120, 23));
+        btn_realizar_consulta->setFont(font6);
         opciones_consulta->addTab(tab_consulta, QString());
         tab_conceptos = new QWidget();
         tab_conceptos->setObjectName(QStringLiteral("tab_conceptos"));
         horizontalLayoutWidget = new QWidget(tab_conceptos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 541, 291));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 761, 431));
         layout_conceptos = new QHBoxLayout(horizontalLayoutWidget);
         layout_conceptos->setSpacing(6);
         layout_conceptos->setContentsMargins(11, 11, 11, 11);
@@ -276,6 +328,10 @@ public:
         layout_conceptos->setContentsMargins(0, 0, 0, 0);
         lista_conceptos = new QListWidget(horizontalLayoutWidget);
         lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
+        QFont font7;
+        font7.setPointSize(10);
+        font7.setItalic(false);
+        lista_conceptos->setFont(font7);
 
         layout_conceptos->addWidget(lista_conceptos);
 
@@ -284,6 +340,7 @@ public:
         layout_opciones_conceptos->setObjectName(QStringLiteral("layout_opciones_conceptos"));
         btn_agregar_conceptos = new QPushButton(horizontalLayoutWidget);
         btn_agregar_conceptos->setObjectName(QStringLiteral("btn_agregar_conceptos"));
+        btn_agregar_conceptos->setFont(font4);
 
         layout_opciones_conceptos->addWidget(btn_agregar_conceptos);
 
@@ -295,7 +352,7 @@ public:
         tab_periodo->setObjectName(QStringLiteral("tab_periodo"));
         horizontalLayoutWidget_3 = new QWidget(tab_periodo);
         horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
-        horizontalLayoutWidget_3->setGeometry(QRect(10, 10, 531, 291));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 10, 761, 431));
         layout_periodos = new QHBoxLayout(horizontalLayoutWidget_3);
         layout_periodos->setSpacing(6);
         layout_periodos->setContentsMargins(11, 11, 11, 11);
@@ -303,6 +360,7 @@ public:
         layout_periodos->setContentsMargins(0, 0, 0, 0);
         lista_periodos = new QListWidget(horizontalLayoutWidget_3);
         lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
+        lista_periodos->setFont(font7);
 
         layout_periodos->addWidget(lista_periodos);
 
@@ -311,6 +369,7 @@ public:
         layout_opciones_periodos->setObjectName(QStringLiteral("layout_opciones_periodos"));
         btn_setear_periodo = new QPushButton(horizontalLayoutWidget_3);
         btn_setear_periodo->setObjectName(QStringLiteral("btn_setear_periodo"));
+        btn_setear_periodo->setFont(font4);
 
         layout_opciones_periodos->addWidget(btn_setear_periodo);
 
@@ -322,7 +381,7 @@ public:
         tab_medios->setObjectName(QStringLiteral("tab_medios"));
         horizontalLayoutWidget_4 = new QWidget(tab_medios);
         horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
-        horizontalLayoutWidget_4->setGeometry(QRect(10, 9, 541, 291));
+        horizontalLayoutWidget_4->setGeometry(QRect(10, 9, 761, 431));
         layout_medios = new QHBoxLayout(horizontalLayoutWidget_4);
         layout_medios->setSpacing(6);
         layout_medios->setContentsMargins(11, 11, 11, 11);
@@ -330,6 +389,7 @@ public:
         layout_medios->setContentsMargins(0, 0, 0, 0);
         lista_medios = new QListWidget(horizontalLayoutWidget_4);
         lista_medios->setObjectName(QStringLiteral("lista_medios"));
+        lista_medios->setFont(font7);
 
         layout_medios->addWidget(lista_medios);
 
@@ -338,6 +398,7 @@ public:
         layout_opciones_medios->setObjectName(QStringLiteral("layout_opciones_medios"));
         btn_agregar_medios = new QPushButton(horizontalLayoutWidget_4);
         btn_agregar_medios->setObjectName(QStringLiteral("btn_agregar_medios"));
+        btn_agregar_medios->setFont(font4);
 
         layout_opciones_medios->addWidget(btn_agregar_medios);
 
@@ -348,9 +409,12 @@ public:
         tab_secciones = new QWidget();
         tab_secciones->setObjectName(QStringLiteral("tab_secciones"));
         tab_secciones->setEnabled(false);
+        QFont font8;
+        font8.setItalic(false);
+        tab_secciones->setFont(font8);
         horizontalLayoutWidget_5 = new QWidget(tab_secciones);
         horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
-        horizontalLayoutWidget_5->setGeometry(QRect(10, 9, 541, 291));
+        horizontalLayoutWidget_5->setGeometry(QRect(10, 9, 761, 431));
         layout_secciones = new QHBoxLayout(horizontalLayoutWidget_5);
         layout_secciones->setSpacing(6);
         layout_secciones->setContentsMargins(11, 11, 11, 11);
@@ -366,6 +430,7 @@ public:
         layout_opciones_secciones->setObjectName(QStringLiteral("layout_opciones_secciones"));
         btn_agregar_secciones = new QPushButton(horizontalLayoutWidget_5);
         btn_agregar_secciones->setObjectName(QStringLiteral("btn_agregar_secciones"));
+        btn_agregar_secciones->setFont(font6);
 
         layout_opciones_secciones->addWidget(btn_agregar_secciones);
 
@@ -378,7 +443,7 @@ public:
         tab_reporte->setEnabled(false);
         horizontalLayoutWidget_6 = new QWidget(tab_reporte);
         horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
-        horizontalLayoutWidget_6->setGeometry(QRect(10, 10, 541, 291));
+        horizontalLayoutWidget_6->setGeometry(QRect(10, 10, 761, 431));
         layout_reportes = new QHBoxLayout(horizontalLayoutWidget_6);
         layout_reportes->setSpacing(6);
         layout_reportes->setContentsMargins(11, 11, 11, 11);
@@ -394,6 +459,7 @@ public:
         layout_opciones_reportes->setObjectName(QStringLiteral("layout_opciones_reportes"));
         btn_sacar_reportes = new QPushButton(horizontalLayoutWidget_6);
         btn_sacar_reportes->setObjectName(QStringLiteral("btn_sacar_reportes"));
+        btn_sacar_reportes->setFont(font6);
 
         layout_opciones_reportes->addWidget(btn_sacar_reportes);
 
@@ -408,7 +474,7 @@ public:
         QObject::connect(btn_agregar_medios, SIGNAL(released()), action_agregar_medios, SLOT(trigger()));
         QObject::connect(btn_agregar_secciones, SIGNAL(released()), action_agregar_secciones, SLOT(trigger()));
         QObject::connect(btn_sacar_reportes, SIGNAL(released()), action_sacar_reportes, SLOT(trigger()));
-        QObject::connect(btnbox_consulta, SIGNAL(accepted()), action_realizar_consulta_y_cerrar, SLOT(trigger()));
+        QObject::connect(btn_realizar_consulta, SIGNAL(released()), action_realizar_consulta_y_cerrar, SLOT(trigger()));
         QObject::connect(btnbox_consulta, SIGNAL(rejected()), DialogoConsultas, SLOT(close()));
         QObject::connect(btn_resetear_periodo, SIGNAL(released()), action_resetear_periodo, SLOT(trigger()));
         QObject::connect(btn_sacar_conceptos, SIGNAL(released()), action_sacar_conceptos, SLOT(trigger()));
@@ -424,7 +490,7 @@ public:
 
     void retranslateUi(QWidget *DialogoConsultas)
     {
-        DialogoConsultas->setWindowTitle(QApplication::translate("DialogoConsultas", "DialogoConsultas", Q_NULLPTR));
+        DialogoConsultas->setWindowTitle(QApplication::translate("DialogoConsultas", "Realizar consulta", Q_NULLPTR));
         action_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "agregar_conceptos", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         action_agregar_conceptos->setToolTip(QApplication::translate("DialogoConsultas", "agregar_conceptos", Q_NULLPTR));
@@ -440,42 +506,43 @@ public:
         action_realizar_consulta_y_cerrar->setText(QApplication::translate("DialogoConsultas", "realizar_consulta_y_cerrar", Q_NULLPTR));
         action_resetear_periodo->setText(QApplication::translate("DialogoConsultas", "resetear_periodo", Q_NULLPTR));
         groupbox_periodo->setTitle(QApplication::translate("DialogoConsultas", "Periodo", Q_NULLPTR));
-        lbl_desde->setText(QApplication::translate("DialogoConsultas", "desde", Q_NULLPTR));
-        lbl_hasta->setText(QApplication::translate("DialogoConsultas", "hasta", Q_NULLPTR));
-        lbl_etiqueta->setText(QApplication::translate("DialogoConsultas", "etiqueta", Q_NULLPTR));
-        btn_resetear_periodo->setText(QApplication::translate("DialogoConsultas", "resetear periodo", Q_NULLPTR));
+        lbl_desde->setText(QApplication::translate("DialogoConsultas", "Desde", Q_NULLPTR));
+        lbl_hasta->setText(QApplication::translate("DialogoConsultas", "Hasta", Q_NULLPTR));
+        lbl_etiqueta->setText(QApplication::translate("DialogoConsultas", "Etiqueta", Q_NULLPTR));
+        btn_resetear_periodo->setText(QApplication::translate("DialogoConsultas", "Resetear periodo", Q_NULLPTR));
         groupbox_secciones->setTitle(QApplication::translate("DialogoConsultas", "Secciones", Q_NULLPTR));
 
         const bool __sortingEnabled = lista_secciones_en_consulta->isSortingEnabled();
         lista_secciones_en_consulta->setSortingEnabled(false);
         QListWidgetItem *___qlistwidgetitem = lista_secciones_en_consulta->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("DialogoConsultas", "todas", Q_NULLPTR));
+        ___qlistwidgetitem->setText(QApplication::translate("DialogoConsultas", "Todas", Q_NULLPTR));
         lista_secciones_en_consulta->setSortingEnabled(__sortingEnabled);
 
-        btn_sacar_secciones->setText(QApplication::translate("DialogoConsultas", "sacar secciones", Q_NULLPTR));
+        btn_sacar_secciones->setText(QApplication::translate("DialogoConsultas", "Sacar secciones", Q_NULLPTR));
         groupbox_conceptos->setTitle(QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
-        btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "sacar conceptos", Q_NULLPTR));
+        btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "Sacar conceptos", Q_NULLPTR));
         groupbox_medios->setTitle(QApplication::translate("DialogoConsultas", "Medios", Q_NULLPTR));
-        btn_sacar_medios->setText(QApplication::translate("DialogoConsultas", "sacar medios", Q_NULLPTR));
+        btn_sacar_medios->setText(QApplication::translate("DialogoConsultas", "Sacar medios", Q_NULLPTR));
         groupbox_reportes->setTitle(QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
 
         const bool __sortingEnabled1 = lista_reportes_en_consulta->isSortingEnabled();
         lista_reportes_en_consulta->setSortingEnabled(false);
         QListWidgetItem *___qlistwidgetitem1 = lista_reportes_en_consulta->item(0);
-        ___qlistwidgetitem1->setText(QApplication::translate("DialogoConsultas", "gr\303\241fico de barras", Q_NULLPTR));
+        ___qlistwidgetitem1->setText(QApplication::translate("DialogoConsultas", "Fuerza de concepto en medio", Q_NULLPTR));
         lista_reportes_en_consulta->setSortingEnabled(__sortingEnabled1);
 
-        btn_agregar_reportes->setText(QApplication::translate("DialogoConsultas", "sacar reportes", Q_NULLPTR));
+        btn_agregar_reportes->setText(QApplication::translate("DialogoConsultas", "Sacar reportes", Q_NULLPTR));
+        btn_realizar_consulta->setText(QApplication::translate("DialogoConsultas", "Realizar consulta", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_consulta), QApplication::translate("DialogoConsultas", "Consulta", Q_NULLPTR));
-        btn_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "agregar conceptos", Q_NULLPTR));
+        btn_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "Agregar conceptos", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_conceptos), QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
-        btn_setear_periodo->setText(QApplication::translate("DialogoConsultas", "setear periodo", Q_NULLPTR));
-        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_periodo), QApplication::translate("DialogoConsultas", "Periodo", Q_NULLPTR));
-        btn_agregar_medios->setText(QApplication::translate("DialogoConsultas", "agregar medios", Q_NULLPTR));
+        btn_setear_periodo->setText(QApplication::translate("DialogoConsultas", "Setear periodo", Q_NULLPTR));
+        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_periodo), QApplication::translate("DialogoConsultas", "Per\303\255odo", Q_NULLPTR));
+        btn_agregar_medios->setText(QApplication::translate("DialogoConsultas", "Agregar medios", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_medios), QApplication::translate("DialogoConsultas", "Medios", Q_NULLPTR));
-        btn_agregar_secciones->setText(QApplication::translate("DialogoConsultas", "agregar secciones", Q_NULLPTR));
+        btn_agregar_secciones->setText(QApplication::translate("DialogoConsultas", "Agregar secciones", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_secciones), QApplication::translate("DialogoConsultas", "Secciones", Q_NULLPTR));
-        btn_sacar_reportes->setText(QApplication::translate("DialogoConsultas", "agregar reportes", Q_NULLPTR));
+        btn_sacar_reportes->setText(QApplication::translate("DialogoConsultas", "Agregar reportes", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_reporte), QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
     } // retranslateUi
 

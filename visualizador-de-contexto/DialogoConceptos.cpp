@@ -90,7 +90,6 @@ void DialogoConceptos::on_action_eliminar_concepto_triggered()
 void DialogoConceptos::on_action_resetear_concepto_triggered()
 {
     this->ui->lineedit_etiqueta->clear();
-    this->ui->lineedit_terminos->clear();
     this->ui->lista_terminos->clearSelection();
     this->ui->lista_conceptos->clearSelection();
 

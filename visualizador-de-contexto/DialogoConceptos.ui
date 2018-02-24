@@ -6,21 +6,36 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>345</height>
+    <width>800</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DialogoConceptos</string>
+   <string>Conceptos</string>
   </property>
   <widget class="QDialogButtonBox" name="btnbox_conceptos">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>310</y>
+     <x>325</x>
+     <y>370</y>
      <width>156</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>11</pointsize>
+     <weight>50</weight>
+     <italic>true</italic>
+     <bold>false</bold>
+    </font>
    </property>
    <property name="standardButtons">
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
@@ -31,22 +46,98 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>551</width>
-     <height>291</height>
+     <width>781</width>
+     <height>357</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="layout_general">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetNoConstraint</enum>
+    </property>
     <item>
      <layout class="QFormLayout" name="layout_opciones">
       <item row="0" column="0">
        <widget class="QLabel" name="lbl_etiqueta">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>etiqueta</string>
+         <string>Etiqueta</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineedit_etiqueta"/>
+       <widget class="QLineEdit" name="lineedit_etiqueta">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>10</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="btn_limpiar_concepto">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="btn_eliminar_concepto">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Eliminar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QPushButton" name="btn_agregar_eliminar_terminos">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Sumar/Sacar términos</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="btn_agregar_concepto">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Agregar</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0" colspan="2">
        <widget class="QGroupBox" name="groupbox_terminos">
@@ -54,7 +145,7 @@
          <bool>true</bool>
         </property>
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -62,58 +153,67 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>144</height>
+          <height>190</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="acceptDrops">
+         <bool>false</bool>
+        </property>
         <property name="title">
-         <string>terminos</string>
+         <string>Términos</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
         </property>
         <widget class="QWidget" name="verticalLayoutWidget_2">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>251</width>
-           <height>111</height>
+           <width>371</width>
+           <height>161</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="layout_terminos">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
           <item>
-           <widget class="QLineEdit" name="lineedit_terminos"/>
-          </item>
-          <item>
-           <widget class="QListWidget" name="lista_terminos"/>
+           <widget class="QListWidget" name="lista_terminos">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <italic>false</italic>
+             </font>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="btn_agregar_concepto">
-        <property name="text">
-         <string>agregar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="btn_limpiar_concepto">
-        <property name="text">
-         <string>limpiar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QPushButton" name="btn_eliminar_concepto">
-        <property name="text">
-         <string>eliminar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QPushButton" name="btn_agregar_eliminar_terminos">
-        <property name="text">
-         <string>agregar/eliminar terminos</string>
-        </property>
        </widget>
       </item>
      </layout>
@@ -121,7 +221,14 @@
     <item>
      <layout class="QVBoxLayout" name="layout_lista">
       <item>
-       <widget class="QListWidget" name="lista_conceptos"/>
+       <widget class="QListWidget" name="lista_conceptos">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -172,6 +279,9 @@
     <string>estado_btn_agregar</string>
    </property>
   </action>
+  <zorder>btnbox_conceptos</zorder>
+  <zorder>horizontalLayoutWidget</zorder>
+  <zorder>lista_terminos</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
+    <width>800</width>
     <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DialogoConsultas</string>
+   <string>Realizar consulta</string>
   </property>
   <widget class="QTabWidget" name="opciones_consulta">
    <property name="enabled">
@@ -21,12 +21,31 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>761</width>
+     <width>781</width>
      <height>471</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>12</pointsize>
+     <italic>false</italic>
+    </font>
+   </property>
    <property name="currentIndex">
     <number>0</number>
+   </property>
+   <property name="documentMode">
+    <bool>true</bool>
+   </property>
+   <property name="tabsClosable">
+    <bool>false</bool>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="tabBarAutoHide">
+    <bool>false</bool>
    </property>
    <widget class="QWidget" name="tab_consulta">
     <attribute name="title">
@@ -44,6 +63,12 @@
      <layout class="QGridLayout" name="layout_consulta">
       <item row="0" column="1">
        <widget class="QGroupBox" name="groupbox_periodo">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="title">
          <string>Periodo</string>
         </property>
@@ -59,13 +84,25 @@
          <layout class="QFormLayout" name="layout_periodo">
           <item row="1" column="0">
            <widget class="QLabel" name="lbl_desde">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="text">
-             <string>desde</string>
+             <string>Desde</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="QDateEdit" name="dateedit_desde">
+            <property name="font">
+             <font>
+              <family>Calibri</family>
+              <pointsize>10</pointsize>
+              <italic>true</italic>
+             </font>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -73,13 +110,25 @@
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="lbl_hasta">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="text">
-             <string>hasta</string>
+             <string>Hasta</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
            <widget class="QDateEdit" name="dateedit_hasta">
+            <property name="font">
+             <font>
+              <family>Calibri</family>
+              <pointsize>10</pointsize>
+              <italic>true</italic>
+             </font>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -87,13 +136,25 @@
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="lbl_etiqueta">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="text">
-             <string>etiqueta</string>
+             <string>Etiqueta</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QLineEdit" name="lineedit_etiqueta_periodo">
+            <property name="font">
+             <font>
+              <family>Calibri</family>
+              <pointsize>10</pointsize>
+              <italic>true</italic>
+             </font>
+            </property>
             <property name="dragEnabled">
              <bool>false</bool>
             </property>
@@ -104,8 +165,13 @@
           </item>
           <item row="3" column="1">
            <widget class="QPushButton" name="btn_resetear_periodo">
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
             <property name="text">
-             <string>resetear periodo</string>
+             <string>Resetear periodo</string>
             </property>
            </widget>
           </item>
@@ -117,6 +183,12 @@
        <widget class="QGroupBox" name="groupbox_secciones">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="title">
          <string>Secciones</string>
@@ -130,12 +202,19 @@
            <height>131</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <item>
           <property name="text">
-           <string>todas</string>
+           <string>Todas</string>
           </property>
           <property name="font">
            <font>
+            <family>Calibri</family>
+            <pointsize>10</pointsize>
             <italic>true</italic>
            </font>
           </property>
@@ -144,20 +223,33 @@
         <widget class="QPushButton" name="btn_sacar_secciones">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>40</x>
            <y>160</y>
-           <width>98</width>
+           <width>169</width>
            <height>23</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>sacar secciones</string>
+          <string>Sacar secciones</string>
          </property>
         </widget>
        </widget>
       </item>
       <item row="0" column="0" rowspan="2">
        <widget class="QGroupBox" name="groupbox_conceptos">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="title">
          <string>Conceptos</string>
         </property>
@@ -172,27 +264,46 @@
          </property>
          <layout class="QVBoxLayout" name="layout_concepto_consulta">
           <item>
-           <widget class="QListWidget" name="lista_conceptos_en_consulta"/>
+           <widget class="QListWidget" name="lista_conceptos_en_consulta">
+            <property name="font">
+             <font>
+              <family>Calibri</family>
+              <pointsize>10</pointsize>
+              <italic>true</italic>
+             </font>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
         <widget class="QPushButton" name="btn_sacar_conceptos">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>40</x>
            <y>360</y>
-           <width>98</width>
+           <width>169</width>
            <height>23</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>sacar conceptos</string>
+          <string>Sacar conceptos</string>
          </property>
         </widget>
        </widget>
       </item>
       <item row="0" column="3">
        <widget class="QGroupBox" name="groupbox_medios">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="title">
          <string>Medios</string>
         </property>
@@ -205,18 +316,30 @@
            <height>131</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <pointsize>10</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
         </widget>
         <widget class="QPushButton" name="btn_sacar_medios">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>40</x>
            <y>160</y>
-           <width>98</width>
+           <width>169</width>
            <height>23</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>sacar medios</string>
+          <string>Sacar medios</string>
          </property>
         </widget>
        </widget>
@@ -225,6 +348,12 @@
        <widget class="QGroupBox" name="groupbox_reportes">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
         <property name="title">
          <string>Reportes</string>
@@ -238,12 +367,19 @@
            <height>131</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <item>
           <property name="text">
-           <string>gráfico de barras</string>
+           <string>Fuerza de concepto en medio</string>
           </property>
           <property name="font">
            <font>
+            <family>Calibri</family>
+            <pointsize>10</pointsize>
             <italic>true</italic>
            </font>
           </property>
@@ -252,14 +388,19 @@
         <widget class="QPushButton" name="btn_agregar_reportes">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>40</x>
            <y>160</y>
-           <width>98</width>
+           <width>169</width>
            <height>23</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="text">
-          <string>sacar reportes</string>
+          <string>Sacar reportes</string>
          </property>
         </widget>
        </widget>
@@ -269,14 +410,39 @@
     <widget class="QDialogButtonBox" name="btnbox_consulta">
      <property name="geometry">
       <rect>
-       <x>300</x>
+       <x>381</x>
        <y>420</y>
-       <width>156</width>
+       <width>80</width>
        <height>23</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_realizar_consulta">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>420</y>
+       <width>120</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>Realizar consulta</string>
      </property>
     </widget>
    </widget>
@@ -289,20 +455,32 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>541</width>
-       <height>291</height>
+       <width>761</width>
+       <height>431</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layout_conceptos">
       <item>
-       <widget class="QListWidget" name="lista_conceptos"/>
+       <widget class="QListWidget" name="lista_conceptos">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="layout_opciones_conceptos">
         <item>
          <widget class="QPushButton" name="btn_agregar_conceptos">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>agregar conceptos</string>
+           <string>Agregar conceptos</string>
           </property>
          </widget>
         </item>
@@ -313,27 +491,39 @@
    </widget>
    <widget class="QWidget" name="tab_periodo">
     <attribute name="title">
-     <string>Periodo</string>
+     <string>Período</string>
     </attribute>
     <widget class="QWidget" name="horizontalLayoutWidget_3">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>531</width>
-       <height>291</height>
+       <width>761</width>
+       <height>431</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layout_periodos">
       <item>
-       <widget class="QListWidget" name="lista_periodos"/>
+       <widget class="QListWidget" name="lista_periodos">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="layout_opciones_periodos">
         <item>
          <widget class="QPushButton" name="btn_setear_periodo">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>setear periodo</string>
+           <string>Setear periodo</string>
           </property>
          </widget>
         </item>
@@ -351,20 +541,32 @@
       <rect>
        <x>10</x>
        <y>9</y>
-       <width>541</width>
-       <height>291</height>
+       <width>761</width>
+       <height>431</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layout_medios">
       <item>
-       <widget class="QListWidget" name="lista_medios"/>
+       <widget class="QListWidget" name="lista_medios">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <italic>false</italic>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="layout_opciones_medios">
         <item>
          <widget class="QPushButton" name="btn_agregar_medios">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>agregar medios</string>
+           <string>Agregar medios</string>
           </property>
          </widget>
         </item>
@@ -377,6 +579,11 @@
     <property name="enabled">
      <bool>false</bool>
     </property>
+    <property name="font">
+     <font>
+      <italic>false</italic>
+     </font>
+    </property>
     <attribute name="title">
      <string>Secciones</string>
     </attribute>
@@ -385,8 +592,8 @@
       <rect>
        <x>10</x>
        <y>9</y>
-       <width>541</width>
-       <height>291</height>
+       <width>761</width>
+       <height>431</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layout_secciones">
@@ -397,8 +604,14 @@
        <layout class="QVBoxLayout" name="layout_opciones_secciones">
         <item>
          <widget class="QPushButton" name="btn_agregar_secciones">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <italic>true</italic>
+           </font>
+          </property>
           <property name="text">
-           <string>agregar secciones</string>
+           <string>Agregar secciones</string>
           </property>
          </widget>
         </item>
@@ -419,8 +632,8 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>541</width>
-       <height>291</height>
+       <width>761</width>
+       <height>431</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layout_reportes">
@@ -431,8 +644,14 @@
        <layout class="QVBoxLayout" name="layout_opciones_reportes">
         <item>
          <widget class="QPushButton" name="btn_sacar_reportes">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <italic>true</italic>
+           </font>
+          </property>
           <property name="text">
-           <string>agregar reportes</string>
+           <string>Agregar reportes</string>
           </property>
          </widget>
         </item>
@@ -585,14 +804,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnbox_consulta</sender>
-   <signal>accepted()</signal>
+   <sender>btn_realizar_consulta</sender>
+   <signal>released()</signal>
    <receiver>action_realizar_consulta_y_cerrar</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>323</y>
+     <x>329</x>
+     <y>468</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

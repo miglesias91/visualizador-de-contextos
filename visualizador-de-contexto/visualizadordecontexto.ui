@@ -6,21 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>581</width>
+    <width>478</width>
     <height>433</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>visualizadordecontexto</string>
+   <string>Visualizador de contexto</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>0</y>
+      <x>100</x>
+      <y>10</y>
       <width>281</width>
-      <height>341</height>
+      <height>381</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="layout_opciones">
@@ -30,11 +30,11 @@
         <widget class="QLabel" name="lbl_titulo">
          <property name="font">
           <font>
-           <family>Adobe Heiti Std R</family>
-           <pointsize>8</pointsize>
-           <weight>50</weight>
+           <family>Calibri</family>
+           <pointsize>28</pointsize>
+           <weight>75</weight>
            <italic>true</italic>
-           <bold>false</bold>
+           <bold>true</bold>
            <stylestrategy>PreferAntialias</stylestrategy>
           </font>
          </property>
@@ -51,7 +51,7 @@
           <number>8</number>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; color:#2e3343;&quot;&gt;Visualizador&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; color:#2e3343;&quot;&gt;de contexto&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#2e3343;&quot;&gt;Visualizador&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#2e3343;&quot;&gt;de contexto&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
@@ -75,11 +75,11 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>terminos</string>
+          <string>Términos</string>
          </property>
         </widget>
        </item>
@@ -88,11 +88,11 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>conceptos</string>
+          <string>Conceptos</string>
          </property>
         </widget>
        </item>
@@ -101,11 +101,11 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>fechas</string>
+          <string>Fechas</string>
          </property>
         </widget>
        </item>
@@ -114,11 +114,11 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>periodos</string>
+          <string>Períodos</string>
          </property>
         </widget>
        </item>
@@ -127,31 +127,50 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>cuentas de twitter</string>
+          <string>Cuentas de Twitter</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_consulta">
-         <property name="enabled">
-          <bool>true</bool>
+        <widget class="Line" name="linea_separadora">
+         <property name="lineWidth">
+          <number>4</number>
          </property>
-         <property name="font">
-          <font>
-           <family>Calibri</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>consulta</string>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_consulta">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Calibri</family>
+         <pointsize>20</pointsize>
+         <weight>50</weight>
+         <italic>true</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Realizar consulta</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btn_analizar_ctx">
@@ -178,7 +197,7 @@
          <family>Calibri</family>
          <pointsize>20</pointsize>
          <weight>50</weight>
-         <italic>false</italic>
+         <italic>true</italic>
          <bold>false</bold>
          <underline>false</underline>
          <strikeout>false</strikeout>
@@ -187,7 +206,7 @@
         </font>
        </property>
        <property name="text">
-        <string>analizar contexto</string>
+        <string>Analizar contexto</string>
        </property>
       </widget>
      </item>
@@ -199,8 +218,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>340</y>
+      <x>100</x>
+      <y>390</y>
       <width>281</width>
       <height>10</height>
      </rect>
@@ -233,25 +252,11 @@
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>581</width>
-     <height>21</height>
-    </rect>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="enabled">
+    <bool>true</bool>
    </property>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="action_abrir_terminos">
    <property name="checkable">
     <bool>true</bool>

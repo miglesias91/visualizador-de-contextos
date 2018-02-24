@@ -96,6 +96,8 @@ void visualizadordecontexto::on_action_habilitar_menu_triggered()
 
 void visualizadordecontexto::analizarCTX()
 {
+    this->emitirProgreso(10);
+
     scraping::aplicacion::GestorTareas::scrapearTwitter();
     this->emitirProgreso(33);
 

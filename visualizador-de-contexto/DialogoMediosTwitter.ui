@@ -6,21 +6,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>577</width>
-    <height>345</height>
+    <width>800</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DialogoMediosTwitter</string>
+   <string>Cuentas de Twitter</string>
   </property>
   <widget class="QDialogButtonBox" name="btnbox_medios_twitter">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>310</y>
+     <x>325</x>
+     <y>370</y>
      <width>156</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>11</pointsize>
+     <italic>true</italic>
+    </font>
    </property>
    <property name="standardButtons">
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
@@ -31,8 +38,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>551</width>
-     <height>291</height>
+     <width>781</width>
+     <height>351</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="layout_general">
@@ -40,46 +47,95 @@
      <layout class="QFormLayout" name="layout_opciones">
       <item row="0" column="0">
        <widget class="QLabel" name="lbl_etiqueta">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>etiqueta</string>
+         <string>Etiqueta</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineedit_etiqueta"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="lbl_nombre_usuario">
-        <property name="text">
-         <string>nombre de usuario</string>
+       <widget class="QLineEdit" name="lineedit_etiqueta">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>10</pointsize>
+          <italic>true</italic>
+         </font>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineedit_nombre_usuario">
-        <property name="placeholderText">
-         <string/>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lbl_nombre_usuario">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Nombre de usuario</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="btn_agregar">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>agregar</string>
+         <string>Agregar</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
        <widget class="QPushButton" name="btn_limpiar">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>limpiar</string>
+         <string>Limpiar</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1">
        <widget class="QPushButton" name="btn_eliminar">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
         <property name="text">
-         <string>eliminar</string>
+         <string>Eliminar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineedit_nombre_usuario">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string/>
         </property>
        </widget>
       </item>
@@ -91,7 +147,14 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QListWidget" name="lista_medios_twitter"/>
+       <widget class="QListWidget" name="lista_medios_twitter">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
