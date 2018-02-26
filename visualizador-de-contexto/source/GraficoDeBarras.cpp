@@ -1,5 +1,8 @@
 #include <visualizador-de-contexto/include/GraficoDeBarras.h>
 
+// qt
+#include <qfont.h>
+
 using namespace graficos;
 
 GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana) :
@@ -21,8 +24,13 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
         series->append(set);
     }
 
+    QFont fuente_grafico;
+    fuente_grafico.setPixelSize(25);
+    fuente_grafico.setBold(true);
+
     QtCharts::QChart *chart = new QtCharts::QChart();
     chart->addSeries(series);
+    chart->setTitleFont(fuente_grafico);
     chart->setTitle(this->etiqueta.c_str());
 
     QStringList categories;
@@ -31,20 +39,32 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
         categories << (*it).c_str();
     }
 
-    QtCharts::QBarCategoryAxis *axisX = new QtCharts::QBarCategoryAxis();
-    axisX->append(categories);
-    chart->setAxisX(axisX, series);
+    QFont fuente_ejes;
+    fuente_ejes.setPixelSize(15);
+
+    QtCharts::QBarCategoryAxis *axis_x = new QtCharts::QBarCategoryAxis();
+    
+    axis_x->append(categories);
+    chart->setAxisX(axis_x, series);
 
     std::string primera_categoria = *this->categorias.begin();
     std::string ultima_categoria = *(this->categorias.end() - 1);
-    axisX->setRange(QString(primera_categoria.c_str()), QString(ultima_categoria.c_str()));
+    axis_x->setRange(QString(primera_categoria.c_str()), QString(ultima_categoria.c_str()));
 
-    QtCharts::QValueAxis *axisY = new QtCharts::QValueAxis();
-    chart->setAxisY(axisY, series);
-    axisY->setRange(rango_eje_y_min, rango_eje_y_max);
+    QtCharts::QValueAxis *axis_y = new QtCharts::QValueAxis();
+    chart->setAxisY(axis_y, series);
+    axis_y->setRange(rango_eje_y_min, rango_eje_y_max);
+
+    axis_y->setLabelsFont(fuente_ejes);
+    axis_x->setLabelsFont(fuente_ejes);
+
+    QFont fuente_leyenda;
+    fuente_leyenda.setPixelSize(15);
+    fuente_leyenda.setBold(true);
 
     chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
+    chart->legend()->setAlignment(Qt::AlignmentFlag::AlignBottom);
+    chart->legend()->setFont(fuente_leyenda);
 
     this->chart_view = new QtCharts::QChartView(chart);
     this->chart_view->setWindowTitle(QString(this->titulo_ventana.c_str()));
@@ -121,7 +141,7 @@ QtCharts::QChartView * GraficoDeBarras::getChartView()
 
 void GraficoDeBarras::mostrar()
 {
-    this->chart_view->show();
+    this->chart_view->showMaximized();
 }
 
 // CONSULTAS
