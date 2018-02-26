@@ -164,14 +164,14 @@ void DialogoFechas::descargarListaFechas()
 
 QMessageBox * DialogoFechas::crearAdvertenciaFechaConRelacionesDependientes()
 {
-    std::string texto = "La fecha que se quiere eliminar forma parte de uno o más períodos existentes. Para poder eliminar la fecha, primero elimine el período relacionado.";
+    std::string texto = u8"La fecha que se quiere eliminar forma parte de uno o más períodos existentes. Para poder eliminar la fecha, primero elimine el período relacionado.";
     visualizador::aplicacion::comunicacion::Advertencia advertencia_fecha_con_relaciones_dependientes(texto);
     return comunicacion::FabricaMensajes::fabricar(&advertencia_fecha_con_relaciones_dependientes);
 }
 
 QMessageBox * DialogoFechas::crearInformacionFechaExistente()
 {
-    std::string texto = "La fecha que se quiere agregar ya existe!";
+    std::string texto = u8"La fecha que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_fecha_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_fecha_existente);
 }

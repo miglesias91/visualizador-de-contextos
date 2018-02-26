@@ -169,7 +169,7 @@ void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medi
     std::string etiqueta = medio_twitter->getEtiqueta();
     std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
 
-    std::string info_analisis = "sin contenido para visualizar";
+    std::string info_analisis = u8"sin contenido para visualizar";
 
     unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
     if (cantidad_de_tweets_historicos != 0)
@@ -190,7 +190,7 @@ void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medi
 
 QMessageBox * DialogoMediosTwitter::crearInformacionMedioTwitterExistente()
 {
-    std::string texto = "La cuenta de Twitter que se quiere agregar ya existe!";
+    std::string texto = u8"La cuenta de Twitter que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }

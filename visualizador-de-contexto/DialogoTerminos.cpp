@@ -165,14 +165,14 @@ void DialogoTerminos::descargarListaTerminos()
 
 QMessageBox * DialogoTerminos::crearAdvertenciaTerminoConRelacionesDependientes()
 {
-    std::string texto = "El término que se quiere eliminar forma parte de uno o más conceptos existentes. Para poder eliminar el término, primero elimine el concepto relacionado.";
+    std::string texto = u8"El término que se quiere eliminar forma parte de uno o más conceptos existentes. Para poder eliminar el término, primero elimine el concepto relacionado.";
     visualizador::aplicacion::comunicacion::Advertencia advertencia_termino_con_relaciones_dependientes(texto);
     return comunicacion::FabricaMensajes::fabricar(&advertencia_termino_con_relaciones_dependientes);
 }
 
 QMessageBox * DialogoTerminos::crearInformacionTerminoExistente()
 {
-    std::string texto = "El término que se quiere agregar ya existe!";
+    std::string texto = u8"El término que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }

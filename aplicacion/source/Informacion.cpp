@@ -2,7 +2,7 @@
 
 using namespace visualizador::aplicacion::comunicacion;
 
-Informacion::Informacion(std::string texto) : Mensaje("Informacion", texto)
+Informacion::Informacion(std::string texto) : Mensaje(u8"Información", texto)
 {
 }
 

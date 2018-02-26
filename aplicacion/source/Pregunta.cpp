@@ -2,7 +2,7 @@
 
 using namespace visualizador::aplicacion::comunicacion;
 
-Pregunta::Pregunta(std::string texto) : Mensaje("Pregunta", texto)
+Pregunta::Pregunta(std::string texto) : Mensaje(u8"Pregunta", texto)
 {
 }
 

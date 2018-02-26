@@ -249,7 +249,7 @@ void DialogoConceptos::descargarListaTerminos()
 
 QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
 {
-    std::string texto = "El concepto que se quiere agregar ya existe!";
+    std::string texto = u8"El concepto que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_concepto_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente);
 }

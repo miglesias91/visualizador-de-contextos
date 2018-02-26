@@ -2,7 +2,7 @@
 
 using namespace visualizador::aplicacion::comunicacion;
 
-Error::Error(std::string texto) : Mensaje("Error", texto)
+Error::Error(std::string texto) : Mensaje(u8"Error", texto)
 {
 }
 
