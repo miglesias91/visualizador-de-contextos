@@ -164,7 +164,7 @@ void DialogoFechas::descargarListaFechas()
 
 QMessageBox * DialogoFechas::crearAdvertenciaFechaConRelacionesDependientes()
 {
-    std::string texto = "La fecha que se quiere eliminar forma parte de uno o mas periodos existentes. Para poder eliminar la fecha, primero elimine el periodo relacionado.";
+    std::string texto = "La fecha que se quiere eliminar forma parte de uno o más períodos existentes. Para poder eliminar la fecha, primero elimine el período relacionado.";
     visualizador::aplicacion::comunicacion::Advertencia advertencia_fecha_con_relaciones_dependientes(texto);
     return comunicacion::FabricaMensajes::fabricar(&advertencia_fecha_con_relaciones_dependientes);
 }

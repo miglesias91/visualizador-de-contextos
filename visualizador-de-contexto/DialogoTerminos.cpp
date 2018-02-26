@@ -135,7 +135,7 @@ void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
 
     QVariant data = QVariant::fromValue(termino);
     item->setData(Qt::UserRole, data);
-    item->setText((termino->getEtiqueta() + " - " + termino->getValor()).c_str());
+    item->setText(termino->getValor().c_str());
 
     this->ui->lista_terminos->insertItem(0, item);
 }
@@ -165,14 +165,14 @@ void DialogoTerminos::descargarListaTerminos()
 
 QMessageBox * DialogoTerminos::crearAdvertenciaTerminoConRelacionesDependientes()
 {
-    std::string texto = "El termino que se quiere eliminar forma parte de uno o mas conceptos existentes. Para poder eliminar el termino, primero elimine el concepto relacionado.";
+    std::string texto = "El término que se quiere eliminar forma parte de uno o más conceptos existentes. Para poder eliminar el término, primero elimine el concepto relacionado.";
     visualizador::aplicacion::comunicacion::Advertencia advertencia_termino_con_relaciones_dependientes(texto);
     return comunicacion::FabricaMensajes::fabricar(&advertencia_termino_con_relaciones_dependientes);
 }
 
 QMessageBox * DialogoTerminos::crearInformacionTerminoExistente()
 {
-    std::string texto = "El termino que se quiere agregar ya existe!";
+    std::string texto = "El término que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }

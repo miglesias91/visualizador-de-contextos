@@ -253,7 +253,7 @@ modelo::Fecha * DialogoPeriodos::fechaHastaSeleccionada()
 
 QMessageBox * DialogoPeriodos::crearInformacionPeriodoExistente()
 {
-    std::string texto = "El periodo que se quiere agregar ya existe!";
+    std::string texto = "El período que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_periodo_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_periodo_existente);
 }
