@@ -17,7 +17,7 @@ namespace graficos
 class GraficoDeBarras
 {
 public:
-    GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta);
+    GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana = u8"Gráfico de barras");
     virtual ~GraficoDeBarras();
 
     // GETTERS
@@ -34,6 +34,8 @@ public:
     virtual void setRangoEjeYMin(double rango_eje_y_min);
     virtual void setRangoEjeYMax(double rango_eje_y_max);
 
+    QtCharts::QChartView * getChartView();
+
     // METODOS
 
     virtual void mostrar();
@@ -45,6 +47,7 @@ private:
     // ATRIBUTOS
 
     std::string etiqueta;
+    std::string titulo_ventana;
     std::vector<modelo::Individuo*> individuos;
     std::vector<std::string> categorias;
     int rango_eje_y_min;

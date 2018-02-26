@@ -44,6 +44,7 @@ public:
     QAction *action_sacar_reportes;
     QAction *action_realizar_consulta_y_cerrar;
     QAction *action_resetear_periodo;
+    QAction *action_liberar_grafico;
     QTabWidget *opciones_consulta;
     QWidget *tab_consulta;
     QWidget *gridLayoutWidget;
@@ -132,6 +133,8 @@ public:
         action_realizar_consulta_y_cerrar->setObjectName(QStringLiteral("action_realizar_consulta_y_cerrar"));
         action_resetear_periodo = new QAction(DialogoConsultas);
         action_resetear_periodo->setObjectName(QStringLiteral("action_resetear_periodo"));
+        action_liberar_grafico = new QAction(DialogoConsultas);
+        action_liberar_grafico->setObjectName(QStringLiteral("action_liberar_grafico"));
         opciones_consulta = new QTabWidget(DialogoConsultas);
         opciones_consulta->setObjectName(QStringLiteral("opciones_consulta"));
         opciones_consulta->setEnabled(true);
@@ -305,7 +308,7 @@ public:
 
         btnbox_consulta = new QDialogButtonBox(tab_consulta);
         btnbox_consulta->setObjectName(QStringLiteral("btnbox_consulta"));
-        btnbox_consulta->setGeometry(QRect(381, 420, 80, 23));
+        btnbox_consulta->setGeometry(QRect(411, 420, 80, 23));
         QFont font6;
         font6.setPointSize(11);
         font6.setItalic(true);
@@ -313,7 +316,7 @@ public:
         btnbox_consulta->setStandardButtons(QDialogButtonBox::Cancel);
         btn_realizar_consulta = new QPushButton(tab_consulta);
         btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
-        btn_realizar_consulta->setGeometry(QRect(260, 420, 120, 23));
+        btn_realizar_consulta->setGeometry(QRect(290, 420, 120, 23));
         btn_realizar_consulta->setFont(font6);
         opciones_consulta->addTab(tab_consulta, QString());
         tab_conceptos = new QWidget();
@@ -505,6 +508,7 @@ public:
         action_sacar_reportes->setText(QApplication::translate("DialogoConsultas", "sacar_reportes", Q_NULLPTR));
         action_realizar_consulta_y_cerrar->setText(QApplication::translate("DialogoConsultas", "realizar_consulta_y_cerrar", Q_NULLPTR));
         action_resetear_periodo->setText(QApplication::translate("DialogoConsultas", "resetear_periodo", Q_NULLPTR));
+        action_liberar_grafico->setText(QApplication::translate("DialogoConsultas", "liberar_grafico", Q_NULLPTR));
         groupbox_periodo->setTitle(QApplication::translate("DialogoConsultas", "Periodo", Q_NULLPTR));
         lbl_desde->setText(QApplication::translate("DialogoConsultas", "Desde", Q_NULLPTR));
         lbl_hasta->setText(QApplication::translate("DialogoConsultas", "Hasta", Q_NULLPTR));

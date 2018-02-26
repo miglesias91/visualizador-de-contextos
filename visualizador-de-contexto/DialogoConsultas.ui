@@ -410,7 +410,7 @@
     <widget class="QDialogButtonBox" name="btnbox_consulta">
      <property name="geometry">
       <rect>
-       <x>381</x>
+       <x>411</x>
        <y>420</y>
        <width>80</width>
        <height>23</height>
@@ -429,7 +429,7 @@
     <widget class="QPushButton" name="btn_realizar_consulta">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>290</x>
        <y>420</y>
        <width>120</width>
        <height>23</height>
@@ -717,6 +717,11 @@
   <action name="action_resetear_periodo">
    <property name="text">
     <string>resetear_periodo</string>
+   </property>
+  </action>
+  <action name="action_liberar_grafico">
+   <property name="text">
+    <string>liberar_grafico</string>
    </property>
   </action>
  </widget>

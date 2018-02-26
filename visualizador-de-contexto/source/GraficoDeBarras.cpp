@@ -2,8 +2,8 @@
 
 using namespace graficos;
 
-GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta) :
-    individuos(individuos), categorias(categorias), rango_eje_y_min(rango_eje_y_min), rango_eje_y_max(rango_eje_y_max), etiqueta(etiqueta), chart_view(NULL)
+GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana) :
+    individuos(individuos), categorias(categorias), rango_eje_y_min(rango_eje_y_min), rango_eje_y_max(rango_eje_y_max), etiqueta(etiqueta), titulo_ventana(titulo_ventana), chart_view(NULL)
 {
     QtCharts::QBarSeries * series = new QtCharts::QBarSeries();
 
@@ -47,6 +47,7 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
     chart->legend()->setAlignment(Qt::AlignBottom);
 
     this->chart_view = new QtCharts::QChartView(chart);
+    this->chart_view->setWindowTitle(QString(this->titulo_ventana.c_str()));
     this->chart_view->setRenderHint(QPainter::Antialiasing);
 
     this->chart_view->setMinimumWidth(850);
@@ -109,6 +110,11 @@ void GraficoDeBarras::setRangoEjeYMin(double rango_eje_y_min)
 void GraficoDeBarras::setRangoEjeYMax(double rango_eje_y_max)
 {
     this->rango_eje_y_max = rango_eje_y_max;
+}
+
+QtCharts::QChartView * GraficoDeBarras::getChartView()
+{
+    return this->chart_view;
 }
 
 // METODOS

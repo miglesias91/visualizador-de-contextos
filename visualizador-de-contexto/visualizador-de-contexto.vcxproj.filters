@@ -169,6 +169,9 @@
     <CustomBuild Include="DialogoMediosTwitter.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="include\GraficoDeBarras.h">
+      <Filter>Header Files\graficos</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_visualizadordecontexto.h">
@@ -194,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="include\FabricaMensajes.h">
       <Filter>Header Files\comunicacion</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GraficoDeBarras.h">
-      <Filter>Header Files\graficos</Filter>
     </ClInclude>
     <ClInclude Include="include\Individuo.h">
       <Filter>Header Files\graficos\modelo</Filter>

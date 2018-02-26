@@ -226,7 +226,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
         delete this->grafico_fuerza_en_noticia;
     }
 
-    this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDmesAAAA(" ") + " hasta " + hasta.getStringDDmesAAAA(" "));
+    this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDMMAAAA("/") + " hasta " + hasta.getStringDDMMAAAA("/"));
     this->grafico_fuerza_en_noticia->mostrar();
 
     for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
@@ -326,7 +326,19 @@ void DialogoConsultas::agregarMedioALista(visualizador::modelo::MedioTwitter * m
     std::string etiqueta = medio_twitter->getEtiqueta();
     std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
     
-    std::string texto_item = etiqueta + "(" + nombre_usuario + ")";
+    std::string info_analisis = "sin contenido para visualizar";
+
+    unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
+    if (cantidad_de_tweets_historicos != 0)
+    {
+        std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
+        std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
+        std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
+
+        info_analisis = fecha_tweets_mas_antiguo + " - " + fecha_tweets_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
+    }
+
+    std::string texto_item = etiqueta + " (" + nombre_usuario + ") | " + info_analisis;
 
     item->setText(texto_item.c_str());
 

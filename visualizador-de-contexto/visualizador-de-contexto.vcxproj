@@ -268,7 +268,32 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(qt-dir)5.9.1\msvc2015_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(qt-dir)5.9.1\msvc2015_64\include\QtCore" "-I$(qt-dir)5.9.1\msvc2015_64\include\QtGui" "-I$(qt-dir)5.9.1\msvc2015_64\include\QtWidgets" "-I$(repos)rapidjson\include" "-I$(SolutionDir)\." "-I$(repos-git)almacenamiento" "-I$(repos-git)herramientas_desarrollo" "-I$(repos-git)scraping"</Command>
     </CustomBuild>
     <ClInclude Include="GeneratedFiles\ui_DialogoMediosTwitter.h" />
-    <ClInclude Include="include\GraficoDeBarras.h" />
+    <CustomBuild Include="include\GraficoDeBarras.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Command>
+    </CustomBuild>
     <ClInclude Include="include\Individuo.h" />
     <CustomBuild Include="DialogoConceptos.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

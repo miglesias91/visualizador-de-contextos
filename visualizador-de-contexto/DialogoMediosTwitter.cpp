@@ -174,8 +174,8 @@ void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medi
     unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
     if (cantidad_de_tweets_historicos != 0)
     {
-        std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringAAAAMMDD("/");
-        std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringAAAAMMDD("/");
+        std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
+        std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
         std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
 
         info_analisis = fecha_tweets_mas_antiguo + " - " + fecha_tweets_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
