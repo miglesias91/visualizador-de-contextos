@@ -29,7 +29,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -76,7 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)herramientas_desarrollo\;$(repos-git)scraping\;$(repos)rapidjson\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -121,9 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\IContieneJson.h" />
     <ClInclude Include="include\IAlmacenable.h" />
-    <ClInclude Include="include\IJson.h" />
     <ClInclude Include="include\Concepto.h" />
     <ClInclude Include="include\Consulta.h" />
     <ClInclude Include="include\Fecha.h" />
@@ -172,11 +170,9 @@
     <ClCompile Include="source\IRelacionable.cpp" />
     <ClCompile Include="source\RelacionesTermino.cpp" />
     <ClCompile Include="source\IRelaciones.cpp" />
-    <ClCompile Include="source\IContieneJson.cpp" />
     <ClCompile Include="source\RelacionConGrupo.cpp" />
     <ClCompile Include="source\IAlmacenable.cpp" />
     <ClCompile Include="source\IReferenciable.cpp" />
-    <ClCompile Include="source\IJson.cpp" />
     <ClCompile Include="source\Concepto.cpp" />
     <ClCompile Include="source\Consulta.cpp" />
     <ClCompile Include="source\Fecha.cpp" />

@@ -3,7 +3,6 @@
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/include/GestorIDs.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 Termino::Termino() : IEntidad("", visualizador::aplicacion::ConfiguracionAplicacion::prefijoTermino(), NULL), valor("")
@@ -58,15 +57,16 @@ void Termino::setRelacionesTermino(relaciones::RelacionesTermino * relaciones_te
 
 bool Termino::armarJson()
 {
-	IJson* json = this->getJson();
-    json->reset();
+    this->getJson()->reset();
 
-    json->agregarAtributoValor("valor", this->getValor());
+    this->getJson()->agregarAtributoValor("valor", this->getValor());
+
+    return true;
 }
 
 bool Termino::parsearJson()
 {
-	std::string valor = json->getAtributoValorString("valor");
+	std::string valor = this->getJson()->getAtributoValorString("valor");
 
 	this->setValor(valor);
 

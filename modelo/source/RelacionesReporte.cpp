@@ -33,9 +33,10 @@ std::string RelacionesReporte::getValorAlmacenable()
 
 void RelacionesReporte::parsearValorAlmacenable(std::string valor_almacenable)
 {
-    IJson json_almacenable(valor_almacenable);
+    herramientas::utiles::Json * json_almacenable = new herramientas::utiles::Json(valor_almacenable);
 
-    this->parsearJson(&json_almacenable);
+    this->setJson(json_almacenable);
+    this->parsearJson();
 }
 
 std::string RelacionesReporte::prefijoGrupo()
@@ -52,21 +53,22 @@ unsigned long long int RelacionesReporte::hashcode()
 
 bool RelacionesReporte::armarJson()
 {
-    IJson * relaciones_reporte = new IJson();
+    herramientas::utiles::Json *  relaciones_reporte = new herramientas::utiles::Json();
 
     relaciones_reporte->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 
-    IJson* json = this->getJson();
-    json->reset();
+    this->getJson()->reset();
 
-    json->agregarAtributoJson("relaciones_reporte", relaciones_reporte);
+    this->getJson()->agregarAtributoJson("relaciones_reporte", relaciones_reporte);
 
     delete relaciones_reporte;
+
+    return true;
 }
 
 bool RelacionesReporte::parsearJson()
 {
-    IJson * json_relaciones_reporte = json->getAtributoValorJson("relaciones_reporte");
+    herramientas::utiles::Json *  json_relaciones_reporte = this->getJson()->getAtributoValorJson("relaciones_reporte");
 
     std::vector<unsigned long long int> ids_consultas = json_relaciones_reporte->getAtributoArrayUint("ids_consultas");
 

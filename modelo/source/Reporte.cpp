@@ -42,6 +42,7 @@ void Reporte::setRelacionesReporte(relaciones::RelacionesReporte * relaciones_re
 
 bool Reporte::armarJson()
 {
+    return true;
 }
 
 bool Reporte::parsearJson()

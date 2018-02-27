@@ -50,19 +50,20 @@ void Fecha::setRelacionesFecha(relaciones::RelacionesFecha * relaciones_fecha)
 
 bool Fecha::armarJson()
 {
-    IJson* json = this->getJson();
-    json->reset();
+    this->getJson()->reset();
 
-    json->agregarAtributoValor("dia", this->getDia());
-    json->agregarAtributoValor("mes", this->getMes());
-    json->agregarAtributoValor("anio", this->getAnio());
+    this->getJson()->agregarAtributoValor("dia", this->getDia());
+    this->getJson()->agregarAtributoValor("mes", this->getMes());
+    this->getJson()->agregarAtributoValor("anio", this->getAnio());
+
+    return true;
 }
 
 bool Fecha::parsearJson()
 {
-    unsigned long long int dia = json->getAtributoValorUint("dia");
-    unsigned long long int mes = json->getAtributoValorUint("mes");
-    unsigned long long int anio = json->getAtributoValorUint("anio");
+    unsigned long long int dia = this->getJson()->getAtributoValorUint("dia");
+    unsigned long long int mes = this->getJson()->getAtributoValorUint("mes");
+    unsigned long long int anio = this->getJson()->getAtributoValorUint("anio");
 
     this->setDia(dia);
     this->setMes(mes);

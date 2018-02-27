@@ -21,16 +21,16 @@ Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::Config
     this->setRelaciones(this->relaciones_concepto);
 }
 
-Concepto::Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), relaciones_concepto(NULL)
-{
-    this->relaciones_concepto = new relaciones::RelacionesConcepto();
-    this->setRelaciones(this->relaciones_concepto);
-
-    for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
-    {
-        this->agregarTermino(*it);
-    }
-}
+//Concepto::Concepto(std::vector<Termino*> terminos, herramientas::utiles::Json * contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), relaciones_concepto(NULL)
+//{
+//    this->relaciones_concepto = new relaciones::RelacionesConcepto();
+//    this->setRelaciones(this->relaciones_concepto);
+//
+//    for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
+//    {
+//        this->agregarTermino(*it);
+//    }
+//}
 
 Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), relaciones_concepto(NULL)
 {
@@ -104,6 +104,7 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
 
 bool Concepto::armarJson()
 {
+    return true;
 }
 
 bool Concepto::parsearJson()
@@ -177,12 +178,6 @@ bool Concepto::recuperarContenidoDeRelaciones()
 
 void Concepto::actualizarRelaciones(herramientas::utiles::ID * id_nuevo, herramientas::utiles::ID * id_viejo)
 {
-    //for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
-    //{
-    //    (*it)->getRelacionesTermino()->agregarRelacionConConcepto(this->getId());
-    //    this->relaciones_concepto->agregarRelacionConTermino((*it)->getId());
-    //}
-
     for (std::vector<Termino*>::iterator it = this->terminos.begin(); it != this->terminos.end(); it++)
     {
         (*it)->getRelacionesTermino()->actualizarRelacionConConcepto(id_nuevo, id_viejo);

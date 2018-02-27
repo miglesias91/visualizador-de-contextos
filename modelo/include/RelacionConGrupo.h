@@ -8,7 +8,7 @@
 #include <utiles/include/ID.h>
 #include <utiles/include/IHashable.h>
 
-using namespace visualizador;
+//using namespace visualizador;
 
 namespace visualizador
 {

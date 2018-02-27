@@ -6,7 +6,6 @@
 
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
-#include <aplicacion/include/GestorIDs.h>
 
 // modelo
 #include <modelo/include/Concepto.h>
@@ -409,48 +408,48 @@ TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
     ASSERT_STREQ("{\"etiqueta\":\"primavera_2017\",\"contenido\":{}}", json_entidad_almacenable.c_str());
     ASSERT_STREQ("{\"relaciones_consulta\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios_twitter\":[15,16],\"ids_secciones\":[17,18]}}", json_relaciones_almacenable.c_str());
 }
-
-TEST(modelo, GettersYSettersIJson)
-{
-	IJson* json = new IJson("{\"etiqueta\":\"primavera_2017\",\"contenido\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}");
-
-	std::string etiqueta = json->getAtributoValorString("etiqueta");
-
-	IJson* contenido = json->getAtributoValorJson("contenido");
-
-    std::string json_original = contenido->jsonString();
-
-	unsigned long long int id_periodo = contenido->getAtributoValorUint("id_periodo");
-	unsigned long long int id_reporte = contenido->getAtributoValorUint("id_reporte");
-	std::vector<unsigned long long int> ids_conceptos = contenido->getAtributoArrayUint("ids_conceptos");
-
-	std::vector<unsigned long long int> ids_medios = contenido->getAtributoArrayUint("ids_medios");
-	std::vector<unsigned long long int> ids_secciones = contenido->getAtributoArrayUint("ids_secciones");
-
-    std::string json_sin_modificar = contenido->jsonString();
-
-    delete json;
-    delete contenido;
-
-    ASSERT_STREQ("primavera_2017", etiqueta.c_str());
-
-    ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_original.c_str());
-
-    ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_sin_modificar.c_str());
-
-	ASSERT_EQ(2, id_periodo);
-	ASSERT_EQ(3, id_reporte);
-	
-	ASSERT_EQ(6, ids_conceptos[0]);
-	ASSERT_EQ(10, ids_conceptos[1]);
-	ASSERT_EQ(14, ids_conceptos[2]);
-
-	ASSERT_EQ(15, ids_medios[0]);
-	ASSERT_EQ(16, ids_medios[1]);
-
-	ASSERT_EQ(17, ids_secciones[0]);
-	ASSERT_EQ(18, ids_secciones[1]);
-}
+//
+//TEST(modelo, GettersYSettersIJson)
+//{
+//	IJson* json = new IJson("{\"etiqueta\":\"primavera_2017\",\"contenido\":{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}}");
+//
+//	std::string etiqueta = json->getAtributoValorString("etiqueta");
+//
+//	IJson* contenido = json->getAtributoValorJson("contenido");
+//
+//    std::string json_original = contenido->jsonString();
+//
+//	unsigned long long int id_periodo = contenido->getAtributoValorUint("id_periodo");
+//	unsigned long long int id_reporte = contenido->getAtributoValorUint("id_reporte");
+//	std::vector<unsigned long long int> ids_conceptos = contenido->getAtributoArrayUint("ids_conceptos");
+//
+//	std::vector<unsigned long long int> ids_medios = contenido->getAtributoArrayUint("ids_medios");
+//	std::vector<unsigned long long int> ids_secciones = contenido->getAtributoArrayUint("ids_secciones");
+//
+//    std::string json_sin_modificar = contenido->jsonString();
+//
+//    delete json;
+//    delete contenido;
+//
+//    ASSERT_STREQ("primavera_2017", etiqueta.c_str());
+//
+//    ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_original.c_str());
+//
+//    ASSERT_STREQ("{\"id_periodo\":2,\"id_reporte\":3,\"ids_conceptos\":[6,10,14],\"ids_medios\":[15,16],\"ids_secciones\":[17,18]}", json_sin_modificar.c_str());
+//
+//	ASSERT_EQ(2, id_periodo);
+//	ASSERT_EQ(3, id_reporte);
+//	
+//	ASSERT_EQ(6, ids_conceptos[0]);
+//	ASSERT_EQ(10, ids_conceptos[1]);
+//	ASSERT_EQ(14, ids_conceptos[2]);
+//
+//	ASSERT_EQ(15, ids_medios[0]);
+//	ASSERT_EQ(16, ids_medios[1]);
+//
+//	ASSERT_EQ(17, ids_secciones[0]);
+//	ASSERT_EQ(18, ids_secciones[1]);
+//}
 
 TEST(modelo, ComparacionFechas)
 {

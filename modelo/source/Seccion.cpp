@@ -42,6 +42,7 @@ void Seccion::setRelacionesSeccion(relaciones::RelacionesSeccion * relaciones_se
 
 bool Seccion::armarJson()
 {
+    return true;
 }
 
 bool Seccion::parsearJson()

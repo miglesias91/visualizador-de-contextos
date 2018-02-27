@@ -63,7 +63,9 @@ bool RelacionesConcepto::armarJson()
 
     this->getJson()->agregarAtributoJson("relaciones_concepto", relaciones_concepto);
 
-    //delete relaciones_concepto;
+    delete relaciones_concepto;
+
+    return true;
 }
 
 bool RelacionesConcepto::parsearJson()
@@ -82,6 +84,8 @@ bool RelacionesConcepto::parsearJson()
     {
         this->getRelacionConConsultas()->agregarRelacion(*it);
     }
+
+    delete json_relaciones_concepto;
 
     return true;
 }

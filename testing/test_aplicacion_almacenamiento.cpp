@@ -5,7 +5,6 @@
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/GestorEntidades.h>
-#include <aplicacion/include/GestorIDs.h>
 
 // modelo
 #include <modelo/include/Concepto.h>

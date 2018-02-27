@@ -33,9 +33,10 @@ std::string RelacionesFecha::getValorAlmacenable()
 
 void RelacionesFecha::parsearValorAlmacenable(std::string valor_almacenable)
 {
-    IJson json_almacenable(valor_almacenable);
+    herramientas::utiles::Json * json_almacenable = new herramientas::utiles::Json(valor_almacenable);
 
-    this->parsearJson(&json_almacenable);
+    this->setJson(json_almacenable);
+    this->parsearJson();
 }
 
 std::string RelacionesFecha::prefijoGrupo()
@@ -52,21 +53,22 @@ unsigned long long int RelacionesFecha::hashcode()
 
 bool RelacionesFecha::armarJson()
 {
-    IJson * relaciones_fecha = new IJson();
+    herramientas::utiles::Json * relaciones_fecha = new herramientas::utiles::Json();
 
     relaciones_fecha->agregarAtributoArray("ids_periodos", this->getRelacionConPeriodos()->getIdsGrupoComoUint());
 
-    IJson* json = this->getJson();
-    json->reset();
+    this->getJson()->reset();
 
-    json->agregarAtributoJson("relaciones_fecha", relaciones_fecha);
+    this->getJson()->agregarAtributoJson("relaciones_fecha", relaciones_fecha);
     
     delete relaciones_fecha;
+
+    return true;
 }
 
 bool RelacionesFecha::parsearJson()
 {
-    IJson * json_relaciones_fecha = json->getAtributoValorJson("relaciones_fecha");
+    herramientas::utiles::Json * json_relaciones_fecha = this->getJson()->getAtributoValorJson("relaciones_fecha");
 
     std::vector<unsigned long long int> ids_periodos = json_relaciones_fecha->getAtributoArrayUint("ids_periodos");
 

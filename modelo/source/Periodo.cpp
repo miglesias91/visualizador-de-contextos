@@ -109,6 +109,7 @@ void Periodo::setRelacionesPeriodo(relaciones::RelacionesPeriodo * relaciones_pe
 
 bool Periodo::armarJson()
 {
+    return true;
 }
 
 bool Periodo::parsearJson()

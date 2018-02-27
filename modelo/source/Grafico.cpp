@@ -12,6 +12,7 @@ Grafico::~Grafico()
 
 bool Grafico::armarJson()
 {
+    return true;
 }
 
 bool Grafico::parsearJson()

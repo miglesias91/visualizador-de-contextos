@@ -21,7 +21,7 @@ public:
 
 	Concepto(std::string etiqueta = "");
 	
-	Concepto(std::vector<Termino*> terminos, IJson* contenido, std::string etiqueta = "");
+	// Concepto(std::vector<Termino*> terminos, herramientas::utiles::Json * contenido, std::string etiqueta = "");
 
 	Concepto(std::vector<Termino*> terminos, std::string etiqueta = "");
 

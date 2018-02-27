@@ -9,7 +9,6 @@
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/GestorEntidades.h>
-#include <aplicacion/include/GestorIDs.h>
 
 // vld
 

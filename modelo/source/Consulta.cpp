@@ -27,19 +27,16 @@ Consulta::Consulta(Periodo * periodo, Reporte * reporte, std::vector<Concepto*> 
 
     for (std::vector<Concepto*>::iterator it = conceptos.begin(); it != conceptos.end(); it++)
     {
-        // (*it)->sumarReferencia();
         this->agregarConcepto(*it);
     }
 
     for (std::vector<MedioTwitter*>::iterator it = medios_twitter.begin(); it != medios_twitter.end(); it++)
     {
-        // (*it)->sumarReferencia();
         this->agregarMedioTwitter(*it);
     }
 
     for (std::vector<Seccion*>::iterator it = secciones.begin(); it != secciones.end(); it++)
     {
-        // (*it)->sumarReferencia();
         this->agregarSeccion(*it);
     }
 }
@@ -167,7 +164,6 @@ void Consulta::agregarConcepto(Concepto * concepto)
 
     if (NULL != concepto->getId())
     {
-        //this->relaciones_consulta->getRelacionConConceptos()->agregarRelacion(concepto->getId()->copia());
         this->relaciones_consulta->agregarRelacionConConcepto(concepto->getId());
     }
 }
@@ -184,7 +180,6 @@ void Consulta::agregarMedioTwitter(MedioTwitter * medio_twitter)
 
     if (NULL != medio_twitter->getId())
     {
-        //this->relaciones_consulta->getRelacionConMedios()->agregarRelacion(medio->getId()->copia());
         this->relaciones_consulta->agregarRelacionConMedioTwitter(medio_twitter->getId());
     }
 }
@@ -201,7 +196,6 @@ void Consulta::agregarSeccion(Seccion * seccion)
 
     if (NULL != seccion->getId())
     {
-        //this->relaciones_consulta->getRelacionConSecciones()->agregarRelacion(seccion->getId()->copia());
         this->relaciones_consulta->agregarRelacionConSeccion(seccion->getId());
     }
 }
@@ -223,6 +217,7 @@ void Consulta::setRelacionesConsulta(relaciones::RelacionesConsulta * relaciones
 
 bool Consulta::armarJson()
 {
+    return true;
 }
 
 bool Consulta::parsearJson()

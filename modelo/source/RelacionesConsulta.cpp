@@ -56,9 +56,10 @@ void RelacionesConsulta::setRelacionConReporte(unsigned long long int id_reporte
 
 void RelacionesConsulta::parsearValorAlmacenable(std::string valor_almacenable)
 {
-    IJson json_almacenable(valor_almacenable);
+    herramientas::utiles::Json * json_almacenable = new herramientas::utiles::Json(valor_almacenable);
 
-    this->parsearJson(&json_almacenable);
+    this->setJson(json_almacenable);
+    this->parsearJson();
 }
 
 std::string RelacionesConsulta::prefijoGrupo()
@@ -76,7 +77,7 @@ unsigned long long int RelacionesConsulta::hashcode()
 
 bool RelacionesConsulta::armarJson()
 {
-    IJson * relaciones_consulta = new IJson();
+    herramientas::utiles::Json * relaciones_consulta = new herramientas::utiles::Json();
 
     relaciones_consulta->agregarAtributoValor("id_periodo", this->relacion_con_periodo);
     relaciones_consulta->agregarAtributoValor("id_reporte", this->relacion_con_reporte);
@@ -85,17 +86,18 @@ bool RelacionesConsulta::armarJson()
     relaciones_consulta->agregarAtributoArray("ids_medios_twitter", this->getRelacionConMediosTwitter()->getIdsGrupoComoUint());
     relaciones_consulta->agregarAtributoArray("ids_secciones", this->getRelacionConSecciones()->getIdsGrupoComoUint());
 
-    IJson* json = this->getJson();
-    json->reset();
+    this->getJson()->reset();
 
-    json->agregarAtributoJson("relaciones_consulta", relaciones_consulta);
+    this->getJson()->agregarAtributoJson("relaciones_consulta", relaciones_consulta);
 
     delete relaciones_consulta;
+
+    return true;
 }
 
 bool RelacionesConsulta::parsearJson()
 {
-    IJson * json_relaciones_consulta = json->getAtributoValorJson("relaciones_consulta");
+    herramientas::utiles::Json * json_relaciones_consulta = this->getJson()->getAtributoValorJson("relaciones_consulta");
 
     std::vector<unsigned long long int> ids_conceptos = json_relaciones_consulta->getAtributoArrayUint("ids_conceptos");
     for (std::vector<unsigned long long int>::iterator it = ids_conceptos.begin(); it != ids_conceptos.end(); it++)
