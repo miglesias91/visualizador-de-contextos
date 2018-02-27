@@ -81,9 +81,6 @@
     <ClInclude Include="include\IEntidad.h">
       <Filter>Archivos de encabezado\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="include\IHashable.h">
-      <Filter>Archivos de encabezado\interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="include\IJson.h">
       <Filter>Archivos de encabezado\interfaces</Filter>
     </ClInclude>
@@ -177,9 +174,6 @@
       <Filter>Archivos de código fuente\interfaces</Filter>
     </ClCompile>
     <ClCompile Include="source\IEntidad.cpp">
-      <Filter>Archivos de código fuente\interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IHashable.cpp">
       <Filter>Archivos de código fuente\interfaces</Filter>
     </ClCompile>
     <ClCompile Include="source\IJson.cpp">

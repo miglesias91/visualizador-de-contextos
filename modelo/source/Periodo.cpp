@@ -107,11 +107,11 @@ void Periodo::setRelacionesPeriodo(relaciones::RelacionesPeriodo * relaciones_pe
 
 // metodos IContieneJson
 
-void Periodo::crearJson()
+bool Periodo::armarJson()
 {
 }
 
-bool Periodo::parsearJson(IJson* json)
+bool Periodo::parsearJson()
 {
     return true;
 }
@@ -123,7 +123,7 @@ std::string Periodo::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoPeriodo();
 }
 
-unsigned int Periodo::hashcode()
+unsigned long long int Periodo::hashcode()
 {
     return this->getDesde()->hashcode() + this->getHasta()->hashcode();
 }

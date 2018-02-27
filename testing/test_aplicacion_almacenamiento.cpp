@@ -58,31 +58,31 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
     concepto_a_recuperar->recuperarContenidoDeRelaciones();
 
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getEtiqueta().c_str());
-    ASSERT_EQ(2, concepto_a_recuperar->getId()->numero());
+    ASSERT_EQ(3, concepto_a_recuperar->getId()->numero());
     ASSERT_EQ(hashcode_concepto_corrupcion, concepto_a_recuperar->hashcode());
 
     ASSERT_EQ(hashcode_relaciones_concepto_corrupcion, concepto_a_recuperar->getRelaciones()->hashcode());
-    ASSERT_EQ(2, concepto_a_recuperar->getRelaciones()->getId()->numero());
-    ASSERT_EQ(0, concepto_a_recuperar->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[0]);
-    ASSERT_EQ(1, concepto_a_recuperar->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[1]);
+    ASSERT_EQ(3, concepto_a_recuperar->getRelaciones()->getId()->numero());
+    ASSERT_EQ(1, concepto_a_recuperar->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(2, concepto_a_recuperar->getRelacionesConcepto()->getRelacionConTerminos()->getIdsGrupoComoUint()[1]);
 
 	ASSERT_STREQ("etiqueta_corurp", concepto_a_recuperar->getTerminos()[0]->getEtiqueta().c_str());
-	ASSERT_EQ(0, concepto_a_recuperar->getTerminos()[0]->getId()->numero());
+	ASSERT_EQ(1, concepto_a_recuperar->getTerminos()[0]->getId()->numero());
 	ASSERT_STREQ("corrupcion", concepto_a_recuperar->getTerminos()[0]->getValor().c_str());
     ASSERT_EQ(hashcode_corrupcion, concepto_a_recuperar->getTerminos()[0]->hashcode());
 
     ASSERT_EQ(hashcode_relaciones_corrupcion, concepto_a_recuperar->getTerminos()[0]->getRelaciones()->hashcode());
-    ASSERT_EQ(0, concepto_a_recuperar->getTerminos()[0]->getRelaciones()->getId()->numero());
-    ASSERT_EQ(2, concepto_a_recuperar->getTerminos()[0]->getRelacionesTermino()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(1, concepto_a_recuperar->getTerminos()[0]->getRelaciones()->getId()->numero());
+    ASSERT_EQ(3, concepto_a_recuperar->getTerminos()[0]->getRelacionesTermino()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
 
 	ASSERT_STREQ("etiqueta_irregular", concepto_a_recuperar->getTerminos()[1]->getEtiqueta().c_str());
-	ASSERT_EQ(1, concepto_a_recuperar->getTerminos()[1]->getId()->numero());
+	ASSERT_EQ(2, concepto_a_recuperar->getTerminos()[1]->getId()->numero());
 	ASSERT_STREQ("irregularidad", concepto_a_recuperar->getTerminos()[1]->getValor().c_str());
 	ASSERT_EQ(hashcode_irregularidad, concepto_a_recuperar->getTerminos()[1]->hashcode());
 
     ASSERT_EQ(hashcode_relaciones_irregularidad, concepto_a_recuperar->getTerminos()[1]->getRelaciones()->hashcode());
-    ASSERT_EQ(1, concepto_a_recuperar->getTerminos()[1]->getRelaciones()->getId()->numero());
-    ASSERT_EQ(2, concepto_a_recuperar->getTerminos()[1]->getRelacionesTermino()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
+    ASSERT_EQ(2, concepto_a_recuperar->getTerminos()[1]->getRelaciones()->getId()->numero());
+    ASSERT_EQ(3, concepto_a_recuperar->getTerminos()[1]->getRelacionesTermino()->getRelacionConConceptos()->getIdsGrupoComoUint()[0]);
 
 	delete concepto_a_recuperar;
 	delete concepto_corrupcion;

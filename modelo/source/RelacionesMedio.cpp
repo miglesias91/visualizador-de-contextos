@@ -21,7 +21,7 @@ RelacionesMedio::~RelacionesMedio()
 
 std::string RelacionesMedio::getValorAlmacenable()
 {
-    this->crearJson();
+    this->armarJson();
 
     return this->getJson()->jsonString();
 }
@@ -54,14 +54,14 @@ std::string RelacionesMedio::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoRelacionesMedio();
 }
 
-unsigned int RelacionesMedio::hashcode()
+unsigned long long int RelacionesMedio::hashcode()
 {
     return this->getRelacionConConsultas()->hashcode();
 }
 
 // metodos de IContieneJson
 
-void RelacionesMedio::crearJson()
+bool RelacionesMedio::armarJson()
 {
     IJson * relaciones_medio = new IJson();
 
@@ -77,7 +77,7 @@ void RelacionesMedio::crearJson()
     delete relaciones_medio;
 }
 
-bool RelacionesMedio::parsearJson(IJson * json)
+bool RelacionesMedio::parsearJson()
 {
     IJson * json_relaciones_medio = json->getAtributoValorJson("relaciones_medio");
     

@@ -20,7 +20,7 @@ RelacionesReporte::~RelacionesReporte()
 
 std::string RelacionesReporte::getValorAlmacenable()
 {
-    this->crearJson();
+    this->armarJson();
 
     return this->getJson()->jsonString();
 }
@@ -43,14 +43,14 @@ std::string RelacionesReporte::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoRelacionesReporte();
 }
 
-unsigned int RelacionesReporte::hashcode()
+unsigned long long int RelacionesReporte::hashcode()
 {
     return this->getRelacionConConsultas()->hashcode();
 }
 
 // metodos de IContieneJson
 
-void RelacionesReporte::crearJson()
+bool RelacionesReporte::armarJson()
 {
     IJson * relaciones_reporte = new IJson();
 
@@ -64,7 +64,7 @@ void RelacionesReporte::crearJson()
     delete relaciones_reporte;
 }
 
-bool RelacionesReporte::parsearJson(IJson * json)
+bool RelacionesReporte::parsearJson()
 {
     IJson * json_relaciones_reporte = json->getAtributoValorJson("relaciones_reporte");
 

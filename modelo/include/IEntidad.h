@@ -3,8 +3,8 @@
 // stl
 #include <string>
 
-// aplicacion
-#include <aplicacion/include/ID.h>
+// herramientas
+#include <utiles/include/IContieneJson.h>
 
 // modelo
 #include <modelo/include/IAlmacenable.h>
@@ -17,13 +17,13 @@ namespace visualizador
 namespace modelo
 {
 
-class IEntidad : public IAlmacenable, public IContieneJson, public relaciones::IRelacionable, public IReferenciable
+class IEntidad : public IAlmacenable, public herramientas::utiles::IContieneJson, public relaciones::IRelacionable, public IReferenciable
 {
 public:
 
 	// CONSTRUCTORES
 	IEntidad();
-    IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, IJson * json = new IJson());
+    IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, herramientas::utiles::Json * json = new herramientas::utiles::Json());
 
 	virtual ~IEntidad();
 
@@ -41,7 +41,6 @@ public:
 
     // setters de IAlmacenable
 
-    //virtual void setId(herramientas::utiles::ID* id_termino);
     virtual void setId(herramientas::utiles::ID* id_termino);
 
 	// METODOS

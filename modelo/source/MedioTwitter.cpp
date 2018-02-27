@@ -85,9 +85,9 @@ std::string MedioTwitter::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoMedioTwitter();
 }
 
-unsigned MedioTwitter::hashcode()
+unsigned long long int MedioTwitter::hashcode()
 {
-    return IHashable::hashear(this->getNombreUsuario());
+    return herramientas::utiles::IHashable::hashear(this->getNombreUsuario());
 }
 
 // metodos de IEntidad

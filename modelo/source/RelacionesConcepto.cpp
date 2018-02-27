@@ -21,7 +21,7 @@ RelacionesConcepto::~RelacionesConcepto()
 
 std::string RelacionesConcepto::getValorAlmacenable()
 {
-    this->crearJson();
+    this->armarJson();
 
     return this->getJson()->jsonString();
 }
@@ -34,9 +34,10 @@ std::string RelacionesConcepto::getValorAlmacenable()
 
 void RelacionesConcepto::parsearValorAlmacenable(std::string valor_almacenable)
 {
-    IJson json_almacenable(valor_almacenable);
+    herramientas::utiles::Json * json_almacenable = new herramientas::utiles::Json(valor_almacenable);
 
-    this->parsearJson(&json_almacenable);
+    this->setJson(json_almacenable);
+    this->parsearJson();
 }
 
 std::string RelacionesConcepto::prefijoGrupo()
@@ -44,31 +45,30 @@ std::string RelacionesConcepto::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoRelacionesConcepto();
 }
 
-unsigned int RelacionesConcepto::hashcode()
+unsigned long long int RelacionesConcepto::hashcode()
 {
     return this->getRelacionConTerminos()->hashcode() + this->getRelacionConConsultas()->hashcode();
 }
 
 // metodos de IContieneJson
 
-void RelacionesConcepto::crearJson()
+bool RelacionesConcepto::armarJson()
 {
-    IJson * relaciones_concepto = new IJson();
+    herramientas::utiles::Json * relaciones_concepto = new herramientas::utiles::Json();
 
     relaciones_concepto->agregarAtributoArray("ids_terminos", this->getRelacionConTerminos()->getIdsGrupoComoUint());
     relaciones_concepto->agregarAtributoArray("ids_consultas", this->getRelacionConConsultas()->getIdsGrupoComoUint());
 
-    IJson* json = this->getJson();
-    json->reset();
+    this->getJson()->reset();
 
-    json->agregarAtributoJson("relaciones_concepto", relaciones_concepto);
+    this->getJson()->agregarAtributoJson("relaciones_concepto", relaciones_concepto);
 
-    delete relaciones_concepto;
+    //delete relaciones_concepto;
 }
 
-bool RelacionesConcepto::parsearJson(IJson * json)
+bool RelacionesConcepto::parsearJson()
 {
-    IJson * json_relaciones_concepto = json->getAtributoValorJson("relaciones_concepto");
+    herramientas::utiles::Json * json_relaciones_concepto = this->getJson()->getAtributoValorJson("relaciones_concepto");
 
     std::vector<unsigned long long int> ids_terminos = json_relaciones_concepto->getAtributoArrayUint("ids_terminos");
     std::vector<unsigned long long int> ids_consultas = json_relaciones_concepto->getAtributoArrayUint("ids_consultas");
@@ -82,8 +82,6 @@ bool RelacionesConcepto::parsearJson(IJson * json)
     {
         this->getRelacionConConsultas()->agregarRelacion(*it);
     }
-
-    delete json_relaciones_concepto;
 
     return true;
 }

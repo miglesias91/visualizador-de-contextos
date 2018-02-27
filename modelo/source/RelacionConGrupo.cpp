@@ -151,7 +151,7 @@ bool RelacionConGrupo::actualizarRelacion(herramientas::utiles::ID * id_nuevo, h
 
 // metodos de IHashable
 
-unsigned int RelacionConGrupo::hashcode()
+unsigned long long int RelacionConGrupo::hashcode()
 {
     std::string string_ids = "";
 
@@ -162,5 +162,5 @@ unsigned int RelacionConGrupo::hashcode()
         string_ids += (*it)->string();
     }
 
-    return IHashable::hashear(string_ids);
+    return herramientas::utiles::IHashable::hashear(string_ids);
 }

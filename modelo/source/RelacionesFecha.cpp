@@ -20,7 +20,7 @@ RelacionesFecha::~RelacionesFecha()
 
 std::string RelacionesFecha::getValorAlmacenable()
 {
-    this->crearJson();
+    this->armarJson();
 
     return this->getJson()->jsonString();
 }
@@ -43,14 +43,14 @@ std::string RelacionesFecha::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoRelacionesFecha();
 }
 
-unsigned int RelacionesFecha::hashcode()
+unsigned long long int RelacionesFecha::hashcode()
 {
     return this->getRelacionConPeriodos()->hashcode();
 }
 
 // metodos de IContieneJson
 
-void RelacionesFecha::crearJson()
+bool RelacionesFecha::armarJson()
 {
     IJson * relaciones_fecha = new IJson();
 
@@ -64,7 +64,7 @@ void RelacionesFecha::crearJson()
     delete relaciones_fecha;
 }
 
-bool RelacionesFecha::parsearJson(IJson * json)
+bool RelacionesFecha::parsearJson()
 {
     IJson * json_relaciones_fecha = json->getAtributoValorJson("relaciones_fecha");
 

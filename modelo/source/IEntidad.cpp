@@ -2,15 +2,12 @@
 
 using namespace visualizador::modelo;
 
-// aplicacion
-#include <aplicacion/include/GestorIDs.h>
-
-IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), IContieneJson(), IRelacionable(), esta_limpia(true)
+IEntidad::IEntidad() : IReferenciable(), IAlmacenable(), herramientas::utiles::IContieneJson(), IRelacionable(), esta_limpia(true)
 {
 }
 
-IEntidad::IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, IJson * json)
-    : IReferenciable(), IAlmacenable(grupo), IContieneJson(json), IRelacionable(relaciones), etiqueta(etiqueta), esta_limpia(true)
+IEntidad::IEntidad(std::string etiqueta, std::string grupo, relaciones::IRelaciones * relaciones, herramientas::utiles::Json * json)
+    : IReferenciable(), IAlmacenable(grupo), herramientas::utiles::IContieneJson(json), IRelacionable(relaciones), etiqueta(etiqueta), esta_limpia(true)
 {
 }
 
@@ -29,15 +26,16 @@ std::string IEntidad::getEtiqueta()
 
 std::string IEntidad::getValorAlmacenable()
 {
-    this->crearJson();
+    //this->crearJson();
+    this->armarJson();
     
-    IJson json_almacenable;
+    herramientas::utiles::Json json_almacenable;
 
     // seteo la etiqueta
     json_almacenable.agregarAtributoValor("etiqueta", this->getEtiqueta());
     
     // seteo el contenido
-    IJson* json_contenido = this->getJson();
+    herramientas::utiles::Json* json_contenido = this->getJson();
     json_almacenable.agregarAtributoJson("contenido", json_contenido);
 
     std::string string_almacenable = json_almacenable.jsonString();
@@ -69,18 +67,17 @@ void IEntidad::setId(herramientas::utiles::ID* id)
 
 void IEntidad::parsearValorAlmacenable(std::string valor_almacenable)
 {
-	IJson json_almacenable(valor_almacenable);
+    herramientas::utiles::Json json_almacenable(valor_almacenable);
 
     // parseo etiqueta
 	std::string etiqueta = json_almacenable.getAtributoValorString("etiqueta");
 	this->setEtiqueta(etiqueta);
 
     // parseo contenido
-	IJson* json_contenido = json_almacenable.getAtributoValorJson("contenido");
+    herramientas::utiles::Json* json_contenido = json_almacenable.getAtributoValorJson("contenido");
 
-	this->esta_limpia = this->parsearJson(json_contenido);
-
-	delete json_contenido;
+    this->setJson(json_contenido);
+	this->esta_limpia = this->parsearJson();
 }
 
 std::vector<IAlmacenable*> IEntidad::comoAlmacenables(std::vector<IEntidad*> entidades)

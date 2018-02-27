@@ -40,11 +40,11 @@ void Seccion::setRelacionesSeccion(relaciones::RelacionesSeccion * relaciones_se
 
 // metodos IContieneJson
 
-void Seccion::crearJson()
+bool Seccion::armarJson()
 {
 }
 
-bool Seccion::parsearJson(IJson* json)
+bool Seccion::parsearJson()
 {
     return true;
 }
@@ -56,7 +56,7 @@ std::string Seccion::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoSeccion();
 }
 
-unsigned int Seccion::hashcode()
+unsigned long long int Seccion::hashcode()
 {
 	return IHashable::hashear(this->getGrupo() + this->getEtiqueta());
 }

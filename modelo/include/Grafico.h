@@ -20,9 +20,9 @@ public:
 
 	// METODOS
 
-	virtual void crearJson();
+	virtual bool armarJson();
 
-	virtual bool parsearJson(IJson* json);
+	virtual bool parsearJson();
 
 	// GETTERS
 

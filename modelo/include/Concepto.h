@@ -51,7 +51,7 @@ public:
 
 	virtual std::string prefijoGrupo();
 	
-	virtual unsigned int hashcode();
+	virtual unsigned long long int hashcode();
 
     // metodos de IEntidad
 

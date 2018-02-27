@@ -56,7 +56,7 @@ void Termino::setRelacionesTermino(relaciones::RelacionesTermino * relaciones_te
 
 // metodos de IContieneJson
 
-void Termino::crearJson()
+bool Termino::armarJson()
 {
 	IJson* json = this->getJson();
     json->reset();
@@ -64,7 +64,7 @@ void Termino::crearJson()
     json->agregarAtributoValor("valor", this->getValor());
 }
 
-bool Termino::parsearJson(IJson* json)
+bool Termino::parsearJson()
 {
 	std::string valor = json->getAtributoValorString("valor");
 
@@ -80,7 +80,7 @@ std::string Termino::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoTermino();
 }
 
-unsigned int Termino::hashcode()
+unsigned long long int Termino::hashcode()
 {
 	return IHashable::hashear(this->getValor());
 }

@@ -40,7 +40,7 @@ void Reporte::setRelacionesReporte(relaciones::RelacionesReporte * relaciones_re
 
 // metodos IContieneJson
 
-void Reporte::crearJson()
+bool Reporte::armarJson()
 {
 }
 
@@ -56,7 +56,7 @@ std::string Reporte::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoReporte();
 }
 
-unsigned int Reporte::hashcode()
+unsigned long long int Reporte::hashcode()
 {
     return IHashable::hashear(this->getGrupo() + this->getEtiqueta());
 }

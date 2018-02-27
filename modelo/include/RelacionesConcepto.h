@@ -37,13 +37,13 @@ public:
 
     virtual std::string prefijoGrupo();
 
-    virtual unsigned int hashcode();
+    virtual unsigned long long int hashcode();
 
     // metodos de IContieneJson
 
-    virtual void crearJson();
+    virtual bool armarJson();
 
-    virtual bool parsearJson(IJson * json);
+    virtual bool parsearJson();
 
     // metodos de IRelaciones
 

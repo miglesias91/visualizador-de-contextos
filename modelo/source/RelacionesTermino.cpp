@@ -28,7 +28,7 @@ RelacionesTermino::~RelacionesTermino()
 
 std::string RelacionesTermino::getValorAlmacenable()
 {
-    this->crearJson();
+    this->armarJson();
 
     return this->getJson()->jsonString();
 }
@@ -49,14 +49,14 @@ std::string RelacionesTermino::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoRelacionesTermino();
 }
 
-unsigned int RelacionesTermino::hashcode()
+unsigned long long int RelacionesTermino::hashcode()
 {
     return this->getRelacionConConceptos()->hashcode();
 }
 
 // metodos de IContieneJson
 
-void RelacionesTermino::crearJson()
+bool RelacionesTermino::armarJson()
 {
     IJson * relaciones_termino = new IJson();
 
@@ -70,7 +70,7 @@ void RelacionesTermino::crearJson()
     delete relaciones_termino;
 }
 
-bool RelacionesTermino::parsearJson(IJson * json)
+bool RelacionesTermino::parsearJson()
 {
     IJson * json_relaciones_termino = json->getAtributoValorJson("relaciones_termino");
 

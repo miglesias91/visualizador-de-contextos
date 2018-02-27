@@ -102,11 +102,11 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
 
 // metodos IContieneJson
 
-void Concepto::crearJson()
+bool Concepto::armarJson()
 {
 }
 
-bool Concepto::parsearJson(IJson* json)
+bool Concepto::parsearJson()
 {
     return true;
 }
@@ -118,7 +118,7 @@ std::string Concepto::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoConcepto();
 }
 
-unsigned int Concepto::hashcode()
+unsigned long long int Concepto::hashcode()
 {
     return this->getRelacionesConcepto()->getRelacionConTerminos()->hashcode();
 }

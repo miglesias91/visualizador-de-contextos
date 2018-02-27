@@ -6,13 +6,7 @@
 
 // herramientas
 #include <utiles/include/ID.h>
-
-// aplicacion
-#include <aplicacion/include/ID.h>
-
-// modelo
-#include <modelo/include/IContieneJson.h>
-#include <modelo/include/IHashable.h>
+#include <utiles/include/IHashable.h>
 
 using namespace visualizador;
 
@@ -23,7 +17,7 @@ namespace modelo
 namespace relaciones
 {
 
-class RelacionConGrupo : public IHashable
+class RelacionConGrupo : public herramientas::utiles::IHashable
 {
 public:
     
@@ -60,7 +54,7 @@ public:
 
     // metodos de IHashable
 
-    virtual unsigned int hashcode();
+    virtual unsigned long long int hashcode();
 
 private:
 

@@ -48,7 +48,7 @@ void Fecha::setRelacionesFecha(relaciones::RelacionesFecha * relaciones_fecha)
 
 // metodos de IContieneJson
 
-void Fecha::crearJson()
+bool Fecha::armarJson()
 {
     IJson* json = this->getJson();
     json->reset();
@@ -58,7 +58,7 @@ void Fecha::crearJson()
     json->agregarAtributoValor("anio", this->getAnio());
 }
 
-bool Fecha::parsearJson(IJson* json)
+bool Fecha::parsearJson()
 {
     unsigned long long int dia = json->getAtributoValorUint("dia");
     unsigned long long int mes = json->getAtributoValorUint("mes");
@@ -78,7 +78,7 @@ std::string Fecha::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoFecha();
 }
 
-unsigned int Fecha::hashcode()
+unsigned long long int Fecha::hashcode()
 {
     return IHashable::hashear(this->getDia()) + IHashable::hashear(this->getMes()) + IHashable::hashear(this->getAnio());
 }

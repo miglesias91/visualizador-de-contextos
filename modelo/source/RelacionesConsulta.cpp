@@ -33,7 +33,7 @@ unsigned long long int RelacionesConsulta::getRelacionConReporte()
 
 std::string RelacionesConsulta::getValorAlmacenable()
 {
-    this->crearJson();
+    this->armarJson();
 
     return this->getJson()->jsonString();
 }
@@ -66,7 +66,7 @@ std::string RelacionesConsulta::prefijoGrupo()
     return aplicacion::ConfiguracionAplicacion::prefijoRelacionesConsulta();
 }
 
-unsigned int RelacionesConsulta::hashcode()
+unsigned long long int RelacionesConsulta::hashcode()
 {
     return this->getRelacionConConceptos()->hashcode() + this->getRelacionConMediosTwitter()->hashcode() + this->getRelacionConSecciones()->hashcode() +
         this->getRelacionConReporte() + this->getRelacionConPeriodo();
@@ -74,7 +74,7 @@ unsigned int RelacionesConsulta::hashcode()
 
 // metodos de IContieneJson
 
-void RelacionesConsulta::crearJson()
+bool RelacionesConsulta::armarJson()
 {
     IJson * relaciones_consulta = new IJson();
 
@@ -93,7 +93,7 @@ void RelacionesConsulta::crearJson()
     delete relaciones_consulta;
 }
 
-bool RelacionesConsulta::parsearJson(IJson * json)
+bool RelacionesConsulta::parsearJson()
 {
     IJson * json_relaciones_consulta = json->getAtributoValorJson("relaciones_consulta");
 

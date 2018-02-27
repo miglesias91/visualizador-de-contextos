@@ -10,11 +10,11 @@ Grafico::~Grafico()
 {
 }
 
-void Grafico::crearJson()
+bool Grafico::armarJson()
 {
 }
 
-bool Grafico::parsearJson(IJson* json)
+bool Grafico::parsearJson()
 {
     return true;
 }

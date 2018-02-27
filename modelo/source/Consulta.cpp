@@ -221,11 +221,11 @@ void Consulta::setRelacionesConsulta(relaciones::RelacionesConsulta * relaciones
 
 // metodos de IContieneJson
 
-void Consulta::crearJson()
+bool Consulta::armarJson()
 {
 }
 
-bool Consulta::parsearJson(IJson* json)
+bool Consulta::parsearJson()
 {
     return true;
 }
@@ -237,7 +237,7 @@ std::string Consulta::prefijoGrupo()
 	return aplicacion::ConfiguracionAplicacion::prefijoConsulta();
 }
 
-unsigned int Consulta::hashcode()
+unsigned long long int Consulta::hashcode()
 {
     return this->getRelacionesConsulta()->getRelacionConConceptos()->hashcode() + this->getRelacionesConsulta()->getRelacionConMediosTwitter()->hashcode() + this->getRelacionesConsulta()->getRelacionConSecciones()->hashcode() +
         this->getRelacionesConsulta()->getRelacionConReporte() + this->getRelacionesConsulta()->getRelacionConPeriodo();

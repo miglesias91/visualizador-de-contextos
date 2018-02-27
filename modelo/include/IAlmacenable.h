@@ -3,22 +3,20 @@
 // stl
 #include <string>
 
-// aplicacion
-// #include <aplicacion/include/ID.h>
-
 // herramientas
 #include <utiles/include/ID.h>
 #include <utiles/include/GestorIDs.h>
+#include <utiles/include/IHashable.h>
 
 // modelo
-#include <modelo/include/IHashable.h>
+//#include <modelo/include/IHashable.h>
 
 namespace visualizador
 {
 namespace modelo
 {
 
-class IAlmacenable : public IHashable
+class IAlmacenable : public herramientas::utiles::IHashable
 {
 public:
     IAlmacenable(std::string grupo = "");
@@ -56,7 +54,6 @@ private:
 
     static herramientas::utiles::GestorIDs gestor_ids;
 
-    //herramientas::utiles::ID* id;
     herramientas::utiles::ID* id;
     std::string grupo;
 

@@ -263,8 +263,6 @@ TEST(modelo, CreacionJsonYValorAlmacenableTermino)
 
 TEST(modelo, CreacionJsonYValorAlmacenableFecha)
 {
-	visualizador::aplicacion::GestorIDs::setIdActual(0);
-
 	Fecha* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
 	primero_de_enero->asignarNuevoId();
 

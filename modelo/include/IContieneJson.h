@@ -26,10 +26,10 @@ public:
 
     // METODOS
     
-    virtual void crearJson() = 0;
+    virtual bool armarJson() = 0;
 
     // parsea el contenido JSON, y devuelve 'true' si el contenido es correcto, devuelve 'false' si el contenido parseado no esta correcto.
-    virtual bool parsearJson(IJson * json) = 0;
+    virtual bool parsearJson() = 0;
 
 private:
 
