@@ -138,7 +138,6 @@
     <ClInclude Include="include\Reporte.h" />
     <ClInclude Include="include\Seccion.h" />
     <ClInclude Include="include\Termino.h" />
-    <ClInclude Include="include\IReferenciable.h" />
     <ClInclude Include="include\RelacionConGrupo.h" />
     <ClInclude Include="include\IRelaciones.h" />
     <ClInclude Include="include\RelacionesTermino.h" />
@@ -172,7 +171,6 @@
     <ClCompile Include="source\IRelaciones.cpp" />
     <ClCompile Include="source\RelacionConGrupo.cpp" />
     <ClCompile Include="source\IAlmacenable.cpp" />
-    <ClCompile Include="source\IReferenciable.cpp" />
     <ClCompile Include="source\Concepto.cpp" />
     <ClCompile Include="source\Consulta.cpp" />
     <ClCompile Include="source\Fecha.cpp" />

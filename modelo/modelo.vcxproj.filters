@@ -78,9 +78,6 @@
     <ClInclude Include="include\IEntidad.h">
       <Filter>Archivos de encabezado\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="include\IReferenciable.h">
-      <Filter>Archivos de encabezado\interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="include\IRelacionable.h">
       <Filter>Archivos de encabezado\interfaces</Filter>
     </ClInclude>
@@ -165,9 +162,6 @@
       <Filter>Archivos de código fuente\interfaces</Filter>
     </ClCompile>
     <ClCompile Include="source\IEntidad.cpp">
-      <Filter>Archivos de código fuente\interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="source\IReferenciable.cpp">
       <Filter>Archivos de código fuente\interfaces</Filter>
     </ClCompile>
     <ClCompile Include="source\IRelacionable.cpp">

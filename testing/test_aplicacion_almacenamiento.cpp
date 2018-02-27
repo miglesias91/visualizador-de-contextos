@@ -32,13 +32,13 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevoConcepto)
 	Concepto* concepto_corrupcion = new Concepto(terminos_corrupcion, "corrupcion");
 	concepto_corrupcion->asignarNuevoId();
 
-	unsigned int hashcode_irregularidad = termino_irregularidad->hashcode();
-	unsigned int hashcode_corrupcion = termino_corrupcion->hashcode();
-	unsigned int hashcode_concepto_corrupcion = concepto_corrupcion->hashcode();
+	unsigned long long int hashcode_irregularidad = termino_irregularidad->hashcode();
+	unsigned long long int hashcode_corrupcion = termino_corrupcion->hashcode();
+	unsigned long long int hashcode_concepto_corrupcion = concepto_corrupcion->hashcode();
     
-    unsigned int hashcode_relaciones_irregularidad = termino_irregularidad->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_corrupcion = termino_corrupcion->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_concepto_corrupcion = concepto_corrupcion->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_irregularidad = termino_irregularidad->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_corrupcion = termino_corrupcion->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_concepto_corrupcion = concepto_corrupcion->getRelaciones()->hashcode();
 
     IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad);
     IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(termino_irregularidad->getRelaciones());
@@ -183,48 +183,48 @@ TEST(aplicacionAlmacenamiento, GuardarYCargarNuevaConsulta)
 	consulta->asignarNuevoId();
 
     // 3ero: recupero los hashcodes de las entidades.
-    unsigned int hashcode_fecha_desde = inicio_primavera_2017->hashcode();
-    unsigned int hashcode_fecha_hasta = fin_primavera_2017->hashcode();
-    unsigned int hashcode_periodo = primavera_2017->hashcode();
-    unsigned int hashcode_reporte = reporte->hashcode();
-    unsigned int hashcode_termino_corrupcion = termino_corrupcion->hashcode();
-    unsigned int hashcode_termino_irregularidad = termino_irregularidad->hashcode();
-    unsigned int hashcode_concepto_corrupcion = concepto_corrupcion->hashcode();
-    unsigned int hashcode_termino_crisis = termino_crisis->hashcode();
-    unsigned int hashcode_termino_conflicto = termino_conflicto->hashcode();
-    unsigned int hashcode_termino_desorden = termino_desorden->hashcode();
-    unsigned int hashcode_concepto_crisis = concepto_crisis->hashcode();
-    unsigned int hashcode_termino_movilizacion = termino_movilizacion->hashcode();
-    unsigned int hashcode_termino_paro = termino_paro->hashcode();
-    unsigned int hashcode_termino_marcha = termino_marcha->hashcode();
-    unsigned int hashcode_concepto_movilizacion = concepto_movilizacion->hashcode();
-    unsigned int hashcode_medio_clarin = medio_clarin->hashcode();
-    unsigned int hashcode_medio_infobae = medio_infobae->hashcode();
-    unsigned int hashcode_seccion_politica = seccion_politica->hashcode();
-    unsigned int hashcode_seccion_economia = seccion_economia->hashcode();
-    unsigned int hashcode_consulta = consulta->hashcode();
-    unsigned int hashcode_relaciones_consulta = consulta->getRelaciones()->hashcode();
+    unsigned long long int hashcode_fecha_desde = inicio_primavera_2017->hashcode();
+    unsigned long long int hashcode_fecha_hasta = fin_primavera_2017->hashcode();
+    unsigned long long int hashcode_periodo = primavera_2017->hashcode();
+    unsigned long long int hashcode_reporte = reporte->hashcode();
+    unsigned long long int hashcode_termino_corrupcion = termino_corrupcion->hashcode();
+    unsigned long long int hashcode_termino_irregularidad = termino_irregularidad->hashcode();
+    unsigned long long int hashcode_concepto_corrupcion = concepto_corrupcion->hashcode();
+    unsigned long long int hashcode_termino_crisis = termino_crisis->hashcode();
+    unsigned long long int hashcode_termino_conflicto = termino_conflicto->hashcode();
+    unsigned long long int hashcode_termino_desorden = termino_desorden->hashcode();
+    unsigned long long int hashcode_concepto_crisis = concepto_crisis->hashcode();
+    unsigned long long int hashcode_termino_movilizacion = termino_movilizacion->hashcode();
+    unsigned long long int hashcode_termino_paro = termino_paro->hashcode();
+    unsigned long long int hashcode_termino_marcha = termino_marcha->hashcode();
+    unsigned long long int hashcode_concepto_movilizacion = concepto_movilizacion->hashcode();
+    unsigned long long int hashcode_medio_clarin = medio_clarin->hashcode();
+    unsigned long long int hashcode_medio_infobae = medio_infobae->hashcode();
+    unsigned long long int hashcode_seccion_politica = seccion_politica->hashcode();
+    unsigned long long int hashcode_seccion_economia = seccion_economia->hashcode();
+    unsigned long long int hashcode_consulta = consulta->hashcode();
+    unsigned long long int hashcode_relaciones_consulta = consulta->getRelaciones()->hashcode();
     
     // 3ero: ahora si recupero los hashcodes de las relaciones porque ya se agrego el id de 'consulta' a las relaciones de todos. (se agrego cuando le asigne un nuevo id a 'consulta': linea 205: "consulta->asignarNuevoId();").
-    unsigned int hashcode_relaciones_fecha_desde = inicio_primavera_2017->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_fecha_hasta = fin_primavera_2017->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_periodo = primavera_2017->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_reporte = reporte->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_corrupcion = termino_corrupcion->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_irregularidad = termino_irregularidad->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_concepto_corrupcion = concepto_corrupcion->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_crisis = termino_crisis->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_desorden = termino_desorden->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_conflicto = termino_conflicto->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_concepto_crisis = concepto_crisis->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_movilizacion = termino_movilizacion->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_paro = termino_paro->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_termino_marcha = termino_marcha->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_concepto_movilizacion = concepto_movilizacion->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_medio_clarin = medio_clarin->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_medio_infobae = medio_infobae->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_seccion_politica = seccion_politica->getRelaciones()->hashcode();
-    unsigned int hashcode_relaciones_seccion_economia = seccion_economia->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_fecha_desde = inicio_primavera_2017->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_fecha_hasta = fin_primavera_2017->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_periodo = primavera_2017->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_reporte = reporte->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_corrupcion = termino_corrupcion->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_irregularidad = termino_irregularidad->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_concepto_corrupcion = concepto_corrupcion->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_crisis = termino_crisis->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_desorden = termino_desorden->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_conflicto = termino_conflicto->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_concepto_crisis = concepto_crisis->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_movilizacion = termino_movilizacion->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_paro = termino_paro->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_termino_marcha = termino_marcha->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_concepto_movilizacion = concepto_movilizacion->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_medio_clarin = medio_clarin->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_medio_infobae = medio_infobae->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_seccion_politica = seccion_politica->getRelaciones()->hashcode();
+    unsigned long long int hashcode_relaciones_seccion_economia = seccion_economia->getRelaciones()->hashcode();
 
     // 4to: almaceno todo (con cada una de sus relaciones actualizadas y correctas.
     IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenar(inicio_primavera_2017);
