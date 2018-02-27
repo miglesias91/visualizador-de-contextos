@@ -44,7 +44,7 @@ bool Reporte::armarJson()
 {
 }
 
-bool Reporte::parsearJson(IJson* json)
+bool Reporte::parsearJson()
 {
     return true;
 }

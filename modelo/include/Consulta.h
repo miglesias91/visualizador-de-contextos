@@ -57,9 +57,9 @@ public:
 
     // metodos de IContieneJson
 
-	virtual void crearJson();
+	virtual bool armarJson();
 
-	virtual bool parsearJson(IJson* json);
+	virtual bool parsearJson();
     
     // metodos de IAlmacenable
 

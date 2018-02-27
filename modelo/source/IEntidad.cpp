@@ -26,7 +26,7 @@ std::string IEntidad::getEtiqueta()
 
 std::string IEntidad::getValorAlmacenable()
 {
-    //this->crearJson();
+    //this->armarJson();
     this->armarJson();
     
     herramientas::utiles::Json json_almacenable;

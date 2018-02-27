@@ -64,14 +64,14 @@ void MedioTwitter::setCuentaAScrapear(scraping::twitter::modelo::Cuenta * cuenta
 
 // metodos de IContieneJson
 
-void MedioTwitter::crearJson()
+void MedioTwitter::armarJson()
 {
     this->getJson()->reset();
 
     this->getJson()->agregarAtributoValor("nombre_usuario", this->nombre_usuario);
 }
 
-bool MedioTwitter::parsearJson(IJson* json)
+bool MedioTwitter::parsearJson()
 {
     this->nombre_usuario = json->getAtributoValorString("nombre_usuario");
 

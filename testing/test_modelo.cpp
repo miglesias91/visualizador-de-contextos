@@ -231,10 +231,10 @@ TEST(modelo, CreacionJsonYValorAlmacenableConcepto)
 	Concepto* concepto_movilizacion = new Concepto(terminos_movilizacion, "movilizacion");
 	concepto_movilizacion->asignarNuevoId();
 
-	concepto_movilizacion->crearJson();
+	concepto_movilizacion->armarJson();
     std::string json_entidad_almacenable = concepto_movilizacion->getValorAlmacenable();
 
-    concepto_movilizacion->getRelaciones()->crearJson();
+    concepto_movilizacion->getRelaciones()->armarJson();
     std::string json_relaciones_almacenable = concepto_movilizacion->getRelaciones()->getValorAlmacenable();
 
     delete concepto_movilizacion;
@@ -250,7 +250,7 @@ TEST(modelo, CreacionJsonYValorAlmacenableTermino)
 	Termino* movilizacion = new Termino("movilizacion", "paro");
 	movilizacion->asignarNuevoId();
 
-	movilizacion->crearJson();
+	movilizacion->armarJson();
 
 	std::string json_contenido = movilizacion->getJson()->jsonString();
 	std::string json_almacenable = movilizacion->getValorAlmacenable();
@@ -266,7 +266,7 @@ TEST(modelo, CreacionJsonYValorAlmacenableFecha)
 	Fecha* primero_de_enero = new Fecha(1, 1, 2017, "primero_enero");
 	primero_de_enero->asignarNuevoId();
 
-	primero_de_enero->crearJson();
+	primero_de_enero->armarJson();
 
 	std::string json_contenido = primero_de_enero->getJson()->jsonString();
 	std::string json_almacenable = primero_de_enero->getValorAlmacenable();
@@ -290,10 +290,10 @@ TEST(modelo, CreacionJsonYValorAlmacenablePeriodo)
 	Periodo* periodo_enero = new Periodo(primero_de_enero, primero_de_febrero);
 	periodo_enero->asignarNuevoId();
 
-	periodo_enero->crearJson();
+	periodo_enero->armarJson();
 	std::string json_entidad_almacenable = periodo_enero->getValorAlmacenable();
 
-    periodo_enero->getRelaciones()->crearJson();
+    periodo_enero->getRelaciones()->armarJson();
     std::string json_relaciones_almacenable = periodo_enero->getRelaciones()->getValorAlmacenable();
     
     delete periodo_enero;
@@ -398,10 +398,10 @@ TEST(modelo, CreacionJsonYValorAlmacenableConsulta)
 	Consulta* consulta = new Consulta(primavera_2017, reporte, conceptos, medios, secciones, "primavera_2017");
 	consulta->asignarNuevoId();
 
-	consulta->crearJson();
+	consulta->armarJson();
 	std::string json_entidad_almacenable = consulta->getValorAlmacenable();
 
-    consulta->getRelaciones()->crearJson();
+    consulta->getRelaciones()->armarJson();
     std::string json_relaciones_almacenable = consulta->getRelaciones()->getValorAlmacenable();
 
     delete consulta;
