@@ -20,15 +20,13 @@ using namespace visualizador;
 
 int main(int argc, char *argv[])
 {
-	// INIT APP
-	aplicacion::IAdministradorAplicacion::iniciar("config_visualizador-de-contexto.json");
-	aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
-	aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
+    // INIT APP
+    aplicacion::IAdministradorAplicacion::iniciar("config_visualizador-de-contexto.json");
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
 
     // INIT INFO SCRAPING
-    scraping::ConfiguracionScraping::leerConfiguracion("config_scraping.json");
-
-    scraping::IAdministradorScraping::crearAdministradorScrapingLocal();
+    scraping::IAdministradorScraping::iniciar("config_scraping.json");
 
     scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
     scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();

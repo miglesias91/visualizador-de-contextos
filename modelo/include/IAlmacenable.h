@@ -8,9 +8,6 @@
 #include <utiles/include/GestorIDs.h>
 #include <utiles/include/IHashable.h>
 
-// modelo
-//#include <modelo/include/IHashable.h>
-
 namespace visualizador
 {
 namespace modelo

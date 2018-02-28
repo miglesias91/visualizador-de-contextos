@@ -3,6 +3,9 @@
 // stl
 #include <vector>
 
+// log
+#include <spdlog/spdlog.h>
+
 // almacenamiento
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
 

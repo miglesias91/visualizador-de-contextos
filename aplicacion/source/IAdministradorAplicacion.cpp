@@ -23,24 +23,26 @@ IAdministradorAplicacion::~IAdministradorAplicacion()
 
 void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 {
-	if (administradorEntidadesIniciado())
-	{
-		// TODO agregar log.
-		std::cout << "Administrador ya fue iniciado." << std::endl;
-		return;
-		// throw std::exception("Administrador ya fue iniciado.");
-	}
+    if (administradorEntidadesIniciado())
+    {
+	    // TODO agregar log.
+	    std::cout << "Administrador ya fue iniciado." << std::endl;
+	    return;
+	    // throw std::exception("Administrador ya fue iniciado.");
+    }
 
-	ConfiguracionAplicacion::leerConfiguracion(path_configuracion);
+    ConfiguracionAplicacion::leerConfiguracion(path_configuracion);
 
-	if (ConfiguracionAplicacion::aplicacionLocal())
-	{
-		crearAdministradorAplicacionLocal();
-	}
-	else
-	{
-		crearAdministradorAplicacionDistribuida();
-	}
+
+
+    if (ConfiguracionAplicacion::aplicacionLocal())
+    {
+	    crearAdministradorAplicacionLocal();
+    }
+    else
+    {
+	    crearAdministradorAplicacionDistribuida();
+    }
 }
 
 void IAdministradorAplicacion::liberar()
