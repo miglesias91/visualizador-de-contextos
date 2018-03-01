@@ -1,7 +1,7 @@
 {
     "log" :
     {
-        "nombre" : "scraping",
+        "nombre" : "aplicacion",
         "tamanio_cola_async" : 0,
         "agrupar_por_fecha" : true,
         "nivel_log" : "debug",
@@ -10,7 +10,7 @@
         "salidas" :
         [
             "log_global_visu.txt",
-            "log_scraping.txt"
+            "log_aplicacion.txt"
         ]
     }
 }

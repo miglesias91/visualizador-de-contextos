@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\AdminAplicacionIniciadoPreviamente.h" />
     <ClInclude Include="include\Advertencia.h" />
     <ClInclude Include="include\Error.h" />
     <ClInclude Include="include\GestorDatosScraping.h" />
@@ -134,6 +135,7 @@
     <ClInclude Include="include\Pregunta.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\AdminAplicacionIniciadoPreviamente.cpp" />
     <ClCompile Include="source\Advertencia.cpp" />
     <ClCompile Include="source\Error.cpp" />
     <ClCompile Include="source\GestorDatosScraping.cpp" />

@@ -53,22 +53,26 @@ public:
     
     static std::string archivoConfigDBAplicacionEntidades();
 
-	// TAGS
+    static std::string archivoConfigLog();
 
-	static std::string tagAplicacionLocal();
-	static std::string tagAplicacionDistribuida();
-	static std::string tagPrefijoHabilitado();
-	static std::string tagPrefijoTamanio();
-	static std::string tagPrefijoConfiguracion();
+protected:
 
-	static std::string tagPrefijoConcepto();
-	static std::string tagPrefijoTermino();
-	static std::string tagPrefijoConsulta();
-	static std::string tagPrefijoReporte();
-	static std::string tagPrefijoSeccion();
-	static std::string tagPrefijoPeriodo();
-	static std::string tagPrefijoFecha();
-	static std::string tagPrefijoMedio();
+    // TAGS
+
+    static std::string tagAplicacionLocal();
+    static std::string tagAplicacionDistribuida();
+    static std::string tagPrefijoHabilitado();
+    static std::string tagPrefijoTamanio();
+    static std::string tagPrefijoConfiguracion();
+
+    static std::string tagPrefijoConcepto();
+    static std::string tagPrefijoTermino();
+    static std::string tagPrefijoConsulta();
+    static std::string tagPrefijoReporte();
+    static std::string tagPrefijoSeccion();
+    static std::string tagPrefijoPeriodo();
+    static std::string tagPrefijoFecha();
+    static std::string tagPrefijoMedio();
 
     static std::string tagPrefijoMedioTwitter();
 
@@ -82,6 +86,8 @@ public:
     static std::string tagPrefijoRelacionesMedio();
 
     static std::string tagArchivoConfigDBAplicacionEntidades();
+
+    static std::string tagArchivoConfigLog();
 
 private:
 
@@ -117,6 +123,8 @@ private:
     static std::string prefijo_relaciones_medio;
 
     static std::string archivo_config_db_aplicacion_entidades;
+
+    static std::string archivo_config_log;
 
 	static std::string clave_id_actual;
 };

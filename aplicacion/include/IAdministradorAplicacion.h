@@ -4,7 +4,7 @@
 #include <vector>
 
 // log
-#include <spdlog/spdlog.h>
+#include <log/include/AdministradorLog.h>
 
 // almacenamiento
 #include <almacenamiento/include/IAdministradorAlmacenamiento.h>
@@ -38,6 +38,8 @@ public:
     almacenamiento::IAdministradorAlmacenamiento * getAdminAlmacenamiento();
     
     static IAdministradorAplicacion* getInstanciaAdminEntidades();
+    
+    static herramientas::log::Logger * log;
 
 	// SETTERS
 

@@ -11,7 +11,6 @@
 #include <aplicacion/include/GestorEntidades.h>
 
 // vld
-
 #ifdef DEBUG | _DEBUG
 #include <vld.h>
 #endif
@@ -21,9 +20,16 @@ using namespace visualizador;
 int main(int argc, char *argv[])
 {
     // INIT APP
-    aplicacion::IAdministradorAplicacion::iniciar("config_visualizador-de-contexto.json");
-    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
-    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
+    try
+    {
+        aplicacion::IAdministradorAplicacion::iniciar("config_aplicacion.json");
+        aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
+        aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
+    }
+    catch (herramientas::utiles::excepciones::Excepcion & e)
+    {
+        throw;
+    }
 
     // INIT INFO SCRAPING
     scraping::IAdministradorScraping::iniciar("config_scraping.json");

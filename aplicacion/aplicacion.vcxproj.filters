@@ -19,6 +19,12 @@
     <Filter Include="Archivos de encabezado\comunicacion">
       <UniqueIdentifier>{5e2f6c6f-1f6e-4acc-b405-46d30bf9f842}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\excepciones">
+      <UniqueIdentifier>{e47f47f7-b131-4186-bd8a-eee852216a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\excepciones">
+      <UniqueIdentifier>{e477cf4f-d01b-4bef-a175-7bad4760a1bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ConfiguracionAplicacion.h">
@@ -54,6 +60,9 @@
     <ClInclude Include="include\GestorDatosScraping.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\AdminAplicacionIniciadoPreviamente.h">
+      <Filter>Archivos de encabezado\excepciones</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ConfiguracionAplicacion.cpp">
@@ -88,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="source\GestorDatosScraping.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AdminAplicacionIniciadoPreviamente.cpp">
+      <Filter>Archivos de código fuente\excepciones</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
