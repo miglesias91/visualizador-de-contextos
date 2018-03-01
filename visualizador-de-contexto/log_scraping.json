@@ -1,0 +1,16 @@
+{
+    "log" :
+    {
+        "nombre" : "log-scraping",
+        "tamanio_cola_async" : 0,
+        "nivel" : "debug",
+        "flush" : "error",
+        "patron" : "*** [%H:%M:%S %z] [thread %t] %v ***",
+        "agrupar_por_fecha" : true,
+        "salidas" :
+        [
+                "log/log_total_visu.txt",
+                "log/log_scraping.txt"
+        ]
+    }
+}

@@ -33,7 +33,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 
     ConfiguracionAplicacion::leerConfiguracion(path_configuracion);
 
-
+    // logger = herramientas::log::AdministradorLogging::inicar(path_logging);
 
     if (ConfiguracionAplicacion::aplicacionLocal())
     {

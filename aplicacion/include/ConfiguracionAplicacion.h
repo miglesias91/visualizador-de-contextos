@@ -19,8 +19,6 @@ public:
 
 	// METODOS
 
-	static rapidjson::Document::AllocatorType * getAlocador();
-
 	// CONFIGURACIONES
 
     static std::string pathConfiguracion();
@@ -121,10 +119,6 @@ private:
     static std::string archivo_config_db_aplicacion_entidades;
 
 	static std::string clave_id_actual;
-
-	static const unsigned int tamanio_alocador;
-
-	static rapidjson::Document documento_alocador;
 };
 
 };

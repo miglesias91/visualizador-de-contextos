@@ -38,9 +38,6 @@ std::string ConfiguracionAplicacion::archivo_config_db_aplicacion_entidades;
 
 std::string ConfiguracionAplicacion::clave_id_actual;
 
-const unsigned int ConfiguracionAplicacion::tamanio_alocador = 1024;
-rapidjson::Document ConfiguracionAplicacion::documento_alocador;
-
 void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configuracion)
 {
     std::ifstream archivo(path_archivo_configuracion);
@@ -106,11 +103,6 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
     prefijo_relaciones_seccion.erase(prefijo_relaciones_seccion.begin() + prefijo_tamanio, prefijo_relaciones_seccion.end());
     prefijo_relaciones_fecha.erase(prefijo_relaciones_fecha.begin() + prefijo_tamanio, prefijo_relaciones_fecha.end());
     prefijo_relaciones_medio.erase(prefijo_relaciones_medio.begin() + prefijo_tamanio, prefijo_relaciones_medio.end());
-}
-
-rapidjson::Document::AllocatorType * ConfiguracionAplicacion::getAlocador()
-{
-	return &documento_alocador.GetAllocator();
 }
 
 std::string ConfiguracionAplicacion::pathConfiguracion()
