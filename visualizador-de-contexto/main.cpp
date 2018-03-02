@@ -32,12 +32,19 @@ int main(int argc, char *argv[])
     }
 
     // INIT INFO SCRAPING
-    scraping::IAdministradorScraping::iniciar("config_scraping.json");
+    try
+    {
+        scraping::IAdministradorScraping::iniciar("config_scraping.json");
 
-    scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
-    scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
+        scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
+        scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
 
-    scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->abrirBD();
+        scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->abrirBD();
+    }
+    catch (herramientas::utiles::excepciones::Excepcion & e)
+    {
+        throw;
+    }
 
     // LANZAMIENTO INTERFAZ QT
 	QApplication a(argc, argv);
