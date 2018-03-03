@@ -27,7 +27,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 {
     if (administradorEntidadesIniciado())
     {
-        log->advertencia("Administrador de aplicación ya fue iniciado.");
+        log->error("Administrador de aplicación ya fue iniciado.");
 
         throw excepciones::AdminAplicacionIniciadoPreviamente();
     }
