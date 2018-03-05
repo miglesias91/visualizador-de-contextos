@@ -7,6 +7,7 @@ using namespace visualizador::aplicacion;
 
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
+#include <aplicacion/include/Logger.h>
 
 AdministradorAplicacionLocal::AdministradorAplicacionLocal() : IAdministradorAplicacion()
 {
@@ -46,7 +47,16 @@ bool AdministradorAplicacionLocal::almacenar(visualizador::modelo::IAlmacenable 
 
 	almacenamiento::IAlmacenableClaveValor* entidad_a_almacenar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
 
-	bool retorno = this->admin_almacenamiento->almacenar(entidad_a_almacenar);
+    bool retorno = this->admin_almacenamiento->almacenar(entidad_a_almacenar);
+
+    if (retorno)
+    {
+        Logger::debug("almacenar{ grupo: '" + grupo + "' - clave: '" + clave + "' }");
+    }
+    else
+    {
+        Logger::debug("almacenar{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE ALMACENO NINGUN VALOR }");
+    }
 
 	delete entidad_a_almacenar;
 
@@ -70,9 +80,13 @@ bool AdministradorAplicacionLocal::almacenar(std::vector<visualizador::modelo::I
         retorno = this->admin_almacenamiento->almacenar(entidad_a_almacenar);
         if (false == retorno)
         {
+            Logger::debug("almacenar_vector{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE PUDO ALMACENAR }");
+
             delete entidad_a_almacenar;
             break;
         }
+
+        Logger::debug("almacenar_vector{ grupo: '" + grupo + "' - clave: '" + clave + "' - valor: '" + valor + "' }");
 
         delete entidad_a_almacenar;
     }
@@ -91,7 +105,12 @@ bool AdministradorAplicacionLocal::recuperar(visualizador::modelo::IAlmacenable 
 
     if (existe_valor)
     {
+        Logger::debug("recuperar{ grupo: '" + grupo + "' - clave: '" + clave + "' - valor recuperado: '" + clave_valor_a_recuperar->getValor() + "' }");
         entidad->parsearValorAlmacenable(clave_valor_a_recuperar->getValor());
+    }
+    else
+    {
+        Logger::debug("recuperar{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE RECUPERO NINGUN VALOR }");
     }
 
 	delete clave_valor_a_recuperar;
@@ -107,6 +126,15 @@ bool AdministradorAplicacionLocal::eliminar(visualizador::modelo::IAlmacenable *
     almacenamiento::IAlmacenableClaveValor* entidad_a_eliminar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
 
     bool retorno = this->admin_almacenamiento->eliminar(entidad_a_eliminar);
+
+    if (retorno)
+    {
+        Logger::debug("eliminar{ grupo: '" + grupo + "' - clave: '" + clave + "' }");
+    }
+    else
+    {
+        Logger::debug("eliminar{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE ELIMINO NINGUN VALOR }");
+    }
 
     delete entidad_a_eliminar;
 
@@ -129,9 +157,12 @@ bool AdministradorAplicacionLocal::eliminar(std::vector<visualizador::modelo::IA
         retorno = this->admin_almacenamiento->eliminar(entidad_a_eliminar);
         if (false == retorno)
         {
+            Logger::debug("eliminar_vector{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE ELIMINO NINGUN VALOR }");
             delete entidad_a_eliminar;
             break;
         }
+
+        Logger::debug("eliminar_vector{ grupo: '" + grupo + "' - clave: '" + clave + "' }");
 
         delete entidad_a_eliminar;
     }
@@ -148,6 +179,15 @@ bool AdministradorAplicacionLocal::modificar(visualizador::modelo::IAlmacenable 
     almacenamiento::IAlmacenableClaveValor* entidad_a_modificar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
 
     bool retorno = this->admin_almacenamiento->almacenar(entidad_a_modificar);
+
+    if (retorno)
+    {
+        Logger::debug("modificar{ grupo: '" + grupo + "' - clave: '" + clave + "' }");
+    }
+    else
+    {
+        Logger::debug("modificar{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE MODIFICO NINGUN VALOR }");
+    }
 
     delete entidad_a_modificar;
 
@@ -171,10 +211,13 @@ bool AdministradorAplicacionLocal::modificar(std::vector<visualizador::modelo::I
         retorno = this->admin_almacenamiento->modificar(entidad_a_modificar);
         if (false == retorno)
         {
+            Logger::debug("modificar_vector{ grupo: '" + grupo + "' - clave: '" + clave + "' - NO SE MODIFICO NINGUN VALOR }");
             delete entidad_a_modificar;
             break;
         }
 
+        Logger::debug("modificar_vector{ grupo: '" + grupo + "' - clave: '" + clave + "' - nuevo valor: '" + valor + "' }");
+        
         delete entidad_a_modificar;
     }
 
@@ -192,7 +235,9 @@ unsigned long long int AdministradorAplicacionLocal::recuperarIDActual()
 
     std::string string_id_actual = clave_valor_a_recuperar->getValor();
 
-    unsigned long long int id_actual = 0;
+    Logger::debug("recuperarIDActual: { id actual recuperado: " + string_id_actual + ".");
+
+    unsigned long long int id_actual = 1;
     if (false == string_id_actual.empty())
     {
         id_actual = std::stoull(string_id_actual);
@@ -213,6 +258,8 @@ void AdministradorAplicacionLocal::almacenarIDActual()
     std::string valor = std::to_string(modelo::IAlmacenable::getGestorIDs()->getIdActual());
 
     almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
+
+    Logger::debug("almacenarIDActual: { id actual: " + valor + ".");
 
     bool retorno = almacenamiento::IAdministradorAlmacenamiento::getInstancia(this->handler_almacenamiento)->modificar(clave_valor_a_recuperar);
 

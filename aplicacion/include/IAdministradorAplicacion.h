@@ -38,8 +38,6 @@ public:
     almacenamiento::IAdministradorAlmacenamiento * getAdminAlmacenamiento();
     
     static IAdministradorAplicacion* getInstanciaAdminEntidades();
-    
-    static herramientas::log::Logger * log;
 
 	// SETTERS
 

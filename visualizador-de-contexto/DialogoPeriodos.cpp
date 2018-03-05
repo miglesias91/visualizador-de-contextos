@@ -4,6 +4,9 @@
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
+// aplicacion
+#include <aplicacion/include/Logger.h>
+
 using namespace visualizador;
 
 DialogoPeriodos::DialogoPeriodos(QWidget *parent)
@@ -11,6 +14,8 @@ DialogoPeriodos::DialogoPeriodos(QWidget *parent)
 {
     ui = new Ui::DialogoPeriodos();
     ui->setupUi(this);
+
+    aplicacion::Logger::info("Iniciando dialogo Periodos.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
@@ -27,12 +32,17 @@ DialogoPeriodos::~DialogoPeriodos()
 
     this->descargarListaPeriodos();
 
+    aplicacion::Logger::info("Cerrando dialogo Periodos.");
+
     delete ui;
 }
 
 void DialogoPeriodos::on_action_actualizar_y_cerrar_triggered()
 {
     this->gestor_periodos.guardarCambios();
+
+    aplicacion::Logger::info("Dialogo Periodos guardado.");
+
     this->close();
 }
 
@@ -60,6 +70,8 @@ void DialogoPeriodos::on_action_guardar_periodo_triggered()
     {
         // si se pudo agregar correctamente, lo agrego en la lista visible.
         this->agregarPeriodoALista(periodo_nuevo);
+
+        aplicacion::Logger::info("Periodo agregado: { " + aplicacion::Logger::infoLog(periodo_nuevo) + " }.");
     }
     else
     {
@@ -84,6 +96,8 @@ void DialogoPeriodos::on_action_eliminar_periodo_triggered()
 
         this->gestor_periodos.eliminar(periodo);
 
+        aplicacion::Logger::info("Periodo eliminado: '" + aplicacion::Logger::infoLog(periodo) + "'.");
+
         delete periodo;
 
         delete this->ui->lista_periodos->takeItem(ui->lista_periodos->row(item));
@@ -99,6 +113,8 @@ void DialogoPeriodos::on_action_limpiar_periodo_triggered()
 
     this->on_action_estado_btn_eliminar_triggered();
     this->on_action_estado_btn_agregar_triggered();
+
+    aplicacion::Logger::info("Dialogo Periodos reseteado.");
 }
 
 void DialogoPeriodos::on_action_estado_btn_eliminar_triggered()
@@ -156,6 +172,8 @@ void DialogoPeriodos::cargarListaPeriodos()
         this->agregarPeriodoALista(clon);
     }
 
+    aplicacion::Logger::info(std::to_string(periodos_actuales.size()) + " periodos cargados.");
+
     this->ui->lista_periodos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
@@ -180,6 +198,8 @@ void DialogoPeriodos::descargarListaPeriodos()
         item = this->ui->lista_periodos->takeItem(0);
         delete item;
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " periodos descargados.");
 }
 
 void DialogoPeriodos::cargarComboboxesDesdeYHasta()
@@ -201,6 +221,8 @@ void DialogoPeriodos::cargarComboboxesDesdeYHasta()
         this->ui->combobox_hasta->insertItem(0, texto_item, data);
         fecha->sumarReferencia();
     }
+
+    aplicacion::Logger::info(std::to_string(fechas_actuales.size()) + " fechas para periodos cargadas.");
 }
 
 void DialogoPeriodos::descargarComboboxesDesdeYHasta()
@@ -223,7 +245,7 @@ void DialogoPeriodos::descargarComboboxesDesdeYHasta()
     }
 
     // elimino las fechas del combobox 'hasta'
-    count = ui->combobox_hasta->count();
+    count += ui->combobox_hasta->count();
     while (0 != ui->combobox_hasta->count())
     {
         count = ui->combobox_hasta->count();
@@ -237,6 +259,9 @@ void DialogoPeriodos::descargarComboboxesDesdeYHasta()
 
         this->ui->combobox_hasta->removeItem(0);
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " fechas para periodos descargadas.");
+
 }
 
 modelo::Fecha * DialogoPeriodos::fechaDesdeSeleccionada()

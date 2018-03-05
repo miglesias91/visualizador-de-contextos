@@ -8,12 +8,12 @@ using namespace visualizador::aplicacion;
 // aplicacion
 #include <aplicacion/include/AdministradorAplicacionLocal.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
+#include <aplicacion/include/Logger.h>
 #include <aplicacion/include/AdminAplicacionIniciadoPreviamente.h>
 
 typedef visualizador::aplicacion::IAdministradorAplicacion* (*admin)();
 
 IAdministradorAplicacion* IAdministradorAplicacion::administrador_entidades = NULL;
-herramientas::log::Logger* IAdministradorAplicacion::log = NULL;
 
 IAdministradorAplicacion::IAdministradorAplicacion() : admin_almacenamiento(NULL), handler_almacenamiento(0)
 {
@@ -27,7 +27,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 {
     if (administradorEntidadesIniciado())
     {
-        log->error("Administrador de aplicación ya fue iniciado.");
+        Logger::error("Administrador de aplicación ya fue iniciado.");
 
         throw excepciones::AdminAplicacionIniciadoPreviamente();
     }
@@ -41,7 +41,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
         throw;
     }
 
-    log = herramientas::log::AdministradorLog::iniciarNuevo(ConfiguracionAplicacion::archivoConfigLog());
+    Logger::iniciar(ConfiguracionAplicacion::archivoConfigLog());
 
     try
     {
@@ -72,7 +72,7 @@ void IAdministradorAplicacion::liberar()
 
 void IAdministradorAplicacion::crearAdministradorAplicacionLocal()
 {
-    log->info("creando AdministradorAplicacionLocal. config = " + ConfiguracionAplicacion::pathConfiguracion() + ".");
+    Logger::info("creando AdministradorAplicacionLocal. config = " + ConfiguracionAplicacion::pathConfiguracion() + ".");
     try
     {
         administrador_entidades = new AdministradorAplicacionLocal();
@@ -80,10 +80,10 @@ void IAdministradorAplicacion::crearAdministradorAplicacionLocal()
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
     {
-        log->error("no se pudo crear AdminstradorAplicacionLocal: " + std::string(e.what()));
+        Logger::error("no se pudo crear AdminstradorAplicacionLocal: " + std::string(e.what()));
         throw;
     }
-    log->info("creación AdministradorAplicacionLocal OK");
+    Logger::info("creación AdministradorAplicacionLocal OK");
 }
 
 void IAdministradorAplicacion::crearAdministradorAplicacionDistribuida() {};
@@ -108,14 +108,14 @@ IAdministradorAplicacion* IAdministradorAplicacion::getInstanciaAdminEntidades()
 	}
 	else
 	{
-        log->advertencia("Administrador de entidades no inicializado.");
+        Logger::advertencia("Administrador de entidades no inicializado.");
         return NULL;
 	}
 }
 
 void IAdministradorAplicacion::iniciarDB(std::string path_config_db)
 {
-    log->info("iniciando nuevo IAdministradorAlmacenamiento. config = " + path_config_db + ".");
+    Logger::info("iniciando nuevo IAdministradorAlmacenamiento. config = " + path_config_db + ".");
 
     try
     {
@@ -124,9 +124,9 @@ void IAdministradorAplicacion::iniciarDB(std::string path_config_db)
     }
     catch (std::exception & e)
     {
-        log->error("no se pudo iniciar IAdministradorAlmacenamiento: " + std::string(e.what()));
+        Logger::error("no se pudo iniciar IAdministradorAlmacenamiento: " + std::string(e.what()));
         throw e;
     }
 
-    log->info("inicio IAdministradorAlmacenamiento OK.");
+    Logger::info("inicio IAdministradorAlmacenamiento OK.");
 }

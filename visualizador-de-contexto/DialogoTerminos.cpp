@@ -6,6 +6,7 @@
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
+#include <aplicacion/include/Logger.h>
 
 // modelo
 #include <modelo/include/Termino.h>
@@ -18,6 +19,8 @@ DialogoTerminos::DialogoTerminos(QWidget *parent)
 	ui = new Ui::DialogoTerminos();
 	ui->setupUi(this);
 
+    aplicacion::Logger::info("Iniciando dialogo Terminos.");
+
 	this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaTerminos();
@@ -29,6 +32,8 @@ DialogoTerminos::~DialogoTerminos()
 {
     this->descargarListaTerminos();
 
+    aplicacion::Logger::info("Cerrando dialogo Terminos.");
+
 	delete ui;
 }
 
@@ -37,7 +42,10 @@ DialogoTerminos::~DialogoTerminos()
 void DialogoTerminos::on_action_actualizar_y_cerrar_triggered()
 {
     this->gestor_terminos.guardarCambios();
-	this->close();
+
+    aplicacion::Logger::info("Dialogo Terminos guardado.");
+    
+    this->close();
 }
 
 void DialogoTerminos::on_action_resetear_termino_triggered()
@@ -47,6 +55,8 @@ void DialogoTerminos::on_action_resetear_termino_triggered()
 
     this->on_action_estado_btn_eliminar_triggered();
     this->on_action_estado_btn_agregar_triggered();
+ 
+    aplicacion::Logger::info("Dialogo Terminos reseteado.");
 }
 
 void DialogoTerminos::on_action_guardar_termino_triggered()
@@ -59,6 +69,8 @@ void DialogoTerminos::on_action_guardar_termino_triggered()
     {
         // si se pudo agregar correctamente, lo agrego en la lista visible.
         this->agregarTerminoALista(termino_nuevo);
+
+        aplicacion::Logger::info("Termino agregado: { " + aplicacion::Logger::infoLog(termino_nuevo) + " }.");
     }
     else
     {
@@ -92,6 +104,8 @@ void DialogoTerminos::on_action_eliminar_termino_triggered()
         }
 
         this->gestor_terminos.eliminar(termino);
+
+        aplicacion::Logger::info("Termino eliminado: '" + termino->getValor() + "'.");
 
         delete termino;
 
@@ -140,6 +154,21 @@ void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)
     this->ui->lista_terminos->insertItem(0, item);
 }
 
+void DialogoTerminos::cargarListaTerminos()
+{
+    std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
+
+    for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
+    {
+        modelo::Termino * clon = this->gestor_terminos.clonar<modelo::Termino>(*it);
+        this->agregarTerminoALista(clon);
+    }
+
+    aplicacion::Logger::info(std::to_string(terminos_actuales.size()) + " terminos cargados.");
+
+    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+}
+
 void DialogoTerminos::descargarListaTerminos()
 {
     QListWidgetItem* item = nullptr;
@@ -161,6 +190,8 @@ void DialogoTerminos::descargarListaTerminos()
         item = this->ui->lista_terminos->takeItem(0);
         delete item;
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " terminos descargados.");
 }
 
 QMessageBox * DialogoTerminos::crearAdvertenciaTerminoConRelacionesDependientes()
@@ -175,17 +206,4 @@ QMessageBox * DialogoTerminos::crearInformacionTerminoExistente()
     std::string texto = u8"El término que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
-}
-
-void DialogoTerminos::cargarListaTerminos()
-{
-    std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
-
-    for (std::vector<modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
-    {
-        modelo::Termino * clon = this->gestor_terminos.clonar<modelo::Termino>(*it);
-        this->agregarTerminoALista(clon);
-    }
-
-    this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }

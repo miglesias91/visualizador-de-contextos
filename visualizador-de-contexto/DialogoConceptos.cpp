@@ -7,6 +7,9 @@
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
+// aplicacion
+#include <aplicacion/include/Logger.h>
+
 // modelo
 #include <modelo/include/Concepto.h>
 #include <modelo/include/Termino.h>
@@ -18,7 +21,9 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
 {
     ui = new Ui::DialogoConceptos();
     ui->setupUi(this);
-    
+
+    aplicacion::Logger::info("Iniciando dialogo Conceptos.");
+
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaConceptos();
@@ -34,6 +39,8 @@ DialogoConceptos::~DialogoConceptos()
 
     this->descargarListaConceptos();
 
+    aplicacion::Logger::info("Cerrando dialogo Conceptos.");
+
     delete ui;
 }
 
@@ -42,6 +49,9 @@ DialogoConceptos::~DialogoConceptos()
 void DialogoConceptos::on_action_actualizar_y_cerrar_triggered()
 {
     this->gestor_conceptos.guardarCambios();
+    
+    aplicacion::Logger::info("Dialogo Conceptos guardado.");
+
     this->close();
 }
 
@@ -57,6 +67,8 @@ void DialogoConceptos::on_action_guardar_concepto_triggered()
     {
         // si se pudo agregar correctamente, lo agrego en la lista visible.
         this->agregarConceptoALista(concepto_nuevo);
+
+        aplicacion::Logger::info("Concepto agregado: { '" + aplicacion::Logger::infoLog(concepto_nuevo) + "' }.");
     }
     else
     {
@@ -81,6 +93,8 @@ void DialogoConceptos::on_action_eliminar_concepto_triggered()
 
         this->gestor_conceptos.eliminar(concepto);
 
+        aplicacion::Logger::info("Concepto eliminado: { " + aplicacion::Logger::infoLog(concepto) + " }.");
+
         delete concepto;
 
         delete this->ui->lista_conceptos->takeItem(ui->lista_conceptos->row(item));
@@ -95,6 +109,8 @@ void DialogoConceptos::on_action_resetear_concepto_triggered()
 
     this->on_action_estado_btn_eliminar_triggered();
     this->on_action_estado_btn_agregar_triggered();
+
+    aplicacion::Logger::info("Dialogo Conceptos reseteado.");
 }
 
 void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
@@ -160,6 +176,8 @@ void DialogoConceptos::cargarListaConceptos()
         this->agregarConceptoALista(clon);
     }
 
+    aplicacion::Logger::info(std::to_string(conceptos_actuales.size()) + " conceptos cargados.");
+
     this->ui->lista_conceptos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
@@ -184,6 +202,8 @@ void DialogoConceptos::descargarListaConceptos()
         item = this->ui->lista_conceptos->takeItem(0);
         delete item;
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " conceptos descargados.");
 }
 
 std::vector<modelo::Termino*> DialogoConceptos::terminosSeleccionados()
@@ -219,6 +239,8 @@ void DialogoConceptos::cargarListaTerminos()
         this->ui->lista_terminos->insertItem(0, item);
     }
 
+    aplicacion::Logger::info(std::to_string(terminos_actuales.size()) + " terminos cargados.");
+
     this->ui->lista_terminos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
@@ -243,6 +265,8 @@ void DialogoConceptos::descargarListaTerminos()
         item = this->ui->lista_terminos->takeItem(0);
         delete item;
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " terminos descargados.");
 }
 
 // mensajes

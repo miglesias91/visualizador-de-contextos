@@ -4,6 +4,9 @@
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
+// aplicacion
+#include <aplicacion/include/Logger.h>
+
 using namespace visualizador;
 
 DialogoFechas::DialogoFechas(QWidget *parent)
@@ -11,6 +14,8 @@ DialogoFechas::DialogoFechas(QWidget *parent)
 {
     ui = new Ui::DialogoFechas();
     ui->setupUi(this);
+    
+    aplicacion::Logger::info("Iniciando dialogo Fechas.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
@@ -22,6 +27,8 @@ DialogoFechas::DialogoFechas(QWidget *parent)
 DialogoFechas::~DialogoFechas()
 {
     this->descargarListaFechas();
+
+    aplicacion::Logger::info("Cerrando dialogo Fechas.");
 
     delete ui;
 }
@@ -41,6 +48,8 @@ void DialogoFechas::on_action_guardar_fecha_triggered()
     {
         // si se pudo agregar correctamente, lo agrego en la lista visible.
         this->agregarFechaALista(fecha_nueva);
+
+        aplicacion::Logger::info("Fecha agregada: { " + aplicacion::Logger::infoLog(fecha_nueva) + " }.");
     }
     else
     {
@@ -60,6 +69,8 @@ void DialogoFechas::on_action_limpiar_fecha_triggered()
     this->ui->lineedit_etiqueta->clear();
     this->ui->dateedit_fecha->setDate(QDate::currentDate());
     this->ui->lista_fechas->clearSelection();
+
+    aplicacion::Logger::info("Dialogo Fechas reseteado.");
 
     this->on_action_estado_btn_eliminar_triggered();
 }
@@ -84,6 +95,8 @@ void DialogoFechas::on_action_eliminar_fecha_triggered()
 
         this->gestor_fechas.eliminar(fecha);
 
+        aplicacion::Logger::info("Fecha eliminada: '" + aplicacion::Logger::infoLog(fecha) + "'.");
+
         delete fecha;
 
         delete this->ui->lista_fechas->takeItem(ui->lista_fechas->row(item));
@@ -93,6 +106,9 @@ void DialogoFechas::on_action_eliminar_fecha_triggered()
 void DialogoFechas::on_action_actualizar_y_cerrar_triggered()
 {
     this->gestor_fechas.guardarCambios();
+
+    aplicacion::Logger::info("Dialogo Fechas guardado.");
+    
     this->close();
 }
 
@@ -135,6 +151,8 @@ void DialogoFechas::cargarListaFechas()
     }
 
     this->ui->lista_fechas->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
+
+    aplicacion::Logger::info(std::to_string(fechas_actuales.size()) + " fechas descargadas.");
 }
 
 void DialogoFechas::descargarListaFechas()
@@ -158,6 +176,8 @@ void DialogoFechas::descargarListaFechas()
         item = this->ui->lista_fechas->takeItem(0);
         delete item;
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " fechas descargadas.");
 }
 
 // mensajes

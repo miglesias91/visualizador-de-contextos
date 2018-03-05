@@ -102,15 +102,15 @@ private:
     template <class ENTIDAD>
     void descargarLista(QListWidget * lista);
 
-    void descargarListaConceptos();
+    //void descargarListaConceptos();
 
-    void descargarListaPeriodos();
+    //void descargarListaPeriodos();
 
-    void descargarListaMedios();
+    //void descargarListaMedios();
 
-    void descargarListaSecciones();
+    //void descargarListaSecciones();
 
-    void descargarListaReportes();
+    //void descargarListaReportes();
 };
 
 template <class ENTIDAD>

@@ -4,17 +4,24 @@
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
+// aplicacion
+#include <aplicacion/include/Logger.h>
+
 // modelo
 #include <modelo/include/MedioTwitter.h>
 
 // scraping
 #include <scraping/include/ConfiguracionScraping.h>
 
+using namespace visualizador;
+
 DialogoMediosTwitter::DialogoMediosTwitter(QWidget *parent)
     : QWidget(parent)
 {
     ui = new Ui::DialogoMediosTwitter();
     ui->setupUi(this);
+
+    aplicacion::Logger::info("Iniciando dialogo Medios Twitter.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
@@ -27,12 +34,17 @@ DialogoMediosTwitter::~DialogoMediosTwitter()
 {
     this->descargarListaMediosTwitter();
 
+    aplicacion::Logger::info("Cerrando dialogo Medios Twitter.");
+
     delete ui;
 }
 
 void DialogoMediosTwitter::on_action_actualizar_y_cerrar_triggered()
 {
     this->gestor_medios.guardarCambios();
+    
+    aplicacion::Logger::info("Dialogo Medios Twitter guardado.");
+    
     this->close();
 }
 
@@ -44,6 +56,8 @@ void DialogoMediosTwitter::on_action_resetear_cuenta_triggered()
 
     this->on_action_estado_btn_eliminar_triggered();
     this->on_action_estado_btn_agregar_triggered();
+
+    aplicacion::Logger::info("Dialogo Medios Twitter reseteado.");
 }
 
 void DialogoMediosTwitter::on_action_guardar_cuenta_triggered()
@@ -65,6 +79,8 @@ void DialogoMediosTwitter::on_action_guardar_cuenta_triggered()
 
         // ahora si la almaceno.
         this->gestor_medios.almacenar(medio_nuevo);
+
+        aplicacion::Logger::info("Medio Twitter agregado: { " + aplicacion::Logger::infoLog(medio_nuevo) + " }.");
     }
     else
     {
@@ -88,6 +104,8 @@ void DialogoMediosTwitter::on_action_eliminar_cuenta_triggered()
         modelo::MedioTwitter* medio = data.value<modelo::MedioTwitter*>();
 
         this->gestor_medios.eliminar(medio);
+
+        aplicacion::Logger::info("Medio Twitter eliminado: '" + aplicacion::Logger::infoLog(medio) + "'.");
 
         delete medio;
 
@@ -131,6 +149,8 @@ void DialogoMediosTwitter::cargarListaMediosTwitter()
         this->agregarMedioTwitterALista(clon);
     }
 
+    aplicacion::Logger::info(std::to_string(medios_actuales.size()) + " medios twitter cargados.");
+
     this->ui->lista_medios_twitter->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
@@ -155,6 +175,8 @@ void DialogoMediosTwitter::descargarListaMediosTwitter()
         item = this->ui->lista_medios_twitter->takeItem(0);
         delete item;
     }
+
+    aplicacion::Logger::info(std::to_string(count) + " medios twitter descargados.");
 }
 
 void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medio_twitter)
@@ -166,23 +188,25 @@ void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medi
     QVariant data = QVariant::fromValue(medio_twitter);
     item->setData(Qt::UserRole, data);
 
-    std::string etiqueta = medio_twitter->getEtiqueta();
-    std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
+    //std::string etiqueta = medio_twitter->getEtiqueta();
+    //std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
 
-    std::string info_analisis = u8"sin contenido para visualizar";
+    //std::string info_analisis = u8"sin contenido para visualizar";
 
-    unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
-    if (cantidad_de_tweets_historicos != 0)
-    {
-        std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
-        std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
-        std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
+    //unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
+    //if (cantidad_de_tweets_historicos != 0)
+    //{
+    //    std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
+    //    std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
+    //    std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
 
-        info_analisis = fecha_tweets_mas_antiguo + " - " + fecha_tweets_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
-    }
+    //    info_analisis = fecha_tweets_mas_antiguo + " - " + fecha_tweets_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
+    //}
 
-    std::string texto_item = etiqueta + " (" + nombre_usuario + ") | " + info_analisis;
+    //std::string texto_item = etiqueta + " (" + nombre_usuario + ") | " + info_analisis;
     
+    std::string texto_item = aplicacion::Logger::infoLog(medio_twitter);
+
     item->setText(texto_item.c_str());
 
     this->ui->lista_medios_twitter->insertItem(0, item);

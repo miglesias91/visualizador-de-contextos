@@ -63,6 +63,9 @@
     <ClInclude Include="include\AdminAplicacionIniciadoPreviamente.h">
       <Filter>Archivos de encabezado\excepciones</Filter>
     </ClInclude>
+    <ClInclude Include="include\Logger.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ConfiguracionAplicacion.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="source\AdminAplicacionIniciadoPreviamente.cpp">
       <Filter>Archivos de código fuente\excepciones</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Logger.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

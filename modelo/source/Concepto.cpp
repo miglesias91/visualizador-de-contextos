@@ -21,17 +21,6 @@ Concepto::Concepto(std::string etiqueta) : IEntidad(etiqueta, aplicacion::Config
     this->setRelaciones(this->relaciones_concepto);
 }
 
-//Concepto::Concepto(std::vector<Termino*> terminos, herramientas::utiles::Json * contenido, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL, contenido), relaciones_concepto(NULL)
-//{
-//    this->relaciones_concepto = new relaciones::RelacionesConcepto();
-//    this->setRelaciones(this->relaciones_concepto);
-//
-//    for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
-//    {
-//        this->agregarTermino(*it);
-//    }
-//}
-
 Concepto::Concepto(std::vector<Termino*> terminos, std::string etiqueta) : IEntidad(etiqueta, aplicacion::ConfiguracionAplicacion::prefijoConcepto(), NULL), relaciones_concepto(NULL)
 {
     this->relaciones_concepto = new relaciones::RelacionesConcepto();
