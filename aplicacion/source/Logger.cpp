@@ -8,6 +8,8 @@ using namespace visualizador::aplicacion;
 // utiles
 #include <utiles/include/FuncionesString.h>
 
+herramientas::log::Logger * Logger::log = NULL;
+
 Logger::Logger()
 {
 }
@@ -61,7 +63,7 @@ std::string Logger::infoLog(visualizador::modelo::Concepto * concepto)
         strings_terminos.push_back((*it)->getValor());
     }
 
-    return concepto->getEtiqueta + ": " + herramientas::utiles::FuncionesString::unir(strings_terminos, ", ") + ".";
+    return concepto->getEtiqueta() + ": " + herramientas::utiles::FuncionesString::unir(strings_terminos, ", ") + ".";
 }
 
 std::string Logger::infoLog(visualizador::modelo::Consulta * consulta)

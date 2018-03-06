@@ -42,6 +42,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
     }
 
     Logger::iniciar(ConfiguracionAplicacion::archivoConfigLog());
+    Logger::marca("INICIO APP");
 
     try
     {
@@ -66,6 +67,8 @@ void IAdministradorAplicacion::liberar()
     {
         delete administrador_entidades;
     }
+
+    Logger::marca("FIN APP");
 
     herramientas::log::AdministradorLog::liberarTodo();
 }

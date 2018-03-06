@@ -12,12 +12,22 @@
 // scraping
 #include <scraping/include/GestorTareas.h>
 
+// aplicacion
+#include <aplicacion/include/Logger.h>
+
 visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     : QMainWindow(parent), dialogo_terminos(NULL), dialogo_conceptos(NULL), dialogo_fechas(NULL), dialogo_periodos(NULL), dialogo_consultas(NULL)
 {
 	ui.setupUi(this);
 
+    visualizador::aplicacion::Logger::marca("INICIO INTERFAZ QT");
+
     this->ui.bar_analizar_ctx->hide();
+}
+
+visualizadordecontexto::~visualizadordecontexto()
+{
+    visualizador::aplicacion::Logger::marca("FIN INTERFAZ QT");
 }
 
 void visualizadordecontexto::on_action_abrir_terminos_triggered()

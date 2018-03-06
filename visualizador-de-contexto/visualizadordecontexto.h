@@ -20,6 +20,7 @@ class visualizadordecontexto : public QMainWindow
 
 public:
 	visualizadordecontexto(QWidget *parent = Q_NULLPTR);
+    ~visualizadordecontexto();
 
     void emitirProgreso(int progreso) { emit senialProgresoAnalisisCTX(progreso); }
 

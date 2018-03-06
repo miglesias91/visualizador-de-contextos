@@ -9,6 +9,7 @@
 #include <aplicacion/include/IAdministradorAplicacion.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/GestorEntidades.h>
+#include <aplicacion/include/Logger.h>
 
 // vld
 #ifdef DEBUG | _DEBUG
@@ -47,10 +48,12 @@ int main(int argc, char *argv[])
     }
 
     // LANZAMIENTO INTERFAZ QT
-	QApplication a(argc, argv);
-	visualizadordecontexto w;
-	w.show();
-	int retorno = a.exec();
+	QApplication qt_app(argc, argv);
+    visualizadordecontexto * visu = new visualizadordecontexto();
+    visu->show();
+	int retorno = qt_app.exec();
+
+    delete visu;
 
     // CIERRE INFO SCRAPING
     scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->cerrarBD();
