@@ -7,7 +7,7 @@ using namespace visualizador;
 RelacionesConsulta::RelacionesConsulta(herramientas::utiles::ID* id_consulta) :
     IRelaciones(id_consulta, aplicacion::ConfiguracionAplicacion::prefijoRelacionesConsulta()),
     IRelacionConConceptos(new RelacionConGrupo()),
-    IRelacionConMedios(new RelacionConGrupo()), 
+    IRelacionConMedios(new RelacionConGrupo(), new RelacionConGrupo()),
     IRelacionConSecciones(new RelacionConGrupo()),
     relacion_con_periodo(0), relacion_con_reporte(0)
 {
@@ -69,8 +69,8 @@ std::string RelacionesConsulta::prefijoGrupo()
 
 unsigned long long int RelacionesConsulta::hashcode()
 {
-    return this->getRelacionConConceptos()->hashcode() + this->getRelacionConMediosTwitter()->hashcode() + this->getRelacionConSecciones()->hashcode() +
-        this->getRelacionConReporte() + this->getRelacionConPeriodo();
+    return this->getRelacionConConceptos()->hashcode() + this->getRelacionConMediosTwitter()->hashcode() + this->getRelacionConMediosFacebook()->hashcode() +
+        this->getRelacionConSecciones()->hashcode() + this->getRelacionConReporte() + this->getRelacionConPeriodo();
 }
 
 // metodos de IContieneJson
@@ -84,6 +84,7 @@ bool RelacionesConsulta::armarJson()
 
     relaciones_consulta->agregarAtributoArray("ids_conceptos", this->getRelacionConConceptos()->getIdsGrupoComoUint());
     relaciones_consulta->agregarAtributoArray("ids_medios_twitter", this->getRelacionConMediosTwitter()->getIdsGrupoComoUint());
+    relaciones_consulta->agregarAtributoArray("ids_medios_facebook", this->getRelacionConMediosFacebook()->getIdsGrupoComoUint());
     relaciones_consulta->agregarAtributoArray("ids_secciones", this->getRelacionConSecciones()->getIdsGrupoComoUint());
 
     this->getJson()->reset();
@@ -111,6 +112,12 @@ bool RelacionesConsulta::parsearJson()
         this->getRelacionConMediosTwitter()->agregarRelacion(*it);
     }
 
+    std::vector<unsigned long long int> ids_medios_facebook = json_relaciones_consulta->getAtributoArrayUint("ids_medios_facebook");
+    for (std::vector<unsigned long long int>::iterator it = ids_medios_facebook.begin(); it != ids_medios_facebook.end(); it++)
+    {
+        this->getRelacionConMediosFacebook()->agregarRelacion(*it);
+    }
+
     std::vector<unsigned long long int> ids_secciones = json_relaciones_consulta->getAtributoArrayUint("ids_secciones");
     for (std::vector<unsigned long long int>::iterator it = ids_secciones.begin(); it != ids_secciones.end(); it++)
     {
@@ -133,6 +140,12 @@ IRelaciones * RelacionesConsulta::clonar()
     for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios_twitter.begin(); it != ids_medios_twitter.end(); it++)
     {
         clon->agregarRelacionConMedioTwitter(*it);
+    }
+
+    std::vector<herramientas::utiles::ID*> ids_medios_facebook = this->getRelacionConMediosFacebook()->getIdsGrupo();
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_medios_facebook.begin(); it != ids_medios_facebook.end(); it++)
+    {
+        clon->agregarRelacionConMedioFacebook(*it);
     }
 
     std::vector<herramientas::utiles::ID*> ids_secciones = this->getRelacionConSecciones()->getIdsGrupo();

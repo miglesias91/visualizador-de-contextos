@@ -126,6 +126,9 @@
     <ClInclude Include="include\MedioTwitter.h">
       <Filter>Archivos de encabezado\medios</Filter>
     </ClInclude>
+    <ClInclude Include="include\MedioFacebook.h">
+      <Filter>Archivos de encabezado\medios</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Concepto.cpp">
@@ -213,6 +216,9 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="source\MedioTwitter.cpp">
+      <Filter>Archivos de código fuente\medios</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MedioFacebook.cpp">
       <Filter>Archivos de código fuente\medios</Filter>
     </ClCompile>
   </ItemGroup>

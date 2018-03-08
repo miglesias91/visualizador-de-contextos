@@ -25,6 +25,7 @@
         "prefijo_relaciones_medio" : "016",
 
         "prefijo_medio_twitter" : "017",
+        "prefijo_medio_facebook" : "018",
 
         "db_aplicacion_entidades" : "db_aplicacion_entidades.json",
 

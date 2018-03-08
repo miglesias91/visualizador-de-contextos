@@ -13,6 +13,7 @@
 #include <visualizador-de-contexto/DialogoPeriodos.h>
 #include <visualizador-de-contexto/DialogoConsultas.h>
 #include <visualizador-de-contexto/DialogoMediosTwitter.h>
+#include <visualizador-de-contexto/DialogoMediosFacebook.h>
 
 class visualizadordecontexto : public QMainWindow
 {
@@ -67,4 +68,5 @@ private:
     DialogoPeriodos * dialogo_periodos;
     DialogoConsultas * dialogo_consultas;
     DialogoMediosTwitter * dialogo_medios_twitter;
+    DialogoMediosFacebook * dialogo_medios_facebook;
 };

@@ -31,6 +31,7 @@ std::string ConfiguracionAplicacion::prefijo_fecha;
 std::string ConfiguracionAplicacion::prefijo_medio;
 
 std::string ConfiguracionAplicacion::prefijo_medio_twitter;
+std::string ConfiguracionAplicacion::prefijo_medio_facebook;
 
 std::string ConfiguracionAplicacion::prefijo_relaciones_concepto;
 std::string ConfiguracionAplicacion::prefijo_relaciones_termino;
@@ -206,6 +207,11 @@ std::string ConfiguracionAplicacion::prefijoMedioTwitter()
     return prefijo_medio_twitter;
 }
 
+std::string ConfiguracionAplicacion::prefijoMedioFacebook()
+{
+    return prefijo_medio_facebook;
+}
+
 // relaciones
 std::string ConfiguracionAplicacion::prefijoRelacionesConcepto()
 {
@@ -331,6 +337,11 @@ std::string ConfiguracionAplicacion::tagPrefijoMedio()
 std::string ConfiguracionAplicacion::tagPrefijoMedioTwitter()
 {
     return "prefijo_medio_twitter";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoMedioFacebook()
+{
+    return "prefijo_medio_facebook";
 }
 
 // RELACIONES

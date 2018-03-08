@@ -9,6 +9,7 @@ message("You are running qmake on a generated .pro file. This may not work!")
 
 HEADERS += ./declaraciones_metatipos.h \
     ./visualizadordecontexto.h \
+    ./DialogoMediosTwitter.h \
     ./DialogoConceptos.h \
     ./DialogoFechas.h \
     ./DialogoPeriodos.h \
@@ -17,23 +18,25 @@ HEADERS += ./declaraciones_metatipos.h \
     ./include/FabricaMensajes.h \
     ./include/GraficoDeBarras.h \
     ./include/Individuo.h \
-    ./DialogoMediosTwitter.h
+    ./DialogoMediosFacebook.h
 SOURCES += ./main.cpp \
     ./DialogoConceptos.cpp \
     ./DialogoConsultas.cpp \
     ./DialogoFechas.cpp \
+    ./DialogoMediosTwitter.cpp \
     ./DialogoPeriodos.cpp \
     ./DialogoTerminos.cpp \
     ./visualizadordecontexto.cpp \
     ./source/FabricaMensajes.cpp \
     ./source/GraficoDeBarras.cpp \
     ./source/Individuo.cpp \
-    ./DialogoMediosTwitter.cpp
+    ./DialogoMediosFacebook.cpp
 FORMS += ./visualizadordecontexto.ui \
     ./DialogoTerminos.ui \
     ./DialogoConceptos.ui \
     ./DialogoFechas.ui \
     ./DialogoPeriodos.ui \
     ./DialogoConsultas.ui \
-    ./DialogoMediosTwitter.ui
+    ./DialogoMediosTwitter.ui \
+    ./DialogoMediosFacebook.ui
 RESOURCES += visualizadordecontexto.qrc

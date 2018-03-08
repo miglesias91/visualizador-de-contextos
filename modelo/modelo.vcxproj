@@ -133,6 +133,7 @@
     <ClInclude Include="include\IRelacionConSecciones.h" />
     <ClInclude Include="include\IRelacionConTerminos.h" />
     <ClInclude Include="include\Medio.h" />
+    <ClInclude Include="include\MedioFacebook.h" />
     <ClInclude Include="include\MedioTwitter.h" />
     <ClInclude Include="include\Periodo.h" />
     <ClInclude Include="include\Reporte.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="source\IRelacionConPeriodos.cpp" />
     <ClCompile Include="source\IRelacionConSecciones.cpp" />
     <ClCompile Include="source\IRelacionConTerminos.cpp" />
+    <ClCompile Include="source\MedioFacebook.cpp" />
     <ClCompile Include="source\MedioTwitter.cpp" />
     <ClCompile Include="source\RelacionesConcepto.cpp" />
     <ClCompile Include="source\RelacionesConsulta.cpp" />

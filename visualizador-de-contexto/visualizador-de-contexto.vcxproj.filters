@@ -77,6 +77,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_visualizadordecontexto.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DialogoMediosFacebook.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoMediosFacebook.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoMediosFacebook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -172,6 +181,12 @@
     <CustomBuild Include="include\GraficoDeBarras.h">
       <Filter>Header Files\graficos</Filter>
     </CustomBuild>
+    <CustomBuild Include="DialogoMediosFacebook.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DialogoMediosFacebook.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_visualizadordecontexto.h">
@@ -202,6 +217,9 @@
       <Filter>Header Files\graficos\modelo</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DialogoMediosTwitter.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DialogoMediosFacebook.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

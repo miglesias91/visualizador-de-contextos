@@ -145,23 +145,6 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesFecha * relaciones
     return true;
 }
 
-bool GestorRelaciones::vincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
-{
-    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
-
-    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
-    {
-        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (this->admin_app->recuperar(&relaciones_consulta))
-        {
-            relaciones_consulta.agregarRelacionConMedioTwitter(id_medio);
-            this->admin_app->modificar(&relaciones_consulta);
-        }
-    }
-
-    return true;
-}
-
 bool GestorRelaciones::vincular(modelo::relaciones::RelacionesReporte * relaciones_reporte, herramientas::utiles::ID * id_reporte)
 {
     std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_reporte->getRelacionConConsultas()->getIdsGrupo();
@@ -207,6 +190,40 @@ bool GestorRelaciones::vincular(modelo::relaciones::RelacionesTermino * relacion
         {
             relaciones_concepto.agregarRelacionConTermino(id_termino);
             this->admin_app->modificar(&relaciones_concepto);
+        }
+    }
+
+    return true;
+}
+
+bool GestorRelaciones::vincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+{
+    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
+
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
+        if (this->admin_app->recuperar(&relaciones_consulta))
+        {
+            relaciones_consulta.agregarRelacionConMedioTwitter(id_medio);
+            this->admin_app->modificar(&relaciones_consulta);
+        }
+    }
+
+    return true;
+}
+
+bool GestorRelaciones::vincularMedioFacebook(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+{
+    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
+
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
+        if (this->admin_app->recuperar(&relaciones_consulta))
+        {
+            relaciones_consulta.agregarRelacionConMedioFacebook(id_medio);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
@@ -309,23 +326,6 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesFecha * relacio
     return false;
 }
 
-bool GestorRelaciones::desvincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
-{
-    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
-
-    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
-    {
-        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
-        if (this->admin_app->recuperar(&relaciones_consulta))
-        {
-            relaciones_consulta.eliminarRelacionConMedioTwitter(id_medio);
-            this->admin_app->modificar(&relaciones_consulta);
-        }
-    }
-
-    return true;
-}
-
 bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesPeriodo * relaciones_periodo, herramientas::utiles::ID * id_periodo)
 {
     std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_periodo->getRelacionConConsultas()->getIdsGrupo();
@@ -406,6 +406,40 @@ bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesTermino * relac
         {
             relaciones_concepto.eliminarRelacionConTermino(id_termino);
             this->admin_app->modificar(&relaciones_concepto);
+        }
+    }
+
+    return true;
+}
+
+bool GestorRelaciones::desvincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+{
+    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
+
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
+        if (this->admin_app->recuperar(&relaciones_consulta))
+        {
+            relaciones_consulta.eliminarRelacionConMedioTwitter(id_medio);
+            this->admin_app->modificar(&relaciones_consulta);
+        }
+    }
+
+    return true;
+}
+
+bool GestorRelaciones::desvincularMedioFacebook(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+{
+    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
+
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
+        if (this->admin_app->recuperar(&relaciones_consulta))
+        {
+            relaciones_consulta.eliminarRelacionConMedioFacebook(id_medio);
+            this->admin_app->modificar(&relaciones_consulta);
         }
     }
 
