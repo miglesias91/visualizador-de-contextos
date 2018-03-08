@@ -110,19 +110,19 @@
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QPushButton" name="btn_agregar_eliminar_terminos">
+       <widget class="QPushButton" name="btn_editar_concepto">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="font">
          <font>
           <family>Calibri</family>
           <pointsize>11</pointsize>
-          <italic>true</italic>
+          <italic>false</italic>
          </font>
         </property>
         <property name="text">
-         <string>Sumar/Sacar términos</string>
+         <string>Editar</string>
         </property>
        </widget>
       </item>
@@ -279,9 +279,14 @@
     <string>estado_btn_agregar</string>
    </property>
   </action>
-  <zorder>btnbox_conceptos</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>lista_terminos</zorder>
+  <action name="action_editar_concepto">
+   <property name="text">
+    <string>Editar concepto</string>
+   </property>
+   <property name="toolTip">
+    <string>Editar concepto</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -391,6 +396,22 @@
     <hint type="sourcelabel">
      <x>147</x>
      <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_editar_concepto</sender>
+   <signal>released()</signal>
+   <receiver>action_editar_concepto</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>234</x>
+     <y>343</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

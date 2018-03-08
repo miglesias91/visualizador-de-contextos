@@ -13,7 +13,9 @@
 #include <modelo/include/Termino.h>
 
 // visualizador
+#include <visualizador-de-contexto/DialogoEditarConcepto.h>
 #include <declaraciones_metatipos.h>
+
 
 namespace Ui { class DialogoConceptos; };
 
@@ -38,6 +40,8 @@ private slots:
 
     void on_action_estado_btn_agregar_triggered();
 
+    void on_action_editar_concepto_triggered();
+
 private:
     Ui::DialogoConceptos *ui;
 
@@ -50,6 +54,8 @@ private:
 
     std::vector<visualizador::modelo::Termino*> terminosSeleccionados();
 
+    std::vector<visualizador::modelo::Concepto*> conceptosSeleccionados();
+
     void cargarListaTerminos();
 
     void descargarListaTerminos();
@@ -60,5 +66,7 @@ private:
 
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_conceptos;
+
+    DialogoEditarConcepto * dialogo_editar_concepto;
 };
 

@@ -17,7 +17,7 @@
 using namespace visualizador;
 
 DialogoConceptos::DialogoConceptos(QWidget *parent)
-    : QWidget(parent)
+    : dialogo_editar_concepto(NULL), QWidget(parent)
 {
     ui = new Ui::DialogoConceptos();
     ui->setupUi(this);
@@ -119,10 +119,12 @@ void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
     if (0 < items_seleccionados)
     {
         this->ui->btn_eliminar_concepto->setEnabled(true);
+        this->ui->btn_editar_concepto->setEnabled(true);
     }
     else
     {
         this->ui->btn_eliminar_concepto->setDisabled(true);
+        this->ui->btn_editar_concepto->setEnabled(true);
     }
 }
 
@@ -221,6 +223,21 @@ std::vector<modelo::Termino*> DialogoConceptos::terminosSeleccionados()
     return terminos_seleccionados;
 }
 
+std::vector<modelo::Concepto*> DialogoConceptos::conceptosSeleccionados()
+{
+    std::vector<modelo::Concepto*> conceptos_seleccionados;
+    QList<QListWidgetItem*> items = ui->lista_conceptos->selectedItems();
+    foreach(QListWidgetItem * item, items)
+    {
+        QVariant data = item->data(Qt::UserRole);
+        modelo::Concepto * concepto = data.value<modelo::Concepto*>();
+
+        conceptos_seleccionados.push_back(concepto);
+    }
+
+    return conceptos_seleccionados;
+}
+
 void DialogoConceptos::cargarListaTerminos()
 {
     aplicacion::GestorEntidades gestor_terminos;
@@ -276,4 +293,11 @@ QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
     std::string texto = u8"El concepto que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_concepto_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente);
+}
+
+void DialogoConceptos::on_action_editar_concepto_triggered()
+{
+    std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(conceptos_seleccionados[0]);
+    this->dialogo_editar_concepto->show();
 }

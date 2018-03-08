@@ -36,6 +36,7 @@ public:
     QAction *action_guardar_concepto;
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
+    QAction *action_editar_concepto;
     QDialogButtonBox *btnbox_conceptos;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *layout_general;
@@ -44,7 +45,7 @@ public:
     QLineEdit *lineedit_etiqueta;
     QPushButton *btn_limpiar_concepto;
     QPushButton *btn_eliminar_concepto;
-    QPushButton *btn_agregar_eliminar_terminos;
+    QPushButton *btn_editar_concepto;
     QPushButton *btn_agregar_concepto;
     QGroupBox *groupbox_terminos;
     QWidget *verticalLayoutWidget_2;
@@ -70,6 +71,8 @@ public:
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         action_estado_btn_agregar = new QAction(DialogoConceptos);
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
+        action_editar_concepto = new QAction(DialogoConceptos);
+        action_editar_concepto->setObjectName(QStringLiteral("action_editar_concepto"));
         btnbox_conceptos = new QDialogButtonBox(DialogoConceptos);
         btnbox_conceptos->setObjectName(QStringLiteral("btnbox_conceptos"));
         btnbox_conceptos->setGeometry(QRect(325, 370, 156, 23));
@@ -132,16 +135,16 @@ public:
 
         layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_eliminar_concepto);
 
-        btn_agregar_eliminar_terminos = new QPushButton(horizontalLayoutWidget);
-        btn_agregar_eliminar_terminos->setObjectName(QStringLiteral("btn_agregar_eliminar_terminos"));
-        btn_agregar_eliminar_terminos->setEnabled(false);
+        btn_editar_concepto = new QPushButton(horizontalLayoutWidget);
+        btn_editar_concepto->setObjectName(QStringLiteral("btn_editar_concepto"));
+        btn_editar_concepto->setEnabled(true);
         QFont font4;
         font4.setFamily(QStringLiteral("Calibri"));
         font4.setPointSize(11);
-        font4.setItalic(true);
-        btn_agregar_eliminar_terminos->setFont(font4);
+        font4.setItalic(false);
+        btn_editar_concepto->setFont(font4);
 
-        layout_opciones->setWidget(5, QFormLayout::FieldRole, btn_agregar_eliminar_terminos);
+        layout_opciones->setWidget(5, QFormLayout::FieldRole, btn_editar_concepto);
 
         btn_agregar_concepto = new QPushButton(horizontalLayoutWidget);
         btn_agregar_concepto->setObjectName(QStringLiteral("btn_agregar_concepto"));
@@ -207,9 +210,6 @@ public:
 
         layout_general->addLayout(layout_lista);
 
-        btnbox_conceptos->raise();
-        horizontalLayoutWidget->raise();
-        lista_terminos->raise();
 
         retranslateUi(DialogoConceptos);
         QObject::connect(btnbox_conceptos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
@@ -219,6 +219,7 @@ public:
         QObject::connect(btn_eliminar_concepto, SIGNAL(released()), action_eliminar_concepto, SLOT(trigger()));
         QObject::connect(lista_conceptos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
         QObject::connect(lista_terminos, SIGNAL(itemSelectionChanged()), action_estado_btn_agregar, SLOT(trigger()));
+        QObject::connect(btn_editar_concepto, SIGNAL(released()), action_editar_concepto, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoConceptos);
     } // setupUi
@@ -247,11 +248,15 @@ public:
         action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoConceptos", "estado btn eliminar", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         action_estado_btn_agregar->setText(QApplication::translate("DialogoConceptos", "estado_btn_agregar", Q_NULLPTR));
+        action_editar_concepto->setText(QApplication::translate("DialogoConceptos", "Editar concepto", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_editar_concepto->setToolTip(QApplication::translate("DialogoConceptos", "Editar concepto", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         lbl_etiqueta->setText(QApplication::translate("DialogoConceptos", "Etiqueta", Q_NULLPTR));
         lineedit_etiqueta->setText(QString());
         btn_limpiar_concepto->setText(QApplication::translate("DialogoConceptos", "Limpiar", Q_NULLPTR));
         btn_eliminar_concepto->setText(QApplication::translate("DialogoConceptos", "Eliminar", Q_NULLPTR));
-        btn_agregar_eliminar_terminos->setText(QApplication::translate("DialogoConceptos", "Sumar/Sacar t\303\251rminos", Q_NULLPTR));
+        btn_editar_concepto->setText(QApplication::translate("DialogoConceptos", "Editar", Q_NULLPTR));
         btn_agregar_concepto->setText(QApplication::translate("DialogoConceptos", "Agregar", Q_NULLPTR));
         groupbox_terminos->setTitle(QApplication::translate("DialogoConceptos", "T\303\251rminos", Q_NULLPTR));
     } // retranslateUi

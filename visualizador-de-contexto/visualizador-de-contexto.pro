@@ -5,32 +5,50 @@
 TEMPLATE = app
 TARGET = visualizador-de-contexto
 DESTDIR = ../Win32/Debug
-QT += core widgets gui
+QT += core gui widgets
 CONFIG += debug
 DEFINES += QT_WIDGETS_LIB
 INCLUDEPATH += . \
     ./GeneratedFiles \
     $(qt-dir)5.9.1/msvc2015/include \
-    ./GeneratedFiles/Debug \
+    ./GeneratedFiles/$(ConfigurationName) \
     $(qt-dir)5.9.1/msvc2015/include/QtCore \
     $(qt-dir)5.9.1/msvc2015/include/QtGui \
     $(qt-dir)5.9.1/msvc2015/include/QtWidgets \
-    $(repos)rapidjson/include \
     $(SolutionDir) \
-    $(repos-git)almacenamiento
-LIBS += -L"$(qt-dir)5.9.1/msvc2015/lib" \
-    -L"$(SolutionDir)Debug" \
+    $(repos-git)almacenamiento \
+    $(repos-git)herramientas_desarrollo \
+    $(repos-git)scraping \
+    $(repos)rapidjson/include \
+    $(repos)spdlog/include
+LIBS += -L"$(SolutionDir)Debug" \
+    -L"$(qt-dir)5.9.1/msvc2015/lib" \
     -L"$(repos-git)almacenamiento/Debug" \
+    -L"$(repos-git)herramientas_desarrollo/Debug" \
+    -L"$(repos-git)scraping/Debug" \
     -L"$(repos)rocksdb/build_x86/Debug" \
+    -L"$(repos)cpprestsdk/Binaries/Win32/Debug" \
     -lmodelo \
     -laplicacion \
+    -lscraping \
+    -ldepuracion \
+    -lpreparacion \
+    -lanalisis \
+    -lextraccion \
+    -ltwitter \
+    -lfacebook \
+    -lutiles \
+    -llog \
+    -lprotocolos \
+    -lcasablanca_wrapper \
+    -lcpprest141d_2_10 \
     -lalmacenamiento \
     -lWrapperRocksDB \
     -lrocksdb \
     -lShlwapi \
     -lRpcrt4
 DEPENDPATH += .
-MOC_DIR += ./GeneratedFiles/debug
+MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
 OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles

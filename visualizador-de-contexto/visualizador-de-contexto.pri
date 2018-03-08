@@ -11,6 +11,7 @@ HEADERS += ./declaraciones_metatipos.h \
     ./visualizadordecontexto.h \
     ./DialogoMediosTwitter.h \
     ./DialogoMediosFacebook.h \
+    ./DialogoEditarConcepto.h \
     ./DialogoConceptos.h \
     ./DialogoFechas.h \
     ./DialogoPeriodos.h \
@@ -18,11 +19,11 @@ HEADERS += ./declaraciones_metatipos.h \
     ./DialogoTerminos.h \
     ./include/FabricaMensajes.h \
     ./include/GraficoDeBarras.h \
-    ./include/Individuo.h \
-    ./DialogoEditarConcepto.h
+    ./include/Individuo.h
 SOURCES += ./main.cpp \
     ./DialogoConceptos.cpp \
     ./DialogoConsultas.cpp \
+    ./DialogoEditarConcepto.cpp \
     ./DialogoFechas.cpp \
     ./DialogoMediosFacebook.cpp \
     ./DialogoMediosTwitter.cpp \
@@ -31,8 +32,7 @@ SOURCES += ./main.cpp \
     ./visualizadordecontexto.cpp \
     ./source/FabricaMensajes.cpp \
     ./source/GraficoDeBarras.cpp \
-    ./source/Individuo.cpp \
-    ./DialogoEditarConcepto.cpp
+    ./source/Individuo.cpp
 FORMS += ./visualizadordecontexto.ui \
     ./DialogoTerminos.ui \
     ./DialogoConceptos.ui \
