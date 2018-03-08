@@ -3,6 +3,7 @@
     {
         "path_db" : "C:/temp/db_visualizador-de-contexto-app--visualizador-de-contexto--debug",
         "almacenamiento_local" : true,
-        "almacenamiento_distribuido" : false
+        "almacenamiento_distribuido" : false,
+        "log_db" : "log_db_aplicacion-entidades.json"
     }
 }

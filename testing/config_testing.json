@@ -25,8 +25,11 @@
         "prefijo_relaciones_medio" : "016",
 
         "prefijo_medio_twitter" : "017",
+        "prefijo_medio_facebook" : "018",
 
         "db_aplicacion_entidades" : "config_db_testing.json",
-        "db_scraping" : "db_scraping.json"
+        "db_scraping" : "db_scraping.json",
+
+        "log_aplicacion" : "log_aplicacion.json"
     }
 }

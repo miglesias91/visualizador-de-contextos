@@ -199,7 +199,7 @@
     <string>Ctrl+G</string>
    </property>
   </action>
-  <action name="action_elimina">
+  <action name="action_eliminar">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -244,8 +244,104 @@
      <y>175</y>
     </hint>
     <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineedit_nombre_pagina</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>action_estado_btn_agregar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_medios_facebook</sender>
+   <signal>accepted()</signal>
+   <receiver>action_actualizar_y_cerrar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>392</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox_medios_facebook</sender>
+   <signal>rejected()</signal>
+   <receiver>DialogoMediosFacebook</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>392</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_agregar</sender>
+   <signal>released()</signal>
+   <receiver>action_guardar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>68</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_eliminar</sender>
+   <signal>released()</signal>
+   <receiver>action_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
      <x>256</x>
      <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_limpiar</sender>
+   <signal>released()</signal>
+   <receiver>action_resetear</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>100</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

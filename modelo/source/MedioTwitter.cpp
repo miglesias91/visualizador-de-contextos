@@ -41,7 +41,21 @@ scraping::twitter::modelo::Cuenta * MedioTwitter::getCuentaAScrapear()
     return this->cuenta_a_scrapear;
 }
 
+// metodos de Medio
+
+scraping::extraccion::Medio * MedioTwitter::getMedioAScrapear()
+{
+    return this->getCuentaAScrapear();
+}
+
 // SETTERS
+
+void MedioTwitter::setNombreUsuario(std::string nombre_usuario)
+{
+    this->nombre_usuario = nombre_usuario;
+
+    this->setNombre(this->nombre_usuario);
+}
 
 void MedioTwitter::setCuentaAScrapear(scraping::twitter::modelo::Cuenta * cuenta_a_scrapear)
 {
@@ -52,12 +66,14 @@ void MedioTwitter::setCuentaAScrapear(scraping::twitter::modelo::Cuenta * cuenta
 
     this->cuenta_a_scrapear = cuenta_a_scrapear;
 
-    this->nombre_usuario = this->cuenta_a_scrapear->getNombre();
+    this->setNombreUsuario(this->cuenta_a_scrapear->getNombre());
     this->fecha_tweet_mas_antiguo = this->cuenta_a_scrapear->getFechaContenidoHistoricoMasAntiguo();
     this->fecha_tweet_mas_antiguo = this->cuenta_a_scrapear->getFechaContenidoHistoricoMasReciente();
     this->cantidad_tweets_analizados = this->cuenta_a_scrapear->getCantidadDeContenidosHistoricos();
 
     this->getRelacionesMedio()->setIDMedioAScrapear(this->cuenta_a_scrapear->getId()->numero());
+
+    this->setMedioAScrapear(this->cuenta_a_scrapear);
 }
 
 // METODOS
@@ -75,7 +91,7 @@ bool MedioTwitter::armarJson()
 
 bool MedioTwitter::parsearJson()
 {
-    this->nombre_usuario = this->getJson()->getAtributoValorString("nombre_usuario");
+    this->setNombreUsuario(this->getJson()->getAtributoValorString("nombre_usuario"));
 
     return true;
 }

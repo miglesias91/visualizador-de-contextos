@@ -35,7 +35,7 @@ public:
     static std::string infoLog(visualizador::modelo::Consulta * consulta);
     static std::string infoLog(visualizador::modelo::Fecha * fecha);
     static std::string infoLog(visualizador::modelo::Grafico * grafico);
-    static std::string infoLog(visualizador::modelo::MedioTwitter * medio_twitter);
+    static std::string infoLog(visualizador::modelo::Medio * medio);
     static std::string infoLog(visualizador::modelo::Periodo * periodo);
     static std::string infoLog(visualizador::modelo::Reporte * reporte);
     static std::string infoLog(visualizador::modelo::Seccion * seccion);

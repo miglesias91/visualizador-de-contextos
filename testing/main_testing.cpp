@@ -25,18 +25,20 @@ int main(int argc, char **argv)
 
     // INICIO APP
 
-    aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
+    //aplicacion::ConfiguracionAplicacion::leerConfiguracion("config_testing.json");
 
-    aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+    //aplicacion::IAdministradorAplicacion::crearAdministradorAplicacionLocal();
+    aplicacion::IAdministradorAplicacion::iniciar("config_testing.json");
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
 
     // INICIO INFO SCRAPING
 
     // INIT INFO SCRAPING
-    scraping::ConfiguracionScraping::leerConfiguracion("config_scraping.json");
+    //scraping::ConfiguracionScraping::leerConfiguracion("config_scraping.json");
 
-    scraping::IAdministradorScraping::crearAdministradorScrapingLocal();
+    //scraping::IAdministradorScraping::crearAdministradorScrapingLocal();
 
+    scraping::IAdministradorScraping::iniciar("config_scraping.json");
     scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->abrirBD();
     scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
 
@@ -45,13 +47,16 @@ int main(int argc, char **argv)
     // CIERO INFO SCRAPING
     scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
     scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->cerrarBD();
-    scraping::IAdministradorScraping::liberar();
 
     // CIERRO APP
 
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->borrarBD();
 
+    // LIBERO MEMORIA DE APP Y SCRAPING
+    scraping::IAdministradorScraping::liberar();
+
+    // 'aplicacion::IAdministradorAplicacion::liberar()' debe ir ULTIMO POR ES EL Q LIBERA TODOS LOS LOGGERS.
     aplicacion::IAdministradorAplicacion::liberar();
 
 	std::getchar();

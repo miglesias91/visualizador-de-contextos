@@ -87,6 +87,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         prefijo_medio = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoMedio());
 
         prefijo_medio_twitter = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoMedioTwitter());
+        prefijo_medio_facebook = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoMedioFacebook());
 
         prefijo_relaciones_concepto = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoRelacionesConcepto());
         prefijo_relaciones_termino = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoRelacionesTermino());

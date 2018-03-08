@@ -29,9 +29,16 @@ public:
 
     virtual scraping::facebook::modelo::Pagina * getPaginaAScrapear();
 
+    // metodos de Medio
+
+    virtual scraping::extraccion::Medio * getMedioAScrapear();
+
 	// SETTERS
 
+    virtual void setNombrePagina(std::string nombre_pagina);
+
     virtual void setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear);
+    
     // METODOS
 
     // metodos de IContieneJson

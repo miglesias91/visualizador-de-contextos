@@ -66,6 +66,12 @@ void visualizadordecontexto::on_action_abrir_medios_twitter_triggered()
     this->dialogo_medios_twitter->show();
 }
 
+void visualizadordecontexto::on_action_abrir_medios_facebook_triggered()
+{
+    this->dialogo_medios_facebook = new DialogoMediosFacebook();
+    this->dialogo_medios_facebook->show();
+}
+
 void visualizadordecontexto::on_action_analizar_ctx_triggered()
 {    
     QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this, &visualizadordecontexto::on_action_deshabilitar_menu_triggered);
@@ -87,6 +93,7 @@ void visualizadordecontexto::on_action_deshabilitar_menu_triggered()
     this->ui.btn_fechas->setEnabled(false);
     this->ui.btn_periodos->setEnabled(false);
     this->ui.btn_medios_twitter->setEnabled(false);
+    this->ui.btn_medios_facebook->setEnabled(false);
     this->ui.btn_consulta->setEnabled(false);
     this->ui.btn_analizar_ctx->setEnabled(false);
 }
@@ -98,6 +105,7 @@ void visualizadordecontexto::on_action_habilitar_menu_triggered()
     this->ui.btn_fechas->setEnabled(true);
     this->ui.btn_periodos->setEnabled(true);
     this->ui.btn_medios_twitter->setEnabled(true);
+    this->ui.btn_medios_facebook->setEnabled(true);
     this->ui.btn_consulta->setEnabled(true);
     this->ui.btn_analizar_ctx->setEnabled(true);
 }
@@ -109,11 +117,20 @@ void visualizadordecontexto::analizarCTX()
     this->emitirProgreso(10);
 
     scraping::aplicacion::GestorTareas::scrapearTwitter();
-    this->emitirProgreso(33);
+    this->emitirProgreso(25);
 
     scraping::aplicacion::GestorTareas::depurarYAnalizarTwitter();
-    this->emitirProgreso(66);
+    this->emitirProgreso(40);
     
     scraping::aplicacion::GestorTareas::prepararYAlmacenarTwitter();
+    this->emitirProgreso(55);
+
+    scraping::aplicacion::GestorTareas::scrapearFacebook();
+    this->emitirProgreso(70);
+
+    scraping::aplicacion::GestorTareas::depurarYAnalizarFacebook();
+    this->emitirProgreso(85);
+
+    scraping::aplicacion::GestorTareas::prepararYAlmacenarFacebook();
     this->emitirProgreso(100);
 }

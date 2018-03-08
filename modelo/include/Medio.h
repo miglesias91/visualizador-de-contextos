@@ -26,9 +26,17 @@ public:
 
     relaciones::RelacionesMedio * getRelacionesMedio();
 
+    virtual scraping::extraccion::Medio * getMedioAScrapear();
+
+    virtual std::string getNombre();
+
 	// SETTERS
 
     void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
+
+    virtual void setMedioAScrapear(scraping::extraccion::Medio * medio_a_scrapear);
+
+    virtual void setNombre(std::string nombre);
 
     // METODOS
 
@@ -49,6 +57,10 @@ private:
     // ATRIBUTOS
 
     relaciones::RelacionesMedio * relaciones_medio;
+
+    scraping::extraccion::Medio * medio_a_scrapear;
+
+    std::string nombre;
 };
 
 };

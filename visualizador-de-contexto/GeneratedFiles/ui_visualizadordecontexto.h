@@ -37,6 +37,7 @@ public:
     QAction *action_analizar_ctx;
     QAction *action_deshabilitar_menu;
     QAction *action_habilitar_menu;
+    QAction *action_abrir_medios_facebook;
     QWidget *centralWidget;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *layout_opciones;
@@ -47,6 +48,7 @@ public:
     QPushButton *btn_fechas;
     QPushButton *btn_periodos;
     QPushButton *btn_medios_twitter;
+    QPushButton *btn_medios_facebook;
     QFrame *linea_separadora;
     QPushButton *btn_consulta;
     QPushButton *btn_analizar_ctx;
@@ -57,7 +59,7 @@ public:
     {
         if (visualizadordecontextoClass->objectName().isEmpty())
             visualizadordecontextoClass->setObjectName(QStringLiteral("visualizadordecontextoClass"));
-        visualizadordecontextoClass->resize(478, 433);
+        visualizadordecontextoClass->resize(478, 481);
         action_abrir_terminos = new QAction(visualizadordecontextoClass);
         action_abrir_terminos->setObjectName(QStringLiteral("action_abrir_terminos"));
         action_abrir_terminos->setCheckable(true);
@@ -85,11 +87,14 @@ public:
         action_habilitar_menu = new QAction(visualizadordecontextoClass);
         action_habilitar_menu->setObjectName(QStringLiteral("action_habilitar_menu"));
         action_habilitar_menu->setCheckable(true);
+        action_abrir_medios_facebook = new QAction(visualizadordecontextoClass);
+        action_abrir_medios_facebook->setObjectName(QStringLiteral("action_abrir_medios_facebook"));
+        action_abrir_medios_facebook->setCheckable(true);
         centralWidget = new QWidget(visualizadordecontextoClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(100, 10, 281, 381));
+        verticalLayoutWidget->setGeometry(QRect(100, 10, 281, 415));
         layout_opciones = new QVBoxLayout(verticalLayoutWidget);
         layout_opciones->setSpacing(6);
         layout_opciones->setContentsMargins(11, 11, 11, 11);
@@ -153,6 +158,12 @@ public:
 
         layout_entidades->addWidget(btn_medios_twitter);
 
+        btn_medios_facebook = new QPushButton(verticalLayoutWidget);
+        btn_medios_facebook->setObjectName(QStringLiteral("btn_medios_facebook"));
+        btn_medios_facebook->setFont(font1);
+
+        layout_entidades->addWidget(btn_medios_facebook);
+
         linea_separadora = new QFrame(verticalLayoutWidget);
         linea_separadora->setObjectName(QStringLiteral("linea_separadora"));
         linea_separadora->setLineWidth(4);
@@ -204,7 +215,7 @@ public:
         bar_analizar_ctx = new QProgressBar(centralWidget);
         bar_analizar_ctx->setObjectName(QStringLiteral("bar_analizar_ctx"));
         bar_analizar_ctx->setEnabled(false);
-        bar_analizar_ctx->setGeometry(QRect(100, 390, 281, 10));
+        bar_analizar_ctx->setGeometry(QRect(100, 425, 281, 10));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
@@ -231,6 +242,7 @@ public:
         QObject::connect(btn_consulta, SIGNAL(released()), action_abrir_consulta, SLOT(trigger()));
         QObject::connect(btn_medios_twitter, SIGNAL(released()), action_abrir_medios_twitter, SLOT(trigger()));
         QObject::connect(btn_analizar_ctx, SIGNAL(released()), action_analizar_ctx, SLOT(trigger()));
+        QObject::connect(btn_medios_facebook, SIGNAL(released()), action_abrir_medios_facebook, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(visualizadordecontextoClass);
     } // setupUi
@@ -238,45 +250,65 @@ public:
     void retranslateUi(QMainWindow *visualizadordecontextoClass)
     {
         visualizadordecontextoClass->setWindowTitle(QApplication::translate("visualizadordecontextoClass", "Visualizador de contexto", Q_NULLPTR));
-        action_abrir_terminos->setText(QApplication::translate("visualizadordecontextoClass", "abrir_terminos", Q_NULLPTR));
+        action_abrir_terminos->setText(QApplication::translate("visualizadordecontextoClass", "T\303\251rminos", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        action_abrir_terminos->setToolTip(QApplication::translate("visualizadordecontextoClass", "abrir terminos", Q_NULLPTR));
+        action_abrir_terminos->setToolTip(QApplication::translate("visualizadordecontextoClass", "Abrir terminos", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
         action_abrir_terminos->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+T", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_abrir_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "abrir_conceptos", Q_NULLPTR));
+        action_abrir_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "Conceptos", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        action_abrir_conceptos->setToolTip(QApplication::translate("visualizadordecontextoClass", "abrir conceptos", Q_NULLPTR));
+        action_abrir_conceptos->setToolTip(QApplication::translate("visualizadordecontextoClass", "Abrir conceptos", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
         action_abrir_conceptos->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+C", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_abrir_fechas->setText(QApplication::translate("visualizadordecontextoClass", "abrir_fechas", Q_NULLPTR));
+        action_abrir_fechas->setText(QApplication::translate("visualizadordecontextoClass", "Fechas", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_fechas->setToolTip(QApplication::translate("visualizadordecontextoClass", "Abrir fechas", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
         action_abrir_fechas->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+F", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_abrir_periodos->setText(QApplication::translate("visualizadordecontextoClass", "abrir_periodos", Q_NULLPTR));
+        action_abrir_periodos->setText(QApplication::translate("visualizadordecontextoClass", "Peri\303\255odos", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_periodos->setToolTip(QApplication::translate("visualizadordecontextoClass", "Abrir periodos", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
         action_abrir_periodos->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+P", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_abrir_consulta->setText(QApplication::translate("visualizadordecontextoClass", "abrir_consulta", Q_NULLPTR));
+        action_abrir_consulta->setText(QApplication::translate("visualizadordecontextoClass", "Consulta", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_consulta->setToolTip(QApplication::translate("visualizadordecontextoClass", "Realizar consulta", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
         action_abrir_consulta->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+A", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_abrir_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "abrir_medios_twitter", Q_NULLPTR));
+        action_abrir_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "Cuentas de Twitter", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_medios_twitter->setToolTip(QApplication::translate("visualizadordecontextoClass", "Abrir cuentas de Twitter", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_SHORTCUT
         action_abrir_medios_twitter->setShortcut(QApplication::translate("visualizadordecontextoClass", "Ctrl+W", Q_NULLPTR));
 #endif // QT_NO_SHORTCUT
-        action_analizar_ctx->setText(QApplication::translate("visualizadordecontextoClass", "analizar_ctx", Q_NULLPTR));
-        action_deshabilitar_menu->setText(QApplication::translate("visualizadordecontextoClass", "deshabilitar_menu", Q_NULLPTR));
-        action_habilitar_menu->setText(QApplication::translate("visualizadordecontextoClass", "habilitar_menu", Q_NULLPTR));
+        action_analizar_ctx->setText(QApplication::translate("visualizadordecontextoClass", "Analizar contexto", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_analizar_ctx->setToolTip(QApplication::translate("visualizadordecontextoClass", "Iniciar an\303\241lisis de contexto", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        action_deshabilitar_menu->setText(QApplication::translate("visualizadordecontextoClass", "deshabilitar menu", Q_NULLPTR));
+        action_habilitar_menu->setText(QApplication::translate("visualizadordecontextoClass", "habilitar menu", Q_NULLPTR));
+        action_abrir_medios_facebook->setText(QApplication::translate("visualizadordecontextoClass", "P\303\241ginas de Facebook", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_abrir_medios_facebook->setToolTip(QApplication::translate("visualizadordecontextoClass", "Abrir paginas de Facebook", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         lbl_titulo->setText(QApplication::translate("visualizadordecontextoClass", "<html><head/><body><p align=\"center\"><span style=\" color:#2e3343;\">Visualizador</span></p><p align=\"center\"><span style=\" color:#2e3343;\">de contexto</span></p></body></html>", Q_NULLPTR));
         btn_terminos->setText(QApplication::translate("visualizadordecontextoClass", "T\303\251rminos", Q_NULLPTR));
         btn_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "Conceptos", Q_NULLPTR));
         btn_fechas->setText(QApplication::translate("visualizadordecontextoClass", "Fechas", Q_NULLPTR));
         btn_periodos->setText(QApplication::translate("visualizadordecontextoClass", "Per\303\255odos", Q_NULLPTR));
         btn_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "Cuentas de Twitter", Q_NULLPTR));
+        btn_medios_facebook->setText(QApplication::translate("visualizadordecontextoClass", "P\303\241ginas de Facebook", Q_NULLPTR));
         btn_consulta->setText(QApplication::translate("visualizadordecontextoClass", "Realizar consulta", Q_NULLPTR));
         btn_analizar_ctx->setText(QApplication::translate("visualizadordecontextoClass", "Analizar contexto", Q_NULLPTR));
     } // retranslateUi

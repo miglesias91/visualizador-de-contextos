@@ -41,7 +41,21 @@ scraping::facebook::modelo::Pagina * MedioFacebook::getPaginaAScrapear()
     return this->pagina_a_scrapear;
 }
 
+// metodos de Medio
+
+scraping::extraccion::Medio * MedioFacebook::getMedioAScrapear()
+{
+    return this->getPaginaAScrapear();
+}
+
 // SETTERS
+
+void MedioFacebook::setNombrePagina(std::string nombre_pagina)
+{
+    this->nombre_pagina = nombre_pagina;
+
+    this->setNombre(this->nombre_pagina);
+}
 
 void MedioFacebook::setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear)
 {
@@ -52,12 +66,14 @@ void MedioFacebook::setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagi
 
     this->pagina_a_scrapear = pagina_a_scrapear;
 
-    this->nombre_pagina = this->pagina_a_scrapear->getNombre();
+    this->setNombrePagina(this->pagina_a_scrapear->getNombre());
     this->fecha_publicacion_mas_antigua = this->pagina_a_scrapear->getFechaContenidoHistoricoMasAntiguo();
     this->fecha_publicacion_mas_reciente = this->pagina_a_scrapear->getFechaContenidoHistoricoMasReciente();
     this->cantidad_publicaciones_analizadas = this->pagina_a_scrapear->getCantidadDeContenidosHistoricos();
 
     this->getRelacionesMedio()->setIDMedioAScrapear(this->pagina_a_scrapear->getId()->numero());
+
+    this->setMedioAScrapear(this->pagina_a_scrapear);
 }
 
 // METODOS
@@ -75,7 +91,7 @@ bool MedioFacebook::armarJson()
 
 bool MedioFacebook::parsearJson()
 {
-    this->nombre_pagina = this->getJson()->getAtributoValorString("nombre_pagina");
+    this->setNombrePagina(this->getJson()->getAtributoValorString("nombre_pagina"));
 
     return true;
 }

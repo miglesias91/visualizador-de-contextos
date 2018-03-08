@@ -29,13 +29,15 @@ public:
 
     virtual scraping::twitter::modelo::Cuenta * getCuentaAScrapear();
 
-    //relaciones::RelacionesMedio * getRelacionesMedio();
+    // metodos de Medio
+
+    virtual scraping::extraccion::Medio * getMedioAScrapear();
 
 	// SETTERS
 
-    virtual void setCuentaAScrapear(scraping::twitter::modelo::Cuenta * medio_a_scrapear);
+    virtual void setNombreUsuario(std::string nombre_usuario);
 
-    //void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
+    virtual void setCuentaAScrapear(scraping::twitter::modelo::Cuenta * medio_a_scrapear);
 
     // METODOS
 

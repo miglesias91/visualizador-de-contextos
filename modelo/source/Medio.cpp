@@ -24,6 +24,16 @@ relaciones::RelacionesMedio * Medio::getRelacionesMedio()
     return this->relaciones_medio;
 }
 
+scraping::extraccion::Medio * Medio::getMedioAScrapear()
+{
+    return this->medio_a_scrapear;
+}
+
+std::string Medio::getNombre()
+{
+    return this->nombre;
+}
+
 // SETTERS
 
 void Medio::setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio)
@@ -35,6 +45,16 @@ void Medio::setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio)
 
     this->relaciones_medio = relaciones_medio;
     this->setRelaciones(this->relaciones_medio);
+}
+
+void Medio::setMedioAScrapear(scraping::extraccion::Medio * medio_a_scrapear)
+{
+    this->medio_a_scrapear = medio_a_scrapear;
+}
+
+void Medio::setNombre(std::string nombre)
+{
+    this->nombre = nombre;
 }
 
 // METODOS

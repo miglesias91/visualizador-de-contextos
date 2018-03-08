@@ -49,6 +49,8 @@ private slots:
     void on_action_habilitar_menu_triggered();
 
 
+    void on_action_abrir_medios_facebook_triggered();
+
 private:
 	Ui::visualizadordecontextoClass ui;
 
