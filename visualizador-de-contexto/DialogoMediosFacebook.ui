@@ -16,8 +16,8 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>10</x>
+     <y>10</y>
      <width>781</width>
      <height>351</height>
     </rect>
@@ -143,8 +143,8 @@
   <widget class="QDialogButtonBox" name="btnbox_medios_facebook">
    <property name="geometry">
     <rect>
-     <x>315</x>
-     <y>360</y>
+     <x>320</x>
+     <y>370</y>
      <width>156</width>
      <height>23</height>
     </rect>

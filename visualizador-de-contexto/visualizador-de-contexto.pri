@@ -10,6 +10,7 @@ message("You are running qmake on a generated .pro file. This may not work!")
 HEADERS += ./declaraciones_metatipos.h \
     ./visualizadordecontexto.h \
     ./DialogoMediosTwitter.h \
+    ./DialogoMediosFacebook.h \
     ./DialogoConceptos.h \
     ./DialogoFechas.h \
     ./DialogoPeriodos.h \
@@ -18,11 +19,12 @@ HEADERS += ./declaraciones_metatipos.h \
     ./include/FabricaMensajes.h \
     ./include/GraficoDeBarras.h \
     ./include/Individuo.h \
-    ./DialogoMediosFacebook.h
+    ./DialogoEditarConcepto.h
 SOURCES += ./main.cpp \
     ./DialogoConceptos.cpp \
     ./DialogoConsultas.cpp \
     ./DialogoFechas.cpp \
+    ./DialogoMediosFacebook.cpp \
     ./DialogoMediosTwitter.cpp \
     ./DialogoPeriodos.cpp \
     ./DialogoTerminos.cpp \
@@ -30,7 +32,7 @@ SOURCES += ./main.cpp \
     ./source/FabricaMensajes.cpp \
     ./source/GraficoDeBarras.cpp \
     ./source/Individuo.cpp \
-    ./DialogoMediosFacebook.cpp
+    ./DialogoEditarConcepto.cpp
 FORMS += ./visualizadordecontexto.ui \
     ./DialogoTerminos.ui \
     ./DialogoConceptos.ui \
@@ -38,5 +40,6 @@ FORMS += ./visualizadordecontexto.ui \
     ./DialogoPeriodos.ui \
     ./DialogoConsultas.ui \
     ./DialogoMediosTwitter.ui \
-    ./DialogoMediosFacebook.ui
+    ./DialogoMediosFacebook.ui \
+    ./DialogoEditarConcepto.ui
 RESOURCES += visualizadordecontexto.qrc

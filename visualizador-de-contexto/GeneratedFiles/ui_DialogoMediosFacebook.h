@@ -72,7 +72,7 @@ public:
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         horizontalLayoutWidget = new QWidget(DialogoMediosFacebook);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(0, 0, 781, 351));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
         layout_general->setSpacing(6);
         layout_general->setContentsMargins(11, 11, 11, 11);
@@ -158,7 +158,7 @@ public:
 
         btnbox_medios_facebook = new QDialogButtonBox(DialogoMediosFacebook);
         btnbox_medios_facebook->setObjectName(QStringLiteral("btnbox_medios_facebook"));
-        btnbox_medios_facebook->setGeometry(QRect(315, 360, 156, 23));
+        btnbox_medios_facebook->setGeometry(QRect(320, 370, 156, 23));
         QFont font5;
         font5.setFamily(QStringLiteral("Calibri"));
         font5.setPointSize(11);
