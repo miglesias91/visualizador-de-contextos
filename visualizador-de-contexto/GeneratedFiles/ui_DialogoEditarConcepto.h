@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -27,13 +28,19 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoEditarConcepto
 {
 public:
+    QAction *action_eliminar;
+    QAction *action_nuevo;
+    QAction *action_ok;
+    QAction *action_editar;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *layout_general;
     QHBoxLayout *layout_superior;
     QLabel *lbl_etiqueta;
     QLineEdit *lineedit_etiqueta;
+    QPushButton *btn_eliminar;
     QPushButton *btn_nuevo;
     QListWidget *lista;
+    QDialogButtonBox *btnbox;
 
     void setupUi(QWidget *DialogoEditarConcepto)
     {
@@ -41,6 +48,14 @@ public:
             DialogoEditarConcepto->setObjectName(QStringLiteral("DialogoEditarConcepto"));
         DialogoEditarConcepto->setWindowModality(Qt::NonModal);
         DialogoEditarConcepto->resize(400, 300);
+        action_eliminar = new QAction(DialogoEditarConcepto);
+        action_eliminar->setObjectName(QStringLiteral("action_eliminar"));
+        action_nuevo = new QAction(DialogoEditarConcepto);
+        action_nuevo->setObjectName(QStringLiteral("action_nuevo"));
+        action_ok = new QAction(DialogoEditarConcepto);
+        action_ok->setObjectName(QStringLiteral("action_ok"));
+        action_editar = new QAction(DialogoEditarConcepto);
+        action_editar->setObjectName(QStringLiteral("action_editar"));
         verticalLayoutWidget = new QWidget(DialogoEditarConcepto);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(10, 10, 381, 281));
@@ -62,6 +77,11 @@ public:
 
         layout_superior->addWidget(lineedit_etiqueta);
 
+        btn_eliminar = new QPushButton(verticalLayoutWidget);
+        btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+
+        layout_superior->addWidget(btn_eliminar);
+
         btn_nuevo = new QPushButton(verticalLayoutWidget);
         btn_nuevo->setObjectName(QStringLiteral("btn_nuevo"));
 
@@ -75,8 +95,21 @@ public:
 
         layout_general->addWidget(lista);
 
+        btnbox = new QDialogButtonBox(verticalLayoutWidget);
+        btnbox->setObjectName(QStringLiteral("btnbox"));
+        btnbox->setLayoutDirection(Qt::LeftToRight);
+        btnbox->setOrientation(Qt::Horizontal);
+        btnbox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        btnbox->setCenterButtons(true);
+
+        layout_general->addWidget(btnbox);
+
 
         retranslateUi(DialogoEditarConcepto);
+        QObject::connect(btn_nuevo, SIGNAL(released()), action_nuevo, SLOT(trigger()));
+        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
+        QObject::connect(btnbox, SIGNAL(accepted()), action_ok, SLOT(trigger()));
+        QObject::connect(btnbox, SIGNAL(rejected()), DialogoEditarConcepto, SLOT(close()));
 
         QMetaObject::connectSlotsByName(DialogoEditarConcepto);
     } // setupUi
@@ -84,7 +117,24 @@ public:
     void retranslateUi(QWidget *DialogoEditarConcepto)
     {
         DialogoEditarConcepto->setWindowTitle(QApplication::translate("DialogoEditarConcepto", "Editar Concepto", Q_NULLPTR));
+        action_eliminar->setText(QApplication::translate("DialogoEditarConcepto", "Eliminar", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_eliminar->setToolTip(QApplication::translate("DialogoEditarConcepto", "Eliminar", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        action_nuevo->setText(QApplication::translate("DialogoEditarConcepto", "Nuevo", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_nuevo->setToolTip(QApplication::translate("DialogoEditarConcepto", "Nuevo", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        action_ok->setText(QApplication::translate("DialogoEditarConcepto", "OK", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_ok->setToolTip(QApplication::translate("DialogoEditarConcepto", "OK", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        action_editar->setText(QApplication::translate("DialogoEditarConcepto", "Editar", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_editar->setToolTip(QApplication::translate("DialogoEditarConcepto", "Editar", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         lbl_etiqueta->setText(QApplication::translate("DialogoEditarConcepto", "Etiqueta:", Q_NULLPTR));
+        btn_eliminar->setText(QApplication::translate("DialogoEditarConcepto", "Eliminar", Q_NULLPTR));
         btn_nuevo->setText(QApplication::translate("DialogoEditarConcepto", "Nuevo", Q_NULLPTR));
     } // retranslateUi
 

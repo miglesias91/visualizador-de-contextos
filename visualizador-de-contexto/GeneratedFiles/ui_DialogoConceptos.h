@@ -220,6 +220,7 @@ public:
         QObject::connect(lista_conceptos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
         QObject::connect(lista_terminos, SIGNAL(itemSelectionChanged()), action_estado_btn_agregar, SLOT(trigger()));
         QObject::connect(btn_editar_concepto, SIGNAL(released()), action_editar_concepto, SLOT(trigger()));
+        QObject::connect(lista_conceptos, SIGNAL(itemDoubleClicked(QListWidgetItem*)), action_editar_concepto, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoConceptos);
     } // setupUi

@@ -419,5 +419,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>lista_conceptos</sender>
+   <signal>itemDoubleClicked(QListWidgetItem*)</signal>
+   <receiver>action_editar_concepto</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>596</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

@@ -39,6 +39,13 @@
        <widget class="QLineEdit" name="lineedit_etiqueta"/>
       </item>
       <item>
+       <widget class="QPushButton" name="btn_eliminar">
+        <property name="text">
+         <string>Eliminar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btn_nuevo">
         <property name="text">
          <string>Nuevo</string>
@@ -50,10 +57,123 @@
     <item>
      <widget class="QListWidget" name="lista"/>
     </item>
+    <item>
+     <widget class="QDialogButtonBox" name="btnbox">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </property>
+      <property name="centerButtons">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
+  <action name="action_eliminar">
+   <property name="text">
+    <string>Eliminar</string>
+   </property>
+   <property name="toolTip">
+    <string>Eliminar</string>
+   </property>
+  </action>
+  <action name="action_nuevo">
+   <property name="text">
+    <string>Nuevo</string>
+   </property>
+   <property name="toolTip">
+    <string>Nuevo</string>
+   </property>
+  </action>
+  <action name="action_ok">
+   <property name="text">
+    <string>OK</string>
+   </property>
+   <property name="toolTip">
+    <string>OK</string>
+   </property>
+  </action>
+  <action name="action_editar">
+   <property name="text">
+    <string>Editar</string>
+   </property>
+   <property name="toolTip">
+    <string>Editar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_nuevo</sender>
+   <signal>released()</signal>
+   <receiver>action_nuevo</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_eliminar</sender>
+   <signal>released()</signal>
+   <receiver>action_eliminar</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox</sender>
+   <signal>accepted()</signal>
+   <receiver>action_ok</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>278</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btnbox</sender>
+   <signal>rejected()</signal>
+   <receiver>DialogoEditarConcepto</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>278</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
