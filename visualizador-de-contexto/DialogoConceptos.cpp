@@ -30,6 +30,8 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
 
     this->cargarListaTerminos();
 
+    std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
+
     this->on_action_resetear_concepto_triggered();
 }
 
@@ -298,6 +300,8 @@ QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
 void DialogoConceptos::on_action_editar_concepto_triggered()
 {
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
-    this->dialogo_editar_concepto = new DialogoEditarConcepto(conceptos_seleccionados[0]);
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(conceptos_seleccionados[0], &this->gestor_terminos);
     this->dialogo_editar_concepto->show();
+
+
 }

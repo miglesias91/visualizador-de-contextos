@@ -59,6 +59,9 @@
     </item>
     <item>
      <widget class="QDialogButtonBox" name="btnbox">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -105,6 +108,14 @@
    </property>
    <property name="toolTip">
     <string>Editar</string>
+   </property>
+  </action>
+  <action name="action_actualizar_termino">
+   <property name="text">
+    <string>Actualizar termino</string>
+   </property>
+   <property name="toolTip">
+    <string>Actualizar termino</string>
    </property>
   </action>
  </widget>
@@ -172,6 +183,22 @@
     <hint type="destinationlabel">
      <x>199</x>
      <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lista</sender>
+   <signal>itemChanged(QListWidgetItem*)</signal>
+   <receiver>action_actualizar_termino</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>

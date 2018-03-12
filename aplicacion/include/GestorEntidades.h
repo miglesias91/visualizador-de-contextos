@@ -45,6 +45,9 @@ public:
     // almacena logicamente el termino.
     bool almacenar(visualizador::modelo::IEntidad* entidad_a_almacenar);
 
+    // modificar logicamente el termino.
+    bool modificar(visualizador::modelo::IEntidad* entidad_a_modificar);
+
     // elimina logicamente el termino.
     bool eliminar(visualizador::modelo::IEntidad* entidad_a_eliminar);
 

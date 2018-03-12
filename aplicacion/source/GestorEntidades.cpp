@@ -149,6 +149,42 @@ bool GestorEntidades::almacenar(visualizador::modelo::IEntidad * entidad_nueva)
     return true;
 }
 
+bool GestorEntidades::modificar(visualizador::modelo::IEntidad * entidad_a_modificar)
+{
+    // si la entidad a modificar esta en 'existentes', entonces agrego su nuevo valor a 'almacenar' y la elimino de 'existentes'.
+    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->getId()->numero() == entidad_a_modificar->getId()->numero())
+        {
+            // agrego el valor nuevo
+            this->entidades_a_almacenar.push_back(entidad_a_modificar->clonar());
+
+            // saco el valor viejo de 'existentes' y elimino su memoria, xq ahora uso la memoria del clon del nuevo valor.
+            delete *this->entidades_it;
+            this->entidades_existentes.erase(this->entidades_it);
+            return true;
+        }
+    }
+
+    // si la entidad a modificar esta en 'a_almacenar', la elimino de 'existentes' y dsp la agrego con su nuevo alor..
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->getId()->numero() == entidad_a_modificar->getId()->numero())
+        {
+            // saco el valor viejo de 'existentes' y elimino su memoria, xq ahora uso la memoria del clon del nuevo valor.
+            delete *this->entidades_it;
+            this->entidades_a_almacenar.erase(this->entidades_it);
+
+            // agrego el nuevo valor a almacenar
+            this->entidades_a_almacenar.push_back(entidad_a_modificar->clonar());
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_eliminar)
 {
     // chequeo que la entidad a eliminar no este en la lista de entidades que se quieren almacenar.

@@ -1,8 +1,8 @@
 #include "DialogoEditarConcepto.h"
 #include "ui_DialogoEditarConcepto.h"
 
-DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, QWidget *parent)
-    : QWidget(parent)
+DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent)
+    : gestor_terminos(gestor_terminos), QWidget(parent)
 {
     ui = new Ui::DialogoEditarConcepto();
     ui->setupUi(this);
@@ -12,8 +12,6 @@ DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * co
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaTerminos(concepto_a_editar);
-
-    this->gestor_terminos_totales.gestionar<visualizador::modelo::Termino>();
 }
 
 DialogoEditarConcepto::~DialogoEditarConcepto()
@@ -33,14 +31,18 @@ void DialogoEditarConcepto::on_action_eliminar_triggered()
 void DialogoEditarConcepto::on_action_nuevo_triggered()
 {
     std::string texto_termino = "<nuevo valor>";
+    visualizador::modelo::Termino * nuevo_termino = new visualizador::modelo::Termino(texto_termino);
+
     QListWidgetItem* item = new QListWidgetItem();
 
-    QVariant data = QVariant::fromValue((*it));
+    QVariant data = QVariant::fromValue(nuevo_termino);
     item->setData(Qt::UserRole, data);
     item->setText(texto_termino.c_str());
     item->setFlags(item->flags() | Qt::ItemIsEditable);
 
     this->ui->lista->insertItem(0, item);
+
+    this->ui->lista->editItem(item);
 }
 
 void DialogoEditarConcepto::on_action_ok_triggered()
@@ -55,6 +57,10 @@ void DialogoEditarConcepto::on_action_editar_triggered()
 
 }
 
+void DialogoEditarConcepto::on_action_actualizar_termino_triggered()
+{
+    //this->ui->lista->edit
+}
 // METODOS INTERNOS
 
 void DialogoEditarConcepto::cargarListaTerminos(visualizador::modelo::Concepto * concepto_a_editar)

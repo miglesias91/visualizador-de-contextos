@@ -22,7 +22,7 @@ class DialogoEditarConcepto : public QWidget
     Q_OBJECT
 
 public:
-    DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, QWidget *parent = Q_NULLPTR);
+    DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent = Q_NULLPTR);
     ~DialogoEditarConcepto();
 
 private slots:
@@ -33,6 +33,8 @@ private slots:
     void on_action_ok_triggered();
 
     void on_action_editar_triggered();
+
+    void on_action_actualizar_termino_triggered();
 
 private:
     Ui::DialogoEditarConcepto *ui;
@@ -45,6 +47,6 @@ private:
 
     // ATRIBUTOS
 
-    visualizador::aplicacion::GestorEntidades gestor_terminos_totales;
+    visualizador::aplicacion::GestorEntidades * gestor_terminos;
     visualizador::aplicacion::GestorEntidades gestor_terminos_de_concepto;
 };

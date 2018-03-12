@@ -66,6 +66,7 @@ private:
 
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_conceptos;
+    visualizador::aplicacion::GestorEntidades gestor_terminos;
 
     DialogoEditarConcepto * dialogo_editar_concepto;
 };
