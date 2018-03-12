@@ -300,8 +300,12 @@ QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
 void DialogoConceptos::on_action_editar_concepto_triggered()
 {
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
-    this->dialogo_editar_concepto = new DialogoEditarConcepto(conceptos_seleccionados[0], &this->gestor_terminos);
-    this->dialogo_editar_concepto->show();
-
-
+    std::vector<modelo::Termino*> terminos_a_agregar;
+    modelo::Concepto * concepto_a_modificar = conceptos_seleccionados[0];
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, terminos_a_agregar, &this->gestor_terminos);
+    if (this->dialogo_editar_concepto->exec())
+    {
+        this->gestor_conceptos.modificar(conceptos_seleccionados[0]);
+        // reemplazarlo por su valor en la lista visible.
+    }
 }

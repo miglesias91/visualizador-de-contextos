@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QWidget>
+#include <QDialog>
 
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
@@ -17,12 +17,12 @@
 
 namespace Ui { class DialogoEditarConcepto; };
 
-class DialogoEditarConcepto : public QWidget
+class DialogoEditarConcepto : public QDialog
 {
     Q_OBJECT
 
 public:
-    DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent = Q_NULLPTR);
+    DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, std::vector<visualizador::modelo::Termino*> & terminos_a_agregar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent = Q_NULLPTR);
     ~DialogoEditarConcepto();
 
 private slots:

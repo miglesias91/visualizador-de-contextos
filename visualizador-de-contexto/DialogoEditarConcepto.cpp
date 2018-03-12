@@ -1,8 +1,8 @@
 #include "DialogoEditarConcepto.h"
 #include "ui_DialogoEditarConcepto.h"
 
-DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent)
-    : gestor_terminos(gestor_terminos), QWidget(parent)
+DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, std::vector<visualizador::modelo::Termino*> & terminos_a_agregar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent)
+    : gestor_terminos(gestor_terminos), QDialog(parent)
 {
     ui = new Ui::DialogoEditarConcepto();
     ui->setupUi(this);
@@ -47,6 +47,7 @@ void DialogoEditarConcepto::on_action_nuevo_triggered()
 
 void DialogoEditarConcepto::on_action_ok_triggered()
 {
+    this->accept();
     // recorro todos los items de la lista:
     // 1) actualizo los valores de cada Termino.
     // 2) agrego los nuevos termino de "terminos_nuevos": les asigno un nuevo id y los agrego a la lista de terminos del concepto.
@@ -54,13 +55,15 @@ void DialogoEditarConcepto::on_action_ok_triggered()
 
 void DialogoEditarConcepto::on_action_editar_triggered()
 {
-
 }
 
 void DialogoEditarConcepto::on_action_actualizar_termino_triggered()
 {
-    //this->ui->lista->edit
+    // CHEQEAR SI EL TERMINO EDITADO ES UN TERMINO NUEVO O ES UNO Q YA EXISTE:
+    // 1) si ya existe, entonces obtener un clon y ponerlo en la lista visible
+    // 2) si no existe, entonces agregarlo a "a_almacenar".
 }
+
 // METODOS INTERNOS
 
 void DialogoEditarConcepto::cargarListaTerminos(visualizador::modelo::Concepto * concepto_a_editar)
@@ -80,7 +83,7 @@ void DialogoEditarConcepto::cargarListaTerminos(visualizador::modelo::Concepto *
 
         this->ui->lista->insertItem(0, item);
 
-        this->gestor_terminos_de_concepto.almacenar((*it)->clonar());
+        this->gestor_terminos_de_concepto.almacenar(*it);
     }
 
     aplicacion::Logger::info(std::to_string(terminos_actuales.size()) + " terminos cargados.");
