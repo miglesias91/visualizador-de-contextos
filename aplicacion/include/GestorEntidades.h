@@ -25,6 +25,17 @@ public:
 
     virtual ~GestorEntidades();
 
+    // GETTERS
+
+    std::vector<visualizador::modelo::IEntidad*> getEntidadesAAlmacenar();
+
+    // SETTERS
+
+    // METODOS
+
+    template <class ENTIDAD>
+    void gestionar(std::vector<ENTIDAD*> entidades_a_gestionar);
+
     template <class ENTIDAD>
     std::vector<ENTIDAD*> gestionar();
 
@@ -52,7 +63,8 @@ public:
     bool eliminar(visualizador::modelo::IEntidad* entidad_a_eliminar);
 
     // devuelve el puntero a la entidad en caso que se encuentre en la lista de 'existentes' o de 'a almacenar'
-    visualizador::modelo::IEntidad* encontrar(visualizador::modelo::IEntidad* entidad_a_encontrar);
+    template <class ENTIDAD>
+    ENTIDAD* encontrar(ENTIDAD* entidad_a_encontrar);
 
     bool guardarCambios();
 
@@ -71,6 +83,14 @@ private:
 
     IAdministradorAplicacion * admin_app;
     GestorRelaciones gestor_relaciones;
+};
+template <class ENTIDAD>
+void GestorEntidades::gestionar(std::vector<ENTIDAD*> entidades_a_gestionar)
+{
+    for (std::vector<ENTIDAD*>::iterator it = entidades_a_gestionar.begin(); it != entidades_a_gestionar.end(); it++)
+    {
+        this->entidades_existentes.push_back((*it)->clonar());
+    }
 };
 
 template <class ENTIDAD>
@@ -111,6 +131,28 @@ ENTIDAD* GestorEntidades::clonar(visualizador::modelo::IEntidad* entidad_a_clona
 {
     visualizador::modelo::IEntidad* entidad_clonada = entidad_a_clonar->clonar();
     return static_cast<ENTIDAD*>(entidad_clonada);
+}
+
+template <class ENTIDAD>
+ENTIDAD * GestorEntidades::encontrar(ENTIDAD * entidad_a_encontrar)
+{
+    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_encontrar->hashcode())
+        {
+            return static_cast<ENTIDAD*>(*this->entidades_it);
+        }
+    }
+
+    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
+    {
+        if ((*this->entidades_it)->hashcode() == entidad_a_encontrar->hashcode())
+        {
+            return static_cast<ENTIDAD*>(*this->entidades_it);
+        }
+    }
+
+    return NULL;
 }
 
 };

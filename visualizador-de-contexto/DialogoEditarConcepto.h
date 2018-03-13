@@ -2,6 +2,9 @@
 
 #include <QDialog>
 
+// qt
+#include <qlistwidget.h>
+
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
@@ -22,7 +25,7 @@ class DialogoEditarConcepto : public QDialog
     Q_OBJECT
 
 public:
-    DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, std::vector<visualizador::modelo::Termino*> & terminos_a_agregar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent = Q_NULLPTR);
+    DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent = Q_NULLPTR);
     ~DialogoEditarConcepto();
 
 private slots:
@@ -36,6 +39,10 @@ private slots:
 
     void on_action_actualizar_termino_triggered();
 
+    void termino_actualizado(QListWidgetItem * item_actualizado);
+
+    void guardar_termino_sin_editar(QListWidgetItem * item_actual, QListWidgetItem * item_previo);
+
 private:
     Ui::DialogoEditarConcepto *ui;
 
@@ -45,8 +52,13 @@ private:
 
     void descargarListaTerminos();
 
+    QMessageBox * crearInformacionTerminoExistente();
+
     // ATRIBUTOS
 
+    std::string termino_sin_editar;
+
+    visualizador::modelo::Concepto * concepto_a_editar;
     visualizador::aplicacion::GestorEntidades * gestor_terminos;
     visualizador::aplicacion::GestorEntidades gestor_terminos_de_concepto;
 };

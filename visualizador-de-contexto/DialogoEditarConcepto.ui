@@ -186,21 +186,5 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>lista</sender>
-   <signal>itemChanged(QListWidgetItem*)</signal>
-   <receiver>action_actualizar_termino</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>200</x>
-     <y>151</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
 </ui>

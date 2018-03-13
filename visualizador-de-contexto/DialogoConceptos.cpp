@@ -33,6 +33,8 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
     std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
 
     this->on_action_resetear_concepto_triggered();
+
+    QObject::connect(this->ui->lista_conceptos, &QListWidget::itemDoubleClicked, this, &DialogoConceptos::concepto_dobleclikeado);
 }
 
 DialogoConceptos::~DialogoConceptos()
@@ -140,6 +142,31 @@ void DialogoConceptos::on_action_estado_btn_agregar_triggered()
     else
     {
         this->ui->btn_agregar_concepto->setDisabled(true);
+    }
+}
+
+void DialogoConceptos::concepto_dobleclikeado(QListWidgetItem * item_dobleclikeado)
+{
+    QVariant data = item_dobleclikeado->data(Qt::UserRole);
+    modelo::Concepto * concepto_a_modificar = data.value<modelo::Concepto*>();
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, &this->gestor_terminos);
+    if (this->dialogo_editar_concepto->exec())
+    {
+        this->gestor_conceptos.modificar(concepto_a_modificar);
+
+        // reemplazarlo por su valor en la lista visible.
+        std::string texto_item = concepto_a_modificar->getEtiqueta() + " - ";
+        std::vector<modelo::Termino*> terminos = concepto_a_modificar->getTerminos();
+        if (false == terminos.empty())
+        {
+            texto_item += (*terminos.begin())->getValor();
+            for (std::vector<modelo::Termino*>::iterator it = terminos.begin() + 1; it != terminos.end(); it++)
+            {
+                texto_item += ", " + (*it)->getValor();
+            }
+        }
+
+        item_dobleclikeado->setText(texto_item.c_str());
     }
 }
 
@@ -299,13 +326,21 @@ QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
 
 void DialogoConceptos::on_action_editar_concepto_triggered()
 {
-    std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
-    std::vector<modelo::Termino*> terminos_a_agregar;
-    modelo::Concepto * concepto_a_modificar = conceptos_seleccionados[0];
-    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, terminos_a_agregar, &this->gestor_terminos);
-    if (this->dialogo_editar_concepto->exec())
-    {
-        this->gestor_conceptos.modificar(conceptos_seleccionados[0]);
-        // reemplazarlo por su valor en la lista visible.
-    }
+    //std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
+    //std::vector<modelo::Termino*> terminos_a_agregar;
+    //modelo::Concepto * concepto_a_modificar = conceptos_seleccionados[0];
+    //this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, terminos_a_agregar, &this->gestor_terminos);
+    //if (this->dialogo_editar_concepto->exec())
+    //{
+    //    this->gestor_conceptos.modificar(conceptos_seleccionados[0]);
+
+    //    // reemplazarlo por su valor en la lista visible.
+    //    QList<QListWidgetItem*> items = ui->lista_conceptos->selectedItems();
+    //    foreach(QListWidgetItem * item, items)
+    //    {
+    //        QVariant data = item->data(Qt::UserRole);
+    //        modelo::Concepto * concepto = data.value<modelo::Concepto*>();
+
+    //    }
+    //}
 }

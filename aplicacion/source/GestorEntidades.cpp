@@ -43,6 +43,17 @@ GestorEntidades::~GestorEntidades()
     this->entidades_a_eliminar.clear();
 }
 
+// GETTERS
+
+std::vector<visualizador::modelo::IEntidad*> visualizador::aplicacion::GestorEntidades::getEntidadesAAlmacenar()
+{
+    return this->entidades_a_almacenar;
+}
+
+// SETTERS
+
+// METODOS
+
 bool GestorEntidades::guardarCambios()
 {
     for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
@@ -215,26 +226,4 @@ bool GestorEntidades::eliminar(visualizador::modelo::IEntidad * entidad_a_elimin
     }
 
     return false;
-}
-
-
-visualizador::modelo::IEntidad * GestorEntidades::encontrar(visualizador::modelo::IEntidad * entidad_a_encontrar)
-{
-    for (this->entidades_it = this->entidades_existentes.begin(); this->entidades_it != this->entidades_existentes.end(); this->entidades_it++)
-    {
-        if ((*this->entidades_it)->hashcode() == entidad_a_encontrar->hashcode())
-        {
-            return *this->entidades_it;
-        }
-    }
-
-    for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
-    {
-        if ((*this->entidades_it)->hashcode() == entidad_a_encontrar->hashcode())
-        {
-            return *this->entidades_it;;
-        }
-    }
-
-    return NULL;
 }
