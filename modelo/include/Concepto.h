@@ -41,6 +41,8 @@ public:
 
 	// METODOS
 
+    void sacarTermino(Termino* termino_a_sacar);
+
     // metodos de IContieneJson
 
 	virtual bool armarJson();

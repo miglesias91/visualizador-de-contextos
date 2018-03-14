@@ -86,7 +86,40 @@ void Concepto::agregarTermino(Termino* termino_nuevo)
     {
         this->relaciones_concepto->agregarRelacionConTermino(termino_nuevo->getId());
     }
+}
 
+void Concepto::sacarTermino(Termino * termino_a_sacar)
+{
+    Termino * termino_de_lista_a_sacar = NULL;
+    for (std::vector<Termino*>::iterator it = terminos.begin(); it != terminos.end(); it++)
+    {
+        if ((*it)->hashcode() == termino_a_sacar->hashcode())
+        {
+            termino_de_lista_a_sacar = *it;
+            terminos.erase(it);
+            break;
+        }
+    }
+
+    if (NULL == termino_de_lista_a_sacar)
+    {
+        return;
+    }
+
+    if (NULL != this->getId())
+    {
+        termino_de_lista_a_sacar->getRelacionesTermino()->eliminarRelacionConConcepto(this->getId());
+    }
+
+    if (NULL != termino_de_lista_a_sacar->getId())
+    {
+        this->relaciones_concepto->eliminarRelacionConTermino(termino_de_lista_a_sacar->getId());
+    }
+
+    if (0 == termino_de_lista_a_sacar->restarReferencia())
+    {
+        delete termino_de_lista_a_sacar;
+    }
 }
 
 // metodos IContieneJson
@@ -110,7 +143,7 @@ std::string Concepto::prefijoGrupo()
 
 unsigned long long int Concepto::hashcode()
 {
-    return this->getRelacionesConcepto()->getRelacionConTerminos()->hashcode();
+    return this->getRelacionesConcepto()->getRelacionConTerminos()->hashcode() + herramientas::utiles::IHashable::hashear(this->getEtiqueta());
 }
 
 // metodos IEntidad

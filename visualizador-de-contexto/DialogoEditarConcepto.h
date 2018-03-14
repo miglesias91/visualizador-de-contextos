@@ -35,10 +35,6 @@ private slots:
 
     void on_action_ok_triggered();
 
-    void on_action_editar_triggered();
-
-    void on_action_actualizar_termino_triggered();
-
     void termino_actualizado(QListWidgetItem * item_actualizado);
 
     void guardar_termino_sin_editar(QListWidgetItem * item_actual, QListWidgetItem * item_previo);
@@ -48,13 +44,20 @@ private:
 
     // METODOS INTERNOS
 
+    bool etiquetaModificada();
+    bool listaDeTerminosModificada();
+
     void cargarListaTerminos(visualizador::modelo::Concepto * concepto_a_editar);
 
     void descargarListaTerminos();
 
     QMessageBox * crearInformacionTerminoExistente();
+    QMessageBox * crearInformacionEtiquetaVacia();
+    QMessageBox * crearInformacionListaDeTerminosVacia();
 
     // ATRIBUTOS
+
+    std::string etiqueta_original;
 
     std::string termino_sin_editar;
 

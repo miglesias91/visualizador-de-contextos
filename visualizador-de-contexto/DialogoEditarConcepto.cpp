@@ -11,6 +11,9 @@ DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * co
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
+    this->ui->lineedit_etiqueta->setText(concepto_a_editar->getEtiqueta().c_str());
+    this->etiqueta_original = concepto_a_editar->getEtiqueta();
+
     this->cargarListaTerminos(concepto_a_editar);
 
     QObject::connect(this->ui->lista, &QListWidget::itemChanged, this, &DialogoEditarConcepto::termino_actualizado);
@@ -28,6 +31,23 @@ DialogoEditarConcepto::~DialogoEditarConcepto()
 
 void DialogoEditarConcepto::on_action_eliminar_triggered()
 {
+    QList<QListWidgetItem*> items = ui->lista->selectedItems();
+    foreach(QListWidgetItem * item, items)
+    {
+        QVariant data = item->data(Qt::UserRole);
+        modelo::Termino* termino = data.value<modelo::Termino*>();
+
+        this->gestor_terminos_de_concepto.eliminar(termino);
+
+        aplicacion::Logger::info("Termino eliminado: { " + aplicacion::Logger::infoLog(termino) + " }.");
+
+        if (0 == termino->restarReferencia())
+        {
+            delete termino;
+        }
+
+        delete this->ui->lista->takeItem(ui->lista->row(item));
+    }
 }
 
 void DialogoEditarConcepto::on_action_nuevo_triggered()
@@ -55,8 +75,35 @@ void DialogoEditarConcepto::on_action_nuevo_triggered()
 
 void DialogoEditarConcepto::on_action_ok_triggered()
 {
-    std::vector<visualizador::modelo::IEntidad*> entidades_a_almacenar = this->gestor_terminos_de_concepto.getEntidadesAAlmacenar();
+    if (false == this->etiquetaModificada() && false == this->listaDeTerminosModificada())
+    {
+        this->close();
+        return;
+    }
 
+    if (this->ui->lineedit_etiqueta->text().isEmpty())
+    {
+        QMessageBox * informacion_etiqueta_vacia = this->crearInformacionEtiquetaVacia();
+        informacion_etiqueta_vacia->exec();
+
+        delete informacion_etiqueta_vacia;
+
+        return;
+    }
+
+    if (0 == this->ui->lista->count())
+    {
+        QMessageBox * informacion_lista_de_terminos_vacia = this->crearInformacionListaDeTerminosVacia();
+        informacion_lista_de_terminos_vacia->exec();
+
+        delete informacion_lista_de_terminos_vacia;
+
+        return;
+    }
+
+    this->concepto_a_editar->setEtiqueta(this->ui->lineedit_etiqueta->text().toStdString());
+
+    std::vector<visualizador::modelo::IEntidad*> entidades_a_almacenar = this->gestor_terminos_de_concepto.getEntidadesAAlmacenar();
     for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades_a_almacenar.begin(); it != entidades_a_almacenar.end(); it++)
     {
         this->gestor_terminos->almacenar(*it);
@@ -64,24 +111,30 @@ void DialogoEditarConcepto::on_action_ok_triggered()
         this->concepto_a_editar->agregarTermino(this->gestor_terminos->clonar<visualizador::modelo::Termino>(*it));
     }
 
+    std::vector<visualizador::modelo::IEntidad*> entidades_a_eliminar = this->gestor_terminos_de_concepto.getEntidadesAEliminar();
+    for (std::vector<visualizador::modelo::IEntidad*>::iterator it = entidades_a_eliminar.begin(); it != entidades_a_eliminar.end(); it++)
+    {
+        visualizador::modelo::Termino * termino_a_sacar = this->gestor_terminos->clonar<visualizador::modelo::Termino>(*it);
+        this->concepto_a_editar->sacarTermino(termino_a_sacar);
+        delete termino_a_sacar;
+    }
+
     this->accept();
-}
-
-void DialogoEditarConcepto::on_action_editar_triggered()
-{    
-}
-
-void DialogoEditarConcepto::on_action_actualizar_termino_triggered()
-{
-
 }
 
 void DialogoEditarConcepto::termino_actualizado(QListWidgetItem * item_actualizado)
 {
     visualizador::modelo::Termino * nuevo_termino = new visualizador::modelo::Termino(item_actualizado->text().toStdString());
 
+    if (this->termino_sin_editar == nuevo_termino->getValor())
+    {// si se deja el mismo valor, entonces no se hace nada.
+        delete nuevo_termino;
+
+        return;
+    }
+
     if (this->gestor_terminos_de_concepto.existe(nuevo_termino))
-    {
+    {// si ya hay un termino con el mismo valor, entonces se vuelve al valor anterior.
         QMessageBox * informacion_termino_existente = this->crearInformacionTerminoExistente();
         informacion_termino_existente->exec();
 
@@ -134,17 +187,29 @@ void DialogoEditarConcepto::guardar_termino_sin_editar(QListWidgetItem * item_ac
 
 // METODOS INTERNOS
 
+bool DialogoEditarConcepto::etiquetaModificada()
+{
+    return this->ui->lineedit_etiqueta->text().toStdString() != this->etiqueta_original;
+}
+
+bool DialogoEditarConcepto::listaDeTerminosModificada()
+{
+    return (this->gestor_terminos_de_concepto.getEntidadesAAlmacenar().size() != 0 || this->gestor_terminos_de_concepto.getEntidadesAEliminar().size() != 0);
+}
+
 void DialogoEditarConcepto::cargarListaTerminos(visualizador::modelo::Concepto * concepto_a_editar)
 {
     std::vector<visualizador::modelo::Termino*> terminos_actuales = concepto_a_editar->getTerminos();
 
     for (std::vector<visualizador::modelo::Termino*>::iterator it = terminos_actuales.begin(); it != terminos_actuales.end(); it++)
     {
-        (*it)->sumarReferencia();
+        //(*it)->sumarReferencia();
         std::string texto_termino = (*it)->getValor();
         QListWidgetItem* item = new QListWidgetItem();
 
-        QVariant data = QVariant::fromValue((*it)); 
+        visualizador::modelo::Termino* termino_item = this->gestor_terminos->clonar<visualizador::modelo::Termino>(*it);
+        termino_item->sumarReferencia();
+        QVariant data = QVariant::fromValue(termino_item);
         item->setData(Qt::UserRole, data);
         item->setText(texto_termino.c_str());
         item->setFlags(item->flags() | Qt::ItemIsEditable);
@@ -191,4 +256,18 @@ QMessageBox * DialogoEditarConcepto::crearInformacionTerminoExistente()
     std::string texto = u8"El término que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
+}
+
+QMessageBox * DialogoEditarConcepto::crearInformacionEtiquetaVacia()
+{
+    std::string texto = u8"No se asigno la etiqueta. La etiqueta sirve para describir e identificar al concepto en las consultas.";
+    visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+}
+
+QMessageBox * DialogoEditarConcepto::crearInformacionListaDeTerminosVacia()
+{
+    std::string texto = u8"El concepto no tiene términos. La lista de términos no puede estar vacía.";
+    visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
 }

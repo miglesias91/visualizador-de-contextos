@@ -29,6 +29,8 @@ public:
 
     std::vector<visualizador::modelo::IEntidad*> getEntidadesAAlmacenar();
 
+    std::vector<visualizador::modelo::IEntidad*> getEntidadesAEliminar();
+
     // SETTERS
 
     // METODOS

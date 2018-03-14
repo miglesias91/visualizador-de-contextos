@@ -34,13 +34,7 @@ private slots:
 
     void on_action_eliminar_concepto_triggered();
 
-    void on_action_guardar_concepto_triggered();
-
     void on_action_estado_btn_eliminar_triggered();
-
-    void on_action_estado_btn_agregar_triggered();
-
-    void on_action_editar_concepto_triggered();
 
     void concepto_dobleclikeado(QListWidgetItem * item_dobleclikeado);
 
@@ -56,13 +50,7 @@ private:
 
     void descargarListaConceptos();
 
-    std::vector<visualizador::modelo::Termino*> terminosSeleccionados();
-
     std::vector<visualizador::modelo::Concepto*> conceptosSeleccionados();
-
-    void cargarListaTerminos();
-
-    void descargarListaTerminos();
 
     // mensajes
 

@@ -50,7 +50,7 @@ void DialogoTerminos::on_action_actualizar_y_cerrar_triggered()
 
 void DialogoTerminos::on_action_resetear_termino_triggered()
 {
-    this->ui->lineedit_termino->clear();
+    //this->ui->lineedit_termino->clear();
     this->ui->lista_terminos->clearSelection();
 
     this->on_action_estado_btn_eliminar_triggered();
@@ -61,28 +61,28 @@ void DialogoTerminos::on_action_resetear_termino_triggered()
 
 void DialogoTerminos::on_action_guardar_termino_triggered()
 {
-    std::string termino = this->ui->lineedit_termino->text().toStdString();
+    //std::string termino = this->ui->lineedit_termino->text().toStdString();
 
-    modelo::Termino* termino_nuevo = new modelo::Termino(termino, termino);
+    //modelo::Termino* termino_nuevo = new modelo::Termino(termino, termino);
 
-    if(this->gestor_terminos.almacenar(termino_nuevo))
-    {
-        // si se pudo agregar correctamente, lo agrego en la lista visible.
-        this->agregarTerminoALista(termino_nuevo);
+    //if(this->gestor_terminos.almacenar(termino_nuevo))
+    //{
+    //    // si se pudo agregar correctamente, lo agrego en la lista visible.
+    //    this->agregarTerminoALista(termino_nuevo);
 
-        aplicacion::Logger::info("Termino agregado: { " + aplicacion::Logger::infoLog(termino_nuevo) + " }.");
-    }
-    else
-    {
-        QMessageBox * informacion_termino_existente = this->crearInformacionTerminoExistente();
-        informacion_termino_existente->exec();
+    //    aplicacion::Logger::info("Termino agregado: { " + aplicacion::Logger::infoLog(termino_nuevo) + " }.");
+    //}
+    //else
+    //{
+    //    QMessageBox * informacion_termino_existente = this->crearInformacionTerminoExistente();
+    //    informacion_termino_existente->exec();
 
-        delete informacion_termino_existente;
+    //    delete informacion_termino_existente;
 
-        delete termino_nuevo;
-    }
+    //    delete termino_nuevo;
+    //}
 
-    this->on_action_resetear_termino_triggered();
+    //this->on_action_resetear_termino_triggered();
 }
 
 void DialogoTerminos::on_action_eliminar_termino_triggered()
@@ -115,28 +115,28 @@ void DialogoTerminos::on_action_eliminar_termino_triggered()
 
 void DialogoTerminos::on_action_estado_btn_eliminar_triggered()
 {
-    int items_seleccionados = this->ui->lista_terminos->selectedItems().size();
-    if (0 >= items_seleccionados)
-    {
-        this->ui->btn_eliminar->setDisabled(true);
-    }
-    else
-    {
-        this->ui->btn_eliminar->setEnabled(true);
-    }
+    //int items_seleccionados = this->ui->lista_terminos->selectedItems().size();
+    //if (0 >= items_seleccionados)
+    //{
+    //    this->ui->btn_eliminar->setDisabled(true);
+    //}
+    //else
+    //{
+    //    this->ui->btn_eliminar->setEnabled(true);
+    //}
 }
 
 void DialogoTerminos::on_action_estado_btn_agregar_triggered()
 {
-    std::string texto_termino = this->ui->lineedit_termino->text().toStdString();
-    if (0 == texto_termino.size())
-    {
-        this->ui->btn_agregar_termino->setDisabled(true);
-    }
-    else
-    {
-        this->ui->btn_agregar_termino->setEnabled(true);
-    }
+    //std::string texto_termino = this->ui->lineedit_termino->text().toStdString();
+    //if (0 == texto_termino.size())
+    //{
+    //    this->ui->btn_agregar_termino->setDisabled(true);
+    //}
+    //else
+    //{
+    //    this->ui->btn_agregar_termino->setEnabled(true);
+    //}
 }
 
 // METODOS PRIVADOS

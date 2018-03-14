@@ -50,6 +50,11 @@ std::vector<visualizador::modelo::IEntidad*> visualizador::aplicacion::GestorEnt
     return this->entidades_a_almacenar;
 }
 
+std::vector<visualizador::modelo::IEntidad*> visualizador::aplicacion::GestorEntidades::getEntidadesAEliminar()
+{
+    return this->entidades_a_eliminar;
+}
+
 // SETTERS
 
 // METODOS
