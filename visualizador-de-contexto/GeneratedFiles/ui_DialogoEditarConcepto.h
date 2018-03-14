@@ -114,7 +114,6 @@ public:
         QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
         QObject::connect(btnbox, SIGNAL(accepted()), action_ok, SLOT(trigger()));
         QObject::connect(btnbox, SIGNAL(rejected()), DialogoEditarConcepto, SLOT(close()));
-        QObject::connect(lista, SIGNAL(itemChanged(QListWidgetItem*)), action_actualizar_termino, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoEditarConcepto);
     } // setupUi

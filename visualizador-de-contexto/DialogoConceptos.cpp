@@ -52,6 +52,7 @@ DialogoConceptos::~DialogoConceptos()
 
 void DialogoConceptos::on_action_actualizar_y_cerrar_triggered()
 {
+    this->gestor_terminos.guardarCambios();
     this->gestor_conceptos.guardarCambios();
     
     aplicacion::Logger::info("Dialogo Conceptos guardado.");
@@ -152,6 +153,18 @@ void DialogoConceptos::concepto_dobleclikeado(QListWidgetItem * item_dobleclikea
     this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, &this->gestor_terminos);
     if (this->dialogo_editar_concepto->exec())
     {
+        // TODO: chequear si el contenido nuevo del concepto no es igual a otro contenido de otro concepto.
+        if (this->gestor_conceptos.existe(concepto_a_modificar))
+        {
+            QMessageBox * informacion_concepto_existente = this->crearInformacionConceptoExistente();
+            informacion_concepto_existente->exec();
+
+            delete informacion_concepto_existente;
+            
+            // buscar la forma de volver a ponerle los terminos de antes.
+
+            return;
+        }
         this->gestor_conceptos.modificar(concepto_a_modificar);
 
         // reemplazarlo por su valor en la lista visible.
@@ -170,6 +183,30 @@ void DialogoConceptos::concepto_dobleclikeado(QListWidgetItem * item_dobleclikea
     }
 }
 
+void DialogoConceptos::on_action_nuevo_concepto_triggered()
+{
+    modelo::Concepto * concepto_nuevo = new modelo::Concepto();
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_nuevo, &this->gestor_terminos);
+    if (this->dialogo_editar_concepto->exec())
+    {
+        if (this->gestor_conceptos.almacenar(concepto_nuevo))
+        {
+            // si se pudo agregar correctamente, lo agrego en la lista visible.
+            this->agregarConceptoALista(concepto_nuevo);
+
+            aplicacion::Logger::info("Concepto agregado: { '" + aplicacion::Logger::infoLog(concepto_nuevo) + "' }.");
+        }
+        else
+        {
+            QMessageBox * informacion_concepto_existente = this->crearInformacionConceptoExistente();
+            informacion_concepto_existente->exec();
+
+            delete informacion_concepto_existente;
+
+            delete concepto_nuevo;
+        }
+    }
+}
 // METODOS PRIVADOS
 
 void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)

@@ -24,77 +24,23 @@
    </property>
    <layout class="QHBoxLayout" name="layout_general">
     <item>
-     <layout class="QFormLayout" name="layout_opciones">
-      <item row="0" column="0">
-       <widget class="QLabel" name="lbl_termino">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Término</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineedit_termino">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>10</pointsize>
-          <italic>false</italic>
-         </font>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="btn_agregar_termino">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Agregar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="btn_limpiar_termino">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Limpiar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="btn_eliminar">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Eliminar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
      <layout class="QVBoxLayout" name="layout_lista">
       <property name="spacing">
        <number>0</number>
       </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Lista de términos</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QListWidget" name="lista_terminos">
         <property name="font">
@@ -113,9 +59,9 @@
   <widget class="QDialogButtonBox" name="btnbox_terminos">
    <property name="geometry">
     <rect>
-     <x>325</x>
+     <x>360</x>
      <y>370</y>
-     <width>156</width>
+     <width>71</width>
      <height>23</height>
     </rect>
    </property>
@@ -123,11 +69,11 @@
     <font>
      <family>Calibri</family>
      <pointsize>11</pointsize>
-     <italic>true</italic>
+     <italic>false</italic>
     </font>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <set>QDialogButtonBox::Ok</set>
    </property>
   </widget>
   <action name="action_actualizar_y_cerrar">
@@ -233,54 +179,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>btn_agregar_termino</sender>
-   <signal>released()</signal>
-   <receiver>action_guardar_termino</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>145</x>
-     <y>80</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_limpiar_termino</sender>
-   <signal>released()</signal>
-   <receiver>action_resetear_termino</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>145</x>
-     <y>109</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_eliminar</sender>
-   <signal>released()</signal>
-   <receiver>action_eliminar_termino</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>144</x>
-     <y>138</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>lista_terminos</sender>
    <signal>itemSelectionChanged()</signal>
    <receiver>action_estado_btn_eliminar</receiver>
@@ -289,22 +187,6 @@
     <hint type="sourcelabel">
      <x>357</x>
      <y>111</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lineedit_termino</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>action_estado_btn_agregar</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>169</x>
-     <y>47</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

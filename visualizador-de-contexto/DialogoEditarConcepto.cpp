@@ -65,9 +65,6 @@ void DialogoEditarConcepto::on_action_ok_triggered()
     }
 
     this->accept();
-    // recorro todos los items de la lista:
-    // 1) actualizo los valores de cada Termino.
-    // 2) agrego los nuevos termino de "terminos_nuevos": les asigno un nuevo id y los agrego a la lista de terminos del concepto.
 }
 
 void DialogoEditarConcepto::on_action_editar_triggered()
@@ -110,8 +107,8 @@ void DialogoEditarConcepto::termino_actualizado(QListWidgetItem * item_actualiza
     else
     {// si no lo encontro, entonces el termino es nuevo. lo agrego a la lista de terminos a agregar.
         termino_a_agregar_a_lista = nuevo_termino;
-        this->gestor_terminos_de_concepto.almacenar(termino_a_agregar_a_lista);
     }
+    this->gestor_terminos_de_concepto.almacenar(termino_a_agregar_a_lista);
     termino_a_agregar_a_lista->sumarReferencia();
 
     visualizador::modelo::Termino * termino_lista = item_actualizado->data(Qt::UserRole).value<visualizador::modelo::Termino*>();

@@ -44,6 +44,8 @@ private slots:
 
     void concepto_dobleclikeado(QListWidgetItem * item_dobleclikeado);
 
+    void on_action_nuevo_concepto_triggered();
+
 private:
     Ui::DialogoConceptos *ui;
 

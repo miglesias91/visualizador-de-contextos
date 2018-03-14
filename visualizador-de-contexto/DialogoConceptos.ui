@@ -33,12 +33,12 @@
      <family>Calibri</family>
      <pointsize>11</pointsize>
      <weight>50</weight>
-     <italic>true</italic>
+     <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
    </property>
   </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
@@ -55,171 +55,82 @@
      <enum>QLayout::SetNoConstraint</enum>
     </property>
     <item>
-     <layout class="QFormLayout" name="layout_opciones">
-      <item row="0" column="0">
-       <widget class="QLabel" name="lbl_etiqueta">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Etiqueta</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineedit_etiqueta">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>10</pointsize>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="btn_limpiar_concepto">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Limpiar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QPushButton" name="btn_eliminar_concepto">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Eliminar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QPushButton" name="btn_editar_concepto">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-          <italic>false</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Editar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="btn_agregar_concepto">
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Agregar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QGroupBox" name="groupbox_terminos">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>190</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Calibri</family>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="acceptDrops">
-         <bool>false</bool>
-        </property>
-        <property name="title">
-         <string>Términos</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-        </property>
-        <widget class="QWidget" name="verticalLayoutWidget_2">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>371</width>
-           <height>161</height>
-          </rect>
-         </property>
-         <layout class="QVBoxLayout" name="layout_terminos">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetDefaultConstraint</enum>
-          </property>
+     <layout class="QVBoxLayout" name="layout_lista">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QListWidget" name="lista_terminos">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <family>Calibri</family>
+              <pointsize>16</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+              <stylestrategy>PreferAntialias</stylestrategy>
+             </font>
             </property>
+            <property name="text">
+             <string>Lista de conceptos</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_eliminar_concepto">
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>0</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>16777215</width>
-              <height>150</height>
+              <width>80</width>
+              <height>16777215</height>
              </size>
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
-              <italic>false</italic>
+              <family>Calibri</family>
+              <pointsize>11</pointsize>
              </font>
+            </property>
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_agregar_concepto">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>80</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Calibri</family>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Nuevo</string>
             </property>
            </widget>
           </item>
          </layout>
-        </widget>
-       </widget>
+        </item>
+       </layout>
       </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="layout_lista">
       <item>
        <widget class="QListWidget" name="lista_conceptos">
         <property name="font">
@@ -258,12 +169,12 @@
     <string>eliminar concepto</string>
    </property>
   </action>
-  <action name="action_guardar_concepto">
+  <action name="action_nuevo_concepto">
    <property name="text">
-    <string>guardar_concepto</string>
+    <string>nuevo_concepto</string>
    </property>
    <property name="toolTip">
-    <string>guardar concepto</string>
+    <string>nuevo concepto</string>
    </property>
   </action>
   <action name="action_estado_btn_eliminar">
@@ -326,28 +237,12 @@
   <connection>
    <sender>btn_agregar_concepto</sender>
    <signal>released()</signal>
-   <receiver>action_guardar_concepto</receiver>
+   <receiver>action_nuevo_concepto</receiver>
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>169</x>
      <y>199</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_limpiar_concepto</sender>
-   <signal>released()</signal>
-   <receiver>action_resetear_concepto</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>169</x>
-     <y>228</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -380,38 +275,6 @@
     <hint type="sourcelabel">
      <x>424</x>
      <y>155</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lista_terminos</sender>
-   <signal>itemSelectionChanged()</signal>
-   <receiver>action_estado_btn_agregar</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>147</x>
-     <y>126</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_editar_concepto</sender>
-   <signal>released()</signal>
-   <receiver>action_editar_concepto</receiver>
-   <slot>trigger()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>234</x>
-     <y>343</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>

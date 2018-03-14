@@ -30,6 +30,12 @@
      <layout class="QHBoxLayout" name="layout_superior">
       <item>
        <widget class="QLabel" name="lbl_etiqueta">
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Etiqueta:</string>
         </property>
@@ -40,6 +46,24 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_eliminar">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Eliminar</string>
         </property>
@@ -47,6 +71,24 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_nuevo">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Nuevo</string>
         </property>
@@ -62,6 +104,12 @@
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -69,7 +117,7 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <property name="standardButtons">
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set>
       </property>
       <property name="centerButtons">
        <bool>true</bool>
