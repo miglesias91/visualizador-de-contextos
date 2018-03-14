@@ -188,6 +188,7 @@ public:
         font3.setItalic(true);
         dateedit_desde->setFont(font3);
         dateedit_desde->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        dateedit_desde->setCalendarPopup(true);
 
         layout_periodo->setWidget(1, QFormLayout::FieldRole, dateedit_desde);
 
@@ -201,6 +202,7 @@ public:
         dateedit_hasta->setObjectName(QStringLiteral("dateedit_hasta"));
         dateedit_hasta->setFont(font3);
         dateedit_hasta->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        dateedit_hasta->setCalendarPopup(true);
 
         layout_periodo->setWidget(2, QFormLayout::FieldRole, dateedit_hasta);
 

@@ -31,9 +31,9 @@ DialogoConsultas::~DialogoConsultas()
     this->descargarLista<modelo::Concepto>(this->ui->lista_conceptos_en_consulta);
     aplicacion::Logger::info("Conceptos descargados.");
 
-    this->descargarLista<modelo::MedioTwitter>(this->ui->lista_medios);
-    this->descargarLista<modelo::MedioTwitter>(this->ui->lista_medios_en_consulta);
-    aplicacion::Logger::info("Medios twitter descargados.");
+    this->descargarLista<modelo::Medio>(this->ui->lista_medios);
+    this->descargarLista<modelo::Medio>(this->ui->lista_medios_en_consulta);
+    aplicacion::Logger::info("Medios descargados.");
 
     this->descargarLista<modelo::Periodo>(this->ui->lista_periodos);
     aplicacion::Logger::info("Periodos descargados.");
@@ -118,28 +118,28 @@ void DialogoConsultas::on_action_resetear_periodo_triggered()
 
 void DialogoConsultas::on_action_agregar_medios_triggered()
 {
-    std::vector<modelo::MedioTwitter*> medios_seleccionados = this->itemsSeleccionados<modelo::MedioTwitter>(this->ui->lista_medios);
+    std::vector<modelo::Medio*> medios_seleccionados = this->itemsSeleccionados<modelo::Medio>(this->ui->lista_medios);
 
-    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
+    for (std::vector<modelo::Medio*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
     {
         this->agregarMedioALista(*it, this->ui->lista_medios_en_consulta);
     }
 
-    aplicacion::Logger::info(std::to_string(medios_seleccionados.size()) + " medios twitter agregados a la consulta.");
+    aplicacion::Logger::info(std::to_string(medios_seleccionados.size()) + " medios agregados a la consulta.");
 
     this->sacarItemsSeleccionados(this->ui->lista_medios);
 }
 
 void DialogoConsultas::on_action_sacar_medios_triggered()
 {
-    std::vector<modelo::MedioTwitter*> medios_seleccionados = this->itemsSeleccionados<modelo::MedioTwitter>(this->ui->lista_medios_en_consulta);
+    std::vector<modelo::Medio*> medios_seleccionados = this->itemsSeleccionados<modelo::Medio>(this->ui->lista_medios_en_consulta);
 
-    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
+    for (std::vector<modelo::Medio*>::iterator it = medios_seleccionados.begin(); it != medios_seleccionados.end(); it++)
     {
         this->agregarMedioALista(*it, this->ui->lista_medios);
     }
 
-    aplicacion::Logger::info(std::to_string(medios_seleccionados.size()) + " medios twitter sacados de la consulta.");
+    aplicacion::Logger::info(std::to_string(medios_seleccionados.size()) + " medios sacados de la consulta.");
 
     this->sacarItemsSeleccionados(this->ui->lista_medios_en_consulta);
 }
@@ -210,7 +210,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
 
     aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
-    std::vector<modelo::MedioTwitter*> medios_seleccionados = this->mediosSeleccionados();
+    std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
     std::vector<graficos::modelo::Individuo*> individuos;
@@ -218,12 +218,12 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     for (std::vector<modelo::Concepto*>::iterator it_conceptos = conceptos_seleccionados.begin(); it_conceptos != conceptos_seleccionados.end(); it_conceptos++)
     {
         std::vector<double> datos_individuo;
-        for (std::vector<modelo::MedioTwitter*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
+        for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
         {
             float fuerza_concepto_en_medio = 0.0f;
             for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it_resultados = resultados.begin(); it_resultados != resultados.end(); it_resultados++)
             {
-                scraping::preparacion::ResultadoAnalisisMedio* resultado_medio = (*it_resultados)->getResultadoMedio((*it_medios)->getCuentaAScrapear()->getId()->numero());
+                scraping::preparacion::ResultadoAnalisisMedio* resultado_medio = (*it_resultados)->getResultadoMedio((*it_medios)->getMedioAScrapear()->getId()->numero());
 
                 if (NULL == resultado_medio)
                 {
@@ -244,7 +244,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     }
 
     std::vector<std::string> categorias;
-    for (std::vector<modelo::MedioTwitter*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
+    for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
     {
         categorias.push_back((*it_medios)->getEtiqueta());
     }
@@ -327,27 +327,37 @@ void DialogoConsultas::cargarListaMedios()
 {
     // recupero las cuentas de twitter
     visualizador::aplicacion::GestorEntidades gestor_entidades;
-    std::vector<modelo::MedioTwitter*> medios_actuales = gestor_entidades.recuperar<modelo::MedioTwitter>();
 
-    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_actuales.begin(); it != medios_actuales.end(); it++)
+    std::vector<modelo::MedioTwitter*> medios_twitter_actuales = gestor_entidades.recuperar<modelo::MedioTwitter>();
+    for (std::vector<modelo::MedioTwitter*>::iterator it = medios_twitter_actuales.begin(); it != medios_twitter_actuales.end(); it++)
     {
         (*it)->sumarReferencia();
         this->agregarMedioALista(*it, this->ui->lista_medios);
     }
 
-    aplicacion::Logger::info(std::to_string(medios_actuales.size()) + " medios twitter cargados.");
+    aplicacion::Logger::info(std::to_string(medios_twitter_actuales.size()) + " medios de twitter cargados.");
+
+    // recupero las cuentas de facebook
+    std::vector<modelo::MedioFacebook*> medios_facebook_actuales = gestor_entidades.recuperar<modelo::MedioFacebook>();
+    for (std::vector<modelo::MedioFacebook*>::iterator it = medios_facebook_actuales.begin(); it != medios_facebook_actuales.end(); it++)
+    {
+        (*it)->sumarReferencia();
+        this->agregarMedioALista(*it, this->ui->lista_medios);
+    }
+
+    aplicacion::Logger::info(std::to_string(medios_facebook_actuales.size()) + " medios de facebook cargados.");
 
     this->ui->lista_medios->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
-void DialogoConsultas::agregarMedioALista(visualizador::modelo::MedioTwitter * medio_twitter, QListWidget * lista)
+void DialogoConsultas::agregarMedioALista(visualizador::modelo::Medio * medio, QListWidget * lista)
 {
     QListWidgetItem* item = new QListWidgetItem();
 
-    QVariant data = QVariant::fromValue(medio_twitter);
+    QVariant data = QVariant::fromValue(medio);
     item->setData(Qt::UserRole, data);
 
-    std::string texto_item = aplicacion::Logger::infoLog(medio_twitter);
+    std::string texto_item = aplicacion::Logger::infoLog(medio);
 
     item->setText(texto_item.c_str());
 
@@ -447,15 +457,15 @@ modelo::Periodo* DialogoConsultas::periodoSeleccionado()
     return new modelo::Periodo(desde, hasta, "periodo_seleccionado");
 }
 
-std::vector<modelo::MedioTwitter*> DialogoConsultas::mediosSeleccionados()
+std::vector<modelo::Medio*> DialogoConsultas::mediosSeleccionados()
 {
-    std::vector<modelo::MedioTwitter*> medios_seleccionados;
+    std::vector<modelo::Medio*> medios_seleccionados;
 
     // recupero los medios de la lista
-    modelo::MedioTwitter* medio_lista = nullptr;
+    modelo::Medio* medio_lista = nullptr;
     for (unsigned int i = 0; i < ui->lista_medios_en_consulta->count(); i++)
     {
-        medio_lista = this->ui->lista_medios_en_consulta->item(i)->data(Qt::UserRole).value<modelo::MedioTwitter*>();
+        medio_lista = this->ui->lista_medios_en_consulta->item(i)->data(Qt::UserRole).value<modelo::Medio*>();
 
         medios_seleccionados.push_back(medio_lista);
     }
@@ -472,130 +482,3 @@ std::vector<modelo::Reporte*> DialogoConsultas::reportesSeleccionados()
 {
     return std::vector<modelo::Reporte*>();
 }
-
-// descargar listas
-//
-//void DialogoConsultas::descargarListaConceptos()
-//{
-//    QListWidgetItem* item = nullptr;
-//
-//    // elimino los conceptos de la lista
-//    modelo::Concepto* concepto_lista = nullptr;
-//    unsigned int count = ui->lista_conceptos->count();
-//    while (0 != ui->lista_conceptos->count())
-//    {
-//        count = ui->lista_conceptos->count();
-//
-//        concepto_lista = this->ui->lista_conceptos->item(0)->data(Qt::UserRole).value<modelo::Concepto*>();
-//
-//        if (0 == concepto_lista->restarReferencia())
-//        {
-//            delete concepto_lista;
-//        }
-//
-//        item = this->ui->lista_conceptos->takeItem(0);
-//        delete item;
-//    }
-//
-//    aplicacion::Logger::info("Conceptos descargados.");
-//}
-//
-//void DialogoConsultas::descargarListaPeriodos()
-//{
-//    QListWidgetItem* item = nullptr;
-//
-//    // elimino los periodos de la lista
-//    modelo::Periodo* periodo_lista = nullptr;
-//    unsigned int count = ui->lista_periodos->count();
-//    while (0 != ui->lista_periodos->count())
-//    {
-//        count = ui->lista_periodos->count();
-//
-//        periodo_lista = this->ui->lista_periodos->item(0)->data(Qt::UserRole).value<modelo::Periodo*>();
-//
-//        if (0 == periodo_lista->restarReferencia())
-//        {
-//            delete periodo_lista;
-//        }
-//
-//        item = this->ui->lista_periodos->takeItem(0);
-//        delete item;
-//    }
-//
-//    aplicacion::Logger::info("Periodos descargados.");
-//}
-//
-//void DialogoConsultas::descargarListaMedios()
-//{
-//    QListWidgetItem* item = nullptr;
-//
-//    // elimino los medios de la lista
-//    modelo::MedioTwitter* medio_lista = nullptr;
-//    unsigned int count = ui->lista_medios->count();
-//    while (0 != ui->lista_medios->count())
-//    {
-//        count = ui->lista_medios->count();
-//
-//        medio_lista = this->ui->lista_medios->item(0)->data(Qt::UserRole).value<modelo::MedioTwitter*>();
-//
-//        if (0 == medio_lista->restarReferencia())
-//        {
-//            delete medio_lista;
-//        }
-//
-//        item = this->ui->lista_medios->takeItem(0);
-//        delete item;
-//    }
-//
-//    aplicacion::Logger::info("Medios descargados.");
-//}
-//
-//void DialogoConsultas::descargarListaSecciones()
-//{
-//    QListWidgetItem* item = nullptr;
-//
-//    // elimino las secciones de la lista
-//    modelo::Seccion* seccion_lista = nullptr;
-//    unsigned int count = ui->lista_secciones->count();
-//    while (0 != ui->lista_secciones->count())
-//    {
-//        count = ui->lista_secciones->count();
-//
-//        seccion_lista = this->ui->lista_secciones->item(0)->data(Qt::UserRole).value<modelo::Seccion*>();
-//
-//        if (0 == seccion_lista->restarReferencia())
-//        {
-//            delete seccion_lista;
-//        }
-//
-//        item = this->ui->lista_secciones->takeItem(0);
-//        delete item;
-//    }
-//
-//    aplicacion::Logger::info("Secciones descargadas.");
-//}
-//
-//void DialogoConsultas::descargarListaReportes()
-//{
-//    QListWidgetItem* item = nullptr;
-//
-//    // elimino los reportes de la lista
-//    modelo::Reporte* reporte_lista = nullptr;
-//    unsigned int count = ui->lista_reportes->count();
-//    while (0 != ui->lista_reportes->count())
-//    {
-//        count = ui->lista_reportes->count();
-//
-//        reporte_lista = this->ui->lista_reportes->item(0)->data(Qt::UserRole).value<modelo::Reporte*>();
-//
-//        if (0 == reporte_lista->restarReferencia())
-//        {
-//            delete reporte_lista;
-//        }
-//
-//        item = this->ui->lista_reportes->takeItem(0);
-//        delete item;
-//    }
-//
-//    aplicacion::Logger::info("Reportes descargados.");
-//}

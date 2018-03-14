@@ -71,7 +71,7 @@ private:
     void agregarPeriodoALista(visualizador::modelo::Periodo* periodo, QListWidget * lista);
 
     void cargarListaMedios();
-    void agregarMedioALista(visualizador::modelo::MedioTwitter* medio_twitter, QListWidget * lista);
+    void agregarMedioALista(visualizador::modelo::Medio* medio, QListWidget * lista);
 
     void cargarListaSecciones();
     void agregarSeccionALista(visualizador::modelo::Seccion* seccion, QListWidget * lista);
@@ -91,7 +91,8 @@ private:
     //std::vector<modelo::Periodo*> periodosSeleccionados();
     modelo::Periodo* periodoSeleccionado();
 
-    std::vector<modelo::MedioTwitter*> mediosSeleccionados();
+    //std::vector<modelo::MedioTwitter*> mediosSeleccionados();
+    std::vector<modelo::Medio*> mediosSeleccionados();
 
     std::vector<modelo::Seccion*> seccionesSeleccionados();
 
