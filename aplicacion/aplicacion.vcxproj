@@ -124,6 +124,7 @@
     <ClInclude Include="include\AdminAplicacionIniciadoPreviamente.h" />
     <ClInclude Include="include\Advertencia.h" />
     <ClInclude Include="include\Error.h" />
+    <ClInclude Include="include\GestorConsultas.h" />
     <ClInclude Include="include\GestorDatosScraping.h" />
     <ClInclude Include="include\Informacion.h" />
     <ClInclude Include="include\Logger.h" />
@@ -139,6 +140,7 @@
     <ClCompile Include="source\AdminAplicacionIniciadoPreviamente.cpp" />
     <ClCompile Include="source\Advertencia.cpp" />
     <ClCompile Include="source\Error.cpp" />
+    <ClCompile Include="source\GestorConsultas.cpp" />
     <ClCompile Include="source\GestorDatosScraping.cpp" />
     <ClCompile Include="source\Informacion.cpp" />
     <ClCompile Include="source\Logger.cpp" />

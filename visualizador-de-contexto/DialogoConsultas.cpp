@@ -3,10 +3,11 @@
 
 // scraping
 #include <scraping/include/GestorMedios.h>
-#include <aplicacion/include/Logger.h>
 
 // aplicacion
 #include <aplicacion/include/GestorDatosScraping.h>
+#include <aplicacion/include/GestorConsultas.h>
+#include <aplicacion/include/Logger.h>
 
 using namespace visualizador;
 
@@ -213,7 +214,15 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
+    aplicacion::GestorConsultas gestor_consultas;
+    gestor_consultas.setMedios(medios_seleccionados);
+    gestor_consultas.setConceptos(conceptos_seleccionados);
+    gestor_consultas.setData(resultados);
+
     std::vector<graficos::modelo::Individuo*> individuos;
+    std::vector<std::string> categorias;
+
+    gestor_consultas.fuerzaDeConceptosEnMedios(individuos, categorias);
 
     for (std::vector<modelo::Concepto*>::iterator it_conceptos = conceptos_seleccionados.begin(); it_conceptos != conceptos_seleccionados.end(); it_conceptos++)
     {
@@ -243,7 +252,6 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
         individuos.push_back(nuevo_individuo);
     }
 
-    std::vector<std::string> categorias;
     for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
     {
         categorias.push_back((*it_medios)->getEtiqueta());
