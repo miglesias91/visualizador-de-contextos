@@ -14,11 +14,9 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -35,17 +33,14 @@ public:
     QAction *action_eliminar;
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
+    QAction *action_nueva_pagina;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *layout_general;
-    QFormLayout *layout_opciones;
-    QLabel *lbl_etiqueta;
-    QLineEdit *lineedit_etiqueta;
-    QLabel *lbl_nombre_pagina;
-    QPushButton *btn_agregar;
-    QPushButton *btn_limpiar;
-    QPushButton *btn_eliminar;
-    QLineEdit *lineedit_nombre_pagina;
     QVBoxLayout *layout_lista;
+    QHBoxLayout *layout_superior;
+    QLabel *label;
+    QPushButton *btn_eliminar;
+    QPushButton *btn_nueva;
     QListWidget *lista_medios_facebook;
     QDialogButtonBox *btnbox_medios_facebook;
 
@@ -70,86 +65,60 @@ public:
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         action_estado_btn_agregar = new QAction(DialogoMediosFacebook);
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
+        action_nueva_pagina = new QAction(DialogoMediosFacebook);
+        action_nueva_pagina->setObjectName(QStringLiteral("action_nueva_pagina"));
         horizontalLayoutWidget = new QWidget(DialogoMediosFacebook);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
-        layout_general->setSpacing(6);
+        layout_general->setSpacing(0);
         layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
         layout_general->setContentsMargins(0, 0, 0, 0);
-        layout_opciones = new QFormLayout();
-        layout_opciones->setSpacing(6);
-        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
-        lbl_etiqueta = new QLabel(horizontalLayoutWidget);
-        lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
-        QFont font;
-        font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(12);
-        lbl_etiqueta->setFont(font);
-
-        layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
-
-        lineedit_etiqueta = new QLineEdit(horizontalLayoutWidget);
-        lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Calibri"));
-        font1.setPointSize(10);
-        font1.setItalic(true);
-        lineedit_etiqueta->setFont(font1);
-
-        layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
-
-        lbl_nombre_pagina = new QLabel(horizontalLayoutWidget);
-        lbl_nombre_pagina->setObjectName(QStringLiteral("lbl_nombre_pagina"));
-        lbl_nombre_pagina->setFont(font);
-
-        layout_opciones->setWidget(1, QFormLayout::LabelRole, lbl_nombre_pagina);
-
-        btn_agregar = new QPushButton(horizontalLayoutWidget);
-        btn_agregar->setObjectName(QStringLiteral("btn_agregar"));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(11);
-        btn_agregar->setFont(font2);
-
-        layout_opciones->setWidget(2, QFormLayout::FieldRole, btn_agregar);
-
-        btn_limpiar = new QPushButton(horizontalLayoutWidget);
-        btn_limpiar->setObjectName(QStringLiteral("btn_limpiar"));
-        btn_limpiar->setFont(font2);
-
-        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_limpiar);
-
-        btn_eliminar = new QPushButton(horizontalLayoutWidget);
-        btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
-        btn_eliminar->setFont(font2);
-
-        layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_eliminar);
-
-        lineedit_nombre_pagina = new QLineEdit(horizontalLayoutWidget);
-        lineedit_nombre_pagina->setObjectName(QStringLiteral("lineedit_nombre_pagina"));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(10);
-        font3.setBold(false);
-        font3.setWeight(50);
-        lineedit_nombre_pagina->setFont(font3);
-
-        layout_opciones->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_pagina);
-
-
-        layout_general->addLayout(layout_opciones);
-
         layout_lista = new QVBoxLayout();
         layout_lista->setSpacing(0);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
+        layout_superior = new QHBoxLayout();
+        layout_superior->setSpacing(6);
+        layout_superior->setObjectName(QStringLiteral("layout_superior"));
+        label = new QLabel(horizontalLayoutWidget);
+        label->setObjectName(QStringLiteral("label"));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(16);
+        label->setFont(font);
+        label->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
+
+        layout_superior->addWidget(label);
+
+        btn_eliminar = new QPushButton(horizontalLayoutWidget);
+        btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+        btn_eliminar->setMinimumSize(QSize(0, 30));
+        btn_eliminar->setMaximumSize(QSize(80, 16777215));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(11);
+        btn_eliminar->setFont(font1);
+
+        layout_superior->addWidget(btn_eliminar);
+
+        btn_nueva = new QPushButton(horizontalLayoutWidget);
+        btn_nueva->setObjectName(QStringLiteral("btn_nueva"));
+        btn_nueva->setMinimumSize(QSize(0, 30));
+        btn_nueva->setMaximumSize(QSize(80, 16777215));
+        btn_nueva->setFont(font1);
+
+        layout_superior->addWidget(btn_nueva);
+
+
+        layout_lista->addLayout(layout_superior);
+
         lista_medios_facebook = new QListWidget(horizontalLayoutWidget);
         lista_medios_facebook->setObjectName(QStringLiteral("lista_medios_facebook"));
-        QFont font4;
-        font4.setFamily(QStringLiteral("Calibri"));
-        font4.setPointSize(10);
-        lista_medios_facebook->setFont(font4);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(10);
+        lista_medios_facebook->setFont(font2);
 
         layout_lista->addWidget(lista_medios_facebook);
 
@@ -158,22 +127,20 @@ public:
 
         btnbox_medios_facebook = new QDialogButtonBox(DialogoMediosFacebook);
         btnbox_medios_facebook->setObjectName(QStringLiteral("btnbox_medios_facebook"));
-        btnbox_medios_facebook->setGeometry(QRect(320, 370, 156, 23));
-        QFont font5;
-        font5.setFamily(QStringLiteral("Calibri"));
-        font5.setPointSize(11);
-        font5.setItalic(true);
-        btnbox_medios_facebook->setFont(font5);
-        btnbox_medios_facebook->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        btnbox_medios_facebook->setGeometry(QRect(325, 370, 156, 23));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(11);
+        font3.setItalic(false);
+        btnbox_medios_facebook->setFont(font3);
+        btnbox_medios_facebook->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
 
         retranslateUi(DialogoMediosFacebook);
         QObject::connect(lista_medios_facebook, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
-        QObject::connect(lineedit_nombre_pagina, SIGNAL(textEdited(QString)), action_estado_btn_agregar, SLOT(trigger()));
         QObject::connect(btnbox_medios_facebook, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
         QObject::connect(btnbox_medios_facebook, SIGNAL(rejected()), DialogoMediosFacebook, SLOT(close()));
-        QObject::connect(btn_agregar, SIGNAL(released()), action_guardar, SLOT(trigger()));
+        QObject::connect(btn_nueva, SIGNAL(released()), action_nueva_pagina, SLOT(trigger()));
         QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
-        QObject::connect(btn_limpiar, SIGNAL(released()), action_resetear, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoMediosFacebook);
     } // setupUi
@@ -214,13 +181,13 @@ public:
 #ifndef QT_NO_TOOLTIP
         action_estado_btn_agregar->setToolTip(QApplication::translate("DialogoMediosFacebook", "estado btn_agregar", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        lbl_etiqueta->setText(QApplication::translate("DialogoMediosFacebook", "Etiqueta", Q_NULLPTR));
-        lbl_nombre_pagina->setText(QApplication::translate("DialogoMediosFacebook", "Nombre de p\303\241gina", Q_NULLPTR));
-        btn_agregar->setText(QApplication::translate("DialogoMediosFacebook", "Agregar", Q_NULLPTR));
-        btn_limpiar->setText(QApplication::translate("DialogoMediosFacebook", "Limpiar", Q_NULLPTR));
+        action_nueva_pagina->setText(QApplication::translate("DialogoMediosFacebook", "Nueva pagina", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        action_nueva_pagina->setToolTip(QApplication::translate("DialogoMediosFacebook", "Nueva pagina", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        label->setText(QApplication::translate("DialogoMediosFacebook", "Lista de p\303\241ginas de Facebook", Q_NULLPTR));
         btn_eliminar->setText(QApplication::translate("DialogoMediosFacebook", "Eliminar", Q_NULLPTR));
-        lineedit_nombre_pagina->setText(QString());
-        lineedit_nombre_pagina->setPlaceholderText(QString());
+        btn_nueva->setText(QApplication::translate("DialogoMediosFacebook", "Nueva", Q_NULLPTR));
     } // retranslateUi
 
 };

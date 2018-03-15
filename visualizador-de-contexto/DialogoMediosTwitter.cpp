@@ -218,3 +218,7 @@ QMessageBox * DialogoMediosTwitter::crearInformacionMedioTwitterExistente()
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }
+void DialogoMediosTwitter::on_action_nueva_cuenta_triggered()
+{
+
+}

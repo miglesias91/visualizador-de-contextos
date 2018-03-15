@@ -40,6 +40,8 @@ private slots:
 
     void on_action_estado_btn_agregar_triggered();
 
+    void on_action_nueva_cuenta_triggered();
+
 private:
     Ui::DialogoMediosTwitter *ui;
 

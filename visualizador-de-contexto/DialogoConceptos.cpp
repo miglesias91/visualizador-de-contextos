@@ -149,6 +149,7 @@ void DialogoConceptos::on_action_nuevo_concepto_triggered()
         }
     }
 }
+
 // METODOS PRIVADOS
 
 void DialogoConceptos::agregarConceptoALista(modelo::Concepto * concepto)

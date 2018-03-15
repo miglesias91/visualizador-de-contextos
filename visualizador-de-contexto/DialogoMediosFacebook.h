@@ -15,6 +15,7 @@
 #include <facebook/include/Pagina.h>
 
 // visualizador
+#include <visualizador-de-contexto/DialogoEditarMedioFacebook.h>
 #include <declaraciones_metatipos.h>
 
 namespace Ui { class DialogoMediosFacebook; };
@@ -40,6 +41,8 @@ private slots:
 
     void on_action_estado_btn_agregar_triggered();
 
+    void on_action_nueva_pagina_triggered();
+
 private:
     Ui::DialogoMediosFacebook *ui;
 
@@ -58,4 +61,6 @@ private:
 
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_medios;
+
+    DialogoEditarMedioFacebook * dialogo_editar_medio_facebook;
 };

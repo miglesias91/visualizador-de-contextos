@@ -220,3 +220,38 @@ QMessageBox * DialogoMediosFacebook::crearInformacionMedioFacebookExistente()
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }
+void DialogoMediosFacebook::on_action_nueva_pagina_triggered()
+{
+    modelo::MedioFacebook * medio_facebook_nuevo = new modelo::MedioFacebook();
+    this->dialogo_editar_medio_facebook = new DialogoEditarMedioFacebook(medio_facebook_nuevo, &this->gestor_medios);
+    if (this->dialogo_editar_medio_facebook->exec())
+    {
+        if (false == this->gestor_medios.existe(medio_facebook_nuevo))
+        {
+            // si NO existe, creo su cuenta de scraping asociada y se la seteo...
+            std::string nombre_pagina = medio_facebook_nuevo->getNombrePagina();
+            scraping::facebook::modelo::Pagina * nueva_pagina = new scraping::facebook::modelo::Pagina(nombre_pagina);
+            nueva_pagina->asignarNuevoId();
+            medio_facebook_nuevo->setPaginaAScrapear(nueva_pagina);
+
+            // y lo agrego en la lista visible.
+            this->agregarMedioFacebookALista(medio_facebook_nuevo);
+
+            // ahora si la almaceno.
+            this->gestor_medios.almacenar(medio_facebook_nuevo);
+
+            aplicacion::Logger::info("Medio Facebbok agregado: { " + aplicacion::Logger::infoLog(medio_facebook_nuevo) + " }.");
+        }
+        else
+        {
+            QMessageBox * informacion_termino_existente = this->crearInformacionMedioFacebookExistente();
+            informacion_termino_existente->exec();
+
+            delete informacion_termino_existente;
+
+            delete medio_facebook_nuevo;
+        }
+
+        this->on_action_resetear_triggered();
+    }
+}

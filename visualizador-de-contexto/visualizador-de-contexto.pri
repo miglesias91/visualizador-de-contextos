@@ -19,7 +19,10 @@ HEADERS += ./declaraciones_metatipos.h \
     ./DialogoTerminos.h \
     ./include/FabricaMensajes.h \
     ./include/GraficoDeBarras.h \
-    ./include/Individuo.h
+    ./include/Individuo.h \
+    ./include/Categoria.h \
+    ./DialogoEditarMedioFacebook.h \
+    ./DialogoEditarCuentaTwitter.h
 SOURCES += ./main.cpp \
     ./DialogoConceptos.cpp \
     ./DialogoConsultas.cpp \
@@ -32,7 +35,10 @@ SOURCES += ./main.cpp \
     ./visualizadordecontexto.cpp \
     ./source/FabricaMensajes.cpp \
     ./source/GraficoDeBarras.cpp \
-    ./source/Individuo.cpp
+    ./source/Individuo.cpp \
+    ./source/Categoria.cpp \
+    ./DialogoEditarMedioFacebook.cpp \
+    ./DialogoEditarCuentaTwitter.cpp
 FORMS += ./visualizadordecontexto.ui \
     ./DialogoTerminos.ui \
     ./DialogoConceptos.ui \
@@ -41,5 +47,7 @@ FORMS += ./visualizadordecontexto.ui \
     ./DialogoConsultas.ui \
     ./DialogoMediosTwitter.ui \
     ./DialogoMediosFacebook.ui \
-    ./DialogoEditarConcepto.ui
+    ./DialogoEditarConcepto.ui \
+    ./DialogoEditarMedioFacebook.ui \
+    ./DialogoEditarCuentaTwitter.ui
 RESOURCES += visualizadordecontexto.qrc

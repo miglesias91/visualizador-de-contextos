@@ -81,7 +81,7 @@ public:
         btnbox_conceptos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
         horizontalLayoutWidget = new QWidget(DialogoConceptos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 357));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
         layout_general = new QHBoxLayout(horizontalLayoutWidget);
         layout_general->setSpacing(0);
         layout_general->setContentsMargins(11, 11, 11, 11);
@@ -144,9 +144,6 @@ public:
 
         layout_general->addLayout(layout_lista);
 
-        btnbox_conceptos->raise();
-        horizontalLayoutWidget->raise();
-        label->raise();
 
         retranslateUi(DialogoConceptos);
         QObject::connect(btnbox_conceptos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));

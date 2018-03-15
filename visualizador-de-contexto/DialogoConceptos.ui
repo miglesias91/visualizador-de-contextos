@@ -47,7 +47,7 @@
      <x>10</x>
      <y>10</y>
      <width>781</width>
-     <height>357</height>
+     <height>351</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="layout_general">
@@ -212,9 +212,6 @@
     <string>Editar concepto</string>
    </property>
   </action>
-  <zorder>btnbox_conceptos</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>label</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

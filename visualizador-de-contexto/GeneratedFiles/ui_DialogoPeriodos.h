@@ -13,13 +13,10 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -39,17 +36,11 @@ public:
     QDialogButtonBox *btnbox_periodos;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
-    QFormLayout *layout_opciones;
-    QLabel *lbl_etiqueta;
-    QLineEdit *lineedit_etiqueta;
-    QLabel *lbl_desde;
-    QComboBox *combobox_desde;
-    QLabel *lbl_hasta;
-    QComboBox *combobox_hasta;
-    QPushButton *btn_agregar_periodo;
-    QPushButton *btn_limpiar_periodo;
-    QPushButton *btn_eliminar_periodo;
     QVBoxLayout *layout_lista;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label;
+    QPushButton *btn_eliminar_periodo;
+    QPushButton *btn_agregar_periodo;
     QListWidget *lista_periodos;
 
     void setupUi(QWidget *DialogoPeriodos)
@@ -75,9 +66,11 @@ public:
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
         font.setPointSize(11);
-        font.setItalic(true);
+        font.setItalic(false);
         btnbox_periodos->setFont(font);
-        btnbox_periodos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        btnbox_periodos->setOrientation(Qt::Horizontal);
+        btnbox_periodos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
+        btnbox_periodos->setCenterButtons(false);
         horizontalLayoutWidget = new QWidget(DialogoPeriodos);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
         horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
@@ -86,84 +79,49 @@ public:
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        layout_opciones = new QFormLayout();
-        layout_opciones->setSpacing(6);
-        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
-        lbl_etiqueta = new QLabel(horizontalLayoutWidget);
-        lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
+        layout_lista = new QVBoxLayout();
+        layout_lista->setSpacing(0);
+        layout_lista->setObjectName(QStringLiteral("layout_lista"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        label = new QLabel(horizontalLayoutWidget);
+        label->setObjectName(QStringLiteral("label"));
         QFont font1;
         font1.setFamily(QStringLiteral("Calibri"));
-        font1.setPointSize(12);
-        lbl_etiqueta->setFont(font1);
+        font1.setPointSize(16);
+        label->setFont(font1);
+        label->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
 
-        layout_opciones->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
-
-        lineedit_etiqueta = new QLineEdit(horizontalLayoutWidget);
-        lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(10);
-        font2.setItalic(true);
-        lineedit_etiqueta->setFont(font2);
-
-        layout_opciones->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
-
-        lbl_desde = new QLabel(horizontalLayoutWidget);
-        lbl_desde->setObjectName(QStringLiteral("lbl_desde"));
-        lbl_desde->setFont(font1);
-
-        layout_opciones->setWidget(1, QFormLayout::LabelRole, lbl_desde);
-
-        combobox_desde = new QComboBox(horizontalLayoutWidget);
-        combobox_desde->setObjectName(QStringLiteral("combobox_desde"));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(10);
-        combobox_desde->setFont(font3);
-
-        layout_opciones->setWidget(1, QFormLayout::FieldRole, combobox_desde);
-
-        lbl_hasta = new QLabel(horizontalLayoutWidget);
-        lbl_hasta->setObjectName(QStringLiteral("lbl_hasta"));
-        lbl_hasta->setFont(font1);
-
-        layout_opciones->setWidget(2, QFormLayout::LabelRole, lbl_hasta);
-
-        combobox_hasta = new QComboBox(horizontalLayoutWidget);
-        combobox_hasta->setObjectName(QStringLiteral("combobox_hasta"));
-        combobox_hasta->setFont(font3);
-
-        layout_opciones->setWidget(2, QFormLayout::FieldRole, combobox_hasta);
-
-        btn_agregar_periodo = new QPushButton(horizontalLayoutWidget);
-        btn_agregar_periodo->setObjectName(QStringLiteral("btn_agregar_periodo"));
-        QFont font4;
-        font4.setFamily(QStringLiteral("Calibri"));
-        font4.setPointSize(11);
-        btn_agregar_periodo->setFont(font4);
-
-        layout_opciones->setWidget(3, QFormLayout::FieldRole, btn_agregar_periodo);
-
-        btn_limpiar_periodo = new QPushButton(horizontalLayoutWidget);
-        btn_limpiar_periodo->setObjectName(QStringLiteral("btn_limpiar_periodo"));
-        btn_limpiar_periodo->setFont(font4);
-
-        layout_opciones->setWidget(4, QFormLayout::FieldRole, btn_limpiar_periodo);
+        horizontalLayout_2->addWidget(label);
 
         btn_eliminar_periodo = new QPushButton(horizontalLayoutWidget);
         btn_eliminar_periodo->setObjectName(QStringLiteral("btn_eliminar_periodo"));
-        btn_eliminar_periodo->setFont(font4);
+        btn_eliminar_periodo->setMinimumSize(QSize(0, 30));
+        btn_eliminar_periodo->setMaximumSize(QSize(80, 16777215));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(11);
+        btn_eliminar_periodo->setFont(font2);
 
-        layout_opciones->setWidget(5, QFormLayout::FieldRole, btn_eliminar_periodo);
+        horizontalLayout_2->addWidget(btn_eliminar_periodo);
+
+        btn_agregar_periodo = new QPushButton(horizontalLayoutWidget);
+        btn_agregar_periodo->setObjectName(QStringLiteral("btn_agregar_periodo"));
+        btn_agregar_periodo->setMinimumSize(QSize(0, 30));
+        btn_agregar_periodo->setMaximumSize(QSize(80, 16777215));
+        btn_agregar_periodo->setFont(font2);
+
+        horizontalLayout_2->addWidget(btn_agregar_periodo);
 
 
-        horizontalLayout->addLayout(layout_opciones);
+        layout_lista->addLayout(horizontalLayout_2);
 
-        layout_lista = new QVBoxLayout();
-        layout_lista->setSpacing(6);
-        layout_lista->setObjectName(QStringLiteral("layout_lista"));
         lista_periodos = new QListWidget(horizontalLayoutWidget);
         lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(10);
         lista_periodos->setFont(font3);
 
         layout_lista->addWidget(lista_periodos);
@@ -177,10 +135,7 @@ public:
         QObject::connect(btnbox_periodos, SIGNAL(rejected()), DialogoPeriodos, SLOT(close()));
         QObject::connect(btn_agregar_periodo, SIGNAL(released()), action_guardar_periodo, SLOT(trigger()));
         QObject::connect(btn_eliminar_periodo, SIGNAL(released()), action_eliminar_periodo, SLOT(trigger()));
-        QObject::connect(btn_limpiar_periodo, SIGNAL(released()), action_limpiar_periodo, SLOT(trigger()));
         QObject::connect(lista_periodos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
-        QObject::connect(combobox_desde, SIGNAL(currentIndexChanged(int)), action_estado_btn_agregar, SLOT(trigger()));
-        QObject::connect(combobox_hasta, SIGNAL(currentIndexChanged(int)), action_estado_btn_agregar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoPeriodos);
     } // setupUi
@@ -194,12 +149,9 @@ public:
         action_actualizar_y_cerrar->setText(QApplication::translate("DialogoPeriodos", "actualizar_y_cerrar", Q_NULLPTR));
         action_estado_btn_eliminar->setText(QApplication::translate("DialogoPeriodos", "estado_btn_eliminar", Q_NULLPTR));
         action_estado_btn_agregar->setText(QApplication::translate("DialogoPeriodos", "estado_btn_agregar", Q_NULLPTR));
-        lbl_etiqueta->setText(QApplication::translate("DialogoPeriodos", "Etiqueta", Q_NULLPTR));
-        lbl_desde->setText(QApplication::translate("DialogoPeriodos", "Desde", Q_NULLPTR));
-        lbl_hasta->setText(QApplication::translate("DialogoPeriodos", "Hasta", Q_NULLPTR));
-        btn_agregar_periodo->setText(QApplication::translate("DialogoPeriodos", "Agregar", Q_NULLPTR));
-        btn_limpiar_periodo->setText(QApplication::translate("DialogoPeriodos", "Limpiar", Q_NULLPTR));
+        label->setText(QApplication::translate("DialogoPeriodos", "Lista de per\303\255odos", Q_NULLPTR));
         btn_eliminar_periodo->setText(QApplication::translate("DialogoPeriodos", "Eliminar", Q_NULLPTR));
+        btn_agregar_periodo->setText(QApplication::translate("DialogoPeriodos", "Nuevo", Q_NULLPTR));
     } // retranslateUi
 
 };
