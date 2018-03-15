@@ -95,6 +95,9 @@
     <ClCompile Include="DialogoEditarConcepto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\Categoria.cpp">
+      <Filter>Source Files\graficos\modelo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DialogoEditarConcepto.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Categoria.h">
+      <Filter>Header Files\graficos\modelo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -220,42 +220,8 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     gestor_consultas.setData(resultados);
 
     std::vector<graficos::modelo::Individuo*> individuos;
-    std::vector<std::string> categorias;
-
+    std::vector<graficos::modelo::Categoria*> categorias;
     gestor_consultas.fuerzaDeConceptosEnMedios(individuos, categorias);
-
-    for (std::vector<modelo::Concepto*>::iterator it_conceptos = conceptos_seleccionados.begin(); it_conceptos != conceptos_seleccionados.end(); it_conceptos++)
-    {
-        std::vector<double> datos_individuo;
-        for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
-        {
-            float fuerza_concepto_en_medio = 0.0f;
-            for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it_resultados = resultados.begin(); it_resultados != resultados.end(); it_resultados++)
-            {
-                scraping::preparacion::ResultadoAnalisisMedio* resultado_medio = (*it_resultados)->getResultadoMedio((*it_medios)->getMedioAScrapear()->getId()->numero());
-
-                if (NULL == resultado_medio)
-                {
-                    continue;
-                }
-
-                std::vector<modelo::Termino*> terminos_a_analizar = (*it_conceptos)->getTerminos();
-                for (std::vector<modelo::Termino*>::iterator it_terminos = terminos_a_analizar.begin(); it_terminos != terminos_a_analizar.end(); it_terminos++)
-                {
-                    float fuerza_termino = resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza((*it_terminos)->getValor());
-                    fuerza_concepto_en_medio += fuerza_termino;
-                }
-            }
-            datos_individuo.push_back(fuerza_concepto_en_medio);
-        }
-        graficos::modelo::Individuo * nuevo_individuo = new graficos::modelo::Individuo((*it_conceptos)->getEtiqueta(), datos_individuo);
-        individuos.push_back(nuevo_individuo);
-    }
-
-    for (std::vector<modelo::Medio*>::iterator it_medios = medios_seleccionados.begin(); it_medios != medios_seleccionados.end(); it_medios++)
-    {
-        categorias.push_back((*it_medios)->getEtiqueta());
-    }
 
     if (NULL != this->grafico_fuerza_en_noticia)
     {

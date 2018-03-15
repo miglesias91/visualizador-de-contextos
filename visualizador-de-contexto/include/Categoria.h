@@ -9,22 +9,21 @@ namespace graficos
 namespace modelo
 {
 
-class Individuo
+class Categoria
 {
 public:
-    Individuo(std::string nombre, std::vector<double> datos);
-    virtual ~Individuo();
+    Categoria(std::string nombre, double total);
+    virtual ~Categoria();
 
     // GETTERS
 
     virtual std::string getNombre();
-    virtual std::vector<double> getDatos();
-    virtual std::vector<double> getDatosRelativos(std::vector<double> totales);
+    virtual double getTotal();
 
     // SETTERS
 
     virtual void setNombre(std::string nombre);
-    virtual void setDatos(std::vector<double> datos);
+    virtual void setTotal(double total);
 
     // METODOS
 
@@ -35,7 +34,7 @@ private:
     // ATRIBUTOS
 
     std::string nombre;
-    std::vector<double> datos;
+    double total;
 };
 
 };

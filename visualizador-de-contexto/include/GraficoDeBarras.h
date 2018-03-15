@@ -10,6 +10,7 @@
 
 // modelo
 #include <visualizador-de-contexto/include/Individuo.h>
+#include <visualizador-de-contexto/include/Categoria.h>
 
 namespace graficos
 {
@@ -17,20 +18,20 @@ namespace graficos
 class GraficoDeBarras
 {
 public:
-    GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana = u8"Gráfico de barras");
+    GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<modelo::Categoria*> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana = u8"Gráfico de barras");
     virtual ~GraficoDeBarras();
 
     // GETTERS
 
     virtual std::vector<modelo::Individuo*> getIndividuos();
-    virtual std::vector<std::string> getCategorias();
+    virtual std::vector<modelo::Categoria*> getCategorias();
     virtual double getRangoEjeYMin();
     virtual double getRangoEjeYMax();
 
     // SETTERS
 
     virtual void setIndividuos(std::vector<modelo::Individuo*> individuos);
-    virtual void setCategorias(std::vector<std::string> categorias);
+    virtual void setCategorias(std::vector<modelo::Categoria*> categorias);
     virtual void setRangoEjeYMin(double rango_eje_y_min);
     virtual void setRangoEjeYMax(double rango_eje_y_max);
 
@@ -49,12 +50,11 @@ private:
     std::string etiqueta;
     std::string titulo_ventana;
     std::vector<modelo::Individuo*> individuos;
-    std::vector<std::string> categorias;
+    std::vector<modelo::Categoria*> categorias;
     int rango_eje_y_min;
     int rango_eje_y_max;
 
     QtCharts::QChartView * chart_view;
-
 
 };
 

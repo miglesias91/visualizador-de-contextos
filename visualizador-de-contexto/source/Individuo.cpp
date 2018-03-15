@@ -22,6 +22,17 @@ std::vector<double> Individuo::getDatos()
     return this->datos;
 }
 
+std::vector<double> Individuo::getDatosRelativos(std::vector<double> totales)
+{
+    std::vector<double> datos_relativos;
+    for (unsigned int i = 0; i < this->datos.size(); i++)
+    {
+        datos_relativos.push_back(this->datos[i] / totales[i]);
+    }
+
+    return datos_relativos;
+}
+
 // SETTERS
 
 void Individuo::setNombre(std::string nombre)

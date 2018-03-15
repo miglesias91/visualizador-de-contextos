@@ -3,11 +3,23 @@
 // qt
 #include <qfont.h>
 
+// utiles
+#include <utiles/include/FuncionesString.h>
+
 using namespace graficos;
 
-GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<std::string> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana) :
+GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std::vector<modelo::Categoria*> categorias, double rango_eje_y_min, double rango_eje_y_max, std::string etiqueta, std::string titulo_ventana) :
     individuos(individuos), categorias(categorias), rango_eje_y_min(rango_eje_y_min), rango_eje_y_max(rango_eje_y_max), etiqueta(etiqueta), titulo_ventana(titulo_ventana), chart_view(NULL)
 {
+    std::vector<double> totales;
+
+    QStringList categories;
+    for (std::vector<modelo::Categoria*>::iterator it = this->categorias.begin(); it != this->categorias.end(); it++)
+    {
+        totales.push_back((*it)->getTotal());
+        categories << ((*it)->getNombre() + " (fuerza total: " + herramientas::utiles::FuncionesString::toString((*it)->getTotal()) + ")").c_str();
+    }
+
     QtCharts::QBarSeries * series = new QtCharts::QBarSeries();
 
     for (std::vector<modelo::Individuo*>::iterator it_individuo = this->individuos.begin(); it_individuo != this->individuos.end(); it_individuo++)
@@ -15,6 +27,7 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
         QtCharts::QBarSet * set = new QtCharts::QBarSet((*it_individuo)->getNombre().c_str());
 
         std::vector<double> datos_individuo = (*it_individuo)->getDatos();
+        //std::vector<double> datos_relativos_individuo = (*it_individuo)->getDatosRelativos(totales);
 
         for (std::vector<double>::iterator it_datos = datos_individuo.begin(); it_datos != datos_individuo.end(); it_datos++)
         {
@@ -33,12 +46,6 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
     chart->setTitleFont(fuente_grafico);
     chart->setTitle(this->etiqueta.c_str());
 
-    QStringList categories;
-    for (std::vector<std::string>::iterator it = this->categorias.begin(); it != this->categorias.end(); it++)
-    {
-        categories << (*it).c_str();
-    }
-
     QFont fuente_ejes;
     fuente_ejes.setPixelSize(15);
 
@@ -47,8 +54,8 @@ GraficoDeBarras::GraficoDeBarras(std::vector<modelo::Individuo*> individuos, std
     axis_x->append(categories);
     chart->setAxisX(axis_x, series);
 
-    std::string primera_categoria = *this->categorias.begin();
-    std::string ultima_categoria = *(this->categorias.end() - 1);
+    std::string primera_categoria = (*this->categorias.begin())->getNombre();
+    std::string ultima_categoria = (*(this->categorias.end() - 1))->getNombre();
     axis_x->setRange(QString(primera_categoria.c_str()), QString(ultima_categoria.c_str()));
 
     QtCharts::QValueAxis *axis_y = new QtCharts::QValueAxis();
@@ -86,6 +93,11 @@ GraficoDeBarras::~GraficoDeBarras()
     {
         delete *it_individuo;
     }
+
+    for (std::vector<modelo::Categoria*>::iterator it_categoria = this->categorias.begin(); it_categoria != this->categorias.end(); it_categoria++)
+    {
+        delete *it_categoria;
+    }
 }
 
 // GETTERS
@@ -95,7 +107,7 @@ std::vector<modelo::Individuo*> GraficoDeBarras::getIndividuos()
     return this->individuos;
 }
 
-std::vector<std::string> GraficoDeBarras::getCategorias()
+std::vector<modelo::Categoria*> GraficoDeBarras::getCategorias()
 {
     return this->categorias;
 }
@@ -117,7 +129,7 @@ void GraficoDeBarras::setIndividuos(std::vector<modelo::Individuo*> individuos)
     this->individuos = individuos;
 }
 
-void GraficoDeBarras::setCategorias(std::vector<std::string> categorias)
+void GraficoDeBarras::setCategorias(std::vector<modelo::Categoria*> categorias)
 {
     this->categorias = categorias;
 }

@@ -88,10 +88,8 @@ private:
 
     std::vector<modelo::Concepto*> conceptosSeleccionados();
 
-    //std::vector<modelo::Periodo*> periodosSeleccionados();
     modelo::Periodo* periodoSeleccionado();
 
-    //std::vector<modelo::MedioTwitter*> mediosSeleccionados();
     std::vector<modelo::Medio*> mediosSeleccionados();
 
     std::vector<modelo::Seccion*> seccionesSeleccionados();
@@ -102,16 +100,6 @@ private:
 
     template <class ENTIDAD>
     void descargarLista(QListWidget * lista);
-
-    //void descargarListaConceptos();
-
-    //void descargarListaPeriodos();
-
-    //void descargarListaMedios();
-
-    //void descargarListaSecciones();
-
-    //void descargarListaReportes();
 };
 
 template <class ENTIDAD>
