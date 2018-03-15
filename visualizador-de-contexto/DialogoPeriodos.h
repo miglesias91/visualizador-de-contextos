@@ -52,9 +52,9 @@ private:
 
     void descargarComboboxesDesdeYHasta();
 
-    visualizador::modelo::Fecha * fechaDesdeSeleccionada();
-    
-    visualizador::modelo::Fecha * fechaHastaSeleccionada();
+    //visualizador::modelo::Fecha * fechaDesdeSeleccionada();
+    //
+    //visualizador::modelo::Fecha * fechaHastaSeleccionada();
 
     // MENSAJES
 

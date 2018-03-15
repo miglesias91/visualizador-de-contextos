@@ -50,49 +50,43 @@ void DialogoMediosFacebook::on_action_actualizar_y_cerrar_triggered()
 
 void DialogoMediosFacebook::on_action_resetear_triggered()
 {
-    this->ui->lineedit_etiqueta->clear();
-    this->ui->lineedit_nombre_pagina->clear();
     this->ui->lista_medios_facebook->clearSelection();
 
     this->on_action_estado_btn_eliminar_triggered();
-    this->on_action_estado_btn_agregar_triggered();
 
     aplicacion::Logger::info("Dialogo Medios Facebook reseteado.");
 }
 
 void DialogoMediosFacebook::on_action_guardar_triggered()
 {
-    std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
-    std::string nombre_pagina = this->ui->lineedit_nombre_pagina->text().toStdString();
+    //modelo::MedioFacebook * medio_nuevo = new modelo::MedioFacebook(nombre_pagina, etiqueta);
 
-    modelo::MedioFacebook * medio_nuevo = new modelo::MedioFacebook(nombre_pagina, etiqueta);
+    //if (false == this->gestor_medios.existe(medio_nuevo))
+    //{
+    //    // si NO existe, creo su cuenta de scraping asociada y se la seteo...
+    //    scraping::facebook::modelo::Pagina * nueva_pagina = new scraping::facebook::modelo::Pagina(nombre_pagina);
+    //    nueva_pagina->asignarNuevoId();
+    //    medio_nuevo->setPaginaAScrapear(nueva_pagina);
 
-    if (false == this->gestor_medios.existe(medio_nuevo))
-    {
-        // si NO existe, creo su cuenta de scraping asociada y se la seteo...
-        scraping::facebook::modelo::Pagina * nueva_pagina = new scraping::facebook::modelo::Pagina(nombre_pagina);
-        nueva_pagina->asignarNuevoId();
-        medio_nuevo->setPaginaAScrapear(nueva_pagina);
+    //    // y lo agrego en la lista visible.
+    //    this->agregarMedioFacebookALista(medio_nuevo);
 
-        // y lo agrego en la lista visible.
-        this->agregarMedioFacebookALista(medio_nuevo);
+    //    // ahora si la almaceno.
+    //    this->gestor_medios.almacenar(medio_nuevo);
 
-        // ahora si la almaceno.
-        this->gestor_medios.almacenar(medio_nuevo);
+    //    aplicacion::Logger::info("Medio Facebbok agregado: { " + aplicacion::Logger::infoLog(medio_nuevo) + " }.");
+    //}
+    //else
+    //{
+    //    QMessageBox * informacion_termino_existente = this->crearInformacionMedioFacebookExistente();
+    //    informacion_termino_existente->exec();
 
-        aplicacion::Logger::info("Medio Facebbok agregado: { " + aplicacion::Logger::infoLog(medio_nuevo) + " }.");
-    }
-    else
-    {
-        QMessageBox * informacion_termino_existente = this->crearInformacionMedioFacebookExistente();
-        informacion_termino_existente->exec();
+    //    delete informacion_termino_existente;
 
-        delete informacion_termino_existente;
+    //    delete medio_nuevo;
+    //}
 
-        delete medio_nuevo;
-    }
-
-    this->on_action_resetear_triggered();
+    //this->on_action_resetear_triggered();
 }
 
 void DialogoMediosFacebook::on_action_eliminar_triggered()
@@ -123,19 +117,6 @@ void DialogoMediosFacebook::on_action_estado_btn_eliminar_triggered()
     else
     {
         this->ui->btn_eliminar->setEnabled(true);
-    }
-}
-
-void DialogoMediosFacebook::on_action_estado_btn_agregar_triggered()
-{
-    std::string texto_termino = this->ui->lineedit_nombre_pagina->text().toStdString();
-    if (0 == texto_termino.size())
-    {
-        this->ui->btn_agregar->setDisabled(true);
-    }
-    else
-    {
-        this->ui->btn_agregar->setEnabled(true);
     }
 }
 
@@ -190,23 +171,6 @@ void DialogoMediosFacebook::agregarMedioFacebookALista(modelo::MedioFacebook * m
     QVariant data = QVariant::fromValue(medio_facebook);
     item->setData(Qt::UserRole, data);
 
-    //std::string etiqueta = medio_twitter->getEtiqueta();
-    //std::string nombre_usuario = "@" + medio_twitter->getNombreUsuario();
-
-    //std::string info_analisis = u8"sin contenido para visualizar";
-
-    //unsigned long long int cantidad_de_tweets_historicos = medio_twitter->getCuentaAScrapear()->getCantidadDeContenidosHistoricos();
-    //if (cantidad_de_tweets_historicos != 0)
-    //{
-    //    std::string fecha_tweets_mas_reciente = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
-    //    std::string fecha_tweets_mas_antiguo = medio_twitter->getCuentaAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
-    //    std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
-
-    //    info_analisis = fecha_tweets_mas_antiguo + " - " + fecha_tweets_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
-    //}
-
-    //std::string texto_item = etiqueta + " (" + nombre_usuario + ") | " + info_analisis;
-
     std::string texto_item = aplicacion::Logger::infoLog(medio_facebook);
 
     item->setText(texto_item.c_str());
@@ -253,5 +217,9 @@ void DialogoMediosFacebook::on_action_nueva_pagina_triggered()
         }
 
         this->on_action_resetear_triggered();
+    }
+    else
+    {
+        delete medio_facebook_nuevo;
     }
 }

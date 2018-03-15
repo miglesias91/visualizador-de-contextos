@@ -25,6 +25,19 @@ public:
     DialogoEditarCuentaTwitter(visualizador::modelo::MedioTwitter * medio_twitter_nuevo, visualizador::aplicacion::GestorEntidades * gestor_medios, QWidget *parent = Q_NULLPTR);
     ~DialogoEditarCuentaTwitter();
 
+public slots:
+
+    void ok();
+    void cancelar();
+
 private:
     Ui::DialogoEditarCuentaTwitter *ui;
+
+    // MENSAJES
+
+    QMessageBox * crearInformacionEtiquetaVacia();
+    QMessageBox * crearInformacionNombreVacio();
+
+    // ATRIBUTOS
+    visualizador::modelo::MedioTwitter * medio_twitter;
 };

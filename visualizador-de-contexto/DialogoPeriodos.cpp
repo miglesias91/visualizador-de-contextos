@@ -48,42 +48,42 @@ void DialogoPeriodos::on_action_actualizar_y_cerrar_triggered()
 
 void DialogoPeriodos::on_action_guardar_periodo_triggered()
 {
-    std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
+    //std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
 
-    modelo::Fecha* fecha_desde = this->fechaDesdeSeleccionada();
-    
-    modelo::Fecha* fecha_hasta = this->fechaHastaSeleccionada();
+    //modelo::Fecha* fecha_desde = this->fechaDesdeSeleccionada();
+    //
+    //modelo::Fecha* fecha_hasta = this->fechaHastaSeleccionada();
 
-    if (*fecha_desde >= *fecha_hasta)
-    {
-        QMessageBox * error_fecha_desde_mayor_a_fecha_hasta = this->crearErrorFechaDesdeMayorAFechaHasta();
-        error_fecha_desde_mayor_a_fecha_hasta->exec();
+    //if (*fecha_desde >= *fecha_hasta)
+    //{
+    //    QMessageBox * error_fecha_desde_mayor_a_fecha_hasta = this->crearErrorFechaDesdeMayorAFechaHasta();
+    //    error_fecha_desde_mayor_a_fecha_hasta->exec();
 
-        delete error_fecha_desde_mayor_a_fecha_hasta;
+    //    delete error_fecha_desde_mayor_a_fecha_hasta;
 
-        return;
-    }
+    //    return;
+    //}
 
-    modelo::Periodo* periodo_nuevo = new modelo::Periodo(fecha_desde, fecha_hasta, etiqueta);
+    //modelo::Periodo* periodo_nuevo = new modelo::Periodo(fecha_desde, fecha_hasta, etiqueta);
 
-    if (this->gestor_periodos.almacenar(periodo_nuevo))
-    {
-        // si se pudo agregar correctamente, lo agrego en la lista visible.
-        this->agregarPeriodoALista(periodo_nuevo);
+    //if (this->gestor_periodos.almacenar(periodo_nuevo))
+    //{
+    //    // si se pudo agregar correctamente, lo agrego en la lista visible.
+    //    this->agregarPeriodoALista(periodo_nuevo);
 
-        aplicacion::Logger::info("Periodo agregado: { " + aplicacion::Logger::infoLog(periodo_nuevo) + " }.");
-    }
-    else
-    {
-        QMessageBox * informacion_periodo_existente = this->crearInformacionPeriodoExistente();
-        informacion_periodo_existente->exec();
+    //    aplicacion::Logger::info("Periodo agregado: { " + aplicacion::Logger::infoLog(periodo_nuevo) + " }.");
+    //}
+    //else
+    //{
+    //    QMessageBox * informacion_periodo_existente = this->crearInformacionPeriodoExistente();
+    //    informacion_periodo_existente->exec();
 
-        delete informacion_periodo_existente;
+    //    delete informacion_periodo_existente;
 
-        delete periodo_nuevo;
-    }
+    //    delete periodo_nuevo;
+    //}
 
-    this->on_action_limpiar_periodo_triggered();
+    //this->on_action_limpiar_periodo_triggered();
 }
 
 void DialogoPeriodos::on_action_eliminar_periodo_triggered()
@@ -106,10 +106,9 @@ void DialogoPeriodos::on_action_eliminar_periodo_triggered()
 
 void DialogoPeriodos::on_action_limpiar_periodo_triggered()
 {
-    this->ui->lineedit_etiqueta->clear();
     this->ui->lista_periodos->clearSelection();
-    this->ui->combobox_desde->setCurrentIndex(-1);
-    this->ui->combobox_hasta->setCurrentIndex(-1);
+    //this->ui->combobox_desde->setCurrentIndex(-1);
+    //this->ui->combobox_hasta->setCurrentIndex(-1);
 
     this->on_action_estado_btn_eliminar_triggered();
     this->on_action_estado_btn_agregar_triggered();
@@ -132,17 +131,16 @@ void DialogoPeriodos::on_action_estado_btn_eliminar_triggered()
 
 void DialogoPeriodos::on_action_estado_btn_agregar_triggered()
 {
-    int index_desde = this->ui->combobox_desde->currentIndex();
-    int index_hasta = this->ui->combobox_hasta->currentIndex();
-    if (index_desde != -1 && index_hasta != -1)
-    {
-        this->ui->btn_agregar_periodo->setEnabled(true);
-    }
-    else
-    {
-        this->ui->btn_agregar_periodo->setDisabled(true);
-    }
-
+    //int index_desde = this->ui->combobox_desde->currentIndex();
+    //int index_hasta = this->ui->combobox_hasta->currentIndex();
+    //if (index_desde != -1 && index_hasta != -1)
+    //{
+    //    this->ui->btn_agregar_periodo->setEnabled(true);
+    //}
+    //else
+    //{
+    //    this->ui->btn_agregar_periodo->setDisabled(true);
+    //}
 }
 
 // METODOS INTERNOS
@@ -204,75 +202,75 @@ void DialogoPeriodos::descargarListaPeriodos()
 
 void DialogoPeriodos::cargarComboboxesDesdeYHasta()
 {
-    aplicacion::GestorEntidades gestor_fechas;
-    std::vector<modelo::Fecha*> fechas_actuales = gestor_fechas.recuperar<modelo::Fecha>();
+    //aplicacion::GestorEntidades gestor_fechas;
+    //std::vector<modelo::Fecha*> fechas_actuales = gestor_fechas.recuperar<modelo::Fecha>();
 
-    for (std::vector<modelo::Fecha*>::iterator it = fechas_actuales.begin(); it != fechas_actuales.end(); it++)
-    {
-        modelo::Fecha* fecha = *it;
-        std::string texto_fecha = fecha->getEtiqueta() + " (" + fecha->getStringDDMMAAAA("/") + ")";
+    //for (std::vector<modelo::Fecha*>::iterator it = fechas_actuales.begin(); it != fechas_actuales.end(); it++)
+    //{
+    //    modelo::Fecha* fecha = *it;
+    //    std::string texto_fecha = fecha->getEtiqueta() + " (" + fecha->getStringDDMMAAAA("/") + ")";
 
-        QVariant data = QVariant::fromValue(fecha);
-        QString texto_item(texto_fecha.c_str());
+    //    QVariant data = QVariant::fromValue(fecha);
+    //    QString texto_item(texto_fecha.c_str());
 
-        this->ui->combobox_desde->insertItem(0, texto_item, data);
-        fecha->sumarReferencia();
+    //    this->ui->combobox_desde->insertItem(0, texto_item, data);
+    //    fecha->sumarReferencia();
 
-        this->ui->combobox_hasta->insertItem(0, texto_item, data);
-        fecha->sumarReferencia();
-    }
+    //    this->ui->combobox_hasta->insertItem(0, texto_item, data);
+    //    fecha->sumarReferencia();
+    //}
 
-    aplicacion::Logger::info(std::to_string(fechas_actuales.size()) + " fechas para periodos cargadas.");
+    //aplicacion::Logger::info(std::to_string(fechas_actuales.size()) + " fechas para periodos cargadas.");
 }
 
 void DialogoPeriodos::descargarComboboxesDesdeYHasta()
 {
-    // elimino las fechas del combobox 'desde'
-    modelo::Fecha* fecha_combobox = nullptr;
-    unsigned int count = ui->combobox_desde->count();
-    while (0 != ui->combobox_desde->count())
-    {
-        count = ui->combobox_desde->count();
+    //// elimino las fechas del combobox 'desde'
+    //modelo::Fecha* fecha_combobox = nullptr;
+    //unsigned int count = ui->combobox_desde->count();
+    //while (0 != ui->combobox_desde->count())
+    //{
+    //    count = ui->combobox_desde->count();
 
-        fecha_combobox = this->ui->combobox_desde->itemData(0, Qt::UserRole).value<modelo::Fecha*>();
+    //    fecha_combobox = this->ui->combobox_desde->itemData(0, Qt::UserRole).value<modelo::Fecha*>();
 
-        if (0 == fecha_combobox->restarReferencia())
-        {
-            delete fecha_combobox;
-        }
+    //    if (0 == fecha_combobox->restarReferencia())
+    //    {
+    //        delete fecha_combobox;
+    //    }
 
-        this->ui->combobox_desde->removeItem(0);
-    }
+    //    this->ui->combobox_desde->removeItem(0);
+    //}
 
-    // elimino las fechas del combobox 'hasta'
-    count += ui->combobox_hasta->count();
-    while (0 != ui->combobox_hasta->count())
-    {
-        count = ui->combobox_hasta->count();
+    //// elimino las fechas del combobox 'hasta'
+    //count += ui->combobox_hasta->count();
+    //while (0 != ui->combobox_hasta->count())
+    //{
+    //    count = ui->combobox_hasta->count();
 
-        fecha_combobox = this->ui->combobox_hasta->itemData(0, Qt::UserRole).value<modelo::Fecha*>();
+    //    fecha_combobox = this->ui->combobox_hasta->itemData(0, Qt::UserRole).value<modelo::Fecha*>();
 
-        if (0 == fecha_combobox->restarReferencia())
-        {
-            delete fecha_combobox;
-        }
+    //    if (0 == fecha_combobox->restarReferencia())
+    //    {
+    //        delete fecha_combobox;
+    //    }
 
-        this->ui->combobox_hasta->removeItem(0);
-    }
+    //    this->ui->combobox_hasta->removeItem(0);
+    //}
 
-    aplicacion::Logger::info(std::to_string(count) + " fechas para periodos descargadas.");
+    //aplicacion::Logger::info(std::to_string(count) + " fechas para periodos descargadas.");
 
 }
 
-modelo::Fecha * DialogoPeriodos::fechaDesdeSeleccionada()
-{
-    return this->ui->combobox_desde->currentData(Qt::UserRole).value<modelo::Fecha*>();
-}
-
-modelo::Fecha * DialogoPeriodos::fechaHastaSeleccionada()
-{
-    return this->ui->combobox_hasta->currentData(Qt::UserRole).value<modelo::Fecha*>();
-}
+//modelo::Fecha * DialogoPeriodos::fechaDesdeSeleccionada()
+//{
+//    return this->ui->combobox_desde->currentData(Qt::UserRole).value<modelo::Fecha*>();
+//}
+//
+//modelo::Fecha * DialogoPeriodos::fechaHastaSeleccionada()
+//{
+//    return this->ui->combobox_hasta->currentData(Qt::UserRole).value<modelo::Fecha*>();
+//}
 
 // MENSAJES
 

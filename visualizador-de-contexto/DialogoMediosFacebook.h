@@ -39,8 +39,6 @@ private slots:
 
     void on_action_estado_btn_eliminar_triggered();
 
-    void on_action_estado_btn_agregar_triggered();
-
     void on_action_nueva_pagina_triggered();
 
 private:

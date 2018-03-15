@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DialogoEditarCuentaTwitter</string>
+   <string>Editar cuenta de Twitter</string>
   </property>
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
@@ -31,9 +31,9 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="lbl_nombre_pagina">
+     <widget class="QLabel" name="lbl_nombre_cuenta">
       <property name="text">
-       <string>Nombre página</string>
+       <string>Nombre cuenta:</string>
       </property>
      </widget>
     </item>
@@ -41,7 +41,7 @@
      <widget class="QLineEdit" name="lineedit_etiqueta"/>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lineedit_nombre_pagina"/>
+     <widget class="QLineEdit" name="lineedit_nombre_cuenta"/>
     </item>
    </layout>
   </widget>

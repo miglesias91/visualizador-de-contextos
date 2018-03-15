@@ -25,6 +25,19 @@ public:
     DialogoEditarMedioFacebook(visualizador::modelo::MedioFacebook * medio_facebook_nuevo, visualizador::aplicacion::GestorEntidades * gestor_medios, QWidget *parent = Q_NULLPTR);
     ~DialogoEditarMedioFacebook();
 
+public slots:
+
+    void ok();
+    void cancelar();
+
 private:
     Ui::DialogoEditarMedioFacebook *ui;
+
+    // MENSAJES
+
+    QMessageBox * crearInformacionEtiquetaVacia();
+    QMessageBox * crearInformacionNombreVacio();
+
+    // ATRIBUTOS
+    visualizador::modelo::MedioFacebook * medio_facebook;
 };

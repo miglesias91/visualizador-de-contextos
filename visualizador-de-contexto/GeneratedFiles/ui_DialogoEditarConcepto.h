@@ -72,6 +72,10 @@ public:
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
         lbl_etiqueta = new QLabel(verticalLayoutWidget);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(12);
+        lbl_etiqueta->setFont(font);
 
         layout_superior->addWidget(lbl_etiqueta);
 
@@ -82,11 +86,17 @@ public:
 
         btn_eliminar = new QPushButton(verticalLayoutWidget);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+        btn_eliminar->setMinimumSize(QSize(0, 30));
+        btn_eliminar->setMaximumSize(QSize(80, 16777215));
+        btn_eliminar->setFont(font);
 
         layout_superior->addWidget(btn_eliminar);
 
         btn_nuevo = new QPushButton(verticalLayoutWidget);
         btn_nuevo->setObjectName(QStringLiteral("btn_nuevo"));
+        btn_nuevo->setMinimumSize(QSize(0, 30));
+        btn_nuevo->setMaximumSize(QSize(80, 16777215));
+        btn_nuevo->setFont(font);
 
         layout_superior->addWidget(btn_nuevo);
 
@@ -101,9 +111,10 @@ public:
         btnbox = new QDialogButtonBox(verticalLayoutWidget);
         btnbox->setObjectName(QStringLiteral("btnbox"));
         btnbox->setEnabled(true);
+        btnbox->setFont(font);
         btnbox->setLayoutDirection(Qt::LeftToRight);
         btnbox->setOrientation(Qt::Horizontal);
-        btnbox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        btnbox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
         btnbox->setCenterButtons(true);
 
         layout_general->addWidget(btnbox);

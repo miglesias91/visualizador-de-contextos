@@ -29,9 +29,9 @@ public:
     QWidget *formLayoutWidget;
     QFormLayout *layout_formulario;
     QLabel *lbl_etiqueta;
-    QLabel *lbl_nombre_cuenta;
+    QLabel *lbl_nombre_pagina;
     QLineEdit *lineedit_etiqueta;
-    QLineEdit *lineedit_nombre_cuenta;
+    QLineEdit *lineedit_nombre_pagina;
     QDialogButtonBox *btnbox;
 
     void setupUi(QDialog *DialogoEditarMedioFacebook)
@@ -52,20 +52,20 @@ public:
 
         layout_formulario->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
 
-        lbl_nombre_cuenta = new QLabel(formLayoutWidget);
-        lbl_nombre_cuenta->setObjectName(QStringLiteral("lbl_nombre_cuenta"));
+        lbl_nombre_pagina = new QLabel(formLayoutWidget);
+        lbl_nombre_pagina->setObjectName(QStringLiteral("lbl_nombre_pagina"));
 
-        layout_formulario->setWidget(1, QFormLayout::LabelRole, lbl_nombre_cuenta);
+        layout_formulario->setWidget(1, QFormLayout::LabelRole, lbl_nombre_pagina);
 
         lineedit_etiqueta = new QLineEdit(formLayoutWidget);
         lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
 
         layout_formulario->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
 
-        lineedit_nombre_cuenta = new QLineEdit(formLayoutWidget);
-        lineedit_nombre_cuenta->setObjectName(QStringLiteral("lineedit_nombre_cuenta"));
+        lineedit_nombre_pagina = new QLineEdit(formLayoutWidget);
+        lineedit_nombre_pagina->setObjectName(QStringLiteral("lineedit_nombre_pagina"));
 
-        layout_formulario->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_cuenta);
+        layout_formulario->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_pagina);
 
         btnbox = new QDialogButtonBox(DialogoEditarMedioFacebook);
         btnbox->setObjectName(QStringLiteral("btnbox"));
@@ -79,9 +79,9 @@ public:
 
     void retranslateUi(QDialog *DialogoEditarMedioFacebook)
     {
-        DialogoEditarMedioFacebook->setWindowTitle(QApplication::translate("DialogoEditarMedioFacebook", "DialogoEditarMedioFacebook", Q_NULLPTR));
+        DialogoEditarMedioFacebook->setWindowTitle(QApplication::translate("DialogoEditarMedioFacebook", "Editar cuenta de Facebook", Q_NULLPTR));
         lbl_etiqueta->setText(QApplication::translate("DialogoEditarMedioFacebook", "Etiqueta:", Q_NULLPTR));
-        lbl_nombre_cuenta->setText(QApplication::translate("DialogoEditarMedioFacebook", "Nombre cuenta", Q_NULLPTR));
+        lbl_nombre_pagina->setText(QApplication::translate("DialogoEditarMedioFacebook", "Nombre p\303\241gina:", Q_NULLPTR));
     } // retranslateUi
 
 };

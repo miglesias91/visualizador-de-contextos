@@ -15,6 +15,7 @@
 #include <twitter/include/Cuenta.h>
 
 // visualizador
+#include <visualizador-de-contexto/DialogoEditarCuentaTwitter.h>
 #include <declaraciones_metatipos.h>
 
 namespace Ui { class DialogoMediosTwitter; };
@@ -38,8 +39,6 @@ private slots:
 
     void on_action_estado_btn_eliminar_triggered();
 
-    void on_action_estado_btn_agregar_triggered();
-
     void on_action_nueva_cuenta_triggered();
 
 private:
@@ -58,4 +57,6 @@ private:
 
     // ATRIBUTOS
     visualizador::aplicacion::GestorEntidades gestor_medios;
+
+    DialogoEditarCuentaTwitter * dialogo_editar_medio_twitter;
 };

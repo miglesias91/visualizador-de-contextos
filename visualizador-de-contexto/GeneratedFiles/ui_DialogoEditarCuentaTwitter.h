@@ -29,9 +29,9 @@ public:
     QWidget *formLayoutWidget;
     QFormLayout *layout_formulario;
     QLabel *lbl_etiqueta;
-    QLabel *lbl_nombre_pagina;
+    QLabel *lbl_nombre_cuenta;
     QLineEdit *lineedit_etiqueta;
-    QLineEdit *lineedit_nombre_pagina;
+    QLineEdit *lineedit_nombre_cuenta;
     QDialogButtonBox *btnbox;
 
     void setupUi(QDialog *DialogoEditarCuentaTwitter)
@@ -52,20 +52,20 @@ public:
 
         layout_formulario->setWidget(0, QFormLayout::LabelRole, lbl_etiqueta);
 
-        lbl_nombre_pagina = new QLabel(formLayoutWidget);
-        lbl_nombre_pagina->setObjectName(QStringLiteral("lbl_nombre_pagina"));
+        lbl_nombre_cuenta = new QLabel(formLayoutWidget);
+        lbl_nombre_cuenta->setObjectName(QStringLiteral("lbl_nombre_cuenta"));
 
-        layout_formulario->setWidget(1, QFormLayout::LabelRole, lbl_nombre_pagina);
+        layout_formulario->setWidget(1, QFormLayout::LabelRole, lbl_nombre_cuenta);
 
         lineedit_etiqueta = new QLineEdit(formLayoutWidget);
         lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
 
         layout_formulario->setWidget(0, QFormLayout::FieldRole, lineedit_etiqueta);
 
-        lineedit_nombre_pagina = new QLineEdit(formLayoutWidget);
-        lineedit_nombre_pagina->setObjectName(QStringLiteral("lineedit_nombre_pagina"));
+        lineedit_nombre_cuenta = new QLineEdit(formLayoutWidget);
+        lineedit_nombre_cuenta->setObjectName(QStringLiteral("lineedit_nombre_cuenta"));
 
-        layout_formulario->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_pagina);
+        layout_formulario->setWidget(1, QFormLayout::FieldRole, lineedit_nombre_cuenta);
 
         btnbox = new QDialogButtonBox(DialogoEditarCuentaTwitter);
         btnbox->setObjectName(QStringLiteral("btnbox"));
@@ -79,9 +79,9 @@ public:
 
     void retranslateUi(QDialog *DialogoEditarCuentaTwitter)
     {
-        DialogoEditarCuentaTwitter->setWindowTitle(QApplication::translate("DialogoEditarCuentaTwitter", "DialogoEditarCuentaTwitter", Q_NULLPTR));
+        DialogoEditarCuentaTwitter->setWindowTitle(QApplication::translate("DialogoEditarCuentaTwitter", "Editar cuenta de Twitter", Q_NULLPTR));
         lbl_etiqueta->setText(QApplication::translate("DialogoEditarCuentaTwitter", "Etiqueta:", Q_NULLPTR));
-        lbl_nombre_pagina->setText(QApplication::translate("DialogoEditarCuentaTwitter", "Nombre p\303\241gina", Q_NULLPTR));
+        lbl_nombre_cuenta->setText(QApplication::translate("DialogoEditarCuentaTwitter", "Nombre cuenta:", Q_NULLPTR));
     } // retranslateUi
 
 };

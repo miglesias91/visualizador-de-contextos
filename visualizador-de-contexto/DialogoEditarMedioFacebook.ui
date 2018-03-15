@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DialogoEditarMedioFacebook</string>
+   <string>Editar cuenta de Facebook</string>
   </property>
   <widget class="QWidget" name="formLayoutWidget">
    <property name="geometry">
@@ -31,9 +31,9 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="lbl_nombre_cuenta">
+     <widget class="QLabel" name="lbl_nombre_pagina">
       <property name="text">
-       <string>Nombre cuenta</string>
+       <string>Nombre página:</string>
       </property>
      </widget>
     </item>
@@ -41,7 +41,7 @@
      <widget class="QLineEdit" name="lineedit_etiqueta"/>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="lineedit_nombre_cuenta"/>
+     <widget class="QLineEdit" name="lineedit_nombre_pagina"/>
     </item>
    </layout>
   </widget>
