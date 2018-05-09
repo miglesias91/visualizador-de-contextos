@@ -22,6 +22,9 @@ visualizadordecontexto::visualizadordecontexto(QWidget *parent)
 
     visualizador::aplicacion::Logger::marca("INICIO INTERFAZ QT");
 
+    this->ui.btn_fechas->setEnabled(false);
+    this->ui.btn_periodos->setEnabled(false);
+
     this->ui.bar_analizar_ctx->hide();
 }
 
@@ -90,8 +93,8 @@ void visualizadordecontexto::on_action_deshabilitar_menu_triggered()
 {
     this->ui.btn_terminos->setEnabled(false);
     this->ui.btn_conceptos->setEnabled(false);
-    this->ui.btn_fechas->setEnabled(false);
-    this->ui.btn_periodos->setEnabled(false);
+    //this->ui.btn_fechas->setEnabled(false);
+    //this->ui.btn_periodos->setEnabled(false);
     this->ui.btn_medios_twitter->setEnabled(false);
     this->ui.btn_medios_facebook->setEnabled(false);
     this->ui.btn_consulta->setEnabled(false);
@@ -102,8 +105,8 @@ void visualizadordecontexto::on_action_habilitar_menu_triggered()
 {
     this->ui.btn_terminos->setEnabled(true);
     this->ui.btn_conceptos->setEnabled(true);
-    this->ui.btn_fechas->setEnabled(true);
-    this->ui.btn_periodos->setEnabled(true);
+    //this->ui.btn_fechas->setEnabled(true);
+    //this->ui.btn_periodos->setEnabled(true);
     this->ui.btn_medios_twitter->setEnabled(true);
     this->ui.btn_medios_facebook->setEnabled(true);
     this->ui.btn_consulta->setEnabled(true);

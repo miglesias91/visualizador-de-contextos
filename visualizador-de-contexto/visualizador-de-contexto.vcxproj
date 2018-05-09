@@ -112,7 +112,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)Release;$(qt-dir)5.9.1\msvc2015\lib;$(repos-git)almacenamiento\Release;$(repos-git)herramientas_desarrollo\Release;$(repos-git)scraping\Release;$(repos)rocksdb\build_x86\Release;$(repos)cpprestsdk\Binaries\Win32\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;modelo.lib;aplicacion.lib;scraping.lib;depuracion.lib;preparacion.lib;analisis.lib;extraccion.lib;twitter.lib;utiles.lib;log.lib;protocolos.lib;casablanca_wrapper.lib;cpprest141_2_10.lib;WrapperRocksDB.lib;almacenamiento.lib;rocksdb.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;modelo.lib;aplicacion.lib;scraping.lib;depuracion.lib;preparacion.lib;analisis.lib;extraccion.lib;twitter.lib;facebook.lib;utiles.lib;log.lib;protocolos.lib;casablanca_wrapper.lib;cpprest141_2_10.lib;WrapperRocksDB.lib;almacenamiento.lib;rocksdb.lib;Shlwapi.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
