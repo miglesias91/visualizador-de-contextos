@@ -12,7 +12,7 @@
 using namespace visualizador;
 
 DialogoConsultas::DialogoConsultas(QWidget *parent)
-    : QWidget(parent), grafico_fuerza_en_noticia(NULL)
+    : QWidget(parent), grafico_fuerza_en_noticia(NULL), dialogo_resultados(nullptr)
 {
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
@@ -52,6 +52,11 @@ DialogoConsultas::~DialogoConsultas()
     if (NULL != this->grafico_fuerza_en_noticia)
     {
         delete this->grafico_fuerza_en_noticia;
+    }
+    
+    if (nullptr != this->dialogo_resultados)
+    {
+        delete this->dialogo_resultados;
     }
 
     delete ui;
@@ -213,34 +218,38 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
-    gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
+    gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, &resultados_filtrados);
 
     aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
+    this->dialogo_resultados = new DialogoResultadoConsulta(this/*, resultados_filtrados*/);
+    this->dialogo_resultados->show();
 
+    //aplicacion::GestorConsultas gestor_consultas;
+    //gestor_consultas.setMedios(medios_seleccionados);
+    //gestor_consultas.setConceptos(conceptos_seleccionados);
+    //gestor_consultas.setData(resultados);
 
+    //std::vector<graficos::modelo::Individuo*> individuos;
+    //std::vector<graficos::modelo::Categoria*> categorias;
+    //gestor_consultas.fuerzaDeConceptosEnMedios(individuos, categorias);
 
-    aplicacion::GestorConsultas gestor_consultas;
-    gestor_consultas.setMedios(medios_seleccionados);
-    gestor_consultas.setConceptos(conceptos_seleccionados);
-    gestor_consultas.setData(resultados);
+    //if (NULL != this->grafico_fuerza_en_noticia)
+    //{
+    //    delete this->grafico_fuerza_en_noticia;
+    //}
 
-    std::vector<graficos::modelo::Individuo*> individuos;
-    std::vector<graficos::modelo::Categoria*> categorias;
-    gestor_consultas.fuerzaDeConceptosEnMedios(individuos, categorias);
-
-    if (NULL != this->grafico_fuerza_en_noticia)
-    {
-        delete this->grafico_fuerza_en_noticia;
-    }
-
-    this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDMMAAAA("/") + " hasta " + hasta.getStringDDMMAAAA("/"));
-    this->grafico_fuerza_en_noticia->mostrar();
+    //this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDMMAAAA("/") + " hasta " + hasta.getStringDDMMAAAA("/"));
+    //this->grafico_fuerza_en_noticia->mostrar();
 
     for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
     {
         delete *it;
     }
+
+    std::for_each(resultados_filtrados.begin(), resultados_filtrados.end(),
+        [](scraping::preparacion::ResultadoAnalisisDiario* resultado)
+    { delete resultado; });
 }
 
 // carga listas

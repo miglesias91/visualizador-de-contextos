@@ -78,6 +78,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;$(repos)spdlog\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <EnableModules>false</EnableModules>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -88,6 +90,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;$(repos)spdlog\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <EnableModules>false</EnableModules>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,6 +103,8 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;$(repos)spdlog\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -114,6 +120,8 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir);$(repos-git)almacenamiento\;$(repos-git)scraping\;$(repos-git)herramientas_desarrollo\;$(repos)rapidjson\include\;$(repos)spdlog\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

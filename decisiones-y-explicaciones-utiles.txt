@@ -62,5 +62,7 @@ Cerrando dialogo
 USO DE MEMORIA Y RECURSOS
 Cuando se controlan los memory leaks con VLD 2.5.1, en el proyecto 'almacenamiento', con gtest y RocksDB siempre hay un perdida minima de memoria que al parecer esta perdida es agregada por RocksDB, porque aparece con solo abrir y cerrar la bd. Es dificil saber si la perdida es por falsos positivos del VLD, o si efectivamente Rocksdb pierde esa cantidad de memoria al abrir y cerrar la bd. Hay q tener en cuenta que esto es en modo Debug, tal vez en modo Release no se pierde la memoria. De todas formas, los 93 memory leaks son constantes, por lo que puede considerarse aceptable al ser solo 8612 bytes (8,6 kb).
 
+-- actualizacion 11mayo2018: el análisis de sentimientos (clasificacion-de-texto.lib) agregar algunos memory leaks de las librerias externas. Cuando se analiza el contexto, se suman memory leaks fijos, siendo 113 en total.
+
 
 

@@ -117,23 +117,33 @@ void visualizadordecontexto::on_action_habilitar_menu_triggered()
 
 void visualizadordecontexto::analizarCTX()
 {
-    this->emitirProgreso(10);
+    //this->emitirProgreso(10);
 
+    //scraping::aplicacion::GestorTareas::scrapearTwitter();
+    //this->emitirProgreso(25);
+
+    //scraping::aplicacion::GestorTareas::depurarYAnalizarTwitter();
+    //this->emitirProgreso(40);
+    //
+    //scraping::aplicacion::GestorTareas::prepararYAlmacenarTwitter();
+    //this->emitirProgreso(55);
+
+    //scraping::aplicacion::GestorTareas::scrapearFacebook();
+    //this->emitirProgreso(70);
+
+    //scraping::aplicacion::GestorTareas::depurarYAnalizarFacebook();
+    //this->emitirProgreso(85);
+
+    //scraping::aplicacion::GestorTareas::prepararYAlmacenarFacebook();
+    //this->emitirProgreso(100);
+
+    this->emitirProgreso(10);
     scraping::aplicacion::GestorTareas::scrapearTwitter();
     this->emitirProgreso(25);
-
-    scraping::aplicacion::GestorTareas::depurarYAnalizarTwitter();
-    this->emitirProgreso(40);
-    
-    scraping::aplicacion::GestorTareas::prepararYAlmacenarTwitter();
-    this->emitirProgreso(55);
-
     scraping::aplicacion::GestorTareas::scrapearFacebook();
+    this->emitirProgreso(40);
+    scraping::aplicacion::GestorTareas::depurarYAnalizarContenidos();
     this->emitirProgreso(70);
-
-    scraping::aplicacion::GestorTareas::depurarYAnalizarFacebook();
-    this->emitirProgreso(85);
-
-    scraping::aplicacion::GestorTareas::prepararYAlmacenarFacebook();
+    scraping::aplicacion::GestorTareas::prepararYAlmacenarContenidos();
     this->emitirProgreso(100);
 }

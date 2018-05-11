@@ -21,6 +21,7 @@
 
 // visualizador
 #include <visualizador-de-contexto/include/GraficoDeBarras.h>
+#include <visualizador-de-contexto/DialogoResultadoConsulta.h>
 
 #include <declaraciones_metatipos.h>
 
@@ -61,6 +62,8 @@ private:
     Ui::DialogoConsultas *ui;
 
     graficos::GraficoDeBarras * grafico_fuerza_en_noticia;
+
+    DialogoResultadoConsulta * dialogo_resultados;
 
     // carga listas
 
