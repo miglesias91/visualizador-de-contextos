@@ -209,10 +209,16 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
 
-    aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
-
     std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
+
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
+    gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
+
+    aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
+
+
+
 
     aplicacion::GestorConsultas gestor_consultas;
     gestor_consultas.setMedios(medios_seleccionados);

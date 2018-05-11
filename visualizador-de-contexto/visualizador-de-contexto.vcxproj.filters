@@ -116,6 +116,15 @@
     <ClCompile Include="DialogoEditarCuentaTwitter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DialogoResultadoConsulta.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoResultadoConsulta.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoResultadoConsulta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -235,6 +244,12 @@
     <CustomBuild Include="DialogoEditarCuentaTwitter.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="DialogoResultadoConsulta.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DialogoResultadoConsulta.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_visualizadordecontexto.h">
@@ -280,6 +295,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DialogoEditarCuentaTwitter.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DialogoResultadoConsulta.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

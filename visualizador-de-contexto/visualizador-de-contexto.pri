@@ -12,6 +12,8 @@ HEADERS += ./declaraciones_metatipos.h \
     ./DialogoMediosTwitter.h \
     ./DialogoMediosFacebook.h \
     ./DialogoEditarConcepto.h \
+    ./DialogoEditarMedioFacebook.h \
+    ./DialogoEditarCuentaTwitter.h \
     ./DialogoConceptos.h \
     ./DialogoFechas.h \
     ./DialogoPeriodos.h \
@@ -19,14 +21,15 @@ HEADERS += ./declaraciones_metatipos.h \
     ./DialogoTerminos.h \
     ./include/FabricaMensajes.h \
     ./include/GraficoDeBarras.h \
-    ./include/Individuo.h \
     ./include/Categoria.h \
-    ./DialogoEditarMedioFacebook.h \
-    ./DialogoEditarCuentaTwitter.h
+    ./include/Individuo.h \
+    ./DialogoResultadoConsulta.h
 SOURCES += ./main.cpp \
     ./DialogoConceptos.cpp \
     ./DialogoConsultas.cpp \
     ./DialogoEditarConcepto.cpp \
+    ./DialogoEditarCuentaTwitter.cpp \
+    ./DialogoEditarMedioFacebook.cpp \
     ./DialogoFechas.cpp \
     ./DialogoMediosFacebook.cpp \
     ./DialogoMediosTwitter.cpp \
@@ -35,10 +38,9 @@ SOURCES += ./main.cpp \
     ./visualizadordecontexto.cpp \
     ./source/FabricaMensajes.cpp \
     ./source/GraficoDeBarras.cpp \
-    ./source/Individuo.cpp \
     ./source/Categoria.cpp \
-    ./DialogoEditarMedioFacebook.cpp \
-    ./DialogoEditarCuentaTwitter.cpp
+    ./source/Individuo.cpp \
+    ./DialogoResultadoConsulta.cpp
 FORMS += ./visualizadordecontexto.ui \
     ./DialogoTerminos.ui \
     ./DialogoConceptos.ui \
@@ -49,5 +51,6 @@ FORMS += ./visualizadordecontexto.ui \
     ./DialogoMediosFacebook.ui \
     ./DialogoEditarConcepto.ui \
     ./DialogoEditarMedioFacebook.ui \
-    ./DialogoEditarCuentaTwitter.ui
+    ./DialogoEditarCuentaTwitter.ui \
+    ./DialogoResultadoConsulta.ui
 RESOURCES += visualizadordecontexto.qrc

@@ -73,4 +73,56 @@ std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorDatosScraping
     return resultados_entre_rango;
 }
 
+void GestorDatosScraping::recuperarResultados(
+    const herramientas::utiles::Fecha & desde,
+    const herramientas::utiles::Fecha & hasta,
+    const std::vector<visualizador::modelo::Medio*> & medios,
+    const std::vector<visualizador::modelo::Concepto*> & conceptos,
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> * resultados_filtrados)
+{
+    this->admin_datos_scraping->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), resultados_filtrados);
+
+    // elimino los que no estan dentro del rango
+    herramientas::utiles::Fecha copia_desde = desde;
+    herramientas::utiles::Fecha copia_hasta = hasta;
+    resultados_filtrados->erase(
+        std::remove_if(resultados_filtrados->begin(), resultados_filtrados->end(),
+            [&copia_desde, &copia_hasta](scraping::preparacion::ResultadoAnalisisDiario * resultado_diario)
+    {
+        herramientas::utiles::Fecha fecha_resultado = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(resultado_diario->getId()->string());
+
+        if (copia_desde <= fecha_resultado && fecha_resultado <= copia_hasta)
+        {
+            return false;
+        }
+        else
+        {
+            delete resultado_diario;
+            return true;
+        }
+    }),
+        resultados_filtrados->end());
+
+    std::vector<std::string> terminos_a_filtrar;
+
+    std::for_each(conceptos.begin(), conceptos.end(),
+        [&terminos_a_filtrar](visualizador::modelo::Concepto * concepto)
+    {
+        std::vector<visualizador::modelo::Termino*> terminos = concepto->getTerminos();
+
+        std::for_each(terminos.begin(), terminos.end(),
+            [&terminos_a_filtrar](visualizador::modelo::Termino * termino)
+        {
+            terminos_a_filtrar.push_back(termino->getValor());
+        });
+    });
+
+    // filtro los medios de los resultados, y los terminos de los medios.
+    std::for_each(resultados_filtrados->begin(), resultados_filtrados->end(),
+        [&medios, &terminos_a_filtrar](scraping::preparacion::ResultadoAnalisisDiario * resultado)
+    {
+        resultado->filtrar(medios, terminos_a_filtrar);
+    });
+}
+
 // CONSULTAS

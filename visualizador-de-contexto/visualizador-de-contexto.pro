@@ -4,12 +4,12 @@
 
 TEMPLATE = app
 TARGET = visualizador-de-contexto
-DESTDIR = ../Win32/Debug
+DESTDIR = ../Win32/Release
 QT += core gui widgets
-CONFIG += debug
+CONFIG += release
 DEFINES += QT_WIDGETS_LIB
-INCLUDEPATH += . \
-    ./GeneratedFiles \
+INCLUDEPATH += ./GeneratedFiles \
+    . \
     $(qt-dir)5.9.1/msvc2015/include \
     ./GeneratedFiles/$(ConfigurationName) \
     $(qt-dir)5.9.1/msvc2015/include/QtCore \
@@ -21,13 +21,13 @@ INCLUDEPATH += . \
     $(repos-git)scraping \
     $(repos)rapidjson/include \
     $(repos)spdlog/include
-LIBS += -L"$(SolutionDir)Debug" \
+LIBS += -L"$(SolutionDir)Release" \
     -L"$(qt-dir)5.9.1/msvc2015/lib" \
-    -L"$(repos-git)almacenamiento/Debug" \
-    -L"$(repos-git)herramientas_desarrollo/Debug" \
-    -L"$(repos-git)scraping/Debug" \
-    -L"$(repos)rocksdb/build_x86/Debug" \
-    -L"$(repos)cpprestsdk/Binaries/Win32/Debug" \
+    -L"$(repos-git)almacenamiento/Release" \
+    -L"$(repos-git)herramientas_desarrollo/Release" \
+    -L"$(repos-git)scraping/Release" \
+    -L"$(repos)rocksdb/build_x86/Release" \
+    -L"$(repos)cpprestsdk/Binaries/Win32/Release" \
     -lmodelo \
     -laplicacion \
     -lscraping \
@@ -41,15 +41,15 @@ LIBS += -L"$(SolutionDir)Debug" \
     -llog \
     -lprotocolos \
     -lcasablanca_wrapper \
-    -lcpprest141d_2_10 \
-    -lalmacenamiento \
+    -lcpprest141_2_10 \
     -lWrapperRocksDB \
+    -lalmacenamiento \
     -lrocksdb \
     -lShlwapi \
     -lRpcrt4
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
-OBJECTS_DIR += debug
+OBJECTS_DIR += release
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(visualizador-de-contexto.pri)
