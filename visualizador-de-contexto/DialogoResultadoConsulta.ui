@@ -59,9 +59,21 @@
        <height>391</height>
       </rect>
      </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
      <property name="showGrid">
       <bool>true</bool>
      </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+      <bool>true</bool>
+     </attribute>
     </widget>
    </widget>
    <widget class="QWidget" name="pestania_2">
@@ -78,8 +90,6 @@
       </rect>
      </property>
     </widget>
-    <zorder>sentimiento</zorder>
-    <zorder>fechas</zorder>
    </widget>
   </widget>
   <widget class="QSlider" name="fechas">

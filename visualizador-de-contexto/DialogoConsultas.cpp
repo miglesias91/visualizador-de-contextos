@@ -53,11 +53,6 @@ DialogoConsultas::~DialogoConsultas()
     {
         delete this->grafico_fuerza_en_noticia;
     }
-    
-    if (nullptr != this->dialogo_resultados)
-    {
-        delete this->dialogo_resultados;
-    }
 
     delete ui;
 }
@@ -222,7 +217,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
 
     aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
-    this->dialogo_resultados = new DialogoResultadoConsulta(this/*, resultados_filtrados*/);
+    this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
     this->dialogo_resultados->show();
 
     //aplicacion::GestorConsultas gestor_consultas;
