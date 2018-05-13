@@ -53,7 +53,11 @@ public:
         fuerza_en_noticia = new QTableWidget(pestania_1);
         fuerza_en_noticia->setObjectName(QStringLiteral("fuerza_en_noticia"));
         fuerza_en_noticia->setGeometry(QRect(0, 0, 611, 391));
+        fuerza_en_noticia->setAlternatingRowColors(true);
+        fuerza_en_noticia->setSelectionMode(QAbstractItemView::SingleSelection);
         fuerza_en_noticia->setShowGrid(true);
+        fuerza_en_noticia->setSortingEnabled(true);
+        fuerza_en_noticia->horizontalHeader()->setProperty("showSortIndicator", QVariant(true));
         analisis->addTab(pestania_1, QString());
         pestania_2 = new QWidget();
         pestania_2->setObjectName(QStringLiteral("pestania_2"));
@@ -61,7 +65,6 @@ public:
         sentimiento->setObjectName(QStringLiteral("sentimiento"));
         sentimiento->setGeometry(QRect(0, 0, 611, 391));
         analisis->addTab(pestania_2, QString());
-        sentimiento->raise();
         fechas = new QSlider(DialogoResultadoConsulta);
         fechas->setObjectName(QStringLiteral("fechas"));
         fechas->setGeometry(QRect(10, 430, 611, 22));
@@ -78,7 +81,7 @@ public:
 
         retranslateUi(DialogoResultadoConsulta);
 
-        analisis->setCurrentIndex(0);
+        analisis->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(DialogoResultadoConsulta);

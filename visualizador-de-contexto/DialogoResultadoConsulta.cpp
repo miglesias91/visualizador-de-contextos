@@ -17,6 +17,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     QStringList etiquetas_medios;
 
     // rescato los nombres de columnas(medios),
+    etiquetas_medios.push_back("#");
     std::for_each(medios.begin(), medios.end(),
         [&etiquetas_medios](modelo::Medio * medio)
     {
@@ -40,8 +41,11 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     std::for_each(resultados.begin(), resultados.end(),
         [this, &etiquetas_terminos, &etiquetas_medios, &medios](scraping::preparacion::ResultadoAnalisisDiario * resultado)
     {
-        QTableWidget * sentimiento = new QTableWidget(etiquetas_terminos.size(), etiquetas_medios.size(), this->ui->pestania_2);
-        QTableWidget * fuerza_en_noticia = new QTableWidget(etiquetas_terminos.size(), etiquetas_medios.size(), this->ui->pestania_1);
+        //QTableWidget * sentimiento = new QTableWidget(etiquetas_terminos.size(), etiquetas_medios.size(), this->ui->pestania_2);
+        //QTableWidget * fuerza_en_noticia = new QTableWidget(etiquetas_terminos.size(), etiquetas_medios.size(), this->ui->pestania_1);
+        QTreeWidget * sentimiento = new QTreeWidget(this->ui->pestania_2);
+        QTreeWidget * fuerza_en_noticia = new QTreeWidget(this->ui->pestania_1);
+
 
         this->sentimientos[resultado->getId()->numero()] = sentimiento;
         this->fuerzas_en_noticia[resultado->getId()->numero()] = fuerza_en_noticia;
@@ -49,26 +53,32 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
         QSize tamanio_tabla = this->ui->sentimiento->size();
         QPoint posicion_tabla = this->ui->sentimiento->pos();
 
-        std::for_each(medios.begin(), medios.end(),
-            [&etiquetas_terminos, &resultado, &sentimiento, &fuerza_en_noticia](modelo::Medio * medio)
-        {
-            std::for_each(etiquetas_terminos.begin(), etiquetas_terminos.end(),
-                [&resultado, &medio, &sentimiento, &fuerza_en_noticia](std::string termino)
-            {
-                double fuerza = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoFuerzaEnNoticia()->getFuerza(termino);
+        //std::for_each(medios.begin(), medios.end(),
+        //    [&etiquetas_terminos, &resultado, &sentimiento, &fuerza_en_noticia](modelo::Medio * medio)
+        //{
+        //    std::for_each(etiquetas_terminos.begin(), etiquetas_terminos.end(),
+        //        [&resultado, &medio, &sentimiento, &fuerza_en_noticia](std::string termino)
+        //    {
+        //        double fuerza = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoFuerzaEnNoticia()->getFuerza(termino);
 
-            });
-        });
+        //    });
+        //});
 
-        fuerza_en_noticia->setHorizontalHeaderLabels(etiquetas_medios);
-        fuerza_en_noticia->setVerticalHeaderLabels(etiquetas_terminos);
+        QTreeWidgetItem * item = new QTreeWidgetItem(etiquetas_terminos);
+        fuerza_en_noticia->setHeaderLabels(etiquetas_medios);
+        //fuerza_en_noticia->setVerticalHeaderLabels(etiquetas_terminos);
         fuerza_en_noticia->setFixedSize(tamanio_tabla);
         fuerza_en_noticia->move(posicion_tabla);
+        fuerza_en_noticia->setColumnCount(etiquetas_medios.size());
+        fuerza_en_noticia->insertTopLevelItem(0, item);
 
-        sentimiento->setHorizontalHeaderLabels(etiquetas_medios);
-        sentimiento->setVerticalHeaderLabels(etiquetas_terminos);
+        QTreeWidgetItem * item_2 = new QTreeWidgetItem(etiquetas_terminos);
+        sentimiento->setHeaderLabels(etiquetas_medios);
+        //sentimiento->setVerticalHeaderLabels(etiquetas_terminos);
         sentimiento->setFixedSize(tamanio_tabla);
         sentimiento->move(posicion_tabla);
+        sentimiento->setColumnCount(etiquetas_medios.size());
+        sentimiento->insertTopLevelItem(0, item_2);
     });
 
     this->sentimientos.begin()->second->show();
@@ -81,8 +91,8 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
 
 DialogoResultadoConsulta::~DialogoResultadoConsulta()
 {
-    std::for_each(this->sentimientos.begin(), this->sentimientos.end(), [](std::pair<unsigned long long int, QTableWidget*> id_y_tabla) { delete id_y_tabla.second; });
-    std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(), [](std::pair<unsigned long long int, QTableWidget*> id_y_tabla) { delete id_y_tabla.second; });
+    std::for_each(this->sentimientos.begin(), this->sentimientos.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
+    std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
 
     delete ui;
 }

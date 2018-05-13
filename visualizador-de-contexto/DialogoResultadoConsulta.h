@@ -2,7 +2,7 @@
 
 // qt
 #include <QWidget>
-#include <qtablewidget.h>
+#include <qtreewidget.h>
 
 // aplicacion
 #include <aplicacion/include/GestorDatosScraping.h>
@@ -29,6 +29,6 @@ private:
     std::vector<modelo::Concepto*> conceptos;
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados;
 
-    std::unordered_map<unsigned long long int, QTableWidget*> sentimientos;
-    std::unordered_map<unsigned long long int, QTableWidget*> fuerzas_en_noticia;
+    std::unordered_map<unsigned long long int, QTreeWidget*> sentimientos;
+    std::unordered_map<unsigned long long int, QTreeWidget*> fuerzas_en_noticia;
 };
