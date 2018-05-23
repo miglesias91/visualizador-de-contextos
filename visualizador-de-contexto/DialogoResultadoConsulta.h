@@ -24,6 +24,10 @@ public:
 private:
     Ui::DialogoResultadoConsulta *ui;
 
+    // metodos privados
+    QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha);
+    QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha);
+
     // atributos
     std::vector<modelo::Medio*> medios;
     std::vector<modelo::Concepto*> conceptos;
