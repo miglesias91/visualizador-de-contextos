@@ -13,6 +13,11 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
+    QObject::connect(this->ui->fechas, &QAbstractSlider::sliderMoved, this, &DialogoResultadoConsulta::mostrar_resultado); 
+
+    this->ui->fechas->setMaximum((*(resultados.end() - 1))->getId()->numero());
+    this->ui->fechas->setMinimum((*resultados.begin())->getId()->numero());
+
     QStringList etiquetas_terminos;
     QStringList etiquetas_medios;
 
@@ -44,103 +49,110 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
         QTreeWidget * sentimiento = this->nuevo_arbol_sentimiento(resultado->getId()->numero());
         QTreeWidget * fuerza_en_noticia = this->nuevo_arbol_fuerza_en_noticia(resultado->getId()->numero());
 
+        sentimiento->setHeaderLabels(etiquetas_medios);
+        fuerza_en_noticia->setHeaderLabels(etiquetas_medios);
+
+        this->sentimientos[resultado->getId()->numero()] = sentimiento;
+        this->fuerzas_en_noticia[resultado->getId()->numero()] = fuerza_en_noticia;
 
         std::for_each(conceptos.begin(), conceptos.end(),
-            [&resultado, &sentimiento, &fuerza_en_noticia, &medios](modelo::Concepto * concepto)
+            [&resultado,
+            &sentimiento,
+            &fuerza_en_noticia,
+            &medios]
+        (modelo::Concepto * concepto)
         {
-            std::for_each(medios.begin(), medios.end(),
-                [&resultado, &sentimiento, &fuerza_en_noticia, &concepto](modelo::Medio * medio)
-            {
-                QStringList valores_sentimiento_concepto_en_medio(concepto->getEtiqueta().c_str());
-                QStringList valores_fuerza_en_noticia_concepto_en_medio(concepto->getEtiqueta().c_str());
-                
-                std::vector<modelo::Termino*> terminos = concepto->getTerminos();
-                std::for_each(terminos.begin(), terminos.end(),
-                    [&resultado, &medio, &valores_sentimiento_concepto_en_medio, &valores_fuerza_en_noticia_concepto_en_medio](modelo::Termino * termino)
-                {
-                    std::string palabra = termino->getValor();
+            QTreeWidgetItem * concepto_sentimiento = new QTreeWidgetItem(sentimiento);
+            QTreeWidgetItem * concepto_fuerza_en_noticia = new QTreeWidgetItem(fuerza_en_noticia);
 
-                    double resultado_fuerza = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoFuerzaEnNoticia()->getFuerza(palabra);
-                    std::string resultado_sentimiento = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoSentimiento()->valores(palabra).informar();
-
-                    valores_sentimiento_concepto_en_medio.push_back(resultado_sentimiento.c_str());
-                    valores_fuerza_en_noticia_concepto_en_medio.push_back(std::to_string(resultado_fuerza).c_str());
-                });
-
-            });
-
-        });
-        std::for_each(conceptos.begin(), conceptos.end(),
-            [&sentimiento, &fuerza_en_noticia, &medios, &resultado](modelo::Concepto * concepto)
-        {
-            QStringList string_concepto;
-            string_concepto.push_back(concepto->getEtiqueta().c_str());
-
-            QTreeWidgetItem * concepto_sentimiento = new QTreeWidgetItem(sentimiento, string_concepto);
-            QTreeWidgetItem * concepto_fuerza_en_noticia = new QTreeWidgetItem(fuerza_en_noticia, string_concepto);
+            QStringList valores_sentimiento_concepto_en_medio(concepto->getEtiqueta().c_str());
+            QStringList valores_fuerza_en_noticia_concepto_en_medio(concepto->getEtiqueta().c_str());
 
             std::vector<modelo::Termino*> terminos = concepto->getTerminos();
-
             std::for_each(terminos.begin(), terminos.end(),
-                [&concepto_sentimiento, &concepto_fuerza_en_noticia, &medios, &resultado](modelo::Termino * termino)
+                [&resultado,
+                &medios,
+                &sentimiento,
+                &fuerza_en_noticia,
+                &valores_sentimiento_concepto_en_medio,
+                &valores_fuerza_en_noticia_concepto_en_medio,
+                &concepto_sentimiento,
+                &concepto_fuerza_en_noticia]
+            (modelo::Termino * termino)
             {
-                std::string string_termino = termino->getValor();
+                std::string palabra = termino->getValor();
 
-                QStringList resultados_sentimientos_termino(string_termino.c_str());
-                QStringList resultados_fuerza_en_noticia_termino(string_termino.c_str());
+                QStringList valores_sentimiento_termino_en_medio(palabra.c_str());
+                QStringList valores_fuerza_en_noticia_termino_en_medio(palabra.c_str());
 
+                scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento  valor_sentimiento_concepto_en_medio;
+                double valor_fuerza_en_noticia_en_medio = 0.0f;
                 std::for_each(medios.begin(), medios.end(),
-                    [&resultado, &resultados_sentimientos_termino, &resultados_fuerza_en_noticia_termino, string_termino](modelo::Medio * medio)
+                    [&resultado,
+                    &sentimiento,
+                    &fuerza_en_noticia,
+                    &palabra,
+                    &valores_sentimiento_termino_en_medio,
+                    &valores_fuerza_en_noticia_termino_en_medio,
+                    &valor_sentimiento_concepto_en_medio,
+                    &valor_fuerza_en_noticia_en_medio]
+                (modelo::Medio * medio)
                 {
-                    double resultado_fuerza = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoFuerzaEnNoticia()->getFuerza(string_termino);
-                    scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoSentimiento()->valores(string_termino);
-                    std::string resultado_sentimiento = sentimiento.informar();
+                    double resultado_fuerza = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoFuerzaEnNoticia()->getFuerza(palabra);
+                    scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento valoraciones = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoSentimiento()->valores(palabra);
 
-                    resultados_fuerza_en_noticia_termino.push_back(std::to_string(resultado_fuerza).c_str());
-                    resultados_sentimientos_termino.push_back(resultado_sentimiento.c_str());
+                    valores_sentimiento_termino_en_medio.push_back(valoraciones.informar().c_str());
+                    valores_fuerza_en_noticia_termino_en_medio.push_back(std::to_string(resultado_fuerza).c_str());
+
+                    // acumulo el valor para el concepto
+                    valor_sentimiento_concepto_en_medio += valoraciones;
+                    valores_fuerza_en_noticia_termino_en_medio += valores_fuerza_en_noticia_termino_en_medio;
                 });
 
-                string_termino.push_back(QString(termino->getValor().c_str()));
+                valores_sentimiento_concepto_en_medio.push_back(valor_sentimiento_concepto_en_medio.informar().c_str());
+                valores_fuerza_en_noticia_concepto_en_medio.push_back(std::to_string(valor_fuerza_en_noticia_en_medio).c_str());
 
-                QTreeWidgetItem * termino_sentimiento = new QTreeWidgetItem(concepto_sentimiento, string_termino);
-                QTreeWidgetItem * termino_fuerza_en_noticia = new QTreeWidgetItem(concepto_fuerza_en_noticia, string_termino);
+                QTreeWidgetItem * termino_sentimiento = new QTreeWidgetItem(concepto_sentimiento, valores_sentimiento_termino_en_medio);
+                QTreeWidgetItem * termino_fuerza_en_noticia = new QTreeWidgetItem(concepto_fuerza_en_noticia, valores_fuerza_en_noticia_termino_en_medio);
+            });
+
+            // agrego los valores de sentimiento del concepto,
+            unsigned int i = 0;
+            std::for_each(valores_sentimiento_concepto_en_medio.begin(), valores_sentimiento_concepto_en_medio.end(),
+                [&concepto_sentimiento, &i](QString valor)
+            {
+                concepto_sentimiento->setText(i, valor);
+                i++;
+            });
+
+            // agrego los valores de fuerza en noticia.
+            i = 0;
+            std::for_each(valores_fuerza_en_noticia_concepto_en_medio.begin(), valores_fuerza_en_noticia_concepto_en_medio.end(),
+                [&concepto_fuerza_en_noticia, &i](QString valor)
+            {
+                concepto_fuerza_en_noticia->setText(i, valor);
+                i++;
             });
         });
 
-        //std::for_each(medios.begin(), medios.end(),
-        //    [&etiquetas_terminos, &resultado, &sentimiento, &fuerza_en_noticia](modelo::Medio * medio)
-        //{
-        //    std::for_each(etiquetas_terminos.begin(), etiquetas_terminos.end(),
-        //        [&resultado, &medio, &sentimiento, &fuerza_en_noticia](std::string termino)
-        //    {
-        //        double fuerza = resultado->getResultadoMedio(medio->getMedioAScrapear()->getId()->numero())->getResultadoFuerzaEnNoticia()->getFuerza(termino);
-
-        //    });
-        //});
-
-        //QTreeWidgetItem * item = new QTreeWidgetItem(etiquetas_terminos);
         fuerza_en_noticia->setHeaderLabels(etiquetas_medios);
-        //fuerza_en_noticia->setVerticalHeaderLabels(etiquetas_terminos);
-        fuerza_en_noticia->setFixedSize(this->ui->sentimiento->size());
-        fuerza_en_noticia->move(this->ui->sentimiento->pos());
+        fuerza_en_noticia->setFixedSize(this->ui->fuerza_en_noticia_vacio->size());
+        fuerza_en_noticia->move(this->ui->fuerza_en_noticia_vacio->pos());
         fuerza_en_noticia->setColumnCount(etiquetas_medios.size());
-        //fuerza_en_noticia->insertTopLevelItem(0, item);
+        fuerza_en_noticia->show();
 
-        //QTreeWidgetItem * item_2 = new QTreeWidgetItem(etiquetas_terminos);
         sentimiento->setHeaderLabels(etiquetas_medios);
-        //sentimiento->setVerticalHeaderLabels(etiquetas_terminos);
-        sentimiento->setFixedSize(this->ui->sentimiento->size());
-        sentimiento->move(this->ui->sentimiento->pos());
+        sentimiento->setFixedSize(this->ui->sentimiento_vacio->size());
+        sentimiento->move(this->ui->sentimiento_vacio->pos());
         sentimiento->setColumnCount(etiquetas_medios.size());
-        //sentimiento->insertTopLevelItem(0, item_2);
+        sentimiento->show();
     });
 
-    this->sentimientos.begin()->second->show();
-    this->fuerzas_en_noticia.begin()->second->show();
+    this->mostrar_resultado((*resultados.begin())->getId()->numero());
 
-    this->ui->fuerza_en_noticia->setVisible(false);
-
-    this->ui->sentimiento->setVisible(false);
+    std::string string_fecha_minima = std::to_string((*resultados.begin())->getId()->numero());
+    std::string string_fecha_maxima = std::to_string((*(resultados.end() - 1))->getId()->numero());
+    this->ui->calendario->setDateRange(QDate::fromString(string_fecha_minima.c_str(), "yyyyMMdd"), QDate::fromString(string_fecha_maxima.c_str(), "yyyyMMdd"));
 }
 
 DialogoResultadoConsulta::~DialogoResultadoConsulta()
@@ -163,4 +175,24 @@ QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_fuerza_en_noticia(const unsi
     QTreeWidget * fuerza_en_noticia = new QTreeWidget(this->ui->pestania_1);
     this->fuerzas_en_noticia[fecha] = fuerza_en_noticia;
     return fuerza_en_noticia;
+}
+
+void DialogoResultadoConsulta::mostrar_resultado(int fecha) {
+
+    if (this->fuerzas_en_noticia.count(fecha)) {
+        this->fuerzas_en_noticia[fecha]->raise();
+    }
+    else {
+        this->ui->fuerza_en_noticia_vacio->raise();
+    }
+
+    if (this->sentimientos.count(fecha)) {
+        this->sentimientos[fecha]->raise();
+    }
+    else {
+        this->ui->sentimiento_vacio->raise();
+    }
+
+    std::string string_fecha = std::to_string(fecha);
+    this->ui->calendario->setDate(QDate::fromString(string_fecha.c_str(), "yyyyMMdd"));
 }

@@ -50,7 +50,7 @@
     <attribute name="title">
      <string>Fuerza en noticia</string>
     </attribute>
-    <widget class="QTableWidget" name="fuerza_en_noticia">
+    <widget class="QWidget" name="fuerza_en_noticia_vacio" native="true">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -59,28 +59,35 @@
        <height>391</height>
       </rect>
      </property>
-     <property name="alternatingRowColors">
+     <property name="autoFillBackground">
       <bool>true</bool>
      </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="showGrid">
-      <bool>true</bool>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
-     </property>
-     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-      <bool>true</bool>
-     </attribute>
+     <widget class="QLabel" name="lbl_sin_valores_1">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>70</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>50</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>sin valores</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="pestania_2">
     <attribute name="title">
      <string>Sentimiento</string>
     </attribute>
-    <widget class="QTableWidget" name="sentimiento">
+    <widget class="QWidget" name="sentimiento_vacio" native="true">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -89,6 +96,28 @@
        <height>391</height>
       </rect>
      </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <widget class="QLabel" name="lbl_sin_valores_2">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>70</y>
+        <width>291</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Calibri</family>
+        <pointsize>50</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>sin valores</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -123,7 +152,7 @@
     <number>1</number>
    </property>
   </widget>
-  <widget class="QDateEdit" name="dateEdit">
+  <widget class="QDateEdit" name="calendario">
    <property name="geometry">
     <rect>
      <x>260</x>
