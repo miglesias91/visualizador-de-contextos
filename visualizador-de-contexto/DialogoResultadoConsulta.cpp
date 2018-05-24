@@ -13,10 +13,63 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
-    QObject::connect(this->ui->fechas, &QAbstractSlider::sliderMoved, this, &DialogoResultadoConsulta::mostrar_resultado); 
+    QObject::connect(this->ui->anios, &QAbstractSlider::sliderMoved, this, &DialogoResultadoConsulta::mostrar_resultado_anio);
+    QObject::connect(this->ui->meses, &QAbstractSlider::sliderMoved, this, &DialogoResultadoConsulta::mostrar_resultado_mes);
+    QObject::connect(this->ui->dias, &QAbstractSlider::sliderMoved, this, &DialogoResultadoConsulta::mostrar_resultado_dia);
 
-    this->ui->fechas->setMaximum((*(resultados.end() - 1))->getId()->numero());
-    this->ui->fechas->setMinimum((*resultados.begin())->getId()->numero());
+    this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
+
+    this->completar_arbol(medios, conceptos, resultados);
+
+    this->mostrar_resultado((*resultados.begin())->getId()->numero());
+
+    std::string string_fecha_minima = std::to_string((*resultados.begin())->getId()->numero());
+    herramientas::utiles::Fecha fecha_minima = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(string_fecha_minima);
+    this->fecha_actual = fecha_minima;
+
+    std::string string_fecha_maxima = std::to_string((*(resultados.end() - 1))->getId()->numero());
+    herramientas::utiles::Fecha fecha_maxima = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(string_fecha_maxima);
+
+    this->ui->anios->setMinimum(fecha_minima.getAnio());
+    this->ui->anios->setMaximum(fecha_maxima.getAnio());
+    this->ui->anios->setSliderPosition(fecha_minima.getAnio());
+
+    if (0 == fecha_maxima.getAnio() - fecha_minima.getAnio()) {
+        this->ui->meses->setMinimum(fecha_minima.getMes());
+        this->ui->meses->setMaximum(fecha_maxima.getMes());
+        this->ui->meses->setSliderPosition(fecha_minima.getMes());
+    }
+    else {
+        this->ui->meses->setMinimum(1);
+        this->ui->meses->setMaximum(12);
+        this->ui->meses->setSliderPosition(1);
+    }
+
+    if (0 == fecha_maxima.getMes() - fecha_minima.getMes()) {
+        this->ui->dias->setMinimum(fecha_minima.getDia());
+        this->ui->dias->setMaximum(fecha_maxima.getDia());
+    }
+    else {
+        this->ui->dias->setMinimum(1);
+        this->ui->dias->setMaximum(31);
+        this->ui->dias->setSliderPosition(1);
+    }
+
+    this->ui->calendario->setDateRange(QDate::fromString(string_fecha_minima.c_str(), "yyyyMMdd"), QDate::fromString(string_fecha_maxima.c_str(), "yyyyMMdd"));
+    this->ui->calendario->setDate(QDate::fromString(string_fecha_minima.c_str(), "yyyyMMdd"));
+
+    this->mostrar_resultado(std::stoi(string_fecha_minima));
+}
+
+DialogoResultadoConsulta::~DialogoResultadoConsulta()
+{
+    std::for_each(this->sentimientos.begin(), this->sentimientos.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
+    std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
+
+    delete ui;
+}
+
+void DialogoResultadoConsulta::completar_arbol(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados) {
 
     QStringList etiquetas_terminos;
     QStringList etiquetas_medios;
@@ -147,20 +200,6 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
         sentimiento->setColumnCount(etiquetas_medios.size());
         sentimiento->show();
     });
-
-    this->mostrar_resultado((*resultados.begin())->getId()->numero());
-
-    std::string string_fecha_minima = std::to_string((*resultados.begin())->getId()->numero());
-    std::string string_fecha_maxima = std::to_string((*(resultados.end() - 1))->getId()->numero());
-    this->ui->calendario->setDateRange(QDate::fromString(string_fecha_minima.c_str(), "yyyyMMdd"), QDate::fromString(string_fecha_maxima.c_str(), "yyyyMMdd"));
-}
-
-DialogoResultadoConsulta::~DialogoResultadoConsulta()
-{
-    std::for_each(this->sentimientos.begin(), this->sentimientos.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
-    std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
-
-    delete ui;
 }
 
 QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha)
@@ -192,7 +231,46 @@ void DialogoResultadoConsulta::mostrar_resultado(int fecha) {
     else {
         this->ui->sentimiento_vacio->raise();
     }
+}
 
-    std::string string_fecha = std::to_string(fecha);
-    this->ui->calendario->setDate(QDate::fromString(string_fecha.c_str(), "yyyyMMdd"));
+void DialogoResultadoConsulta::mostrar_resultado_anio(int anio) {
+
+    std::string fecha = std::to_string(anio) + this->fecha_actual.getStringMes() + this->fecha_actual.getStringDia();
+
+    this->mostrar_resultado(std::stoi(fecha));
+
+    this->fecha_actual.setAnio(anio);
+    this->ui->calendario->setDate(QDate::fromString(this->fecha_actual.getStringAAAAMMDD().c_str(), "yyyyMMdd"));
+}
+
+void DialogoResultadoConsulta::mostrar_resultado_mes(int mes) {
+
+    std::string fecha = this->fecha_actual.getStringAnio() + std::to_string(mes) + this->fecha_actual.getStringDia();
+
+    this->mostrar_resultado(std::stoi(fecha));
+
+    this->fecha_actual.setMes(mes);
+    this->ui->calendario->setDate(QDate::fromString(this->fecha_actual.getStringAAAAMMDD().c_str(), "yyyyMMdd"));
+
+    
+    if (std::count(this->meses_con_treinta_dias.begin(), this->meses_con_treinta_dias.end(), mes)) {
+        this->ui->dias->setMaximum(30);
+
+        if (2 == mes) {
+            this->ui->dias->setMaximum(29);
+        }
+    }
+    else {
+        this->ui->dias->setMaximum(31);
+    }
+}
+
+void DialogoResultadoConsulta::mostrar_resultado_dia(int dia) {
+
+    std::string fecha = this->fecha_actual.getStringAnio() + this->fecha_actual.getStringMes() + std::to_string(dia);
+
+    this->mostrar_resultado(std::stoi(fecha));
+
+    this->fecha_actual.setDia(dia);
+    this->ui->calendario->setDate(QDate::fromString(this->fecha_actual.getStringAAAAMMDD().c_str(), "yyyyMMdd"));
 }

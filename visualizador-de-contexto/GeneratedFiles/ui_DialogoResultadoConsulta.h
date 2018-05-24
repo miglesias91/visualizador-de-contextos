@@ -32,14 +32,16 @@ public:
     QWidget *pestania_2;
     QWidget *sentimiento_vacio;
     QLabel *lbl_sin_valores_2;
-    QSlider *fechas;
+    QSlider *anios;
     QDateEdit *calendario;
+    QSlider *meses;
+    QSlider *dias;
 
     void setupUi(QWidget *DialogoResultadoConsulta)
     {
         if (DialogoResultadoConsulta->objectName().isEmpty())
             DialogoResultadoConsulta->setObjectName(QStringLiteral("DialogoResultadoConsulta"));
-        DialogoResultadoConsulta->resize(633, 489);
+        DialogoResultadoConsulta->resize(633, 542);
         analisis = new QTabWidget(DialogoResultadoConsulta);
         analisis->setObjectName(QStringLiteral("analisis"));
         analisis->setGeometry(QRect(10, 10, 611, 421));
@@ -75,19 +77,45 @@ public:
         lbl_sin_valores_2->setGeometry(QRect(160, 70, 291, 201));
         lbl_sin_valores_2->setFont(font);
         analisis->addTab(pestania_2, QString());
-        fechas = new QSlider(DialogoResultadoConsulta);
-        fechas->setObjectName(QStringLiteral("fechas"));
-        fechas->setGeometry(QRect(10, 430, 611, 22));
-        fechas->setMaximum(99);
-        fechas->setTracking(true);
-        fechas->setOrientation(Qt::Horizontal);
-        fechas->setInvertedAppearance(false);
-        fechas->setInvertedControls(false);
-        fechas->setTickPosition(QSlider::TicksAbove);
-        fechas->setTickInterval(1);
+        anios = new QSlider(DialogoResultadoConsulta);
+        anios->setObjectName(QStringLiteral("anios"));
+        anios->setGeometry(QRect(10, 510, 611, 22));
+        anios->setMaximum(1);
+        anios->setTracking(true);
+        anios->setOrientation(Qt::Horizontal);
+        anios->setInvertedAppearance(false);
+        anios->setInvertedControls(false);
+        anios->setTickPosition(QSlider::TicksAbove);
+        anios->setTickInterval(1);
         calendario = new QDateEdit(DialogoResultadoConsulta);
         calendario->setObjectName(QStringLiteral("calendario"));
-        calendario->setGeometry(QRect(260, 460, 110, 22));
+        calendario->setGeometry(QRect(260, 435, 110, 22));
+        calendario->setWrapping(false);
+        calendario->setFrame(true);
+        calendario->setReadOnly(false);
+        calendario->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
+        calendario->setAccelerated(true);
+        calendario->setCurrentSection(QDateTimeEdit::YearSection);
+        meses = new QSlider(DialogoResultadoConsulta);
+        meses->setObjectName(QStringLiteral("meses"));
+        meses->setGeometry(QRect(10, 485, 611, 22));
+        meses->setMaximum(1);
+        meses->setTracking(true);
+        meses->setOrientation(Qt::Horizontal);
+        meses->setInvertedAppearance(false);
+        meses->setInvertedControls(false);
+        meses->setTickPosition(QSlider::TicksAbove);
+        meses->setTickInterval(1);
+        dias = new QSlider(DialogoResultadoConsulta);
+        dias->setObjectName(QStringLiteral("dias"));
+        dias->setGeometry(QRect(10, 460, 611, 22));
+        dias->setMaximum(1);
+        dias->setTracking(true);
+        dias->setOrientation(Qt::Horizontal);
+        dias->setInvertedAppearance(false);
+        dias->setInvertedControls(false);
+        dias->setTickPosition(QSlider::TicksAbove);
+        dias->setTickInterval(1);
 
         retranslateUi(DialogoResultadoConsulta);
 

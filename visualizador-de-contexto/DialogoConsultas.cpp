@@ -207,7 +207,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
 
     herramientas::utiles::Fecha desde(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year());
     herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
-    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
+    //std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
 
     std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
@@ -215,7 +215,7 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
     gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, &resultados_filtrados);
 
-    aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
+    aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
     this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
     this->dialogo_resultados->show();
@@ -237,10 +237,10 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     //this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDMMAAAA("/") + " hasta " + hasta.getStringDDMMAAAA("/"));
     //this->grafico_fuerza_en_noticia->mostrar();
 
-    for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
-    {
-        delete *it;
-    }
+    //for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
+    //{
+    //    delete *it;
+    //}
 
     std::for_each(resultados_filtrados.begin(), resultados_filtrados.end(),
         [](scraping::preparacion::ResultadoAnalisisDiario* resultado)

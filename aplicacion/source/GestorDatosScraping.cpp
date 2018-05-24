@@ -106,35 +106,35 @@ void GestorDatosScraping::recuperarResultados(
         resultados_filtrados->end());
 
     // junto los ids de los terminos
-    std::vector<std::string> terminos_a_filtrar;
-    std::for_each(conceptos.begin(), conceptos.end(),
-        [&terminos_a_filtrar](visualizador::modelo::Concepto * concepto)
-    {
-        std::vector<visualizador::modelo::Termino*> terminos = concepto->getTerminos();
+    //std::vector<std::string> terminos_a_filtrar;
+    //std::for_each(conceptos.begin(), conceptos.end(),
+    //    [&terminos_a_filtrar](visualizador::modelo::Concepto * concepto)
+    //{
+    //    std::vector<visualizador::modelo::Termino*> terminos = concepto->getTerminos();
 
-        std::for_each(terminos.begin(), terminos.end(),
-            [&terminos_a_filtrar](visualizador::modelo::Termino * termino)
-        {
-            terminos_a_filtrar.push_back(termino->getValor());
-        });
-    });
+    //    std::for_each(terminos.begin(), terminos.end(),
+    //        [&terminos_a_filtrar](visualizador::modelo::Termino * termino)
+    //    {
+    //        terminos_a_filtrar.push_back(termino->getValor());
+    //    });
+    //});
 
-    // junto los ids de los medios
-    std::vector<unsigned long long int> medios_a_filtrar;
-    std::for_each(medios.begin(), medios.end(),
-        [&medios_a_filtrar](visualizador::modelo::Medio * medio)
-    {
-        unsigned long long int id = medio->getMedioAScrapear()->getId()->numero();
+    //// junto los ids de los medios
+    //std::vector<unsigned long long int> medios_a_filtrar;
+    //std::for_each(medios.begin(), medios.end(),
+    //    [&medios_a_filtrar](visualizador::modelo::Medio * medio)
+    //{
+    //    unsigned long long int id = medio->getMedioAScrapear()->getId()->numero();
 
-        medios_a_filtrar.push_back(id);
-    });
+    //    medios_a_filtrar.push_back(id);
+    //});
 
-    // filtro los medios de los resultados, y los terminos de los medios.
-    std::for_each(resultados_filtrados->begin(), resultados_filtrados->end(),
-        [&medios_a_filtrar, &terminos_a_filtrar](scraping::preparacion::ResultadoAnalisisDiario * resultado)
-    {
-        resultado->filtrar(medios_a_filtrar, terminos_a_filtrar);
-    });
+    //// filtro los medios de los resultados, y los terminos de los medios.
+    //std::for_each(resultados_filtrados->begin(), resultados_filtrados->end(),
+    //    [&medios_a_filtrar, &terminos_a_filtrar](scraping::preparacion::ResultadoAnalisisDiario * resultado)
+    //{
+    //    resultado->filtrar(medios_a_filtrar, terminos_a_filtrar);
+    //});
 }
 
 // CONSULTAS
