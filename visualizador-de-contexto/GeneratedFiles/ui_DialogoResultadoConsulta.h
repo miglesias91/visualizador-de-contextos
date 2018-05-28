@@ -18,7 +18,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -39,12 +41,26 @@ public:
     QHBoxLayout *layout_fechas;
     QDateEdit *calendario;
     QSlider *dias;
+    QWidget *widget_exportar;
+    QHBoxLayout *layout_exportar;
+    QPushButton *btn_exportar_fecha_actual;
+    QPushButton *btn_exportar_todo;
+    QPushButton *btn_exportar_rango;
+    QWidget *widget_desde;
+    QVBoxLayout *layout_desde;
+    QLabel *lbl_desde;
+    QDateEdit *dateedit_desde;
+    QWidget *widget_hasta;
+    QVBoxLayout *layout_hasta;
+    QLabel *lbl_hasta;
+    QDateEdit *dateedit_hasta;
+    QSpacerItem *horizontalSpacer;
 
     void setupUi(QWidget *DialogoResultadoConsulta)
     {
         if (DialogoResultadoConsulta->objectName().isEmpty())
             DialogoResultadoConsulta->setObjectName(QStringLiteral("DialogoResultadoConsulta"));
-        DialogoResultadoConsulta->resize(800, 400);
+        DialogoResultadoConsulta->resize(600, 400);
         verticalLayout = new QVBoxLayout(DialogoResultadoConsulta);
         verticalLayout->setSpacing(5);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -58,7 +74,8 @@ public:
         analisis->setFont(font);
         analisis->setTabPosition(QTabWidget::North);
         analisis->setTabShape(QTabWidget::Rounded);
-        analisis->setElideMode(Qt::ElideNone);
+        analisis->setElideMode(Qt::ElideLeft);
+        analisis->setUsesScrollButtons(true);
         analisis->setDocumentMode(true);
         analisis->setTabsClosable(false);
         analisis->setMovable(true);
@@ -163,6 +180,105 @@ public:
 
         verticalLayout->addLayout(layout_fechas);
 
+        widget_exportar = new QWidget(DialogoResultadoConsulta);
+        widget_exportar->setObjectName(QStringLiteral("widget_exportar"));
+        widget_exportar->setLayoutDirection(Qt::LeftToRight);
+        layout_exportar = new QHBoxLayout(widget_exportar);
+        layout_exportar->setSpacing(5);
+        layout_exportar->setContentsMargins(11, 11, 11, 11);
+        layout_exportar->setObjectName(QStringLiteral("layout_exportar"));
+        layout_exportar->setContentsMargins(0, 0, 0, 0);
+        btn_exportar_fecha_actual = new QPushButton(widget_exportar);
+        btn_exportar_fecha_actual->setObjectName(QStringLiteral("btn_exportar_fecha_actual"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(30);
+        sizePolicy2.setHeightForWidth(btn_exportar_fecha_actual->sizePolicy().hasHeightForWidth());
+        btn_exportar_fecha_actual->setSizePolicy(sizePolicy2);
+        btn_exportar_fecha_actual->setMinimumSize(QSize(0, 30));
+        btn_exportar_fecha_actual->setMaximumSize(QSize(200, 16777215));
+        btn_exportar_fecha_actual->setFont(font);
+
+        layout_exportar->addWidget(btn_exportar_fecha_actual);
+
+        btn_exportar_todo = new QPushButton(widget_exportar);
+        btn_exportar_todo->setObjectName(QStringLiteral("btn_exportar_todo"));
+        btn_exportar_todo->setMinimumSize(QSize(0, 30));
+        btn_exportar_todo->setMaximumSize(QSize(150, 16777215));
+        btn_exportar_todo->setFont(font);
+
+        layout_exportar->addWidget(btn_exportar_todo);
+
+        btn_exportar_rango = new QPushButton(widget_exportar);
+        btn_exportar_rango->setObjectName(QStringLiteral("btn_exportar_rango"));
+        btn_exportar_rango->setMinimumSize(QSize(0, 30));
+        btn_exportar_rango->setMaximumSize(QSize(150, 16777215));
+        btn_exportar_rango->setFont(font);
+
+        layout_exportar->addWidget(btn_exportar_rango);
+
+        widget_desde = new QWidget(widget_exportar);
+        widget_desde->setObjectName(QStringLiteral("widget_desde"));
+        widget_desde->setMaximumSize(QSize(80, 16777215));
+        layout_desde = new QVBoxLayout(widget_desde);
+        layout_desde->setSpacing(0);
+        layout_desde->setContentsMargins(11, 11, 11, 11);
+        layout_desde->setObjectName(QStringLiteral("layout_desde"));
+        layout_desde->setContentsMargins(0, 0, 0, 0);
+        lbl_desde = new QLabel(widget_desde);
+        lbl_desde->setObjectName(QStringLiteral("lbl_desde"));
+        lbl_desde->setMaximumSize(QSize(50, 16777215));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        lbl_desde->setFont(font3);
+
+        layout_desde->addWidget(lbl_desde);
+
+        dateedit_desde = new QDateEdit(widget_desde);
+        dateedit_desde->setObjectName(QStringLiteral("dateedit_desde"));
+        dateedit_desde->setMaximumSize(QSize(80, 16777215));
+        QFont font4;
+        font4.setFamily(QStringLiteral("Calibri"));
+        font4.setPointSize(10);
+        dateedit_desde->setFont(font4);
+
+        layout_desde->addWidget(dateedit_desde);
+
+
+        layout_exportar->addWidget(widget_desde);
+
+        widget_hasta = new QWidget(widget_exportar);
+        widget_hasta->setObjectName(QStringLiteral("widget_hasta"));
+        widget_hasta->setMaximumSize(QSize(80, 16777215));
+        layout_hasta = new QVBoxLayout(widget_hasta);
+        layout_hasta->setSpacing(0);
+        layout_hasta->setContentsMargins(11, 11, 11, 11);
+        layout_hasta->setObjectName(QStringLiteral("layout_hasta"));
+        layout_hasta->setContentsMargins(0, 0, 0, 0);
+        lbl_hasta = new QLabel(widget_hasta);
+        lbl_hasta->setObjectName(QStringLiteral("lbl_hasta"));
+        lbl_hasta->setMaximumSize(QSize(50, 16777215));
+        lbl_hasta->setFont(font3);
+
+        layout_hasta->addWidget(lbl_hasta);
+
+        dateedit_hasta = new QDateEdit(widget_hasta);
+        dateedit_hasta->setObjectName(QStringLiteral("dateedit_hasta"));
+        dateedit_hasta->setMaximumSize(QSize(80, 16777215));
+        dateedit_hasta->setFont(font4);
+
+        layout_hasta->addWidget(dateedit_hasta);
+
+
+        layout_exportar->addWidget(widget_hasta);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        layout_exportar->addItem(horizontalSpacer);
+
+
+        verticalLayout->addWidget(widget_exportar);
+
 
         retranslateUi(DialogoResultadoConsulta);
 
@@ -179,6 +295,11 @@ public:
         analisis->setTabText(analisis->indexOf(pestania_1), QApplication::translate("DialogoResultadoConsulta", "Fuerza en noticia", Q_NULLPTR));
         lbl_sin_valores_2->setText(QApplication::translate("DialogoResultadoConsulta", "sin valores", Q_NULLPTR));
         analisis->setTabText(analisis->indexOf(pestania_2), QApplication::translate("DialogoResultadoConsulta", "Sentimiento", Q_NULLPTR));
+        btn_exportar_fecha_actual->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar fecha actual", Q_NULLPTR));
+        btn_exportar_todo->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar todo", Q_NULLPTR));
+        btn_exportar_rango->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar rango", Q_NULLPTR));
+        lbl_desde->setText(QApplication::translate("DialogoResultadoConsulta", "desde", Q_NULLPTR));
+        lbl_hasta->setText(QApplication::translate("DialogoResultadoConsulta", "hasta", Q_NULLPTR));
     } // retranslateUi
 
 };

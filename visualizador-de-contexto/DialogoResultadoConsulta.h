@@ -32,6 +32,9 @@ private:
     Ui::DialogoResultadoConsulta *ui;
 
     // metodos privados
+
+    void conectar_componentes();
+
     void completar_arboles(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados);
     
     QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
@@ -55,7 +58,9 @@ private:
     void expandir_fuerza_en_noticia(QTreeWidgetItem *item);
 
     void exportar(int fecha);
+    void exportar_actual();
     void exportar_todo();
+    void exportar_rango();
 
     // atributos
     std::vector<modelo::Medio*> medios;
@@ -68,4 +73,5 @@ private:
     herramientas::utiles::Fecha fecha_actual;
 
     std::vector<unsigned int> meses_con_treinta_dias;
+    std::vector<unsigned long long int> fechas_exportadas;
 };

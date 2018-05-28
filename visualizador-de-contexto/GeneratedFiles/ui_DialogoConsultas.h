@@ -89,6 +89,7 @@ public:
     QLabel *lbl_secciones;
     QPushButton *btn_sacar_secciones;
     QListWidget *lista_secciones_en_consulta;
+    QSpacerItem *espaciador_consulta;
     QHBoxLayout *layout_botones;
     QPushButton *btn_realizar_consulta;
     QSpacerItem *horizontalSpacer;
@@ -138,7 +139,7 @@ public:
     {
         if (DialogoConsultas->objectName().isEmpty())
             DialogoConsultas->setObjectName(QStringLiteral("DialogoConsultas"));
-        DialogoConsultas->resize(500, 600);
+        DialogoConsultas->resize(408, 672);
         action_agregar_conceptos = new QAction(DialogoConsultas);
         action_agregar_conceptos->setObjectName(QStringLiteral("action_agregar_conceptos"));
         action_sacar_conceptos = new QAction(DialogoConsultas);
@@ -324,6 +325,7 @@ public:
 
         lista_medios_en_consulta = new QListWidget(widget_medios);
         lista_medios_en_consulta->setObjectName(QStringLiteral("lista_medios_en_consulta"));
+        lista_medios_en_consulta->setMinimumSize(QSize(0, 100));
         lista_medios_en_consulta->setFont(font3);
 
         layout_medios_consulta->addWidget(lista_medios_en_consulta);
@@ -340,7 +342,7 @@ public:
 
         widget_conceptos = new QWidget(widget_consulta);
         widget_conceptos->setObjectName(QStringLiteral("widget_conceptos"));
-        widget_conceptos->setMaximumSize(QSize(16777215, 200));
+        widget_conceptos->setMaximumSize(QSize(16777215, 16777215));
         verticalLayout_3 = new QVBoxLayout(widget_conceptos);
         verticalLayout_3->setSpacing(0);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -369,6 +371,7 @@ public:
 
         lista_conceptos_en_consulta = new QListWidget(widget_conceptos);
         lista_conceptos_en_consulta->setObjectName(QStringLiteral("lista_conceptos_en_consulta"));
+        lista_conceptos_en_consulta->setMinimumSize(QSize(0, 100));
         lista_conceptos_en_consulta->setFont(font3);
 
         verticalLayout_3->addWidget(lista_conceptos_en_consulta);
@@ -478,6 +481,10 @@ public:
 
 
         layout_consulta->addWidget(widget_secciones);
+
+        espaciador_consulta = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        layout_consulta->addItem(espaciador_consulta);
 
 
         verticalLayout_8->addWidget(widget_consulta);

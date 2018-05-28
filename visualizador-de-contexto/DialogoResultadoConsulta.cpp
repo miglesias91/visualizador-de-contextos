@@ -13,7 +13,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
-    QObject::connect(this->ui->dias, &QAbstractSlider::valueChanged, this, &DialogoResultadoConsulta::mostrar_resultado_dia);
+    this->conectar_componentes();
 
     this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
 
@@ -21,11 +21,13 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
 
     std::string string_fecha_minima = std::to_string((*resultados.begin())->getId()->numero());
     QDate qfecha_minima = QDate::fromString(string_fecha_minima.c_str(), "yyyyMMdd");
+    this->ui->dateedit_desde->setDate(qfecha_minima);
 
     this->fecha_actual = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(string_fecha_minima);
 
     std::string string_fecha_maxima = std::to_string((*(resultados.end() - 1))->getId()->numero());
     QDate qfecha_maxima = QDate::fromString(string_fecha_maxima.c_str(), "yyyyMMdd");
+    this->ui->dateedit_hasta->setDate(qfecha_maxima);
 
     this->ui->dias->setMinimum(qfecha_minima.toJulianDay());
     this->ui->dias->setMaximum(qfecha_maxima.toJulianDay());
@@ -357,6 +359,9 @@ void DialogoResultadoConsulta::exportar(int fecha) {
     herramientas::utiles::Json json_fecha;
 
     std::vector<herramientas::utiles::Json*> medios_en_fecha;
+    std::vector<herramientas::utiles::Json*> conceptos_de_medio;
+    std::vector<herramientas::utiles::Json*> terminos_de_concepto;
+
     int cantidad_de_columnas = fuerza_en_noticia->columnCount();
     for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) { // itero medios/columnas
         std::string nombre_medio = fuerza_en_noticia->headerItem()->text(i_medios).toStdString();
@@ -364,7 +369,6 @@ void DialogoResultadoConsulta::exportar(int fecha) {
         herramientas::utiles::Json * json_medio = new herramientas::utiles::Json();
         json_medio->agregarAtributoValor("nombre", nombre_medio);
 
-        std::vector<herramientas::utiles::Json*> conceptos_de_medio;
         int cantidad_de_conceptos = fuerza_en_noticia->topLevelItemCount();
         for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) { // itero conceptos/top level items
             QTreeWidgetItem * fuerza_en_noticia_item_concepto = fuerza_en_noticia->topLevelItem(i_conceptos);
@@ -377,9 +381,8 @@ void DialogoResultadoConsulta::exportar(int fecha) {
             herramientas::utiles::Json * json_concepto = new herramientas::utiles::Json();
             json_concepto->agregarAtributoValor("nombre", nombre_concepto);
             json_concepto->agregarAtributoValor("fuerza_en_noticia", std::stof(fuerza_en_noticia_valor_concepto_en_medio));
-            json_concepto->agregarAtributoValor("sentimiento", std::stof(sentimiento_valor_concepto_en_medio));
+            json_concepto->agregarAtributoValor("sentimiento", sentimiento_valor_concepto_en_medio);
 
-            std::vector<herramientas::utiles::Json*> terminos_de_concepto;
             int cantidad_de_terminos = fuerza_en_noticia_item_concepto->childCount();
             for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) { // itero terminos
                 QTreeWidgetItem * fuerza_en_noticia_item_termino = fuerza_en_noticia_item_concepto->child(i_terminos);
@@ -392,7 +395,7 @@ void DialogoResultadoConsulta::exportar(int fecha) {
                 herramientas::utiles::Json * json_termino = new herramientas::utiles::Json();
                 json_termino->agregarAtributoValor("nombre", nombre_termino);
                 json_termino->agregarAtributoValor("fuerza_en_noticia", std::stof(fuerza_en_noticia_valor_termino_en_medio));
-                json_termino->agregarAtributoValor("sentimiento", std::stof(sentimiento_valor_termino_en_medio));
+                json_termino->agregarAtributoValor("sentimiento", sentimiento_valor_termino_en_medio);
                 terminos_de_concepto.push_back(json_termino);
             }
             json_concepto->agregarAtributoArray("terminos", terminos_de_concepto);
@@ -406,9 +409,51 @@ void DialogoResultadoConsulta::exportar(int fecha) {
     json_fecha.agregarAtributoValor("fecha", static_cast<unsigned long long int>(fecha));
     json_fecha.agregarAtributoArray("medios", medios_en_fecha);
 
-    std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS();
-    herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_fecha.jsonString());
+    std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
+    herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_fecha.jsonStringLindo());
+
+    std::for_each(medios_en_fecha.begin(), medios_en_fecha.end(), [](herramientas::utiles::Json * json_medio) { delete json_medio; });
+    std::for_each(conceptos_de_medio.begin(), conceptos_de_medio.end(), [](herramientas::utiles::Json * json_concepto) { delete json_concepto; });
+    std::for_each(terminos_de_concepto.begin(), terminos_de_concepto.end(), [](herramientas::utiles::Json * json_termino) { delete json_termino; });
+}
+
+void DialogoResultadoConsulta::exportar_actual() {
+
+    std::string string_fecha_actual = this->fecha_actual.getStringAAAAMMDD();
+    this->exportar(std::stoi(string_fecha_actual));
+    this->fechas_exportadas.push_back(std::stoi(string_fecha_actual));
 }
 
 void DialogoResultadoConsulta::exportar_todo() {
+
+    std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(),
+        [this](std::pair<unsigned long long int, QTreeWidget*> fecha_arbol)
+    {
+        if (std::count(this->fechas_exportadas.begin(), this->fechas_exportadas.end(), fecha_arbol.first)) {
+
+        }
+        else {
+            this->exportar(fecha_arbol.first);
+            this->fechas_exportadas.push_back(fecha_arbol.first);
+        }
+    });
+}
+
+void DialogoResultadoConsulta::exportar_rango() {
+
+
+
+    for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i < this->ui->dateedit_hasta->date().toJulianDay(); i++) {
+        std::string string_fecha = QDate::fromJulianDay(i).toString("yyyyMMdd").toStdString();
+
+        this->exportar(std::stoi(string_fecha));
+    }
+}
+
+void DialogoResultadoConsulta::conectar_componentes() {
+
+    QObject::connect(this->ui->dias, &QAbstractSlider::valueChanged, this, &DialogoResultadoConsulta::mostrar_resultado_dia);
+    QObject::connect(this->ui->btn_exportar_fecha_actual, &QPushButton::released, this, &DialogoResultadoConsulta::exportar_actual);
+    QObject::connect(this->ui->btn_exportar_todo, &QPushButton::released, this, &DialogoResultadoConsulta::exportar_todo);
+    QObject::connect(this->ui->btn_exportar_rango, &QPushButton::released, this, &DialogoResultadoConsulta::exportar_rango);
 }

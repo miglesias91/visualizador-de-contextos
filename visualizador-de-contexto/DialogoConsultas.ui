@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>600</height>
+    <width>408</width>
+    <height>672</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -333,6 +333,12 @@
              </item>
              <item>
               <widget class="QListWidget" name="lista_medios_en_consulta">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>100</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Calibri</family>
@@ -357,7 +363,7 @@
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>200</height>
+              <height>16777215</height>
              </size>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -424,6 +430,12 @@
              </item>
              <item>
               <widget class="QListWidget" name="lista_conceptos_en_consulta">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>100</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <family>Calibri</family>
@@ -665,6 +677,22 @@
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="espaciador_consulta">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
