@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_visualizadordecontexto_t {
     QByteArrayData data[13];
-    char stringdata0[413];
+    char stringdata0[213];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,29 +34,24 @@ static const qt_meta_stringdata_visualizadordecontexto_t qt_meta_stringdata_visu
 QT_MOC_LITERAL(0, 0, 22), // "visualizadordecontexto"
 QT_MOC_LITERAL(1, 23, 25), // "senialProgresoAnalisisCTX"
 QT_MOC_LITERAL(2, 49, 0), // ""
-QT_MOC_LITERAL(3, 50, 34), // "on_action_abrir_terminos_trig..."
-QT_MOC_LITERAL(4, 85, 35), // "on_action_abrir_conceptos_tri..."
-QT_MOC_LITERAL(5, 121, 32), // "on_action_abrir_fechas_triggered"
-QT_MOC_LITERAL(6, 154, 34), // "on_action_abrir_periodos_trig..."
-QT_MOC_LITERAL(7, 189, 34), // "on_action_abrir_consulta_trig..."
-QT_MOC_LITERAL(8, 224, 40), // "on_action_abrir_medios_twitte..."
-QT_MOC_LITERAL(9, 265, 32), // "on_action_analizar_ctx_triggered"
-QT_MOC_LITERAL(10, 298, 37), // "on_action_deshabilitar_menu_t..."
-QT_MOC_LITERAL(11, 336, 34), // "on_action_habilitar_menu_trig..."
-QT_MOC_LITERAL(12, 371, 41) // "on_action_abrir_medios_facebo..."
+QT_MOC_LITERAL(3, 50, 14), // "abrir_terminos"
+QT_MOC_LITERAL(4, 65, 15), // "abrir_conceptos"
+QT_MOC_LITERAL(5, 81, 12), // "abrir_fechas"
+QT_MOC_LITERAL(6, 94, 14), // "abrir_periodos"
+QT_MOC_LITERAL(7, 109, 14), // "abrir_consulta"
+QT_MOC_LITERAL(8, 124, 20), // "abrir_medios_twitter"
+QT_MOC_LITERAL(9, 145, 12), // "analizar_ctx"
+QT_MOC_LITERAL(10, 158, 17), // "deshabilitar_menu"
+QT_MOC_LITERAL(11, 176, 14), // "habilitar_menu"
+QT_MOC_LITERAL(12, 191, 21) // "abrir_medios_facebook"
 
     },
     "visualizadordecontexto\0senialProgresoAnalisisCTX\0"
-    "\0on_action_abrir_terminos_triggered\0"
-    "on_action_abrir_conceptos_triggered\0"
-    "on_action_abrir_fechas_triggered\0"
-    "on_action_abrir_periodos_triggered\0"
-    "on_action_abrir_consulta_triggered\0"
-    "on_action_abrir_medios_twitter_triggered\0"
-    "on_action_analizar_ctx_triggered\0"
-    "on_action_deshabilitar_menu_triggered\0"
-    "on_action_habilitar_menu_triggered\0"
-    "on_action_abrir_medios_facebook_triggered"
+    "\0abrir_terminos\0abrir_conceptos\0"
+    "abrir_fechas\0abrir_periodos\0abrir_consulta\0"
+    "abrir_medios_twitter\0analizar_ctx\0"
+    "deshabilitar_menu\0habilitar_menu\0"
+    "abrir_medios_facebook"
 };
 #undef QT_MOC_LITERAL
 
@@ -113,16 +108,16 @@ void visualizadordecontexto::qt_static_metacall(QObject *_o, QMetaObject::Call _
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->senialProgresoAnalisisCTX((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 1: _t->on_action_abrir_terminos_triggered(); break;
-        case 2: _t->on_action_abrir_conceptos_triggered(); break;
-        case 3: _t->on_action_abrir_fechas_triggered(); break;
-        case 4: _t->on_action_abrir_periodos_triggered(); break;
-        case 5: _t->on_action_abrir_consulta_triggered(); break;
-        case 6: _t->on_action_abrir_medios_twitter_triggered(); break;
-        case 7: _t->on_action_analizar_ctx_triggered(); break;
-        case 8: _t->on_action_deshabilitar_menu_triggered(); break;
-        case 9: _t->on_action_habilitar_menu_triggered(); break;
-        case 10: _t->on_action_abrir_medios_facebook_triggered(); break;
+        case 1: _t->abrir_terminos(); break;
+        case 2: _t->abrir_conceptos(); break;
+        case 3: _t->abrir_fechas(); break;
+        case 4: _t->abrir_periodos(); break;
+        case 5: _t->abrir_consulta(); break;
+        case 6: _t->abrir_medios_twitter(); break;
+        case 7: _t->analizar_ctx(); break;
+        case 8: _t->deshabilitar_menu(); break;
+        case 9: _t->habilitar_menu(); break;
+        case 10: _t->abrir_medios_facebook(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

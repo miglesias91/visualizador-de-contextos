@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogoConsultas_t {
     QByteArrayData data[13];
-    char stringdata0[425];
+    char stringdata0[196];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,31 +32,26 @@ struct qt_meta_stringdata_DialogoConsultas_t {
 static const qt_meta_stringdata_DialogoConsultas_t qt_meta_stringdata_DialogoConsultas = {
     {
 QT_MOC_LITERAL(0, 0, 16), // "DialogoConsultas"
-QT_MOC_LITERAL(1, 17, 37), // "on_action_agregar_conceptos_t..."
-QT_MOC_LITERAL(2, 55, 0), // ""
-QT_MOC_LITERAL(3, 56, 35), // "on_action_sacar_conceptos_tri..."
-QT_MOC_LITERAL(4, 92, 34), // "on_action_setear_periodo_trig..."
-QT_MOC_LITERAL(5, 127, 34), // "on_action_agregar_medios_trig..."
-QT_MOC_LITERAL(6, 162, 37), // "on_action_agregar_secciones_t..."
-QT_MOC_LITERAL(7, 200, 32), // "on_action_sacar_medios_triggered"
-QT_MOC_LITERAL(8, 233, 35), // "on_action_sacar_secciones_tri..."
-QT_MOC_LITERAL(9, 269, 36), // "on_action_agregar_reportes_tr..."
-QT_MOC_LITERAL(10, 306, 34), // "on_action_sacar_reportes_trig..."
-QT_MOC_LITERAL(11, 341, 46), // "on_action_realizar_consulta_y..."
-QT_MOC_LITERAL(12, 388, 36) // "on_action_resetear_periodo_tr..."
+QT_MOC_LITERAL(1, 17, 17), // "agregar_conceptos"
+QT_MOC_LITERAL(2, 35, 0), // ""
+QT_MOC_LITERAL(3, 36, 15), // "sacar_conceptos"
+QT_MOC_LITERAL(4, 52, 14), // "setear_periodo"
+QT_MOC_LITERAL(5, 67, 14), // "agregar_medios"
+QT_MOC_LITERAL(6, 82, 17), // "agregar_secciones"
+QT_MOC_LITERAL(7, 100, 12), // "sacar_medios"
+QT_MOC_LITERAL(8, 113, 15), // "sacar_secciones"
+QT_MOC_LITERAL(9, 129, 16), // "agregar_reportes"
+QT_MOC_LITERAL(10, 146, 14), // "sacar_reportes"
+QT_MOC_LITERAL(11, 161, 17), // "realizar_consulta"
+QT_MOC_LITERAL(12, 179, 16) // "resetear_periodo"
 
     },
-    "DialogoConsultas\0on_action_agregar_conceptos_triggered\0"
-    "\0on_action_sacar_conceptos_triggered\0"
-    "on_action_setear_periodo_triggered\0"
-    "on_action_agregar_medios_triggered\0"
-    "on_action_agregar_secciones_triggered\0"
-    "on_action_sacar_medios_triggered\0"
-    "on_action_sacar_secciones_triggered\0"
-    "on_action_agregar_reportes_triggered\0"
-    "on_action_sacar_reportes_triggered\0"
-    "on_action_realizar_consulta_y_cerrar_triggered\0"
-    "on_action_resetear_periodo_triggered"
+    "DialogoConsultas\0agregar_conceptos\0\0"
+    "sacar_conceptos\0setear_periodo\0"
+    "agregar_medios\0agregar_secciones\0"
+    "sacar_medios\0sacar_secciones\0"
+    "agregar_reportes\0sacar_reportes\0"
+    "realizar_consulta\0resetear_periodo"
 };
 #undef QT_MOC_LITERAL
 
@@ -108,17 +103,17 @@ void DialogoConsultas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         DialogoConsultas *_t = static_cast<DialogoConsultas *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_action_agregar_conceptos_triggered(); break;
-        case 1: _t->on_action_sacar_conceptos_triggered(); break;
-        case 2: _t->on_action_setear_periodo_triggered(); break;
-        case 3: _t->on_action_agregar_medios_triggered(); break;
-        case 4: _t->on_action_agregar_secciones_triggered(); break;
-        case 5: _t->on_action_sacar_medios_triggered(); break;
-        case 6: _t->on_action_sacar_secciones_triggered(); break;
-        case 7: _t->on_action_agregar_reportes_triggered(); break;
-        case 8: _t->on_action_sacar_reportes_triggered(); break;
-        case 9: _t->on_action_realizar_consulta_y_cerrar_triggered(); break;
-        case 10: _t->on_action_resetear_periodo_triggered(); break;
+        case 0: _t->agregar_conceptos(); break;
+        case 1: _t->sacar_conceptos(); break;
+        case 2: _t->setear_periodo(); break;
+        case 3: _t->agregar_medios(); break;
+        case 4: _t->agregar_secciones(); break;
+        case 5: _t->sacar_medios(); break;
+        case 6: _t->sacar_secciones(); break;
+        case 7: _t->agregar_reportes(); break;
+        case 8: _t->sacar_reportes(); break;
+        case 9: _t->realizar_consulta(); break;
+        case 10: _t->resetear_periodo(); break;
         default: ;
         }
     }

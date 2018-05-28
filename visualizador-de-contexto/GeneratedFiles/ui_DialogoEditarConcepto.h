@@ -48,7 +48,7 @@ public:
         if (DialogoEditarConcepto->objectName().isEmpty())
             DialogoEditarConcepto->setObjectName(QStringLiteral("DialogoEditarConcepto"));
         DialogoEditarConcepto->setWindowModality(Qt::NonModal);
-        DialogoEditarConcepto->resize(400, 300);
+        DialogoEditarConcepto->resize(404, 300);
         action_eliminar = new QAction(DialogoEditarConcepto);
         action_eliminar->setObjectName(QStringLiteral("action_eliminar"));
         action_nuevo = new QAction(DialogoEditarConcepto);

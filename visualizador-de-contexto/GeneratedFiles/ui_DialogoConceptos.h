@@ -34,8 +34,7 @@ public:
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
     QAction *action_editar_concepto;
-    QDialogButtonBox *btnbox_conceptos;
-    QWidget *horizontalLayoutWidget;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *layout_general;
     QVBoxLayout *layout_lista;
     QHBoxLayout *layout_superior;
@@ -43,6 +42,7 @@ public:
     QPushButton *btn_eliminar_concepto;
     QPushButton *btn_agregar_concepto;
     QListWidget *lista_conceptos;
+    QDialogButtonBox *btnbox_conceptos;
 
     void setupUi(QWidget *DialogoConceptos)
     {
@@ -63,86 +63,91 @@ public:
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         action_editar_concepto = new QAction(DialogoConceptos);
         action_editar_concepto->setObjectName(QStringLiteral("action_editar_concepto"));
-        btnbox_conceptos = new QDialogButtonBox(DialogoConceptos);
-        btnbox_conceptos->setObjectName(QStringLiteral("btnbox_conceptos"));
-        btnbox_conceptos->setGeometry(QRect(325, 370, 156, 23));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(btnbox_conceptos->sizePolicy().hasHeightForWidth());
-        btnbox_conceptos->setSizePolicy(sizePolicy);
-        QFont font;
-        font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(11);
-        font.setBold(false);
-        font.setItalic(false);
-        font.setWeight(50);
-        btnbox_conceptos->setFont(font);
-        btnbox_conceptos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-        horizontalLayoutWidget = new QWidget(DialogoConceptos);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
-        layout_general = new QHBoxLayout(horizontalLayoutWidget);
+        verticalLayout = new QVBoxLayout(DialogoConceptos);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        layout_general = new QHBoxLayout();
         layout_general->setSpacing(0);
-        layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
         layout_general->setSizeConstraint(QLayout::SetNoConstraint);
-        layout_general->setContentsMargins(0, 0, 0, 0);
         layout_lista = new QVBoxLayout();
         layout_lista->setSpacing(0);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         layout_superior = new QHBoxLayout();
         layout_superior->setSpacing(6);
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
-        label = new QLabel(horizontalLayoutWidget);
+        label = new QLabel(DialogoConceptos);
         label->setObjectName(QStringLiteral("label"));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Calibri"));
-        font1.setPointSize(16);
-        font1.setBold(false);
-        font1.setItalic(false);
-        font1.setWeight(50);
-        font1.setStyleStrategy(QFont::PreferAntialias);
-        label->setFont(font1);
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(16);
+        font.setBold(false);
+        font.setItalic(false);
+        font.setWeight(50);
+        font.setStyleStrategy(QFont::PreferAntialias);
+        label->setFont(font);
         label->setFrameShadow(QFrame::Plain);
         label->setLineWidth(1);
         label->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
 
         layout_superior->addWidget(label);
 
-        btn_eliminar_concepto = new QPushButton(horizontalLayoutWidget);
+        btn_eliminar_concepto = new QPushButton(DialogoConceptos);
         btn_eliminar_concepto->setObjectName(QStringLiteral("btn_eliminar_concepto"));
         btn_eliminar_concepto->setMinimumSize(QSize(0, 30));
         btn_eliminar_concepto->setMaximumSize(QSize(80, 16777215));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(11);
-        btn_eliminar_concepto->setFont(font2);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(11);
+        btn_eliminar_concepto->setFont(font1);
 
         layout_superior->addWidget(btn_eliminar_concepto);
 
-        btn_agregar_concepto = new QPushButton(horizontalLayoutWidget);
+        btn_agregar_concepto = new QPushButton(DialogoConceptos);
         btn_agregar_concepto->setObjectName(QStringLiteral("btn_agregar_concepto"));
         btn_agregar_concepto->setMinimumSize(QSize(0, 30));
         btn_agregar_concepto->setMaximumSize(QSize(80, 16777215));
-        btn_agregar_concepto->setFont(font2);
+        btn_agregar_concepto->setFont(font1);
 
         layout_superior->addWidget(btn_agregar_concepto);
 
 
         layout_lista->addLayout(layout_superior);
 
-        lista_conceptos = new QListWidget(horizontalLayoutWidget);
+        lista_conceptos = new QListWidget(DialogoConceptos);
         lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(10);
-        lista_conceptos->setFont(font3);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(10);
+        lista_conceptos->setFont(font2);
 
         layout_lista->addWidget(lista_conceptos);
 
+        btnbox_conceptos = new QDialogButtonBox(DialogoConceptos);
+        btnbox_conceptos->setObjectName(QStringLiteral("btnbox_conceptos"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(btnbox_conceptos->sizePolicy().hasHeightForWidth());
+        btnbox_conceptos->setSizePolicy(sizePolicy);
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(11);
+        font3.setBold(false);
+        font3.setItalic(false);
+        font3.setWeight(50);
+        btnbox_conceptos->setFont(font3);
+        btnbox_conceptos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
+        btnbox_conceptos->setCenterButtons(true);
+
+        layout_lista->addWidget(btnbox_conceptos);
+
 
         layout_general->addLayout(layout_lista);
+
+
+        verticalLayout->addLayout(layout_general);
 
 
         retranslateUi(DialogoConceptos);

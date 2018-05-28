@@ -5,6 +5,7 @@
 // qt
 #include <qlistwidget.h>
 #include <qstringlist.h>
+#include <qmessagebox.h>
 
 #include <QtCharts/qchartview.h>
 #include <QtCharts/qbarseries.h>
@@ -15,6 +16,7 @@
 
 // aplicacion
 #include <aplicacion/include/GestorEntidades.h>
+#include <aplicacion/include/Informacion.h>
 
 // modelo
 #include <modelo/include/Consulta.h>
@@ -22,6 +24,7 @@
 // visualizador
 #include <visualizador-de-contexto/include/GraficoDeBarras.h>
 #include <visualizador-de-contexto/DialogoResultadoConsulta.h>
+#include <visualizador-de-contexto/include/FabricaMensajes.h>
 
 #include <declaraciones_metatipos.h>
 
@@ -36,27 +39,27 @@ public:
     ~DialogoConsultas();
 
 private slots:
-    void on_action_agregar_conceptos_triggered();
+    void agregar_conceptos();
 
-    void on_action_sacar_conceptos_triggered();
+    void sacar_conceptos();
 
-    void on_action_setear_periodo_triggered();
+    void setear_periodo();
 
-    void on_action_agregar_medios_triggered();
+    void agregar_medios();
 
-    void on_action_agregar_secciones_triggered();
+    void agregar_secciones();
 
-    void on_action_sacar_medios_triggered();
+    void sacar_medios();
 
-    void on_action_sacar_secciones_triggered();
+    void sacar_secciones();
 
-    void on_action_agregar_reportes_triggered();
+    void agregar_reportes();
 
-    void on_action_sacar_reportes_triggered();
+    void sacar_reportes();
 
-    void on_action_realizar_consulta_y_cerrar_triggered();
+    void realizar_consulta();
 
-    void on_action_resetear_periodo_triggered();
+    void resetear_periodo();
 
 private:
     Ui::DialogoConsultas *ui;
@@ -64,6 +67,10 @@ private:
     graficos::GraficoDeBarras * grafico_fuerza_en_noticia;
 
     DialogoResultadoConsulta * dialogo_resultados;
+
+    // metodos privados
+
+    void conectar_componentes();
 
     // carga listas
 
@@ -103,6 +110,12 @@ private:
 
     template <class ENTIDAD>
     void descargarLista(QListWidget * lista);
+
+    // mensaje
+
+    QMessageBox * crearInformacionSinResultados();
+    QMessageBox * crearInformacionNoHayMediosSeleccionados();
+    QMessageBox * crearInformacionNoHayConceptosSeleccionados();
 };
 
 template <class ENTIDAD>

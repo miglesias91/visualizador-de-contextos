@@ -16,7 +16,9 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
 {
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
- 
+
+    this->conectar_componentes();
+
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaConceptos();
@@ -57,7 +59,7 @@ DialogoConsultas::~DialogoConsultas()
     delete ui;
 }
 
-void DialogoConsultas::on_action_agregar_conceptos_triggered()
+void DialogoConsultas::agregar_conceptos()
 {
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->itemsSeleccionados<modelo::Concepto>(this->ui->lista_conceptos);
 
@@ -71,7 +73,7 @@ void DialogoConsultas::on_action_agregar_conceptos_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_conceptos);
 }
 
-void DialogoConsultas::on_action_sacar_conceptos_triggered()
+void DialogoConsultas::sacar_conceptos()
 {
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->itemsSeleccionados<modelo::Concepto>(this->ui->lista_conceptos_en_consulta);
 
@@ -85,7 +87,7 @@ void DialogoConsultas::on_action_sacar_conceptos_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_conceptos_en_consulta);
 }
 
-void DialogoConsultas::on_action_setear_periodo_triggered()
+void DialogoConsultas::setear_periodo()
 {
     // selecciono el 1ero xq ya se que solo puedo haber elegido uno.
     std::vector<modelo::Periodo*> periodos_seleccionados = this->itemsSeleccionados<modelo::Periodo>(this->ui->lista_periodos);
@@ -108,7 +110,7 @@ void DialogoConsultas::on_action_setear_periodo_triggered()
     this->ui->dateedit_hasta->setDate(fecha_hasta);
 }
 
-void DialogoConsultas::on_action_resetear_periodo_triggered()
+void DialogoConsultas::resetear_periodo()
 {
     this->ui->lineedit_etiqueta_periodo->clear();
     this->ui->dateedit_desde->setDate(QDate::currentDate());
@@ -117,7 +119,7 @@ void DialogoConsultas::on_action_resetear_periodo_triggered()
     aplicacion::Logger::info("Periodo reseteado.");
 }
 
-void DialogoConsultas::on_action_agregar_medios_triggered()
+void DialogoConsultas::agregar_medios()
 {
     std::vector<modelo::Medio*> medios_seleccionados = this->itemsSeleccionados<modelo::Medio>(this->ui->lista_medios);
 
@@ -131,7 +133,7 @@ void DialogoConsultas::on_action_agregar_medios_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_medios);
 }
 
-void DialogoConsultas::on_action_sacar_medios_triggered()
+void DialogoConsultas::sacar_medios()
 {
     std::vector<modelo::Medio*> medios_seleccionados = this->itemsSeleccionados<modelo::Medio>(this->ui->lista_medios_en_consulta);
 
@@ -145,7 +147,7 @@ void DialogoConsultas::on_action_sacar_medios_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_medios_en_consulta);
 }
 
-void DialogoConsultas::on_action_agregar_secciones_triggered()
+void DialogoConsultas::agregar_secciones()
 {
     std::vector<modelo::Seccion*> secciones_seleccionados = this->itemsSeleccionados<modelo::Seccion>(this->ui->lista_secciones);
 
@@ -159,7 +161,7 @@ void DialogoConsultas::on_action_agregar_secciones_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_secciones);
 }
 
-void DialogoConsultas::on_action_sacar_secciones_triggered()
+void DialogoConsultas::sacar_secciones()
 {
     std::vector<modelo::Seccion*> secciones_seleccionados = this->itemsSeleccionados<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
 
@@ -173,7 +175,7 @@ void DialogoConsultas::on_action_sacar_secciones_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_secciones_en_consulta);
 }
 
-void DialogoConsultas::on_action_agregar_reportes_triggered()
+void DialogoConsultas::agregar_reportes()
 {
     std::vector<modelo::Reporte*> reportes_seleccionados = this->itemsSeleccionados<modelo::Reporte>(this->ui->lista_reportes);
 
@@ -187,7 +189,7 @@ void DialogoConsultas::on_action_agregar_reportes_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_reportes);
 }
 
-void DialogoConsultas::on_action_sacar_reportes_triggered()
+void DialogoConsultas::sacar_reportes()
 {
     std::vector<modelo::Reporte*> reportes_seleccionados = this->itemsSeleccionados<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
 
@@ -201,7 +203,7 @@ void DialogoConsultas::on_action_sacar_reportes_triggered()
     this->sacarItemsSeleccionados(this->ui->lista_reportes_en_consulta);
 }
 
-void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
+void DialogoConsultas::realizar_consulta()
 {
     aplicacion::GestorDatosScraping gestor_datos;
 
@@ -212,8 +214,37 @@ void DialogoConsultas::on_action_realizar_consulta_y_cerrar_triggered()
     std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
+    if (medios_seleccionados.empty()) {
+        QMessageBox * informacion_no_hay_medios_seleccionados = this->crearInformacionNoHayMediosSeleccionados();
+        informacion_no_hay_medios_seleccionados->exec();
+
+        delete informacion_no_hay_medios_seleccionados;
+
+        return;
+    }
+
+    if (conceptos_seleccionados.empty()) {
+        QMessageBox * informacion_no_hay_conceptos_seleccionados = this->crearInformacionNoHayConceptosSeleccionados();
+        informacion_no_hay_conceptos_seleccionados->exec();
+
+        delete informacion_no_hay_conceptos_seleccionados;
+
+        return;
+    }
+
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
     gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, &resultados_filtrados);
+
+    if (resultados_filtrados.empty()) {
+        QMessageBox * informacion_etiqueta_vacia = this->crearInformacionSinResultados();
+        informacion_etiqueta_vacia->exec();
+
+        delete informacion_etiqueta_vacia;
+
+        aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
+
+        return;
+    }
 
     aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
@@ -465,4 +496,37 @@ std::vector<modelo::Seccion*> DialogoConsultas::seccionesSeleccionados()
 std::vector<modelo::Reporte*> DialogoConsultas::reportesSeleccionados()
 {
     return std::vector<modelo::Reporte*>();
+}
+
+void DialogoConsultas::conectar_componentes()
+{
+    QObject::connect(this->ui->btn_agregar_conceptos, &QPushButton::released, this, &DialogoConsultas::agregar_conceptos);
+    QObject::connect(this->ui->btn_sacar_conceptos, &QPushButton::released, this, &DialogoConsultas::sacar_conceptos);
+
+    QObject::connect(this->ui->btn_agregar_medios, &QPushButton::released, this, &DialogoConsultas::agregar_medios);
+    QObject::connect(this->ui->btn_sacar_medios, &QPushButton::released, this, &DialogoConsultas::sacar_medios);
+
+    QObject::connect(this->ui->btn_realizar_consulta, &QPushButton::released, this, &DialogoConsultas::realizar_consulta);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &QWidget::close);
+}
+
+QMessageBox * DialogoConsultas::crearInformacionSinResultados()
+{
+    std::string texto = u8"No se encontró contenido para visualizar dentro del rango de fechas seleccionado.";
+    visualizador::aplicacion::comunicacion::Informacion informacion_sin_resultados(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados);
+}
+
+QMessageBox * DialogoConsultas::crearInformacionNoHayMediosSeleccionados()
+{
+    std::string texto = u8"No hay medios seleccionados.";
+    visualizador::aplicacion::comunicacion::Informacion informacion_sin_resultados(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados);
+}
+
+QMessageBox * DialogoConsultas::crearInformacionNoHayConceptosSeleccionados()
+{
+    std::string texto = u8"No hay conceptos seleccionados.";
+    visualizador::aplicacion::comunicacion::Informacion informacion_sin_resultados(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados);
 }

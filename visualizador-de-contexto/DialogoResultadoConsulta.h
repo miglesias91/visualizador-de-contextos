@@ -3,9 +3,13 @@
 // qt
 #include <QWidget>
 #include <qtreewidget.h>
+#include <qdatetime.h>
+#include <qsizepolicy.h>
 
 // herramientas
 #include <utiles/include/Fecha.h>
+#include <utiles/include/Json.h>
+#include <utiles/include/FuncionesSistemaArchivos.h>
 
 // aplicacion
 #include <aplicacion/include/GestorDatosScraping.h>
@@ -28,15 +32,30 @@ private:
     Ui::DialogoResultadoConsulta *ui;
 
     // metodos privados
-    void completar_arbol(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados);
+    void completar_arboles(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados);
     
-    QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha);
-    QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha);
+    QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
+    QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
+
+    QTreeWidgetItem * completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+    QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+
+    QTreeWidgetItem * completar_sentimiento(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+    QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
 
     void mostrar_resultado(int fecha);
-    void mostrar_resultado_anio(int anio);
-    void mostrar_resultado_mes(int mes);
+    void ocultar_resultado(int fecha);
+
     void mostrar_resultado_dia(int dia);
+
+    void colapsar_sentimiento(QTreeWidgetItem *item);
+    void expandir_sentimiento(QTreeWidgetItem *item);
+
+    void colapsar_fuerza_en_noticia(QTreeWidgetItem *item);
+    void expandir_fuerza_en_noticia(QTreeWidgetItem *item);
+
+    void exportar(int fecha);
+    void exportar_todo();
 
     // atributos
     std::vector<modelo::Medio*> medios;

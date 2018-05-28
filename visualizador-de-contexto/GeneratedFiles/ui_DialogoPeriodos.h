@@ -33,8 +33,7 @@ public:
     QAction *action_actualizar_y_cerrar;
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
-    QDialogButtonBox *btnbox_periodos;
-    QWidget *horizontalLayoutWidget;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *layout_lista;
     QHBoxLayout *horizontalLayout_2;
@@ -42,6 +41,7 @@ public:
     QPushButton *btn_eliminar_periodo;
     QPushButton *btn_agregar_periodo;
     QListWidget *lista_periodos;
+    QDialogButtonBox *btnbox_periodos;
 
     void setupUi(QWidget *DialogoPeriodos)
     {
@@ -60,74 +60,78 @@ public:
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         action_estado_btn_agregar = new QAction(DialogoPeriodos);
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
-        btnbox_periodos = new QDialogButtonBox(DialogoPeriodos);
-        btnbox_periodos->setObjectName(QStringLiteral("btnbox_periodos"));
-        btnbox_periodos->setGeometry(QRect(325, 370, 156, 23));
-        QFont font;
-        font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(11);
-        font.setItalic(false);
-        btnbox_periodos->setFont(font);
-        btnbox_periodos->setOrientation(Qt::Horizontal);
-        btnbox_periodos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-        btnbox_periodos->setCenterButtons(false);
-        horizontalLayoutWidget = new QWidget(DialogoPeriodos);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
+        verticalLayout = new QVBoxLayout(DialogoPeriodos);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
         layout_lista = new QVBoxLayout();
         layout_lista->setSpacing(0);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label = new QLabel(horizontalLayoutWidget);
+        label = new QLabel(DialogoPeriodos);
         label->setObjectName(QStringLiteral("label"));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Calibri"));
-        font1.setPointSize(16);
-        label->setFont(font1);
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(16);
+        label->setFont(font);
         label->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
 
         horizontalLayout_2->addWidget(label);
 
-        btn_eliminar_periodo = new QPushButton(horizontalLayoutWidget);
+        btn_eliminar_periodo = new QPushButton(DialogoPeriodos);
         btn_eliminar_periodo->setObjectName(QStringLiteral("btn_eliminar_periodo"));
         btn_eliminar_periodo->setMinimumSize(QSize(0, 30));
         btn_eliminar_periodo->setMaximumSize(QSize(80, 16777215));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(11);
-        btn_eliminar_periodo->setFont(font2);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(11);
+        btn_eliminar_periodo->setFont(font1);
 
         horizontalLayout_2->addWidget(btn_eliminar_periodo);
 
-        btn_agregar_periodo = new QPushButton(horizontalLayoutWidget);
+        btn_agregar_periodo = new QPushButton(DialogoPeriodos);
         btn_agregar_periodo->setObjectName(QStringLiteral("btn_agregar_periodo"));
         btn_agregar_periodo->setMinimumSize(QSize(0, 30));
         btn_agregar_periodo->setMaximumSize(QSize(80, 16777215));
-        btn_agregar_periodo->setFont(font2);
+        btn_agregar_periodo->setFont(font1);
 
         horizontalLayout_2->addWidget(btn_agregar_periodo);
 
 
         layout_lista->addLayout(horizontalLayout_2);
 
-        lista_periodos = new QListWidget(horizontalLayoutWidget);
+        lista_periodos = new QListWidget(DialogoPeriodos);
         lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(10);
-        lista_periodos->setFont(font3);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(10);
+        lista_periodos->setFont(font2);
 
         layout_lista->addWidget(lista_periodos);
 
 
         horizontalLayout->addLayout(layout_lista);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        btnbox_periodos = new QDialogButtonBox(DialogoPeriodos);
+        btnbox_periodos->setObjectName(QStringLiteral("btnbox_periodos"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(11);
+        font3.setItalic(false);
+        btnbox_periodos->setFont(font3);
+        btnbox_periodos->setOrientation(Qt::Horizontal);
+        btnbox_periodos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
+        btnbox_periodos->setCenterButtons(true);
+
+        verticalLayout->addWidget(btnbox_periodos);
 
 
         retranslateUi(DialogoPeriodos);

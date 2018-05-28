@@ -30,33 +30,34 @@ signals:
     void senialProgresoAnalisisCTX(int);
 
 private slots:
-    void on_action_abrir_terminos_triggered();
+    void abrir_terminos();
 
-    void on_action_abrir_conceptos_triggered();
+    void abrir_conceptos();
 
-    void on_action_abrir_fechas_triggered();
+    void abrir_fechas();
 
-    void on_action_abrir_periodos_triggered();
+    void abrir_periodos();
 
-    void on_action_abrir_consulta_triggered();
+    void abrir_consulta();
 
-    void on_action_abrir_medios_twitter_triggered();
+    void abrir_medios_twitter();
 
-    void on_action_analizar_ctx_triggered();
+    void analizar_ctx();
 
-    void on_action_deshabilitar_menu_triggered();
+    void deshabilitar_menu();
 
-    void on_action_habilitar_menu_triggered();
+    void habilitar_menu();
 
-
-    void on_action_abrir_medios_facebook_triggered();
+    void abrir_medios_facebook();
 
 private:
 	Ui::visualizadordecontextoClass ui;
 
     // METODOS PRIVADOS
 
-    void analizarCTX();
+    void conectar_componentes();
+
+    void tarea_analizar_ctx();
 
     // ATRIBUTOS
 

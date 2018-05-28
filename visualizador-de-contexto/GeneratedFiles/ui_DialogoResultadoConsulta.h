@@ -9,15 +9,18 @@
 #ifndef UI_DIALOGORESULTADOCONSULTA_H
 #define UI_DIALOGORESULTADOCONSULTA_H
 
+#include <QtCore/QDate>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDateEdit>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,26 +28,34 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoResultadoConsulta
 {
 public:
+    QVBoxLayout *verticalLayout;
     QTabWidget *analisis;
     QWidget *pestania_1;
-    QWidget *fuerza_en_noticia_vacio;
+    QVBoxLayout *layout_pestania_1;
     QLabel *lbl_sin_valores_1;
     QWidget *pestania_2;
-    QWidget *sentimiento_vacio;
+    QVBoxLayout *layout_pestania_2;
     QLabel *lbl_sin_valores_2;
-    QSlider *anios;
+    QHBoxLayout *layout_fechas;
     QDateEdit *calendario;
-    QSlider *meses;
     QSlider *dias;
 
     void setupUi(QWidget *DialogoResultadoConsulta)
     {
         if (DialogoResultadoConsulta->objectName().isEmpty())
             DialogoResultadoConsulta->setObjectName(QStringLiteral("DialogoResultadoConsulta"));
-        DialogoResultadoConsulta->resize(633, 542);
+        DialogoResultadoConsulta->resize(800, 400);
+        verticalLayout = new QVBoxLayout(DialogoResultadoConsulta);
+        verticalLayout->setSpacing(5);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(5, 5, 5, 5);
         analisis = new QTabWidget(DialogoResultadoConsulta);
         analisis->setObjectName(QStringLiteral("analisis"));
-        analisis->setGeometry(QRect(10, 10, 611, 421));
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(12);
+        analisis->setFont(font);
         analisis->setTabPosition(QTabWidget::North);
         analisis->setTabShape(QTabWidget::Rounded);
         analisis->setElideMode(Qt::ElideNone);
@@ -54,61 +65,91 @@ public:
         analisis->setTabBarAutoHide(false);
         pestania_1 = new QWidget();
         pestania_1->setObjectName(QStringLiteral("pestania_1"));
-        fuerza_en_noticia_vacio = new QWidget(pestania_1);
-        fuerza_en_noticia_vacio->setObjectName(QStringLiteral("fuerza_en_noticia_vacio"));
-        fuerza_en_noticia_vacio->setGeometry(QRect(0, 0, 611, 391));
-        fuerza_en_noticia_vacio->setAutoFillBackground(true);
-        lbl_sin_valores_1 = new QLabel(fuerza_en_noticia_vacio);
+        layout_pestania_1 = new QVBoxLayout(pestania_1);
+        layout_pestania_1->setSpacing(0);
+        layout_pestania_1->setContentsMargins(11, 11, 11, 11);
+        layout_pestania_1->setObjectName(QStringLiteral("layout_pestania_1"));
+        layout_pestania_1->setContentsMargins(0, 0, 0, 0);
+        lbl_sin_valores_1 = new QLabel(pestania_1);
         lbl_sin_valores_1->setObjectName(QStringLiteral("lbl_sin_valores_1"));
-        lbl_sin_valores_1->setGeometry(QRect(160, 70, 291, 201));
-        QFont font;
-        font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(50);
-        lbl_sin_valores_1->setFont(font);
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(lbl_sin_valores_1->sizePolicy().hasHeightForWidth());
+        lbl_sin_valores_1->setSizePolicy(sizePolicy);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(50);
+        lbl_sin_valores_1->setFont(font1);
+        lbl_sin_valores_1->setAutoFillBackground(false);
+        lbl_sin_valores_1->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        lbl_sin_valores_1->setFrameShape(QFrame::Box);
+        lbl_sin_valores_1->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+
+        layout_pestania_1->addWidget(lbl_sin_valores_1);
+
         analisis->addTab(pestania_1, QString());
         pestania_2 = new QWidget();
         pestania_2->setObjectName(QStringLiteral("pestania_2"));
-        sentimiento_vacio = new QWidget(pestania_2);
-        sentimiento_vacio->setObjectName(QStringLiteral("sentimiento_vacio"));
-        sentimiento_vacio->setGeometry(QRect(0, 0, 611, 391));
-        sentimiento_vacio->setAutoFillBackground(true);
-        lbl_sin_valores_2 = new QLabel(sentimiento_vacio);
+        layout_pestania_2 = new QVBoxLayout(pestania_2);
+        layout_pestania_2->setSpacing(0);
+        layout_pestania_2->setContentsMargins(11, 11, 11, 11);
+        layout_pestania_2->setObjectName(QStringLiteral("layout_pestania_2"));
+        layout_pestania_2->setContentsMargins(0, 0, 0, 0);
+        lbl_sin_valores_2 = new QLabel(pestania_2);
         lbl_sin_valores_2->setObjectName(QStringLiteral("lbl_sin_valores_2"));
-        lbl_sin_valores_2->setGeometry(QRect(160, 70, 291, 201));
-        lbl_sin_valores_2->setFont(font);
+        sizePolicy.setHeightForWidth(lbl_sin_valores_2->sizePolicy().hasHeightForWidth());
+        lbl_sin_valores_2->setSizePolicy(sizePolicy);
+        lbl_sin_valores_2->setFont(font1);
+        lbl_sin_valores_2->setLayoutDirection(Qt::LeftToRight);
+        lbl_sin_valores_2->setAutoFillBackground(false);
+        lbl_sin_valores_2->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        lbl_sin_valores_2->setFrameShape(QFrame::Box);
+        lbl_sin_valores_2->setFrameShadow(QFrame::Plain);
+        lbl_sin_valores_2->setTextFormat(Qt::PlainText);
+        lbl_sin_valores_2->setScaledContents(false);
+        lbl_sin_valores_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        lbl_sin_valores_2->setWordWrap(false);
+
+        layout_pestania_2->addWidget(lbl_sin_valores_2);
+
         analisis->addTab(pestania_2, QString());
-        anios = new QSlider(DialogoResultadoConsulta);
-        anios->setObjectName(QStringLiteral("anios"));
-        anios->setGeometry(QRect(10, 510, 611, 22));
-        anios->setMaximum(1);
-        anios->setTracking(true);
-        anios->setOrientation(Qt::Horizontal);
-        anios->setInvertedAppearance(false);
-        anios->setInvertedControls(false);
-        anios->setTickPosition(QSlider::TicksAbove);
-        anios->setTickInterval(1);
+
+        verticalLayout->addWidget(analisis);
+
+        layout_fechas = new QHBoxLayout();
+        layout_fechas->setSpacing(6);
+        layout_fechas->setObjectName(QStringLiteral("layout_fechas"));
         calendario = new QDateEdit(DialogoResultadoConsulta);
         calendario->setObjectName(QStringLiteral("calendario"));
-        calendario->setGeometry(QRect(260, 435, 110, 22));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(calendario->sizePolicy().hasHeightForWidth());
+        calendario->setSizePolicy(sizePolicy1);
+        calendario->setMinimumSize(QSize(150, 0));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(15);
+        font2.setBold(false);
+        font2.setItalic(false);
+        font2.setWeight(50);
+        calendario->setFont(font2);
         calendario->setWrapping(false);
         calendario->setFrame(true);
+        calendario->setAlignment(Qt::AlignCenter);
         calendario->setReadOnly(false);
         calendario->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
         calendario->setAccelerated(true);
+        calendario->setProperty("showGroupSeparator", QVariant(false));
         calendario->setCurrentSection(QDateTimeEdit::YearSection);
-        meses = new QSlider(DialogoResultadoConsulta);
-        meses->setObjectName(QStringLiteral("meses"));
-        meses->setGeometry(QRect(10, 485, 611, 22));
-        meses->setMaximum(1);
-        meses->setTracking(true);
-        meses->setOrientation(Qt::Horizontal);
-        meses->setInvertedAppearance(false);
-        meses->setInvertedControls(false);
-        meses->setTickPosition(QSlider::TicksAbove);
-        meses->setTickInterval(1);
+        calendario->setCalendarPopup(true);
+        calendario->setDate(QDate(2018, 12, 12));
+
+        layout_fechas->addWidget(calendario);
+
         dias = new QSlider(DialogoResultadoConsulta);
         dias->setObjectName(QStringLiteral("dias"));
-        dias->setGeometry(QRect(10, 460, 611, 22));
         dias->setMaximum(1);
         dias->setTracking(true);
         dias->setOrientation(Qt::Horizontal);
@@ -116,6 +157,12 @@ public:
         dias->setInvertedControls(false);
         dias->setTickPosition(QSlider::TicksAbove);
         dias->setTickInterval(1);
+
+        layout_fechas->addWidget(dias);
+
+
+        verticalLayout->addLayout(layout_fechas);
+
 
         retranslateUi(DialogoResultadoConsulta);
 

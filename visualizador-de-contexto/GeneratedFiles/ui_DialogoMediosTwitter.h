@@ -34,8 +34,7 @@ public:
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
     QAction *action_nueva_cuenta;
-    QDialogButtonBox *btnbox_medios_twitter;
-    QWidget *horizontalLayoutWidget;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *layout_general;
     QVBoxLayout *layout_lista;
     QHBoxLayout *layout_superior;
@@ -43,6 +42,7 @@ public:
     QPushButton *btn_eliminar;
     QPushButton *btn_nueva;
     QListWidget *lista_medios_twitter;
+    QDialogButtonBox *btnbox_medios_twitter;
 
     void setupUi(QWidget *DialogoMediosTwitter)
     {
@@ -67,72 +67,77 @@ public:
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         action_nueva_cuenta = new QAction(DialogoMediosTwitter);
         action_nueva_cuenta->setObjectName(QStringLiteral("action_nueva_cuenta"));
-        btnbox_medios_twitter = new QDialogButtonBox(DialogoMediosTwitter);
-        btnbox_medios_twitter->setObjectName(QStringLiteral("btnbox_medios_twitter"));
-        btnbox_medios_twitter->setGeometry(QRect(325, 370, 156, 23));
-        QFont font;
-        font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(11);
-        font.setItalic(false);
-        btnbox_medios_twitter->setFont(font);
-        btnbox_medios_twitter->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-        horizontalLayoutWidget = new QWidget(DialogoMediosTwitter);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
-        layout_general = new QHBoxLayout(horizontalLayoutWidget);
+        verticalLayout = new QVBoxLayout(DialogoMediosTwitter);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        layout_general = new QHBoxLayout();
         layout_general->setSpacing(6);
-        layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
-        layout_general->setContentsMargins(0, 0, 0, 0);
         layout_lista = new QVBoxLayout();
         layout_lista->setSpacing(0);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         layout_superior = new QHBoxLayout();
         layout_superior->setSpacing(6);
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
-        label = new QLabel(horizontalLayoutWidget);
+        label = new QLabel(DialogoMediosTwitter);
         label->setObjectName(QStringLiteral("label"));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Calibri"));
-        font1.setPointSize(16);
-        label->setFont(font1);
+        QFont font;
+        font.setFamily(QStringLiteral("Calibri"));
+        font.setPointSize(16);
+        label->setFont(font);
         label->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
 
         layout_superior->addWidget(label);
 
-        btn_eliminar = new QPushButton(horizontalLayoutWidget);
+        btn_eliminar = new QPushButton(DialogoMediosTwitter);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
         btn_eliminar->setMinimumSize(QSize(0, 30));
         btn_eliminar->setMaximumSize(QSize(80, 16777215));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(11);
-        btn_eliminar->setFont(font2);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Calibri"));
+        font1.setPointSize(11);
+        btn_eliminar->setFont(font1);
 
         layout_superior->addWidget(btn_eliminar);
 
-        btn_nueva = new QPushButton(horizontalLayoutWidget);
+        btn_nueva = new QPushButton(DialogoMediosTwitter);
         btn_nueva->setObjectName(QStringLiteral("btn_nueva"));
         btn_nueva->setMinimumSize(QSize(0, 30));
         btn_nueva->setMaximumSize(QSize(80, 16777215));
-        btn_nueva->setFont(font2);
+        btn_nueva->setFont(font1);
 
         layout_superior->addWidget(btn_nueva);
 
 
         layout_lista->addLayout(layout_superior);
 
-        lista_medios_twitter = new QListWidget(horizontalLayoutWidget);
+        lista_medios_twitter = new QListWidget(DialogoMediosTwitter);
         lista_medios_twitter->setObjectName(QStringLiteral("lista_medios_twitter"));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(10);
-        lista_medios_twitter->setFont(font3);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(10);
+        lista_medios_twitter->setFont(font2);
 
         layout_lista->addWidget(lista_medios_twitter);
 
 
         layout_general->addLayout(layout_lista);
+
+
+        verticalLayout->addLayout(layout_general);
+
+        btnbox_medios_twitter = new QDialogButtonBox(DialogoMediosTwitter);
+        btnbox_medios_twitter->setObjectName(QStringLiteral("btnbox_medios_twitter"));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        font3.setPointSize(11);
+        font3.setItalic(false);
+        btnbox_medios_twitter->setFont(font3);
+        btnbox_medios_twitter->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
+        btnbox_medios_twitter->setCenterButtons(true);
+
+        verticalLayout->addWidget(btnbox_medios_twitter);
 
 
         retranslateUi(DialogoMediosTwitter);

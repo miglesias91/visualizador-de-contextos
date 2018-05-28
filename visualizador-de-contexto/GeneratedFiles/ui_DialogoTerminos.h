@@ -32,7 +32,7 @@ public:
     QAction *action_eliminar_termino;
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
-    QWidget *horizontalLayoutWidget;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *layout_general;
     QVBoxLayout *layout_lista;
     QLabel *label;
@@ -60,18 +60,17 @@ public:
         action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
         action_estado_btn_agregar = new QAction(DialogoTerminos);
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
-        horizontalLayoutWidget = new QWidget(DialogoTerminos);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 351));
-        layout_general = new QHBoxLayout(horizontalLayoutWidget);
+        verticalLayout = new QVBoxLayout(DialogoTerminos);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        layout_general = new QHBoxLayout();
         layout_general->setSpacing(6);
-        layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
-        layout_general->setContentsMargins(0, 0, 0, 0);
         layout_lista = new QVBoxLayout();
         layout_lista->setSpacing(0);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
-        label = new QLabel(horizontalLayoutWidget);
+        label = new QLabel(DialogoTerminos);
         label->setObjectName(QStringLiteral("label"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
@@ -80,7 +79,7 @@ public:
 
         layout_lista->addWidget(label);
 
-        lista_terminos = new QListWidget(horizontalLayoutWidget);
+        lista_terminos = new QListWidget(DialogoTerminos);
         lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
         QFont font1;
         font1.setFamily(QStringLiteral("Calibri"));
@@ -93,15 +92,21 @@ public:
 
         layout_general->addLayout(layout_lista);
 
+
+        verticalLayout->addLayout(layout_general);
+
         btnbox_terminos = new QDialogButtonBox(DialogoTerminos);
         btnbox_terminos->setObjectName(QStringLiteral("btnbox_terminos"));
-        btnbox_terminos->setGeometry(QRect(360, 370, 71, 23));
         QFont font2;
         font2.setFamily(QStringLiteral("Calibri"));
         font2.setPointSize(11);
         font2.setItalic(false);
         btnbox_terminos->setFont(font2);
         btnbox_terminos->setStandardButtons(QDialogButtonBox::Ok);
+        btnbox_terminos->setCenterButtons(true);
+
+        verticalLayout->addWidget(btnbox_terminos);
+
 
         retranslateUi(DialogoTerminos);
         QObject::connect(btnbox_terminos, SIGNAL(rejected()), DialogoTerminos, SLOT(close()));
