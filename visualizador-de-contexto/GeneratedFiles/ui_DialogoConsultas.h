@@ -20,6 +20,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
@@ -59,6 +60,7 @@ public:
     QDateEdit *dateedit_desde;
     QLabel *lbl_hasta;
     QDateEdit *dateedit_hasta;
+    QSpacerItem *horizontalSpacer_2;
     QLabel *lbl_etiqueta;
     QLineEdit *lineedit_etiqueta_periodo;
     QFrame *line;
@@ -92,7 +94,7 @@ public:
     QSpacerItem *espaciador_consulta;
     QHBoxLayout *layout_botones;
     QPushButton *btn_realizar_consulta;
-    QSpacerItem *horizontalSpacer;
+    QProgressBar *progressbar_realizar_consulta;
     QPushButton *btn_cancelar;
     QWidget *tab_conceptos;
     QVBoxLayout *verticalLayout_9;
@@ -139,7 +141,8 @@ public:
     {
         if (DialogoConsultas->objectName().isEmpty())
             DialogoConsultas->setObjectName(QStringLiteral("DialogoConsultas"));
-        DialogoConsultas->resize(408, 672);
+        DialogoConsultas->resize(500, 672);
+        DialogoConsultas->setMinimumSize(QSize(500, 0));
         action_agregar_conceptos = new QAction(DialogoConsultas);
         action_agregar_conceptos->setObjectName(QStringLiteral("action_agregar_conceptos"));
         action_sacar_conceptos = new QAction(DialogoConsultas);
@@ -265,6 +268,10 @@ public:
 
         layout_periodo_consulta->addWidget(dateedit_hasta);
 
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        layout_periodo_consulta->addItem(horizontalSpacer_2);
+
         lbl_etiqueta = new QLabel(widget_periodo_consulta);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
         lbl_etiqueta->setFont(font2);
@@ -273,6 +280,7 @@ public:
 
         lineedit_etiqueta_periodo = new QLineEdit(widget_periodo_consulta);
         lineedit_etiqueta_periodo->setObjectName(QStringLiteral("lineedit_etiqueta_periodo"));
+        lineedit_etiqueta_periodo->setMaximumSize(QSize(200, 16777215));
         lineedit_etiqueta_periodo->setFont(font3);
         lineedit_etiqueta_periodo->setDragEnabled(false);
         lineedit_etiqueta_periodo->setReadOnly(true);
@@ -490,11 +498,11 @@ public:
         verticalLayout_8->addWidget(widget_consulta);
 
         layout_botones = new QHBoxLayout();
-        layout_botones->setSpacing(6);
+        layout_botones->setSpacing(5);
         layout_botones->setObjectName(QStringLiteral("layout_botones"));
         btn_realizar_consulta = new QPushButton(tab_consulta);
         btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
-        btn_realizar_consulta->setMinimumSize(QSize(150, 0));
+        btn_realizar_consulta->setMinimumSize(QSize(150, 30));
         QFont font6;
         font6.setPointSize(16);
         font6.setBold(true);
@@ -504,13 +512,17 @@ public:
 
         layout_botones->addWidget(btn_realizar_consulta);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        progressbar_realizar_consulta = new QProgressBar(tab_consulta);
+        progressbar_realizar_consulta->setObjectName(QStringLiteral("progressbar_realizar_consulta"));
+        progressbar_realizar_consulta->setMinimumSize(QSize(0, 30));
+        progressbar_realizar_consulta->setValue(24);
+        progressbar_realizar_consulta->setTextVisible(false);
 
-        layout_botones->addItem(horizontalSpacer);
+        layout_botones->addWidget(progressbar_realizar_consulta);
 
         btn_cancelar = new QPushButton(tab_consulta);
         btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
-        btn_cancelar->setMinimumSize(QSize(100, 0));
+        btn_cancelar->setMinimumSize(QSize(100, 30));
         QFont font7;
         font7.setPointSize(16);
         font7.setBold(true);

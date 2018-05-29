@@ -68,9 +68,14 @@ private:
 
     DialogoResultadoConsulta * dialogo_resultados;
 
+    QFutureWatcher<void> observador_realizar_consulta;
+
     // metodos privados
 
     void conectar_componentes();
+
+    void habilitar_opciones();
+    void deshabilitar_opciones();
 
     // carga listas
 

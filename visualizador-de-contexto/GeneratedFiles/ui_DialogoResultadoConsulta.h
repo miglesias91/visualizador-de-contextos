@@ -18,9 +18,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -43,6 +43,8 @@ public:
     QSlider *dias;
     QWidget *widget_exportar;
     QHBoxLayout *layout_exportar;
+    QWidget *widget_exportar_botones;
+    QHBoxLayout *layout_exportar_botones;
     QPushButton *btn_exportar_fecha_actual;
     QPushButton *btn_exportar_todo;
     QPushButton *btn_exportar_rango;
@@ -54,13 +56,14 @@ public:
     QVBoxLayout *layout_hasta;
     QLabel *lbl_hasta;
     QDateEdit *dateedit_hasta;
-    QSpacerItem *horizontalSpacer;
+    QProgressBar *progressbar_exportacion;
 
     void setupUi(QWidget *DialogoResultadoConsulta)
     {
         if (DialogoResultadoConsulta->objectName().isEmpty())
             DialogoResultadoConsulta->setObjectName(QStringLiteral("DialogoResultadoConsulta"));
-        DialogoResultadoConsulta->resize(600, 400);
+        DialogoResultadoConsulta->resize(800, 300);
+        DialogoResultadoConsulta->setMinimumSize(QSize(800, 300));
         verticalLayout = new QVBoxLayout(DialogoResultadoConsulta);
         verticalLayout->setSpacing(5);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -188,38 +191,52 @@ public:
         layout_exportar->setContentsMargins(11, 11, 11, 11);
         layout_exportar->setObjectName(QStringLiteral("layout_exportar"));
         layout_exportar->setContentsMargins(0, 0, 0, 0);
-        btn_exportar_fecha_actual = new QPushButton(widget_exportar);
-        btn_exportar_fecha_actual->setObjectName(QStringLiteral("btn_exportar_fecha_actual"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        widget_exportar_botones = new QWidget(widget_exportar);
+        widget_exportar_botones->setObjectName(QStringLiteral("widget_exportar_botones"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Minimum);
         sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(30);
-        sizePolicy2.setHeightForWidth(btn_exportar_fecha_actual->sizePolicy().hasHeightForWidth());
-        btn_exportar_fecha_actual->setSizePolicy(sizePolicy2);
-        btn_exportar_fecha_actual->setMinimumSize(QSize(0, 30));
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget_exportar_botones->sizePolicy().hasHeightForWidth());
+        widget_exportar_botones->setSizePolicy(sizePolicy2);
+        layout_exportar_botones = new QHBoxLayout(widget_exportar_botones);
+        layout_exportar_botones->setSpacing(6);
+        layout_exportar_botones->setContentsMargins(11, 11, 11, 11);
+        layout_exportar_botones->setObjectName(QStringLiteral("layout_exportar_botones"));
+        layout_exportar_botones->setContentsMargins(1, 1, 1, 1);
+        btn_exportar_fecha_actual = new QPushButton(widget_exportar_botones);
+        btn_exportar_fecha_actual->setObjectName(QStringLiteral("btn_exportar_fecha_actual"));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(30);
+        sizePolicy3.setHeightForWidth(btn_exportar_fecha_actual->sizePolicy().hasHeightForWidth());
+        btn_exportar_fecha_actual->setSizePolicy(sizePolicy3);
+        btn_exportar_fecha_actual->setMinimumSize(QSize(160, 30));
         btn_exportar_fecha_actual->setMaximumSize(QSize(200, 16777215));
         btn_exportar_fecha_actual->setFont(font);
 
-        layout_exportar->addWidget(btn_exportar_fecha_actual);
+        layout_exportar_botones->addWidget(btn_exportar_fecha_actual);
 
-        btn_exportar_todo = new QPushButton(widget_exportar);
+        btn_exportar_todo = new QPushButton(widget_exportar_botones);
         btn_exportar_todo->setObjectName(QStringLiteral("btn_exportar_todo"));
-        btn_exportar_todo->setMinimumSize(QSize(0, 30));
+        btn_exportar_todo->setMinimumSize(QSize(110, 30));
         btn_exportar_todo->setMaximumSize(QSize(150, 16777215));
         btn_exportar_todo->setFont(font);
 
-        layout_exportar->addWidget(btn_exportar_todo);
+        layout_exportar_botones->addWidget(btn_exportar_todo);
 
-        btn_exportar_rango = new QPushButton(widget_exportar);
+        btn_exportar_rango = new QPushButton(widget_exportar_botones);
         btn_exportar_rango->setObjectName(QStringLiteral("btn_exportar_rango"));
-        btn_exportar_rango->setMinimumSize(QSize(0, 30));
+        btn_exportar_rango->setMinimumSize(QSize(120, 30));
         btn_exportar_rango->setMaximumSize(QSize(150, 16777215));
         btn_exportar_rango->setFont(font);
 
-        layout_exportar->addWidget(btn_exportar_rango);
+        layout_exportar_botones->addWidget(btn_exportar_rango);
 
-        widget_desde = new QWidget(widget_exportar);
+        widget_desde = new QWidget(widget_exportar_botones);
         widget_desde->setObjectName(QStringLiteral("widget_desde"));
-        widget_desde->setMaximumSize(QSize(80, 16777215));
+        sizePolicy2.setHeightForWidth(widget_desde->sizePolicy().hasHeightForWidth());
+        widget_desde->setSizePolicy(sizePolicy2);
+        widget_desde->setMaximumSize(QSize(90, 30));
         layout_desde = new QVBoxLayout(widget_desde);
         layout_desde->setSpacing(0);
         layout_desde->setContentsMargins(11, 11, 11, 11);
@@ -236,20 +253,24 @@ public:
 
         dateedit_desde = new QDateEdit(widget_desde);
         dateedit_desde->setObjectName(QStringLiteral("dateedit_desde"));
+        dateedit_desde->setMinimumSize(QSize(90, 0));
         dateedit_desde->setMaximumSize(QSize(80, 16777215));
         QFont font4;
         font4.setFamily(QStringLiteral("Calibri"));
         font4.setPointSize(10);
         dateedit_desde->setFont(font4);
+        dateedit_desde->setCalendarPopup(true);
 
         layout_desde->addWidget(dateedit_desde);
 
 
-        layout_exportar->addWidget(widget_desde);
+        layout_exportar_botones->addWidget(widget_desde);
 
-        widget_hasta = new QWidget(widget_exportar);
+        widget_hasta = new QWidget(widget_exportar_botones);
         widget_hasta->setObjectName(QStringLiteral("widget_hasta"));
-        widget_hasta->setMaximumSize(QSize(80, 16777215));
+        sizePolicy2.setHeightForWidth(widget_hasta->sizePolicy().hasHeightForWidth());
+        widget_hasta->setSizePolicy(sizePolicy2);
+        widget_hasta->setMaximumSize(QSize(90, 30));
         layout_hasta = new QVBoxLayout(widget_hasta);
         layout_hasta->setSpacing(0);
         layout_hasta->setContentsMargins(11, 11, 11, 11);
@@ -264,17 +285,32 @@ public:
 
         dateedit_hasta = new QDateEdit(widget_hasta);
         dateedit_hasta->setObjectName(QStringLiteral("dateedit_hasta"));
+        dateedit_hasta->setMinimumSize(QSize(90, 0));
         dateedit_hasta->setMaximumSize(QSize(80, 16777215));
         dateedit_hasta->setFont(font4);
+        dateedit_hasta->setCalendarPopup(true);
 
         layout_hasta->addWidget(dateedit_hasta);
 
 
-        layout_exportar->addWidget(widget_hasta);
+        layout_exportar_botones->addWidget(widget_hasta);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        layout_exportar->addItem(horizontalSpacer);
+        layout_exportar->addWidget(widget_exportar_botones);
+
+        progressbar_exportacion = new QProgressBar(widget_exportar);
+        progressbar_exportacion->setObjectName(QStringLiteral("progressbar_exportacion"));
+        progressbar_exportacion->setEnabled(true);
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(progressbar_exportacion->sizePolicy().hasHeightForWidth());
+        progressbar_exportacion->setSizePolicy(sizePolicy4);
+        progressbar_exportacion->setMinimumSize(QSize(0, 30));
+        progressbar_exportacion->setValue(50);
+        progressbar_exportacion->setTextVisible(false);
+
+        layout_exportar->addWidget(progressbar_exportacion);
 
 
         verticalLayout->addWidget(widget_exportar);

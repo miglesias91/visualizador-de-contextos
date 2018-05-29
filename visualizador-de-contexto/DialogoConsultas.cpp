@@ -17,6 +17,10 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
 
+    this->ui->lbl_etiqueta->setVisible(false);
+    this->ui->lineedit_etiqueta_periodo->setVisible(false);
+    this->ui->progressbar_realizar_consulta->setVisible(false);
+
     this->conectar_componentes();
 
     this->setAttribute(Qt::WA_DeleteOnClose);
@@ -205,51 +209,64 @@ void DialogoConsultas::sacar_reportes()
 
 void DialogoConsultas::realizar_consulta()
 {
-    aplicacion::GestorDatosScraping gestor_datos;
+    this->dialogo_resultados = new DialogoResultadoConsulta();
 
-    herramientas::utiles::Fecha desde(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year());
-    herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
-    //std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados = gestor_datos.recuperarResultadosEntreRangoDeFechas(desde, hasta);
+    QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
 
-    std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
-    std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
+        aplicacion::GestorDatosScraping gestor_datos;
 
-    if (medios_seleccionados.empty()) {
-        QMessageBox * informacion_no_hay_medios_seleccionados = this->crearInformacionNoHayMediosSeleccionados();
-        informacion_no_hay_medios_seleccionados->exec();
+        herramientas::utiles::Fecha desde(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year());
+        herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
 
-        delete informacion_no_hay_medios_seleccionados;
+        std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
+        std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
-        return;
-    }
+        if (medios_seleccionados.empty()) {
+            QMessageBox * informacion_no_hay_medios_seleccionados = this->crearInformacionNoHayMediosSeleccionados();
+            informacion_no_hay_medios_seleccionados->exec();
 
-    if (conceptos_seleccionados.empty()) {
-        QMessageBox * informacion_no_hay_conceptos_seleccionados = this->crearInformacionNoHayConceptosSeleccionados();
-        informacion_no_hay_conceptos_seleccionados->exec();
+            delete informacion_no_hay_medios_seleccionados;
 
-        delete informacion_no_hay_conceptos_seleccionados;
+            return;
+        }
 
-        return;
-    }
+        if (conceptos_seleccionados.empty()) {
+            QMessageBox * informacion_no_hay_conceptos_seleccionados = this->crearInformacionNoHayConceptosSeleccionados();
+            informacion_no_hay_conceptos_seleccionados->exec();
 
-    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
-    gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, &resultados_filtrados);
+            delete informacion_no_hay_conceptos_seleccionados;
 
-    if (resultados_filtrados.empty()) {
-        QMessageBox * informacion_etiqueta_vacia = this->crearInformacionSinResultados();
-        informacion_etiqueta_vacia->exec();
+            return;
+        }
 
-        delete informacion_etiqueta_vacia;
+        std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
+        gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, &resultados_filtrados);
+
+        if (resultados_filtrados.empty()) {
+            QMessageBox * informacion_etiqueta_vacia = this->crearInformacionSinResultados();
+            informacion_etiqueta_vacia->exec();
+
+            delete informacion_etiqueta_vacia;
+
+            aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
+
+            return;
+        }
 
         aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
-        return;
-    }
+        //this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
+        this->dialogo_resultados->volcar_datos(medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
+        this->ui->opciones_consulta->addTab(dialogo_resultados, "consulta 1");
+        this->ui->opciones_consulta->setCurrentIndex(this->ui->opciones_consulta->count());
+        this->dialogo_resultados->show();
 
-    aplicacion::Logger::info("Realizando consulta: " + std::to_string(resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
+        std::for_each(resultados_filtrados.begin(), resultados_filtrados.end(),
+            [](scraping::preparacion::ResultadoAnalisisDiario* resultado)
+        { delete resultado; });
+    });
 
-    this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, resultados_filtrados);
-    this->dialogo_resultados->show();
+    this->observador_realizar_consulta.setFuture(tarea_exportacion);
 
     //aplicacion::GestorConsultas gestor_consultas;
     //gestor_consultas.setMedios(medios_seleccionados);
@@ -273,9 +290,6 @@ void DialogoConsultas::realizar_consulta()
     //    delete *it;
     //}
 
-    std::for_each(resultados_filtrados.begin(), resultados_filtrados.end(),
-        [](scraping::preparacion::ResultadoAnalisisDiario* resultado)
-    { delete resultado; });
 }
 
 // carga listas
@@ -508,6 +522,22 @@ void DialogoConsultas::conectar_componentes()
 
     QObject::connect(this->ui->btn_realizar_consulta, &QPushButton::released, this, &DialogoConsultas::realizar_consulta);
     QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &QWidget::close);
+
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this, &DialogoConsultas::deshabilitar_opciones);
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this->ui->progressbar_realizar_consulta, &QProgressBar::show);
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this, &DialogoConsultas::habilitar_opciones);
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this->ui->progressbar_realizar_consulta, &QProgressBar::hide);
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::progressValueChanged, this->ui->progressbar_realizar_consulta, &QProgressBar::valueChanged);
+}
+
+void DialogoConsultas::habilitar_opciones() {
+
+    this->ui->opciones_consulta->setEnabled(true);
+}
+
+void DialogoConsultas::deshabilitar_opciones() {
+
+    this->ui->opciones_consulta->setDisabled(true);
 }
 
 QMessageBox * DialogoConsultas::crearInformacionSinResultados()

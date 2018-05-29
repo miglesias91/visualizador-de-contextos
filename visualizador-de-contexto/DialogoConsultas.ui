@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>408</width>
+    <width>500</width>
     <height>672</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Realizar consulta</string>
@@ -220,6 +226,19 @@
                  </widget>
                 </item>
                 <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
                  <widget class="QLabel" name="lbl_etiqueta">
                   <property name="font">
                    <font>
@@ -233,6 +252,12 @@
                 </item>
                 <item>
                  <widget class="QLineEdit" name="lineedit_etiqueta_periodo">
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
                     <family>Calibri</family>
@@ -699,12 +724,15 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="layout_botones">
+         <property name="spacing">
+          <number>5</number>
+         </property>
          <item>
           <widget class="QPushButton" name="btn_realizar_consulta">
            <property name="minimumSize">
             <size>
              <width>150</width>
-             <height>0</height>
+             <height>30</height>
             </size>
            </property>
            <property name="font">
@@ -721,24 +749,27 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+          <widget class="QProgressBar" name="progressbar_realizar_consulta">
+           <property name="minimumSize">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>0</width>
+             <height>30</height>
             </size>
            </property>
-          </spacer>
+           <property name="value">
+            <number>24</number>
+           </property>
+           <property name="textVisible">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="btn_cancelar">
            <property name="minimumSize">
             <size>
              <width>100</width>
-             <height>0</height>
+             <height>30</height>
             </size>
            </property>
            <property name="font">

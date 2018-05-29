@@ -5,6 +5,8 @@
 #include <qtreewidget.h>
 #include <qdatetime.h>
 #include <qsizepolicy.h>
+#include <qfuturewatcher.h>
+#include <QtConcurrent/qtconcurrentrun.h>
 
 // herramientas
 #include <utiles/include/Fecha.h>
@@ -21,12 +23,18 @@ class DialogoResultadoConsulta : public QWidget
     Q_OBJECT
 
 public:
+    DialogoResultadoConsulta(QWidget *parent = Q_NULLPTR);
+
     DialogoResultadoConsulta(
         std::vector<modelo::Medio*> medios,
         std::vector<modelo::Concepto*> conceptos,
         std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados,
         QWidget *parent = Q_NULLPTR);
     ~DialogoResultadoConsulta();
+
+    void volcar_datos(std::vector<modelo::Medio*> medios,
+        std::vector<modelo::Concepto*> conceptos,
+        std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados);
 
 private:
     Ui::DialogoResultadoConsulta *ui;
@@ -58,9 +66,17 @@ private:
     void expandir_fuerza_en_noticia(QTreeWidgetItem *item);
 
     void exportar(int fecha);
+    void exportar(std::vector<int> fechas);
     void exportar_actual();
     void exportar_todo();
     void exportar_rango();
+
+    void habilitar_exportar_botones();
+    void deshabilitar_exportar_botones();
+
+    herramientas::utiles::Json * fecha_a_json(int fecha);
+    herramientas::utiles::Json * concepto_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_medio);
+    herramientas::utiles::Json * termino_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_termino, int idx_medio);
 
     // atributos
     std::vector<modelo::Medio*> medios;
@@ -73,5 +89,6 @@ private:
     herramientas::utiles::Fecha fecha_actual;
 
     std::vector<unsigned int> meses_con_treinta_dias;
-    std::vector<unsigned long long int> fechas_exportadas;
+
+    QFutureWatcher<void> observador_exportacion;
 };
