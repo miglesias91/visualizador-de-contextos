@@ -95,6 +95,7 @@ public:
     QHBoxLayout *layout_botones;
     QPushButton *btn_realizar_consulta;
     QProgressBar *progressbar_realizar_consulta;
+    QSpacerItem *horizontalSpacer;
     QPushButton *btn_cancelar;
     QWidget *tab_conceptos;
     QVBoxLayout *verticalLayout_9;
@@ -502,7 +503,13 @@ public:
         layout_botones->setObjectName(QStringLiteral("layout_botones"));
         btn_realizar_consulta = new QPushButton(tab_consulta);
         btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
-        btn_realizar_consulta->setMinimumSize(QSize(150, 30));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(btn_realizar_consulta->sizePolicy().hasHeightForWidth());
+        btn_realizar_consulta->setSizePolicy(sizePolicy1);
+        btn_realizar_consulta->setMinimumSize(QSize(120, 30));
+        btn_realizar_consulta->setMaximumSize(QSize(150, 16777215));
         QFont font6;
         font6.setPointSize(16);
         font6.setBold(true);
@@ -514,15 +521,27 @@ public:
 
         progressbar_realizar_consulta = new QProgressBar(tab_consulta);
         progressbar_realizar_consulta->setObjectName(QStringLiteral("progressbar_realizar_consulta"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(progressbar_realizar_consulta->sizePolicy().hasHeightForWidth());
+        progressbar_realizar_consulta->setSizePolicy(sizePolicy2);
         progressbar_realizar_consulta->setMinimumSize(QSize(0, 30));
         progressbar_realizar_consulta->setValue(24);
         progressbar_realizar_consulta->setTextVisible(false);
 
         layout_botones->addWidget(progressbar_realizar_consulta);
 
+        horizontalSpacer = new QSpacerItem(10, 27, QSizePolicy::Maximum, QSizePolicy::Minimum);
+
+        layout_botones->addItem(horizontalSpacer);
+
         btn_cancelar = new QPushButton(tab_consulta);
         btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
+        sizePolicy1.setHeightForWidth(btn_cancelar->sizePolicy().hasHeightForWidth());
+        btn_cancelar->setSizePolicy(sizePolicy1);
         btn_cancelar->setMinimumSize(QSize(100, 30));
+        btn_cancelar->setMaximumSize(QSize(150, 16777215));
         QFont font7;
         font7.setPointSize(16);
         font7.setBold(true);

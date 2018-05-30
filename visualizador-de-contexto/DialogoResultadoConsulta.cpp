@@ -393,55 +393,55 @@ void DialogoResultadoConsulta::expandir_fuerza_en_noticia(QTreeWidgetItem * item
         fecha_fuerza_en_noticia.second->blockSignals(false);
     });
 }
-
-void DialogoResultadoConsulta::exportar(int fecha) {
-
-    QTreeWidget * fuerza_en_noticia = this->fuerzas_en_noticia[fecha];
-    QTreeWidget * sentimiento = this->sentimientos[fecha];
-
-    herramientas::utiles::Json json_fecha;
-
-    std::vector<herramientas::utiles::Json*> medios_en_fecha;
-    std::vector<herramientas::utiles::Json*> conceptos_de_medio;
-    std::vector<herramientas::utiles::Json*> terminos_de_concepto;
-
-    int cantidad_de_columnas = fuerza_en_noticia->columnCount();
-    for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) { // itero medios/columnas
-        std::string nombre_medio = fuerza_en_noticia->headerItem()->text(i_medios).toStdString();
-
-        herramientas::utiles::Json * json_medio = new herramientas::utiles::Json();
-        json_medio->agregarAtributoValor("nombre", nombre_medio);
-
-        int cantidad_de_conceptos = fuerza_en_noticia->topLevelItemCount();
-        for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) { // itero conceptos/top level items
-
-            herramientas::utiles::Json * json_concepto = this->concepto_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_medios);
-
-            int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
-            for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) { // itero terminos
-
-                herramientas::utiles::Json * json_termino = this->termino_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_terminos, i_medios);
-
-                terminos_de_concepto.push_back(json_termino);
-            }
-            json_concepto->agregarAtributoArray("terminos", terminos_de_concepto);
-            conceptos_de_medio.push_back(json_concepto);
-        }
-
-        json_medio->agregarAtributoArray("conceptos", conceptos_de_medio);
-        medios_en_fecha.push_back(json_medio);
-    }
-
-    json_fecha.agregarAtributoValor("fecha", static_cast<unsigned long long int>(fecha));
-    json_fecha.agregarAtributoArray("medios", medios_en_fecha);
-
-    std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-    herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_fecha.jsonStringLindo());
-
-    std::for_each(medios_en_fecha.begin(), medios_en_fecha.end(), [](herramientas::utiles::Json * json_medio) { delete json_medio; });
-    std::for_each(conceptos_de_medio.begin(), conceptos_de_medio.end(), [](herramientas::utiles::Json * json_concepto) { delete json_concepto; });
-    std::for_each(terminos_de_concepto.begin(), terminos_de_concepto.end(), [](herramientas::utiles::Json * json_termino) { delete json_termino; });
-}
+//
+//void DialogoResultadoConsulta::exportar(int fecha) {
+//
+//    QTreeWidget * fuerza_en_noticia = this->fuerzas_en_noticia[fecha];
+//    QTreeWidget * sentimiento = this->sentimientos[fecha];
+//
+//    herramientas::utiles::Json json_fecha;
+//
+//    std::vector<herramientas::utiles::Json*> medios_en_fecha;
+//    std::vector<herramientas::utiles::Json*> conceptos_de_medio;
+//    std::vector<herramientas::utiles::Json*> terminos_de_concepto;
+//
+//    int cantidad_de_columnas = fuerza_en_noticia->columnCount();
+//    for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) { // itero medios/columnas
+//        std::string nombre_medio = fuerza_en_noticia->headerItem()->text(i_medios).toStdString();
+//
+//        herramientas::utiles::Json * json_medio = new herramientas::utiles::Json();
+//        json_medio->agregarAtributoValor("nombre", nombre_medio);
+//
+//        int cantidad_de_conceptos = fuerza_en_noticia->topLevelItemCount();
+//        for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) { // itero conceptos/top level items
+//
+//            herramientas::utiles::Json * json_concepto = this->concepto_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_medios);
+//
+//            int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
+//            for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) { // itero terminos
+//
+//                herramientas::utiles::Json * json_termino = this->termino_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_terminos, i_medios);
+//
+//                terminos_de_concepto.push_back(json_termino);
+//            }
+//            json_concepto->agregarAtributoArray("terminos", terminos_de_concepto);
+//            conceptos_de_medio.push_back(json_concepto);
+//        }
+//
+//        json_medio->agregarAtributoArray("conceptos", conceptos_de_medio);
+//        medios_en_fecha.push_back(json_medio);
+//    }
+//
+//    json_fecha.agregarAtributoValor("fecha", static_cast<unsigned long long int>(fecha));
+//    json_fecha.agregarAtributoArray("medios", medios_en_fecha);
+//
+//    std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
+//    herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_fecha.jsonStringLindo());
+//
+//    std::for_each(medios_en_fecha.begin(), medios_en_fecha.end(), [](herramientas::utiles::Json * json_medio) { delete json_medio; });
+//    std::for_each(conceptos_de_medio.begin(), conceptos_de_medio.end(), [](herramientas::utiles::Json * json_concepto) { delete json_concepto; });
+//    std::for_each(terminos_de_concepto.begin(), terminos_de_concepto.end(), [](herramientas::utiles::Json * json_termino) { delete json_termino; });
+//}
 
 herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
 

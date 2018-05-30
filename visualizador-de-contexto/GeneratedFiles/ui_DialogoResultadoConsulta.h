@@ -21,6 +21,7 @@
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -56,6 +57,7 @@ public:
     QVBoxLayout *layout_hasta;
     QLabel *lbl_hasta;
     QDateEdit *dateedit_hasta;
+    QSpacerItem *horizontalSpacer;
     QProgressBar *progressbar_exportacion;
 
     void setupUi(QWidget *DialogoResultadoConsulta)
@@ -297,6 +299,10 @@ public:
 
 
         layout_exportar->addWidget(widget_exportar_botones);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        layout_exportar->addItem(horizontalSpacer);
 
         progressbar_exportacion = new QProgressBar(widget_exportar);
         progressbar_exportacion->setObjectName(QStringLiteral("progressbar_exportacion"));

@@ -65,8 +65,8 @@ private:
     void colapsar_fuerza_en_noticia(QTreeWidgetItem *item);
     void expandir_fuerza_en_noticia(QTreeWidgetItem *item);
 
-    void exportar(int fecha);
-    void exportar(std::vector<int> fechas);
+    //void exportar(int fecha);
+    //void exportar(std::vector<int> fechas);
     void exportar_actual();
     void exportar_todo();
     void exportar_rango();

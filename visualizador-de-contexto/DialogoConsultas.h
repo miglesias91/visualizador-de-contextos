@@ -57,9 +57,11 @@ private slots:
 
     void sacar_reportes();
 
-    void realizar_consulta();
+    void recuperar_resultados();
 
     void resetear_periodo();
+
+    void mostrar_resultados();
 
 private:
     Ui::DialogoConsultas *ui;
@@ -69,6 +71,8 @@ private:
     DialogoResultadoConsulta * dialogo_resultados;
 
     QFutureWatcher<void> observador_realizar_consulta;
+
+    std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;
 
     // metodos privados
 
