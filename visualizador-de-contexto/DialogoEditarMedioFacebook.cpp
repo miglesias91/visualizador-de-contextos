@@ -7,12 +7,11 @@ DialogoEditarMedioFacebook::DialogoEditarMedioFacebook(modelo::MedioFacebook * m
     ui = new Ui::DialogoEditarMedioFacebook();
     ui->setupUi(this);
 
+    this->conectar_componentes();
+
     aplicacion::Logger::info("Iniciando dialogo Editar Medios Facebook.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
-
-    QObject::connect(this->ui->btnbox, &QDialogButtonBox::accepted, this, &DialogoEditarMedioFacebook::ok);
-    QObject::connect(this->ui->btnbox, &QDialogButtonBox::rejected, this, &DialogoEditarMedioFacebook::cancelar);
 }
 
 DialogoEditarMedioFacebook::~DialogoEditarMedioFacebook()
@@ -23,7 +22,7 @@ DialogoEditarMedioFacebook::~DialogoEditarMedioFacebook()
 }
 
 // SLOTS
-void DialogoEditarMedioFacebook::ok()
+void DialogoEditarMedioFacebook::guardar()
 {
     if (this->ui->lineedit_etiqueta->text().isEmpty())
     {
@@ -73,4 +72,10 @@ QMessageBox * DialogoEditarMedioFacebook::crearInformacionNombreVacio()
     std::string texto = u8"No se asigno un nombre de página.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+}
+
+void DialogoEditarMedioFacebook::conectar_componentes() {
+
+    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoEditarMedioFacebook::guardar);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoEditarMedioFacebook::cancelar);
 }

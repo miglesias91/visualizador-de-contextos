@@ -29,20 +29,20 @@ public:
     ~DialogoMediosFacebook();
 
 private slots:
-    void on_action_actualizar_y_cerrar_triggered();
+    void actualizar_y_cerrar();
 
-    void on_action_resetear_triggered();
+    void resetear();
 
-    void on_action_guardar_triggered();
+    void eliminar();
 
-    void on_action_eliminar_triggered();
+    void estado_btn_eliminar();
 
-    void on_action_estado_btn_eliminar_triggered();
-
-    void on_action_nueva_pagina_triggered();
+    void nueva_pagina();
 
 private:
     Ui::DialogoMediosFacebook *ui;
+
+    void conectar_componentes();
 
     // METODOS PRIVADOS
 

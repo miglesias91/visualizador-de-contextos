@@ -29,11 +29,11 @@ public:
     ~DialogoEditarConcepto();
 
 private slots:
-    void on_action_eliminar_triggered();
+    void eliminar();
 
-    void on_action_nuevo_triggered();
+    void nuevo();
 
-    void on_action_ok_triggered();
+    void guardar();
 
     void termino_actualizado(QListWidgetItem * item_actualizado);
 
@@ -41,6 +41,8 @@ private slots:
 
 private:
     Ui::DialogoEditarConcepto *ui;
+
+    void conectar_componentes();
 
     // METODOS INTERNOS
 

@@ -19,13 +19,15 @@ DialogoMediosFacebook::DialogoMediosFacebook(QWidget *parent)
     ui = new Ui::DialogoMediosFacebook();
     ui->setupUi(this);
 
+    this->conectar_componentes();
+
     aplicacion::Logger::info("Iniciando dialogo Medios Facebook.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaMediosFacebook();
 
-    this->on_action_resetear_triggered();
+    this->resetear();
 }
 
 DialogoMediosFacebook::~DialogoMediosFacebook()
@@ -39,7 +41,7 @@ DialogoMediosFacebook::~DialogoMediosFacebook()
 
 // SLOTS
 
-void DialogoMediosFacebook::on_action_actualizar_y_cerrar_triggered()
+void DialogoMediosFacebook::actualizar_y_cerrar()
 {
     this->gestor_medios.guardarCambios();
 
@@ -48,48 +50,16 @@ void DialogoMediosFacebook::on_action_actualizar_y_cerrar_triggered()
     this->close();
 }
 
-void DialogoMediosFacebook::on_action_resetear_triggered()
+void DialogoMediosFacebook::resetear()
 {
     this->ui->lista_medios_facebook->clearSelection();
 
-    this->on_action_estado_btn_eliminar_triggered();
+    this->estado_btn_eliminar();
 
     aplicacion::Logger::info("Dialogo Medios Facebook reseteado.");
 }
 
-void DialogoMediosFacebook::on_action_guardar_triggered()
-{
-    //modelo::MedioFacebook * medio_nuevo = new modelo::MedioFacebook(nombre_pagina, etiqueta);
-
-    //if (false == this->gestor_medios.existe(medio_nuevo))
-    //{
-    //    // si NO existe, creo su cuenta de scraping asociada y se la seteo...
-    //    scraping::facebook::modelo::Pagina * nueva_pagina = new scraping::facebook::modelo::Pagina(nombre_pagina);
-    //    nueva_pagina->asignarNuevoId();
-    //    medio_nuevo->setPaginaAScrapear(nueva_pagina);
-
-    //    // y lo agrego en la lista visible.
-    //    this->agregarMedioFacebookALista(medio_nuevo);
-
-    //    // ahora si la almaceno.
-    //    this->gestor_medios.almacenar(medio_nuevo);
-
-    //    aplicacion::Logger::info("Medio Facebbok agregado: { " + aplicacion::Logger::infoLog(medio_nuevo) + " }.");
-    //}
-    //else
-    //{
-    //    QMessageBox * informacion_termino_existente = this->crearInformacionMedioFacebookExistente();
-    //    informacion_termino_existente->exec();
-
-    //    delete informacion_termino_existente;
-
-    //    delete medio_nuevo;
-    //}
-
-    //this->on_action_resetear_triggered();
-}
-
-void DialogoMediosFacebook::on_action_eliminar_triggered()
+void DialogoMediosFacebook::eliminar()
 {
     QList<QListWidgetItem*> items = ui->lista_medios_facebook->selectedItems();
     foreach(QListWidgetItem * item, items)
@@ -107,7 +77,7 @@ void DialogoMediosFacebook::on_action_eliminar_triggered()
     }
 }
 
-void DialogoMediosFacebook::on_action_estado_btn_eliminar_triggered()
+void DialogoMediosFacebook::estado_btn_eliminar()
 {
     int items_seleccionados = this->ui->lista_medios_facebook->selectedItems().size();
     if (0 >= items_seleccionados)
@@ -184,7 +154,7 @@ QMessageBox * DialogoMediosFacebook::crearInformacionMedioFacebookExistente()
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }
-void DialogoMediosFacebook::on_action_nueva_pagina_triggered()
+void DialogoMediosFacebook::nueva_pagina()
 {
     modelo::MedioFacebook * medio_facebook_nuevo = new modelo::MedioFacebook();
     this->dialogo_editar_medio_facebook = new DialogoEditarMedioFacebook(medio_facebook_nuevo, &this->gestor_medios);
@@ -216,10 +186,18 @@ void DialogoMediosFacebook::on_action_nueva_pagina_triggered()
             delete medio_facebook_nuevo;
         }
 
-        this->on_action_resetear_triggered();
+        this->resetear();
     }
     else
     {
         delete medio_facebook_nuevo;
     }
+}
+
+void DialogoMediosFacebook::conectar_componentes() {
+
+    QObject::connect(this->ui->btn_nueva, &QPushButton::released, this, &DialogoMediosFacebook::nueva_pagina);
+    QObject::connect(this->ui->btn_eliminar, &QPushButton::released, this, &DialogoMediosFacebook::eliminar);
+    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoMediosFacebook::actualizar_y_cerrar);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoMediosFacebook::close);
 }

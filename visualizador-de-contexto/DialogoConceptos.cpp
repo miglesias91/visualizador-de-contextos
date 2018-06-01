@@ -22,6 +22,8 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
     ui = new Ui::DialogoConceptos();
     ui->setupUi(this);
 
+    this->conectar_componentes();
+
     aplicacion::Logger::info("Iniciando dialogo Conceptos.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
@@ -30,9 +32,7 @@ DialogoConceptos::DialogoConceptos(QWidget *parent)
 
     std::vector<modelo::Termino*> terminos_actuales = this->gestor_terminos.gestionar<modelo::Termino>();
 
-    this->on_action_resetear_concepto_triggered();
-
-    QObject::connect(this->ui->lista_conceptos, &QListWidget::itemDoubleClicked, this, &DialogoConceptos::concepto_dobleclikeado);
+    this->resetear_concepto();
 }
 
 DialogoConceptos::~DialogoConceptos()
@@ -46,7 +46,7 @@ DialogoConceptos::~DialogoConceptos()
 
 // ACCIONES
 
-void DialogoConceptos::on_action_actualizar_y_cerrar_triggered()
+void DialogoConceptos::actualizar_y_cerrar()
 {
     this->gestor_terminos.guardarCambios();
     this->gestor_conceptos.guardarCambios();
@@ -56,7 +56,7 @@ void DialogoConceptos::on_action_actualizar_y_cerrar_triggered()
     this->close();
 }
 
-void DialogoConceptos::on_action_eliminar_concepto_triggered()
+void DialogoConceptos::eliminar_concepto()
 {
     QList<QListWidgetItem*> items = ui->lista_conceptos->selectedItems();
     foreach(QListWidgetItem * item, items)
@@ -74,25 +74,25 @@ void DialogoConceptos::on_action_eliminar_concepto_triggered()
     }
 }
 
-void DialogoConceptos::on_action_resetear_concepto_triggered()
+void DialogoConceptos::resetear_concepto()
 {
     this->ui->lista_conceptos->clearSelection();
 
-    this->on_action_estado_btn_eliminar_triggered();
+    this->estado_btn_eliminar();
 
     aplicacion::Logger::info("Dialogo Conceptos reseteado.");
 }
 
-void DialogoConceptos::on_action_estado_btn_eliminar_triggered()
+void DialogoConceptos::estado_btn_eliminar()
 {
     int items_seleccionados = this->ui->lista_conceptos->selectedItems().size();
     if (0 < items_seleccionados)
     {
-        this->ui->btn_eliminar_concepto->setEnabled(true);
+        this->ui->btn_eliminar->setEnabled(true);
     }
     else
     {
-        this->ui->btn_eliminar_concepto->setDisabled(true);
+        this->ui->btn_eliminar->setDisabled(true);
     }
 }
 
@@ -125,7 +125,7 @@ void DialogoConceptos::concepto_dobleclikeado(QListWidgetItem * item_dobleclikea
     }
 }
 
-void DialogoConceptos::on_action_nuevo_concepto_triggered()
+void DialogoConceptos::nuevo_concepto()
 {
     modelo::Concepto * concepto_nuevo = new modelo::Concepto();
     this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_nuevo, &this->gestor_terminos);
@@ -231,4 +231,13 @@ QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
     std::string texto = u8"El concepto que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_concepto_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente);
+}
+
+void DialogoConceptos::conectar_componentes() {
+
+    QObject::connect(this->ui->btn_nuevo, &QPushButton::released, this, &DialogoConceptos::nuevo_concepto);
+    QObject::connect(this->ui->btn_eliminar, &QPushButton::released, this, &DialogoConceptos::eliminar_concepto);
+    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoConceptos::actualizar_y_cerrar);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoConceptos::close);
+    QObject::connect(this->ui->lista_conceptos, &QListWidget::itemDoubleClicked, this, &DialogoConceptos::concepto_dobleclikeado);
 }

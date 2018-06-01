@@ -281,8 +281,14 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item alignment="Qt::AlignLeft">
     <widget class="QWidget" name="widget_exportar" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
@@ -309,6 +315,11 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>Calibri</family>
+         </font>
         </property>
         <layout class="QHBoxLayout" name="layout_exportar_botones">
          <property name="leftMargin">
@@ -415,7 +426,7 @@
            <property name="maximumSize">
             <size>
              <width>90</width>
-             <height>30</height>
+             <height>35</height>
             </size>
            </property>
            <layout class="QVBoxLayout" name="layout_desde">
@@ -491,7 +502,7 @@
            <property name="maximumSize">
             <size>
              <width>90</width>
-             <height>30</height>
+             <height>35</height>
             </size>
            </property>
            <layout class="QVBoxLayout" name="layout_hasta">
@@ -560,19 +571,6 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QProgressBar" name="progressbar_exportacion">
         <property name="enabled">
          <bool>true</bool>
@@ -585,7 +583,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>0</width>
+          <width>200</width>
           <height>30</height>
          </size>
         </property>

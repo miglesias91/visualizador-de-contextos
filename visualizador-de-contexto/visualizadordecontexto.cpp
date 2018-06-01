@@ -35,46 +35,52 @@ visualizadordecontexto::~visualizadordecontexto()
     visualizador::aplicacion::Logger::marca("FIN INTERFAZ QT");
 }
 
-void visualizadordecontexto::abrir_terminos()
-{
-	this->dialogo_terminos = new DialogoTerminos();
-	dialogo_terminos->show();
+void visualizadordecontexto::abrir_terminos() {
+	this->dialogo_terminos = new DialogoTerminos(this->ui.widget_area_trabajo);
+    this->dialogo_terminos->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_terminos);
 }
 
-void visualizadordecontexto::abrir_conceptos()
-{
-    this->dialogo_conceptos = new DialogoConceptos();
-    dialogo_conceptos->show();
+void visualizadordecontexto::abrir_conceptos() {
+
+    this->dialogo_conceptos = new DialogoConceptos(this->ui.widget_area_trabajo);
+    dialogo_conceptos->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_conceptos);
 }
 
-void visualizadordecontexto::abrir_fechas()
-{
-    this->dialogo_fechas = new DialogoFechas();
-    this->dialogo_fechas->show();
+void visualizadordecontexto::abrir_fechas() {
+
+    this->dialogo_fechas = new DialogoFechas(this->ui.widget_area_trabajo);
+    this->dialogo_fechas->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_fechas);
 }
 
-void visualizadordecontexto::abrir_periodos()
-{
-    this->dialogo_periodos = new DialogoPeriodos();
-    this->dialogo_periodos->show();
+void visualizadordecontexto::abrir_periodos() {
+
+    this->dialogo_periodos = new DialogoPeriodos(this->ui.widget_area_trabajo);
+    this->dialogo_periodos->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_periodos);
 }
 
-void visualizadordecontexto::abrir_consulta()
-{
-    this->dialogo_consultas = new DialogoConsultas();
-    this->dialogo_consultas->show();
+void visualizadordecontexto::abrir_consulta() {
+
+    this->dialogo_consultas = new DialogoConsultas(this->ui.widget_area_trabajo);
+    this->dialogo_consultas->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_consultas);
 }
 
-void visualizadordecontexto::abrir_medios_twitter()
-{
-    this->dialogo_medios_twitter = new DialogoMediosTwitter();
-    this->dialogo_medios_twitter->show();
+void visualizadordecontexto::abrir_medios_twitter() {
+
+    this->dialogo_medios_twitter = new DialogoMediosTwitter(this->ui.widget_area_trabajo);
+    this->dialogo_medios_twitter->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_medios_twitter);
 }
 
-void visualizadordecontexto::abrir_medios_facebook()
-{
-    this->dialogo_medios_facebook = new DialogoMediosFacebook();
-    this->dialogo_medios_facebook->show();
+void visualizadordecontexto::abrir_medios_facebook() {
+
+    this->dialogo_medios_facebook = new DialogoMediosFacebook(this->ui.widget_area_trabajo);
+    this->dialogo_medios_facebook->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_medios_facebook);
 }
 
 void visualizadordecontexto::analizar_ctx()

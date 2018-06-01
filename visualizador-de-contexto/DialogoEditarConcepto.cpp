@@ -6,6 +6,8 @@ DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * co
 {
     ui = new Ui::DialogoEditarConcepto();
     ui->setupUi(this);
+    
+    this->conectar_componentes();
 
     aplicacion::Logger::info("Iniciando dialogo Editar Conceptos.");
 
@@ -15,9 +17,6 @@ DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * co
     this->etiqueta_original = concepto_a_editar->getEtiqueta();
 
     this->cargarListaTerminos(concepto_a_editar);
-
-    QObject::connect(this->ui->lista, &QListWidget::itemChanged, this, &DialogoEditarConcepto::termino_actualizado);
-    QObject::connect(this->ui->lista, &QListWidget::currentItemChanged, this, &DialogoEditarConcepto::guardar_termino_sin_editar);
 }
 
 DialogoEditarConcepto::~DialogoEditarConcepto()
@@ -29,7 +28,7 @@ DialogoEditarConcepto::~DialogoEditarConcepto()
     delete ui;
 }
 
-void DialogoEditarConcepto::on_action_eliminar_triggered()
+void DialogoEditarConcepto::eliminar()
 {
     QList<QListWidgetItem*> items = ui->lista->selectedItems();
     foreach(QListWidgetItem * item, items)
@@ -50,7 +49,7 @@ void DialogoEditarConcepto::on_action_eliminar_triggered()
     }
 }
 
-void DialogoEditarConcepto::on_action_nuevo_triggered()
+void DialogoEditarConcepto::nuevo()
 {
     std::string texto_nuevo_valor = "<nuevo valor>";
     this->termino_sin_editar = texto_nuevo_valor;
@@ -73,7 +72,7 @@ void DialogoEditarConcepto::on_action_nuevo_triggered()
     this->ui->lista->editItem(item);
 }
 
-void DialogoEditarConcepto::on_action_ok_triggered()
+void DialogoEditarConcepto::guardar()
 {
     if (false == this->etiquetaModificada() && false == this->listaDeTerminosModificada())
     {
@@ -270,4 +269,15 @@ QMessageBox * DialogoEditarConcepto::crearInformacionListaDeTerminosVacia()
     std::string texto = u8"El concepto no tiene términos. La lista de términos no puede estar vacía.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+}
+
+void DialogoEditarConcepto::conectar_componentes() {
+
+    QObject::connect(this->ui->btn_nuevo, &QPushButton::released, this, &DialogoEditarConcepto::nuevo);
+    QObject::connect(this->ui->btn_eliminar, &QPushButton::released, this, &DialogoEditarConcepto::eliminar);
+    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoEditarConcepto::guardar);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoEditarConcepto::close);
+
+    QObject::connect(this->ui->lista, &QListWidget::itemChanged, this, &DialogoEditarConcepto::termino_actualizado);
+    QObject::connect(this->ui->lista, &QListWidget::currentItemChanged, this, &DialogoEditarConcepto::guardar_termino_sin_editar);
 }

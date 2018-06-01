@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -35,14 +34,20 @@ public:
     QAction *action_estado_btn_agregar;
     QAction *action_nueva_pagina;
     QVBoxLayout *verticalLayout;
+    QWidget *widget_general;
     QHBoxLayout *layout_general;
+    QWidget *widget_lista;
     QVBoxLayout *layout_lista;
+    QWidget *widget_superior;
     QHBoxLayout *layout_superior;
     QLabel *label;
     QPushButton *btn_eliminar;
     QPushButton *btn_nueva;
     QListWidget *lista_medios_facebook;
-    QDialogButtonBox *btnbox_medios_facebook;
+    QWidget *widget_opciones;
+    QHBoxLayout *layout_opciones;
+    QPushButton *btn_guardar;
+    QPushButton *btn_cancelar;
 
     void setupUi(QWidget *DialogoMediosFacebook)
     {
@@ -68,19 +73,32 @@ public:
         action_nueva_pagina = new QAction(DialogoMediosFacebook);
         action_nueva_pagina->setObjectName(QStringLiteral("action_nueva_pagina"));
         verticalLayout = new QVBoxLayout(DialogoMediosFacebook);
-        verticalLayout->setSpacing(6);
+        verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        layout_general = new QHBoxLayout();
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        widget_general = new QWidget(DialogoMediosFacebook);
+        widget_general->setObjectName(QStringLiteral("widget_general"));
+        layout_general = new QHBoxLayout(widget_general);
         layout_general->setSpacing(0);
+        layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
-        layout_lista = new QVBoxLayout();
-        layout_lista->setSpacing(0);
+        layout_general->setContentsMargins(0, 0, 0, 0);
+        widget_lista = new QWidget(widget_general);
+        widget_lista->setObjectName(QStringLiteral("widget_lista"));
+        layout_lista = new QVBoxLayout(widget_lista);
+        layout_lista->setSpacing(2);
+        layout_lista->setContentsMargins(11, 11, 11, 11);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
-        layout_superior = new QHBoxLayout();
-        layout_superior->setSpacing(6);
+        layout_lista->setContentsMargins(0, 0, 0, 0);
+        widget_superior = new QWidget(widget_lista);
+        widget_superior->setObjectName(QStringLiteral("widget_superior"));
+        layout_superior = new QHBoxLayout(widget_superior);
+        layout_superior->setSpacing(5);
+        layout_superior->setContentsMargins(11, 11, 11, 11);
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
-        label = new QLabel(DialogoMediosFacebook);
+        layout_superior->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(widget_superior);
         label->setObjectName(QStringLiteral("label"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
@@ -90,7 +108,7 @@ public:
 
         layout_superior->addWidget(label);
 
-        btn_eliminar = new QPushButton(DialogoMediosFacebook);
+        btn_eliminar = new QPushButton(widget_superior);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
         btn_eliminar->setMinimumSize(QSize(0, 30));
         btn_eliminar->setMaximumSize(QSize(80, 16777215));
@@ -101,7 +119,7 @@ public:
 
         layout_superior->addWidget(btn_eliminar);
 
-        btn_nueva = new QPushButton(DialogoMediosFacebook);
+        btn_nueva = new QPushButton(widget_superior);
         btn_nueva->setObjectName(QStringLiteral("btn_nueva"));
         btn_nueva->setMinimumSize(QSize(0, 30));
         btn_nueva->setMaximumSize(QSize(80, 16777215));
@@ -110,9 +128,9 @@ public:
         layout_superior->addWidget(btn_nueva);
 
 
-        layout_lista->addLayout(layout_superior);
+        layout_lista->addWidget(widget_superior);
 
-        lista_medios_facebook = new QListWidget(DialogoMediosFacebook);
+        lista_medios_facebook = new QListWidget(widget_lista);
         lista_medios_facebook->setObjectName(QStringLiteral("lista_medios_facebook"));
         QFont font2;
         font2.setFamily(QStringLiteral("Calibri"));
@@ -121,31 +139,39 @@ public:
 
         layout_lista->addWidget(lista_medios_facebook);
 
-
-        layout_general->addLayout(layout_lista);
-
-
-        verticalLayout->addLayout(layout_general);
-
-        btnbox_medios_facebook = new QDialogButtonBox(DialogoMediosFacebook);
-        btnbox_medios_facebook->setObjectName(QStringLiteral("btnbox_medios_facebook"));
+        widget_opciones = new QWidget(widget_lista);
+        widget_opciones->setObjectName(QStringLiteral("widget_opciones"));
+        layout_opciones = new QHBoxLayout(widget_opciones);
+        layout_opciones->setSpacing(3);
+        layout_opciones->setContentsMargins(11, 11, 11, 11);
+        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
+        layout_opciones->setContentsMargins(0, 0, 0, 0);
+        btn_guardar = new QPushButton(widget_opciones);
+        btn_guardar->setObjectName(QStringLiteral("btn_guardar"));
         QFont font3;
         font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(11);
-        font3.setItalic(false);
-        btnbox_medios_facebook->setFont(font3);
-        btnbox_medios_facebook->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-        btnbox_medios_facebook->setCenterButtons(true);
+        font3.setPointSize(12);
+        btn_guardar->setFont(font3);
 
-        verticalLayout->addWidget(btnbox_medios_facebook);
+        layout_opciones->addWidget(btn_guardar);
+
+        btn_cancelar = new QPushButton(widget_opciones);
+        btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
+        btn_cancelar->setFont(font3);
+
+        layout_opciones->addWidget(btn_cancelar);
+
+
+        layout_lista->addWidget(widget_opciones, 0, Qt::AlignHCenter);
+
+
+        layout_general->addWidget(widget_lista);
+
+
+        verticalLayout->addWidget(widget_general);
 
 
         retranslateUi(DialogoMediosFacebook);
-        QObject::connect(lista_medios_facebook, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
-        QObject::connect(btnbox_medios_facebook, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
-        QObject::connect(btnbox_medios_facebook, SIGNAL(rejected()), DialogoMediosFacebook, SLOT(close()));
-        QObject::connect(btn_nueva, SIGNAL(released()), action_nueva_pagina, SLOT(trigger()));
-        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoMediosFacebook);
     } // setupUi
@@ -193,6 +219,8 @@ public:
         label->setText(QApplication::translate("DialogoMediosFacebook", "Lista de p\303\241ginas de Facebook", Q_NULLPTR));
         btn_eliminar->setText(QApplication::translate("DialogoMediosFacebook", "Eliminar", Q_NULLPTR));
         btn_nueva->setText(QApplication::translate("DialogoMediosFacebook", "Nueva", Q_NULLPTR));
+        btn_guardar->setText(QApplication::translate("DialogoMediosFacebook", "Guardar", Q_NULLPTR));
+        btn_cancelar->setText(QApplication::translate("DialogoMediosFacebook", "Cancelar", Q_NULLPTR));
     } // retranslateUi
 
 };

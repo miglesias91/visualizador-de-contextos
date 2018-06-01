@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -28,20 +27,20 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoEditarConcepto
 {
 public:
-    QAction *action_eliminar;
-    QAction *action_nuevo;
-    QAction *action_ok;
-    QAction *action_editar;
-    QAction *action_actualizar_termino;
-    QWidget *verticalLayoutWidget;
+    QVBoxLayout *layout_dialogo;
+    QWidget *widget_general;
     QVBoxLayout *layout_general;
+    QWidget *widget_superior;
     QHBoxLayout *layout_superior;
     QLabel *lbl_etiqueta;
     QLineEdit *lineedit_etiqueta;
     QPushButton *btn_eliminar;
     QPushButton *btn_nuevo;
     QListWidget *lista;
-    QDialogButtonBox *btnbox;
+    QWidget *widget_opciones;
+    QHBoxLayout *layout_opciones;
+    QPushButton *btn_guardar;
+    QPushButton *btn_cancelar;
 
     void setupUi(QWidget *DialogoEditarConcepto)
     {
@@ -49,28 +48,26 @@ public:
             DialogoEditarConcepto->setObjectName(QStringLiteral("DialogoEditarConcepto"));
         DialogoEditarConcepto->setWindowModality(Qt::NonModal);
         DialogoEditarConcepto->resize(404, 300);
-        action_eliminar = new QAction(DialogoEditarConcepto);
-        action_eliminar->setObjectName(QStringLiteral("action_eliminar"));
-        action_nuevo = new QAction(DialogoEditarConcepto);
-        action_nuevo->setObjectName(QStringLiteral("action_nuevo"));
-        action_ok = new QAction(DialogoEditarConcepto);
-        action_ok->setObjectName(QStringLiteral("action_ok"));
-        action_editar = new QAction(DialogoEditarConcepto);
-        action_editar->setObjectName(QStringLiteral("action_editar"));
-        action_actualizar_termino = new QAction(DialogoEditarConcepto);
-        action_actualizar_termino->setObjectName(QStringLiteral("action_actualizar_termino"));
-        verticalLayoutWidget = new QWidget(DialogoEditarConcepto);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 10, 381, 281));
-        layout_general = new QVBoxLayout(verticalLayoutWidget);
-        layout_general->setSpacing(6);
+        layout_dialogo = new QVBoxLayout(DialogoEditarConcepto);
+        layout_dialogo->setSpacing(0);
+        layout_dialogo->setContentsMargins(11, 11, 11, 11);
+        layout_dialogo->setObjectName(QStringLiteral("layout_dialogo"));
+        layout_dialogo->setContentsMargins(2, 1, 2, 1);
+        widget_general = new QWidget(DialogoEditarConcepto);
+        widget_general->setObjectName(QStringLiteral("widget_general"));
+        layout_general = new QVBoxLayout(widget_general);
+        layout_general->setSpacing(1);
         layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
         layout_general->setContentsMargins(0, 0, 0, 0);
-        layout_superior = new QHBoxLayout();
-        layout_superior->setSpacing(6);
+        widget_superior = new QWidget(widget_general);
+        widget_superior->setObjectName(QStringLiteral("widget_superior"));
+        layout_superior = new QHBoxLayout(widget_superior);
+        layout_superior->setSpacing(3);
+        layout_superior->setContentsMargins(11, 11, 11, 11);
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
-        lbl_etiqueta = new QLabel(verticalLayoutWidget);
+        layout_superior->setContentsMargins(0, 0, 0, 0);
+        lbl_etiqueta = new QLabel(widget_superior);
         lbl_etiqueta->setObjectName(QStringLiteral("lbl_etiqueta"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
@@ -79,12 +76,12 @@ public:
 
         layout_superior->addWidget(lbl_etiqueta);
 
-        lineedit_etiqueta = new QLineEdit(verticalLayoutWidget);
+        lineedit_etiqueta = new QLineEdit(widget_superior);
         lineedit_etiqueta->setObjectName(QStringLiteral("lineedit_etiqueta"));
 
         layout_superior->addWidget(lineedit_etiqueta);
 
-        btn_eliminar = new QPushButton(verticalLayoutWidget);
+        btn_eliminar = new QPushButton(widget_superior);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
         btn_eliminar->setMinimumSize(QSize(0, 30));
         btn_eliminar->setMaximumSize(QSize(80, 16777215));
@@ -92,7 +89,7 @@ public:
 
         layout_superior->addWidget(btn_eliminar);
 
-        btn_nuevo = new QPushButton(verticalLayoutWidget);
+        btn_nuevo = new QPushButton(widget_superior);
         btn_nuevo->setObjectName(QStringLiteral("btn_nuevo"));
         btn_nuevo->setMinimumSize(QSize(0, 30));
         btn_nuevo->setMaximumSize(QSize(80, 16777215));
@@ -101,30 +98,40 @@ public:
         layout_superior->addWidget(btn_nuevo);
 
 
-        layout_general->addLayout(layout_superior);
+        layout_general->addWidget(widget_superior);
 
-        lista = new QListWidget(verticalLayoutWidget);
+        lista = new QListWidget(widget_general);
         lista->setObjectName(QStringLiteral("lista"));
 
         layout_general->addWidget(lista);
 
-        btnbox = new QDialogButtonBox(verticalLayoutWidget);
-        btnbox->setObjectName(QStringLiteral("btnbox"));
-        btnbox->setEnabled(true);
-        btnbox->setFont(font);
-        btnbox->setLayoutDirection(Qt::LeftToRight);
-        btnbox->setOrientation(Qt::Horizontal);
-        btnbox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-        btnbox->setCenterButtons(true);
+        widget_opciones = new QWidget(widget_general);
+        widget_opciones->setObjectName(QStringLiteral("widget_opciones"));
+        layout_opciones = new QHBoxLayout(widget_opciones);
+        layout_opciones->setSpacing(3);
+        layout_opciones->setContentsMargins(11, 11, 11, 11);
+        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
+        layout_opciones->setContentsMargins(0, 0, 0, 0);
+        btn_guardar = new QPushButton(widget_opciones);
+        btn_guardar->setObjectName(QStringLiteral("btn_guardar"));
+        btn_guardar->setFont(font);
 
-        layout_general->addWidget(btnbox);
+        layout_opciones->addWidget(btn_guardar);
+
+        btn_cancelar = new QPushButton(widget_opciones);
+        btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
+        btn_cancelar->setFont(font);
+
+        layout_opciones->addWidget(btn_cancelar);
+
+
+        layout_general->addWidget(widget_opciones, 0, Qt::AlignHCenter);
+
+
+        layout_dialogo->addWidget(widget_general);
 
 
         retranslateUi(DialogoEditarConcepto);
-        QObject::connect(btn_nuevo, SIGNAL(released()), action_nuevo, SLOT(trigger()));
-        QObject::connect(btn_eliminar, SIGNAL(released()), action_eliminar, SLOT(trigger()));
-        QObject::connect(btnbox, SIGNAL(accepted()), action_ok, SLOT(trigger()));
-        QObject::connect(btnbox, SIGNAL(rejected()), DialogoEditarConcepto, SLOT(close()));
 
         QMetaObject::connectSlotsByName(DialogoEditarConcepto);
     } // setupUi
@@ -132,29 +139,11 @@ public:
     void retranslateUi(QWidget *DialogoEditarConcepto)
     {
         DialogoEditarConcepto->setWindowTitle(QApplication::translate("DialogoEditarConcepto", "Editar Concepto", Q_NULLPTR));
-        action_eliminar->setText(QApplication::translate("DialogoEditarConcepto", "Eliminar", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_eliminar->setToolTip(QApplication::translate("DialogoEditarConcepto", "Eliminar", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_nuevo->setText(QApplication::translate("DialogoEditarConcepto", "Nuevo", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_nuevo->setToolTip(QApplication::translate("DialogoEditarConcepto", "Nuevo", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_ok->setText(QApplication::translate("DialogoEditarConcepto", "OK", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_ok->setToolTip(QApplication::translate("DialogoEditarConcepto", "OK", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_editar->setText(QApplication::translate("DialogoEditarConcepto", "Editar", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_editar->setToolTip(QApplication::translate("DialogoEditarConcepto", "Editar", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_actualizar_termino->setText(QApplication::translate("DialogoEditarConcepto", "Actualizar termino", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_actualizar_termino->setToolTip(QApplication::translate("DialogoEditarConcepto", "Actualizar termino", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
         lbl_etiqueta->setText(QApplication::translate("DialogoEditarConcepto", "Etiqueta:", Q_NULLPTR));
         btn_eliminar->setText(QApplication::translate("DialogoEditarConcepto", "Eliminar", Q_NULLPTR));
         btn_nuevo->setText(QApplication::translate("DialogoEditarConcepto", "Nuevo", Q_NULLPTR));
+        btn_guardar->setText(QApplication::translate("DialogoEditarConcepto", "Guardar", Q_NULLPTR));
+        btn_cancelar->setText(QApplication::translate("DialogoEditarConcepto", "Cancelar", Q_NULLPTR));
     } // retranslateUi
 
 };

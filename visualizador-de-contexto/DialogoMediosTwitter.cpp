@@ -21,13 +21,15 @@ DialogoMediosTwitter::DialogoMediosTwitter(QWidget *parent)
     ui = new Ui::DialogoMediosTwitter();
     ui->setupUi(this);
 
+    this->conectar_componentes();
+
     aplicacion::Logger::info("Iniciando dialogo Medios Twitter.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaMediosTwitter();
 
-    this->on_action_resetear_cuenta_triggered();
+    this->resetear_cuenta();
 }
 
 DialogoMediosTwitter::~DialogoMediosTwitter()
@@ -39,7 +41,7 @@ DialogoMediosTwitter::~DialogoMediosTwitter()
     delete ui;
 }
 
-void DialogoMediosTwitter::on_action_actualizar_y_cerrar_triggered()
+void DialogoMediosTwitter::actualizar_y_cerrar()
 {
     this->gestor_medios.guardarCambios();
     
@@ -48,51 +50,16 @@ void DialogoMediosTwitter::on_action_actualizar_y_cerrar_triggered()
     this->close();
 }
 
-void DialogoMediosTwitter::on_action_resetear_cuenta_triggered()
+void DialogoMediosTwitter::resetear_cuenta()
 {
     this->ui->lista_medios_twitter->clearSelection();
 
-    this->on_action_estado_btn_eliminar_triggered();
+    this->estado_btn_eliminar();
 
     aplicacion::Logger::info("Dialogo Medios Twitter reseteado.");
 }
 
-void DialogoMediosTwitter::on_action_guardar_cuenta_triggered()
-{
-    //std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
-    //std::string nombre_usuario = this->ui->lineedit_nombre_usuario->text().toStdString();
-
-    //modelo::MedioTwitter * medio_nuevo = new modelo::MedioTwitter(nombre_usuario, etiqueta);
-
-    //if (false == this->gestor_medios.existe(medio_nuevo))
-    //{
-    //    // si NO existe, creo su cuenta de scraping asociada y se la seteo...
-    //    scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_usuario);
-    //    nueva_cuenta->asignarNuevoId();
-    //    medio_nuevo->setCuentaAScrapear(nueva_cuenta);
-
-    //    // y lo agrego en la lista visible.
-    //    this->agregarMedioTwitterALista(medio_nuevo);
-
-    //    // ahora si la almaceno.
-    //    this->gestor_medios.almacenar(medio_nuevo);
-
-    //    aplicacion::Logger::info("Medio Twitter agregado: { " + aplicacion::Logger::infoLog(medio_nuevo) + " }.");
-    //}
-    //else
-    //{
-    //    QMessageBox * informacion_termino_existente = this->crearInformacionMedioTwitterExistente();
-    //    informacion_termino_existente->exec();
-
-    //    delete informacion_termino_existente;
-
-    //    delete medio_nuevo;
-    //}
-
-    //this->on_action_resetear_cuenta_triggered();
-}
-
-void DialogoMediosTwitter::on_action_eliminar_cuenta_triggered()
+void DialogoMediosTwitter::eliminar_cuenta()
 {
     QList<QListWidgetItem*> items = ui->lista_medios_twitter->selectedItems();
     foreach(QListWidgetItem * item, items)
@@ -110,7 +77,7 @@ void DialogoMediosTwitter::on_action_eliminar_cuenta_triggered()
     }
 }
 
-void DialogoMediosTwitter::on_action_estado_btn_eliminar_triggered()
+void DialogoMediosTwitter::estado_btn_eliminar()
 {
     int items_seleccionados = this->ui->lista_medios_twitter->selectedItems().size();
     if (0 >= items_seleccionados)
@@ -185,7 +152,7 @@ QMessageBox * DialogoMediosTwitter::crearInformacionMedioTwitterExistente()
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
 }
-void DialogoMediosTwitter::on_action_nueva_cuenta_triggered()
+void DialogoMediosTwitter::nueva_cuenta()
 {
     modelo::MedioTwitter * medio_twitter_nuevo = new modelo::MedioTwitter();
     this->dialogo_editar_medio_twitter = new DialogoEditarCuentaTwitter(medio_twitter_nuevo, &this->gestor_medios);
@@ -217,10 +184,18 @@ void DialogoMediosTwitter::on_action_nueva_cuenta_triggered()
             delete medio_twitter_nuevo;
         }
 
-        this->on_action_resetear_cuenta_triggered();
+        this->resetear_cuenta();
     }
     else
     {
         delete medio_twitter_nuevo;
     }
+}
+
+void DialogoMediosTwitter::conectar_componentes() {
+
+    QObject::connect(this->ui->btn_nueva, &QPushButton::released, this, &DialogoMediosTwitter::nueva_cuenta);
+    QObject::connect(this->ui->btn_eliminar, &QPushButton::released, this, &DialogoMediosTwitter::eliminar_cuenta);
+    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoMediosTwitter::actualizar_y_cerrar);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoMediosTwitter::close);
 }

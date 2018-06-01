@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -27,57 +26,58 @@ QT_BEGIN_NAMESPACE
 class Ui_DialogoConceptos
 {
 public:
-    QAction *action_actualizar_y_cerrar;
-    QAction *action_resetear_concepto;
-    QAction *action_eliminar_concepto;
-    QAction *action_nuevo_concepto;
-    QAction *action_estado_btn_eliminar;
-    QAction *action_estado_btn_agregar;
-    QAction *action_editar_concepto;
     QVBoxLayout *verticalLayout;
+    QWidget *widget_general;
     QHBoxLayout *layout_general;
+    QWidget *widget_lista;
     QVBoxLayout *layout_lista;
+    QWidget *widget_superior;
     QHBoxLayout *layout_superior;
     QLabel *label;
-    QPushButton *btn_eliminar_concepto;
-    QPushButton *btn_agregar_concepto;
+    QPushButton *btn_eliminar;
+    QPushButton *btn_nuevo;
     QListWidget *lista_conceptos;
-    QDialogButtonBox *btnbox_conceptos;
+    QWidget *widget_opciones;
+    QHBoxLayout *layout_opciones;
+    QPushButton *btn_guardar;
+    QPushButton *btn_cancelar;
 
     void setupUi(QWidget *DialogoConceptos)
     {
         if (DialogoConceptos->objectName().isEmpty())
             DialogoConceptos->setObjectName(QStringLiteral("DialogoConceptos"));
         DialogoConceptos->resize(800, 400);
-        action_actualizar_y_cerrar = new QAction(DialogoConceptos);
-        action_actualizar_y_cerrar->setObjectName(QStringLiteral("action_actualizar_y_cerrar"));
-        action_resetear_concepto = new QAction(DialogoConceptos);
-        action_resetear_concepto->setObjectName(QStringLiteral("action_resetear_concepto"));
-        action_eliminar_concepto = new QAction(DialogoConceptos);
-        action_eliminar_concepto->setObjectName(QStringLiteral("action_eliminar_concepto"));
-        action_nuevo_concepto = new QAction(DialogoConceptos);
-        action_nuevo_concepto->setObjectName(QStringLiteral("action_nuevo_concepto"));
-        action_estado_btn_eliminar = new QAction(DialogoConceptos);
-        action_estado_btn_eliminar->setObjectName(QStringLiteral("action_estado_btn_eliminar"));
-        action_estado_btn_agregar = new QAction(DialogoConceptos);
-        action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
-        action_editar_concepto = new QAction(DialogoConceptos);
-        action_editar_concepto->setObjectName(QStringLiteral("action_editar_concepto"));
+        DialogoConceptos->setAutoFillBackground(false);
+        DialogoConceptos->setStyleSheet(QStringLiteral("border-color: rgb(29, 29, 29);"));
         verticalLayout = new QVBoxLayout(DialogoConceptos);
-        verticalLayout->setSpacing(6);
+        verticalLayout->setSpacing(3);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        layout_general = new QHBoxLayout();
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        widget_general = new QWidget(DialogoConceptos);
+        widget_general->setObjectName(QStringLiteral("widget_general"));
+        widget_general->setStyleSheet(QStringLiteral(""));
+        layout_general = new QHBoxLayout(widget_general);
         layout_general->setSpacing(0);
+        layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
         layout_general->setSizeConstraint(QLayout::SetNoConstraint);
-        layout_lista = new QVBoxLayout();
-        layout_lista->setSpacing(0);
+        layout_general->setContentsMargins(0, 0, 0, 0);
+        widget_lista = new QWidget(widget_general);
+        widget_lista->setObjectName(QStringLiteral("widget_lista"));
+        layout_lista = new QVBoxLayout(widget_lista);
+        layout_lista->setSpacing(2);
+        layout_lista->setContentsMargins(11, 11, 11, 11);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
-        layout_superior = new QHBoxLayout();
-        layout_superior->setSpacing(6);
+        layout_lista->setContentsMargins(0, 0, 0, 0);
+        widget_superior = new QWidget(widget_lista);
+        widget_superior->setObjectName(QStringLiteral("widget_superior"));
+        layout_superior = new QHBoxLayout(widget_superior);
+        layout_superior->setSpacing(3);
+        layout_superior->setContentsMargins(11, 11, 11, 11);
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
-        label = new QLabel(DialogoConceptos);
+        layout_superior->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(widget_superior);
         label->setObjectName(QStringLiteral("label"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
@@ -93,29 +93,29 @@ public:
 
         layout_superior->addWidget(label);
 
-        btn_eliminar_concepto = new QPushButton(DialogoConceptos);
-        btn_eliminar_concepto->setObjectName(QStringLiteral("btn_eliminar_concepto"));
-        btn_eliminar_concepto->setMinimumSize(QSize(0, 30));
-        btn_eliminar_concepto->setMaximumSize(QSize(80, 16777215));
+        btn_eliminar = new QPushButton(widget_superior);
+        btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
+        btn_eliminar->setMinimumSize(QSize(0, 30));
+        btn_eliminar->setMaximumSize(QSize(80, 16777215));
         QFont font1;
         font1.setFamily(QStringLiteral("Calibri"));
         font1.setPointSize(11);
-        btn_eliminar_concepto->setFont(font1);
+        btn_eliminar->setFont(font1);
 
-        layout_superior->addWidget(btn_eliminar_concepto);
+        layout_superior->addWidget(btn_eliminar);
 
-        btn_agregar_concepto = new QPushButton(DialogoConceptos);
-        btn_agregar_concepto->setObjectName(QStringLiteral("btn_agregar_concepto"));
-        btn_agregar_concepto->setMinimumSize(QSize(0, 30));
-        btn_agregar_concepto->setMaximumSize(QSize(80, 16777215));
-        btn_agregar_concepto->setFont(font1);
+        btn_nuevo = new QPushButton(widget_superior);
+        btn_nuevo->setObjectName(QStringLiteral("btn_nuevo"));
+        btn_nuevo->setMinimumSize(QSize(0, 30));
+        btn_nuevo->setMaximumSize(QSize(80, 16777215));
+        btn_nuevo->setFont(font1);
 
-        layout_superior->addWidget(btn_agregar_concepto);
+        layout_superior->addWidget(btn_nuevo);
 
 
-        layout_lista->addLayout(layout_superior);
+        layout_lista->addWidget(widget_superior);
 
-        lista_conceptos = new QListWidget(DialogoConceptos);
+        lista_conceptos = new QListWidget(widget_lista);
         lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
         QFont font2;
         font2.setFamily(QStringLiteral("Calibri"));
@@ -124,39 +124,39 @@ public:
 
         layout_lista->addWidget(lista_conceptos);
 
-        btnbox_conceptos = new QDialogButtonBox(DialogoConceptos);
-        btnbox_conceptos->setObjectName(QStringLiteral("btnbox_conceptos"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(btnbox_conceptos->sizePolicy().hasHeightForWidth());
-        btnbox_conceptos->setSizePolicy(sizePolicy);
+        widget_opciones = new QWidget(widget_lista);
+        widget_opciones->setObjectName(QStringLiteral("widget_opciones"));
+        layout_opciones = new QHBoxLayout(widget_opciones);
+        layout_opciones->setSpacing(3);
+        layout_opciones->setContentsMargins(11, 11, 11, 11);
+        layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
+        layout_opciones->setContentsMargins(0, 0, 0, 0);
+        btn_guardar = new QPushButton(widget_opciones);
+        btn_guardar->setObjectName(QStringLiteral("btn_guardar"));
         QFont font3;
         font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(11);
-        font3.setBold(false);
-        font3.setItalic(false);
-        font3.setWeight(50);
-        btnbox_conceptos->setFont(font3);
-        btnbox_conceptos->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Save);
-        btnbox_conceptos->setCenterButtons(true);
+        font3.setPointSize(12);
+        btn_guardar->setFont(font3);
 
-        layout_lista->addWidget(btnbox_conceptos);
+        layout_opciones->addWidget(btn_guardar);
 
+        btn_cancelar = new QPushButton(widget_opciones);
+        btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
+        btn_cancelar->setFont(font3);
 
-        layout_general->addLayout(layout_lista);
+        layout_opciones->addWidget(btn_cancelar);
 
 
-        verticalLayout->addLayout(layout_general);
+        layout_lista->addWidget(widget_opciones, 0, Qt::AlignHCenter);
+
+
+        layout_general->addWidget(widget_lista);
+
+
+        verticalLayout->addWidget(widget_general);
 
 
         retranslateUi(DialogoConceptos);
-        QObject::connect(btnbox_conceptos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
-        QObject::connect(btnbox_conceptos, SIGNAL(rejected()), DialogoConceptos, SLOT(close()));
-        QObject::connect(btn_agregar_concepto, SIGNAL(released()), action_nuevo_concepto, SLOT(trigger()));
-        QObject::connect(btn_eliminar_concepto, SIGNAL(released()), action_eliminar_concepto, SLOT(trigger()));
-        QObject::connect(lista_conceptos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
-        QObject::connect(lista_conceptos, SIGNAL(itemDoubleClicked(QListWidgetItem*)), action_editar_concepto, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoConceptos);
     } // setupUi
@@ -164,34 +164,11 @@ public:
     void retranslateUi(QWidget *DialogoConceptos)
     {
         DialogoConceptos->setWindowTitle(QApplication::translate("DialogoConceptos", "Conceptos", Q_NULLPTR));
-        action_actualizar_y_cerrar->setText(QApplication::translate("DialogoConceptos", "actualizar_y_cerrar", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_actualizar_y_cerrar->setToolTip(QApplication::translate("DialogoConceptos", "actualizar y cerrar", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_resetear_concepto->setText(QApplication::translate("DialogoConceptos", "resetear_concepto", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_resetear_concepto->setToolTip(QApplication::translate("DialogoConceptos", "resetear concepto", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_eliminar_concepto->setText(QApplication::translate("DialogoConceptos", "eliminar_concepto", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_eliminar_concepto->setToolTip(QApplication::translate("DialogoConceptos", "eliminar concepto", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_nuevo_concepto->setText(QApplication::translate("DialogoConceptos", "nuevo_concepto", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_nuevo_concepto->setToolTip(QApplication::translate("DialogoConceptos", "nuevo concepto", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_estado_btn_eliminar->setText(QApplication::translate("DialogoConceptos", "estado_btn_eliminar", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoConceptos", "estado btn eliminar", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        action_estado_btn_agregar->setText(QApplication::translate("DialogoConceptos", "estado_btn_agregar", Q_NULLPTR));
-        action_editar_concepto->setText(QApplication::translate("DialogoConceptos", "Editar concepto", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        action_editar_concepto->setToolTip(QApplication::translate("DialogoConceptos", "Editar concepto", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
         label->setText(QApplication::translate("DialogoConceptos", "Lista de conceptos", Q_NULLPTR));
-        btn_eliminar_concepto->setText(QApplication::translate("DialogoConceptos", "Eliminar", Q_NULLPTR));
-        btn_agregar_concepto->setText(QApplication::translate("DialogoConceptos", "Nuevo", Q_NULLPTR));
+        btn_eliminar->setText(QApplication::translate("DialogoConceptos", "Eliminar", Q_NULLPTR));
+        btn_nuevo->setText(QApplication::translate("DialogoConceptos", "Nuevo", Q_NULLPTR));
+        btn_guardar->setText(QApplication::translate("DialogoConceptos", "Guardar", Q_NULLPTR));
+        btn_cancelar->setText(QApplication::translate("DialogoConceptos", "Cancelar", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -29,20 +29,20 @@ public:
     ~DialogoMediosTwitter();
 
 private slots:
-    void on_action_actualizar_y_cerrar_triggered();
+    void actualizar_y_cerrar();
 
-    void on_action_resetear_cuenta_triggered();
+    void resetear_cuenta();
 
-    void on_action_guardar_cuenta_triggered();
+    void eliminar_cuenta();
 
-    void on_action_eliminar_cuenta_triggered();
+    void estado_btn_eliminar();
 
-    void on_action_estado_btn_eliminar_triggered();
-
-    void on_action_nueva_cuenta_triggered();
+    void nueva_cuenta();
 
 private:
     Ui::DialogoMediosTwitter *ui;
+
+    void conectar_componentes();
 
     void cargarListaMediosTwitter();
 

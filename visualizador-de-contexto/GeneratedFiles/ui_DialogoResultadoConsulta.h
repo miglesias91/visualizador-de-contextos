@@ -21,7 +21,6 @@
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -57,7 +56,6 @@ public:
     QVBoxLayout *layout_hasta;
     QLabel *lbl_hasta;
     QDateEdit *dateedit_hasta;
-    QSpacerItem *horizontalSpacer;
     QProgressBar *progressbar_exportacion;
 
     void setupUi(QWidget *DialogoResultadoConsulta)
@@ -187,6 +185,11 @@ public:
 
         widget_exportar = new QWidget(DialogoResultadoConsulta);
         widget_exportar->setObjectName(QStringLiteral("widget_exportar"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget_exportar->sizePolicy().hasHeightForWidth());
+        widget_exportar->setSizePolicy(sizePolicy2);
         widget_exportar->setLayoutDirection(Qt::LeftToRight);
         layout_exportar = new QHBoxLayout(widget_exportar);
         layout_exportar->setSpacing(5);
@@ -195,11 +198,14 @@ public:
         layout_exportar->setContentsMargins(0, 0, 0, 0);
         widget_exportar_botones = new QWidget(widget_exportar);
         widget_exportar_botones->setObjectName(QStringLiteral("widget_exportar_botones"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(widget_exportar_botones->sizePolicy().hasHeightForWidth());
-        widget_exportar_botones->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(widget_exportar_botones->sizePolicy().hasHeightForWidth());
+        widget_exportar_botones->setSizePolicy(sizePolicy3);
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        widget_exportar_botones->setFont(font3);
         layout_exportar_botones = new QHBoxLayout(widget_exportar_botones);
         layout_exportar_botones->setSpacing(6);
         layout_exportar_botones->setContentsMargins(11, 11, 11, 11);
@@ -207,11 +213,11 @@ public:
         layout_exportar_botones->setContentsMargins(1, 1, 1, 1);
         btn_exportar_fecha_actual = new QPushButton(widget_exportar_botones);
         btn_exportar_fecha_actual->setObjectName(QStringLiteral("btn_exportar_fecha_actual"));
-        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(30);
-        sizePolicy3.setHeightForWidth(btn_exportar_fecha_actual->sizePolicy().hasHeightForWidth());
-        btn_exportar_fecha_actual->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(30);
+        sizePolicy4.setHeightForWidth(btn_exportar_fecha_actual->sizePolicy().hasHeightForWidth());
+        btn_exportar_fecha_actual->setSizePolicy(sizePolicy4);
         btn_exportar_fecha_actual->setMinimumSize(QSize(160, 30));
         btn_exportar_fecha_actual->setMaximumSize(QSize(200, 16777215));
         btn_exportar_fecha_actual->setFont(font);
@@ -236,9 +242,9 @@ public:
 
         widget_desde = new QWidget(widget_exportar_botones);
         widget_desde->setObjectName(QStringLiteral("widget_desde"));
-        sizePolicy2.setHeightForWidth(widget_desde->sizePolicy().hasHeightForWidth());
-        widget_desde->setSizePolicy(sizePolicy2);
-        widget_desde->setMaximumSize(QSize(90, 30));
+        sizePolicy3.setHeightForWidth(widget_desde->sizePolicy().hasHeightForWidth());
+        widget_desde->setSizePolicy(sizePolicy3);
+        widget_desde->setMaximumSize(QSize(90, 35));
         layout_desde = new QVBoxLayout(widget_desde);
         layout_desde->setSpacing(0);
         layout_desde->setContentsMargins(11, 11, 11, 11);
@@ -247,8 +253,6 @@ public:
         lbl_desde = new QLabel(widget_desde);
         lbl_desde->setObjectName(QStringLiteral("lbl_desde"));
         lbl_desde->setMaximumSize(QSize(50, 16777215));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
         lbl_desde->setFont(font3);
 
         layout_desde->addWidget(lbl_desde);
@@ -270,9 +274,9 @@ public:
 
         widget_hasta = new QWidget(widget_exportar_botones);
         widget_hasta->setObjectName(QStringLiteral("widget_hasta"));
-        sizePolicy2.setHeightForWidth(widget_hasta->sizePolicy().hasHeightForWidth());
-        widget_hasta->setSizePolicy(sizePolicy2);
-        widget_hasta->setMaximumSize(QSize(90, 30));
+        sizePolicy3.setHeightForWidth(widget_hasta->sizePolicy().hasHeightForWidth());
+        widget_hasta->setSizePolicy(sizePolicy3);
+        widget_hasta->setMaximumSize(QSize(90, 35));
         layout_hasta = new QVBoxLayout(widget_hasta);
         layout_hasta->setSpacing(0);
         layout_hasta->setContentsMargins(11, 11, 11, 11);
@@ -300,26 +304,22 @@ public:
 
         layout_exportar->addWidget(widget_exportar_botones);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        layout_exportar->addItem(horizontalSpacer);
-
         progressbar_exportacion = new QProgressBar(widget_exportar);
         progressbar_exportacion->setObjectName(QStringLiteral("progressbar_exportacion"));
         progressbar_exportacion->setEnabled(true);
-        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(progressbar_exportacion->sizePolicy().hasHeightForWidth());
-        progressbar_exportacion->setSizePolicy(sizePolicy4);
-        progressbar_exportacion->setMinimumSize(QSize(0, 30));
+        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(progressbar_exportacion->sizePolicy().hasHeightForWidth());
+        progressbar_exportacion->setSizePolicy(sizePolicy5);
+        progressbar_exportacion->setMinimumSize(QSize(200, 30));
         progressbar_exportacion->setValue(50);
         progressbar_exportacion->setTextVisible(false);
 
         layout_exportar->addWidget(progressbar_exportacion);
 
 
-        verticalLayout->addWidget(widget_exportar);
+        verticalLayout->addWidget(widget_exportar, 0, Qt::AlignLeft);
 
 
         retranslateUi(DialogoResultadoConsulta);

@@ -13,11 +13,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -33,11 +33,13 @@ public:
     QAction *action_estado_btn_eliminar;
     QAction *action_estado_btn_agregar;
     QVBoxLayout *verticalLayout;
+    QWidget *widget_general;
     QHBoxLayout *layout_general;
+    QWidget *widget_lista;
     QVBoxLayout *layout_lista;
     QLabel *label;
     QListWidget *lista_terminos;
-    QDialogButtonBox *btnbox_terminos;
+    QPushButton *btn_cerrar;
 
     void setupUi(QWidget *DialogoTerminos)
     {
@@ -61,16 +63,25 @@ public:
         action_estado_btn_agregar = new QAction(DialogoTerminos);
         action_estado_btn_agregar->setObjectName(QStringLiteral("action_estado_btn_agregar"));
         verticalLayout = new QVBoxLayout(DialogoTerminos);
-        verticalLayout->setSpacing(6);
+        verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        layout_general = new QHBoxLayout();
-        layout_general->setSpacing(6);
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        widget_general = new QWidget(DialogoTerminos);
+        widget_general->setObjectName(QStringLiteral("widget_general"));
+        layout_general = new QHBoxLayout(widget_general);
+        layout_general->setSpacing(5);
+        layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
-        layout_lista = new QVBoxLayout();
-        layout_lista->setSpacing(0);
+        layout_general->setContentsMargins(0, 0, 0, 0);
+        widget_lista = new QWidget(widget_general);
+        widget_lista->setObjectName(QStringLiteral("widget_lista"));
+        layout_lista = new QVBoxLayout(widget_lista);
+        layout_lista->setSpacing(2);
+        layout_lista->setContentsMargins(11, 11, 11, 11);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
-        label = new QLabel(DialogoTerminos);
+        layout_lista->setContentsMargins(0, 0, 0, 0);
+        label = new QLabel(widget_lista);
         label->setObjectName(QStringLiteral("label"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
@@ -79,7 +90,7 @@ public:
 
         layout_lista->addWidget(label);
 
-        lista_terminos = new QListWidget(DialogoTerminos);
+        lista_terminos = new QListWidget(widget_lista);
         lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
         QFont font1;
         font1.setFamily(QStringLiteral("Calibri"));
@@ -89,29 +100,24 @@ public:
 
         layout_lista->addWidget(lista_terminos);
 
-
-        layout_general->addLayout(layout_lista);
-
-
-        verticalLayout->addLayout(layout_general);
-
-        btnbox_terminos = new QDialogButtonBox(DialogoTerminos);
-        btnbox_terminos->setObjectName(QStringLiteral("btnbox_terminos"));
+        btn_cerrar = new QPushButton(widget_lista);
+        btn_cerrar->setObjectName(QStringLiteral("btn_cerrar"));
         QFont font2;
         font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(11);
-        font2.setItalic(false);
-        btnbox_terminos->setFont(font2);
-        btnbox_terminos->setStandardButtons(QDialogButtonBox::Ok);
-        btnbox_terminos->setCenterButtons(true);
+        font2.setPointSize(12);
+        btn_cerrar->setFont(font2);
+        btn_cerrar->setFlat(false);
 
-        verticalLayout->addWidget(btnbox_terminos);
+        layout_lista->addWidget(btn_cerrar, 0, Qt::AlignHCenter);
+
+
+        layout_general->addWidget(widget_lista);
+
+
+        verticalLayout->addWidget(widget_general);
 
 
         retranslateUi(DialogoTerminos);
-        QObject::connect(btnbox_terminos, SIGNAL(rejected()), DialogoTerminos, SLOT(close()));
-        QObject::connect(btnbox_terminos, SIGNAL(accepted()), action_actualizar_y_cerrar, SLOT(trigger()));
-        QObject::connect(lista_terminos, SIGNAL(itemSelectionChanged()), action_estado_btn_eliminar, SLOT(trigger()));
 
         QMetaObject::connectSlotsByName(DialogoTerminos);
     } // setupUi
@@ -150,6 +156,7 @@ public:
 #endif // QT_NO_TOOLTIP
         action_estado_btn_agregar->setText(QApplication::translate("DialogoTerminos", "estado_btn_agregar", Q_NULLPTR));
         label->setText(QApplication::translate("DialogoTerminos", "Lista de t\303\251rminos", Q_NULLPTR));
+        btn_cerrar->setText(QApplication::translate("DialogoTerminos", "Cerrar", Q_NULLPTR));
     } // retranslateUi
 
 };

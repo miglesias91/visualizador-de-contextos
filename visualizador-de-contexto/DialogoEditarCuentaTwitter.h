@@ -27,11 +27,13 @@ public:
 
 public slots:
 
-    void ok();
+    void guardar();
     void cancelar();
 
 private:
     Ui::DialogoEditarCuentaTwitter *ui;
+
+    void conectar_componentes();
 
     // MENSAJES
 

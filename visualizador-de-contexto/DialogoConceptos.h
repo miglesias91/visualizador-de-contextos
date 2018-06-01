@@ -28,20 +28,22 @@ public:
     ~DialogoConceptos();
 
 private slots:
-    void on_action_actualizar_y_cerrar_triggered();
+    void actualizar_y_cerrar();
 
-    void on_action_resetear_concepto_triggered();
+    void resetear_concepto();
 
-    void on_action_eliminar_concepto_triggered();
+    void eliminar_concepto();
 
-    void on_action_estado_btn_eliminar_triggered();
+    void estado_btn_eliminar();
 
     void concepto_dobleclikeado(QListWidgetItem * item_dobleclikeado);
 
-    void on_action_nuevo_concepto_triggered();
+    void nuevo_concepto();
 
 private:
     Ui::DialogoConceptos *ui;
+
+    void conectar_componentes();
 
     // agregar un concepto a la lista de terminos de la ui.
     void agregarConceptoALista(visualizador::modelo::Concepto* concepto);

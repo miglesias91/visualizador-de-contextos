@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogoConceptos_t {
     QByteArrayData data[10];
-    char stringdata0[268];
+    char stringdata0[168];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,25 +32,22 @@ struct qt_meta_stringdata_DialogoConceptos_t {
 static const qt_meta_stringdata_DialogoConceptos_t qt_meta_stringdata_DialogoConceptos = {
     {
 QT_MOC_LITERAL(0, 0, 16), // "DialogoConceptos"
-QT_MOC_LITERAL(1, 17, 39), // "on_action_actualizar_y_cerrar..."
-QT_MOC_LITERAL(2, 57, 0), // ""
-QT_MOC_LITERAL(3, 58, 37), // "on_action_resetear_concepto_t..."
-QT_MOC_LITERAL(4, 96, 37), // "on_action_eliminar_concepto_t..."
-QT_MOC_LITERAL(5, 134, 39), // "on_action_estado_btn_eliminar..."
-QT_MOC_LITERAL(6, 174, 22), // "concepto_dobleclikeado"
-QT_MOC_LITERAL(7, 197, 16), // "QListWidgetItem*"
-QT_MOC_LITERAL(8, 214, 18), // "item_dobleclikeado"
-QT_MOC_LITERAL(9, 233, 34) // "on_action_nuevo_concepto_trig..."
+QT_MOC_LITERAL(1, 17, 19), // "actualizar_y_cerrar"
+QT_MOC_LITERAL(2, 37, 0), // ""
+QT_MOC_LITERAL(3, 38, 17), // "resetear_concepto"
+QT_MOC_LITERAL(4, 56, 17), // "eliminar_concepto"
+QT_MOC_LITERAL(5, 74, 19), // "estado_btn_eliminar"
+QT_MOC_LITERAL(6, 94, 22), // "concepto_dobleclikeado"
+QT_MOC_LITERAL(7, 117, 16), // "QListWidgetItem*"
+QT_MOC_LITERAL(8, 134, 18), // "item_dobleclikeado"
+QT_MOC_LITERAL(9, 153, 14) // "nuevo_concepto"
 
     },
-    "DialogoConceptos\0"
-    "on_action_actualizar_y_cerrar_triggered\0"
-    "\0on_action_resetear_concepto_triggered\0"
-    "on_action_eliminar_concepto_triggered\0"
-    "on_action_estado_btn_eliminar_triggered\0"
-    "concepto_dobleclikeado\0QListWidgetItem*\0"
-    "item_dobleclikeado\0"
-    "on_action_nuevo_concepto_triggered"
+    "DialogoConceptos\0actualizar_y_cerrar\0"
+    "\0resetear_concepto\0eliminar_concepto\0"
+    "estado_btn_eliminar\0concepto_dobleclikeado\0"
+    "QListWidgetItem*\0item_dobleclikeado\0"
+    "nuevo_concepto"
 };
 #undef QT_MOC_LITERAL
 
@@ -92,12 +89,12 @@ void DialogoConceptos::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         DialogoConceptos *_t = static_cast<DialogoConceptos *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_action_actualizar_y_cerrar_triggered(); break;
-        case 1: _t->on_action_resetear_concepto_triggered(); break;
-        case 2: _t->on_action_eliminar_concepto_triggered(); break;
-        case 3: _t->on_action_estado_btn_eliminar_triggered(); break;
+        case 0: _t->actualizar_y_cerrar(); break;
+        case 1: _t->resetear_concepto(); break;
+        case 2: _t->eliminar_concepto(); break;
+        case 3: _t->estado_btn_eliminar(); break;
         case 4: _t->concepto_dobleclikeado((*reinterpret_cast< QListWidgetItem*(*)>(_a[1]))); break;
-        case 5: _t->on_action_nuevo_concepto_triggered(); break;
+        case 5: _t->nuevo_concepto(); break;
         default: ;
         }
     }

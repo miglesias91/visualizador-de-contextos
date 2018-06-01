@@ -92,11 +92,11 @@ public:
     QPushButton *btn_sacar_secciones;
     QListWidget *lista_secciones_en_consulta;
     QSpacerItem *espaciador_consulta;
+    QWidget *widget_botones;
     QHBoxLayout *layout_botones;
     QPushButton *btn_realizar_consulta;
-    QProgressBar *progressbar_realizar_consulta;
-    QSpacerItem *horizontalSpacer;
     QPushButton *btn_cancelar;
+    QProgressBar *progressbar_realizar_consulta;
     QWidget *tab_conceptos;
     QVBoxLayout *verticalLayout_9;
     QWidget *widget_lista_conceptos;
@@ -498,10 +498,13 @@ public:
 
         verticalLayout_8->addWidget(widget_consulta);
 
-        layout_botones = new QHBoxLayout();
+        widget_botones = new QWidget(tab_consulta);
+        widget_botones->setObjectName(QStringLiteral("widget_botones"));
+        layout_botones = new QHBoxLayout(widget_botones);
         layout_botones->setSpacing(5);
+        layout_botones->setContentsMargins(11, 11, 11, 11);
         layout_botones->setObjectName(QStringLiteral("layout_botones"));
-        btn_realizar_consulta = new QPushButton(tab_consulta);
+        btn_realizar_consulta = new QPushButton(widget_botones);
         btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
@@ -519,24 +522,7 @@ public:
 
         layout_botones->addWidget(btn_realizar_consulta);
 
-        progressbar_realizar_consulta = new QProgressBar(tab_consulta);
-        progressbar_realizar_consulta->setObjectName(QStringLiteral("progressbar_realizar_consulta"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(progressbar_realizar_consulta->sizePolicy().hasHeightForWidth());
-        progressbar_realizar_consulta->setSizePolicy(sizePolicy2);
-        progressbar_realizar_consulta->setMinimumSize(QSize(0, 30));
-        progressbar_realizar_consulta->setValue(24);
-        progressbar_realizar_consulta->setTextVisible(false);
-
-        layout_botones->addWidget(progressbar_realizar_consulta);
-
-        horizontalSpacer = new QSpacerItem(10, 27, QSizePolicy::Maximum, QSizePolicy::Minimum);
-
-        layout_botones->addItem(horizontalSpacer);
-
-        btn_cancelar = new QPushButton(tab_consulta);
+        btn_cancelar = new QPushButton(widget_botones);
         btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
         sizePolicy1.setHeightForWidth(btn_cancelar->sizePolicy().hasHeightForWidth());
         btn_cancelar->setSizePolicy(sizePolicy1);
@@ -550,8 +536,21 @@ public:
 
         layout_botones->addWidget(btn_cancelar);
 
+        progressbar_realizar_consulta = new QProgressBar(widget_botones);
+        progressbar_realizar_consulta->setObjectName(QStringLiteral("progressbar_realizar_consulta"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(progressbar_realizar_consulta->sizePolicy().hasHeightForWidth());
+        progressbar_realizar_consulta->setSizePolicy(sizePolicy2);
+        progressbar_realizar_consulta->setMinimumSize(QSize(200, 30));
+        progressbar_realizar_consulta->setValue(24);
+        progressbar_realizar_consulta->setTextVisible(false);
 
-        verticalLayout_8->addLayout(layout_botones);
+        layout_botones->addWidget(progressbar_realizar_consulta);
+
+
+        verticalLayout_8->addWidget(widget_botones, 0, Qt::AlignLeft);
 
         opciones_consulta->addTab(tab_consulta, QString());
         tab_conceptos = new QWidget();

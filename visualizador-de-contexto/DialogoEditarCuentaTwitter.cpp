@@ -7,12 +7,11 @@ DialogoEditarCuentaTwitter::DialogoEditarCuentaTwitter(visualizador::modelo::Med
     ui = new Ui::DialogoEditarCuentaTwitter();
     ui->setupUi(this);
 
+    this->conectar_componentes();
+
     aplicacion::Logger::info("Iniciando dialogo Editar Medios Twitter.");
 
     this->setAttribute(Qt::WA_DeleteOnClose);
-
-    QObject::connect(this->ui->btnbox, &QDialogButtonBox::accepted, this, &DialogoEditarCuentaTwitter::ok);
-    QObject::connect(this->ui->btnbox, &QDialogButtonBox::rejected, this, &DialogoEditarCuentaTwitter::cancelar);
 }
 
 DialogoEditarCuentaTwitter::~DialogoEditarCuentaTwitter()
@@ -23,7 +22,7 @@ DialogoEditarCuentaTwitter::~DialogoEditarCuentaTwitter()
 }
 
 // SLOTS
-void DialogoEditarCuentaTwitter::ok()
+void DialogoEditarCuentaTwitter::guardar()
 {
     if (this->ui->lineedit_etiqueta->text().isEmpty())
     {
@@ -73,4 +72,10 @@ QMessageBox * DialogoEditarCuentaTwitter::crearInformacionNombreVacio()
     std::string texto = u8"No se asigno un nombre de cuenta.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+}
+
+void DialogoEditarCuentaTwitter::conectar_componentes() {
+
+    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoEditarCuentaTwitter::guardar);
+    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoEditarCuentaTwitter::cancelar);
 }
