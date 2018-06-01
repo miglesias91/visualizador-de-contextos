@@ -50,6 +50,12 @@ private slots:
 
     void abrir_medios_facebook();
 
+    void guardar_activo();
+
+    void hay_dialogo_activo();
+
+    void sin_dialogo_activo();
+
 private:
 	Ui::visualizadordecontextoClass ui;
 
@@ -72,4 +78,7 @@ private:
     DialogoConsultas * dialogo_consultas;
     DialogoMediosTwitter * dialogo_medios_twitter;
     DialogoMediosFacebook * dialogo_medios_facebook;
+
+    QWidget * dialogo_activo;
+    bool hay_dialogo_abierto;
 };

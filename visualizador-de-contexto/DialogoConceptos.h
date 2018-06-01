@@ -27,6 +27,14 @@ public:
     DialogoConceptos(QWidget *parent = Q_NULLPTR);
     ~DialogoConceptos();
 
+    virtual void hideEvent(QHideEvent * evento);
+    virtual void showEvent(QShowEvent * evento);
+
+signals:
+
+    void se_cerro();
+    void se_abrio();
+
 private slots:
     void actualizar_y_cerrar();
 
@@ -39,6 +47,10 @@ private slots:
     void concepto_dobleclikeado(QListWidgetItem * item_dobleclikeado);
 
     void nuevo_concepto();
+
+    void guardar();
+
+    void cerrar();
 
 private:
     Ui::DialogoConceptos *ui;

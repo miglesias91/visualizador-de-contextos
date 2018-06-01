@@ -63,6 +63,24 @@ DialogoConsultas::~DialogoConsultas()
     delete ui;
 }
 
+void DialogoConsultas::hideEvent(QHideEvent *) {
+    emit se_cerro();
+}
+
+void DialogoConsultas::showEvent(QShowEvent *) {
+    emit se_abrio();
+}
+
+void DialogoConsultas::guardar() {
+
+    this->close();
+}
+
+void DialogoConsultas::cerrar() {
+
+    this->close();
+}
+
 void DialogoConsultas::agregar_conceptos()
 {
     std::vector<modelo::Concepto*> conceptos_seleccionados = this->itemsSeleccionados<modelo::Concepto>(this->ui->lista_conceptos);

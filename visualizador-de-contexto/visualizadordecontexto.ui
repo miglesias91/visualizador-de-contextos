@@ -123,7 +123,7 @@
              <bool>false</bool>
             </property>
             <property name="flat">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -144,6 +144,9 @@
             <property name="text">
              <string>Cuentas de Twitter</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -156,6 +159,9 @@
             </property>
             <property name="text">
              <string>Períodos</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -170,6 +176,9 @@
             <property name="text">
              <string>Fechas</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -183,6 +192,9 @@
             <property name="text">
              <string>Conceptos</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -195,6 +207,9 @@
             </property>
             <property name="text">
              <string>Términos</string>
+            </property>
+            <property name="flat">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -249,6 +264,9 @@
             <property name="text">
              <string>Realizar consulta</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -294,6 +312,9 @@
             <property name="text">
              <string>Analizar contexto</string>
             </property>
+            <property name="flat">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -323,6 +344,18 @@
       <layout class="QVBoxLayout" name="layout_area_trabajo">
        <property name="spacing">
         <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
        </property>
        <item>
         <layout class="QVBoxLayout" name="layout_ventana_abierta"/>

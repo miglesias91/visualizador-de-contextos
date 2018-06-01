@@ -41,6 +41,14 @@ DialogoMediosTwitter::~DialogoMediosTwitter()
     delete ui;
 }
 
+void DialogoMediosTwitter::hideEvent(QHideEvent *) {
+    emit se_cerro();
+}
+
+void DialogoMediosTwitter::showEvent(QShowEvent *) {
+    emit se_abrio();
+}
+
 void DialogoMediosTwitter::actualizar_y_cerrar()
 {
     this->gestor_medios.guardarCambios();
@@ -88,6 +96,16 @@ void DialogoMediosTwitter::estado_btn_eliminar()
     {
         this->ui->btn_eliminar->setEnabled(true);
     }
+}
+
+void DialogoMediosTwitter::guardar() {
+
+    this->actualizar_y_cerrar();
+}
+
+void DialogoMediosTwitter::cerrar() {
+
+    this->close();
 }
 
 void DialogoMediosTwitter::cargarListaMediosTwitter()

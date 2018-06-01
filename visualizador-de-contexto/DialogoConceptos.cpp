@@ -44,6 +44,14 @@ DialogoConceptos::~DialogoConceptos()
     delete ui;
 }
 
+void DialogoConceptos::hideEvent(QHideEvent *) {
+    emit se_cerro();
+}
+
+void DialogoConceptos::showEvent(QShowEvent *) {
+    emit se_abrio();
+}
+
 // ACCIONES
 
 void DialogoConceptos::actualizar_y_cerrar()
@@ -148,6 +156,16 @@ void DialogoConceptos::nuevo_concepto()
             delete concepto_nuevo;
         }
     }
+}
+
+void DialogoConceptos::guardar() {
+
+    this->actualizar_y_cerrar();
+}
+
+void DialogoConceptos::cerrar() {
+
+    this->close();
 }
 
 // METODOS PRIVADOS

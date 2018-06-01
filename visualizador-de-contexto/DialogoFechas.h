@@ -23,17 +23,29 @@ class DialogoFechas : public QWidget
 public:
     DialogoFechas(QWidget *parent = Q_NULLPTR);
     ~DialogoFechas();
+    
+    virtual void hideEvent(QHideEvent * evento);
+    virtual void showEvent(QShowEvent * evento);
+
+signals:
+
+    void se_cerro();
+    void se_abrio();
 
 private slots:
-    void on_action_guardar_fecha_triggered();
+    void guardar_fecha();
 
-    void on_action_limpiar_fecha_triggered();
+    void limpiar_fecha();
 
-    void on_action_eliminar_fecha_triggered();
+    void eliminar_fecha();
 
-    void on_action_actualizar_y_cerrar_triggered();
+    void actualizar_y_cerrar();
 
-    void on_action_estado_btn_eliminar_triggered();
+    void estado_btn_eliminar();
+
+    void guardar();
+
+    void cerrar();
 
 private:
     Ui::DialogoFechas *ui;

@@ -39,6 +39,14 @@ DialogoMediosFacebook::~DialogoMediosFacebook()
     delete ui;
 }
 
+void DialogoMediosFacebook::hideEvent(QHideEvent *) {
+    emit se_cerro();
+}
+
+void DialogoMediosFacebook::showEvent(QShowEvent *) {
+    emit se_abrio();
+}
+
 // SLOTS
 
 void DialogoMediosFacebook::actualizar_y_cerrar()
@@ -88,6 +96,17 @@ void DialogoMediosFacebook::estado_btn_eliminar()
     {
         this->ui->btn_eliminar->setEnabled(true);
     }
+}
+
+void DialogoMediosFacebook::guardar() {
+
+    this->actualizar_y_cerrar();
+
+}
+
+void DialogoMediosFacebook::cerrar() {
+
+    this->close();
 }
 
 // METODOS PRIVADOS

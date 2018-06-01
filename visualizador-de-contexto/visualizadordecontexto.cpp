@@ -16,7 +16,9 @@
 #include <aplicacion/include/Logger.h>
 
 visualizadordecontexto::visualizadordecontexto(QWidget *parent)
-    : QMainWindow(parent), dialogo_terminos(NULL), dialogo_conceptos(NULL), dialogo_fechas(NULL), dialogo_periodos(NULL), dialogo_consultas(NULL)
+    : QMainWindow(parent),
+    dialogo_terminos(nullptr), dialogo_conceptos(nullptr), dialogo_fechas(nullptr), dialogo_periodos(nullptr), dialogo_consultas(nullptr), dialogo_activo(nullptr),
+    hay_dialogo_abierto(false)
 {
 	ui.setupUi(this);
 
@@ -36,55 +38,121 @@ visualizadordecontexto::~visualizadordecontexto()
 }
 
 void visualizadordecontexto::abrir_terminos() {
+    
+    this->guardar_activo();
+
 	this->dialogo_terminos = new DialogoTerminos(this->ui.widget_area_trabajo);
     this->dialogo_terminos->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_terminos);
+
+    QObject::connect(this->dialogo_terminos, &DialogoTerminos::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_terminos;
 }
 
 void visualizadordecontexto::abrir_conceptos() {
 
+    this->guardar_activo();
+
     this->dialogo_conceptos = new DialogoConceptos(this->ui.widget_area_trabajo);
     dialogo_conceptos->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_conceptos);
+
+    QObject::connect(this->dialogo_conceptos, &DialogoConceptos::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_conceptos;
 }
 
 void visualizadordecontexto::abrir_fechas() {
 
+    this->guardar_activo();
+
     this->dialogo_fechas = new DialogoFechas(this->ui.widget_area_trabajo);
     this->dialogo_fechas->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_fechas);
+
+    QObject::connect(this->dialogo_fechas, &DialogoFechas::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_fechas;
 }
 
 void visualizadordecontexto::abrir_periodos() {
 
+    this->guardar_activo();
+
     this->dialogo_periodos = new DialogoPeriodos(this->ui.widget_area_trabajo);
     this->dialogo_periodos->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_periodos);
+
+    QObject::connect(this->dialogo_periodos, &DialogoPeriodos::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_periodos;
 }
 
 void visualizadordecontexto::abrir_consulta() {
 
+    this->guardar_activo();
+
     this->dialogo_consultas = new DialogoConsultas(this->ui.widget_area_trabajo);
     this->dialogo_consultas->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_consultas);
+
+    QObject::connect(this->dialogo_consultas, &DialogoConsultas::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_consultas;
 }
 
 void visualizadordecontexto::abrir_medios_twitter() {
 
+    this->guardar_activo();
+
     this->dialogo_medios_twitter = new DialogoMediosTwitter(this->ui.widget_area_trabajo);
     this->dialogo_medios_twitter->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_medios_twitter);
+
+    QObject::connect(this->dialogo_medios_twitter, &DialogoMediosTwitter::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_medios_twitter;
 }
 
 void visualizadordecontexto::abrir_medios_facebook() {
 
+    this->guardar_activo();
+
     this->dialogo_medios_facebook = new DialogoMediosFacebook(this->ui.widget_area_trabajo);
     this->dialogo_medios_facebook->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_medios_facebook);
+
+    QObject::connect(this->dialogo_medios_facebook, &DialogoMediosFacebook::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_medios_facebook;
 }
 
-void visualizadordecontexto::analizar_ctx()
-{    
+void visualizadordecontexto::guardar_activo() {
+
+    if (this->hay_dialogo_abierto) {
+        QMetaObject::invokeMethod(this->dialogo_activo, "guardar");
+    }
+}
+
+void visualizadordecontexto::hay_dialogo_activo() {
+    this->hay_dialogo_abierto = true;
+}
+
+void visualizadordecontexto::sin_dialogo_activo() {
+    this->hay_dialogo_abierto = false;
+    this->dialogo_activo = nullptr;
+}
+
+void visualizadordecontexto::analizar_ctx() {
+
     QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this, &visualizadordecontexto::deshabilitar_menu);
     QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
     QObject::connect(&(this->observador), &QFutureWatcher<void>::finished, this, &visualizadordecontexto::habilitar_menu);

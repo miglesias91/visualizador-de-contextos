@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>672</height>
+    <height>684</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -49,7 +49,7 @@
      <property name="font">
       <font>
        <family>Calibri</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
        <italic>false</italic>
       </font>
      </property>
@@ -72,21 +72,21 @@
       <attribute name="title">
        <string>Consulta</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_8">
+      <layout class="QVBoxLayout" name="layout_tab_consulta">
        <property name="spacing">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QWidget" name="widget_consulta" native="true">
@@ -99,6 +99,18 @@
          <layout class="QVBoxLayout" name="layout_consulta">
           <property name="spacing">
            <number>5</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
           </property>
           <item>
            <widget class="QWidget" name="widget_periodo" native="true">
@@ -133,7 +145,7 @@
                 <widget class="QLabel" name="lbl_periodo">
                  <property name="font">
                   <font>
-                   <pointsize>16</pointsize>
+                   <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -319,7 +331,7 @@
                 <widget class="QLabel" name="lbl_medios">
                  <property name="font">
                   <font>
-                   <pointsize>16</pointsize>
+                   <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -335,7 +347,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>30</height>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -346,7 +358,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -416,7 +428,7 @@
                 <widget class="QLabel" name="lbl_conceptos">
                  <property name="font">
                   <font>
-                   <pointsize>16</pointsize>
+                   <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -432,7 +444,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>30</height>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -443,7 +455,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -516,7 +528,7 @@
                 <widget class="QLabel" name="lbl_reportes">
                  <property name="font">
                   <font>
-                   <pointsize>16</pointsize>
+                   <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -532,7 +544,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>30</height>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -543,7 +555,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -639,7 +651,7 @@
                 <widget class="QLabel" name="lbl_secciones">
                  <property name="font">
                   <font>
-                   <pointsize>16</pointsize>
+                   <pointsize>12</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -655,7 +667,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>30</height>
+                   <height>0</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -666,7 +678,7 @@
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -728,6 +740,18 @@
           <property name="spacing">
            <number>5</number>
           </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QPushButton" name="btn_realizar_consulta">
             <property name="sizePolicy">
@@ -738,8 +762,8 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>120</width>
-              <height>30</height>
+              <width>0</width>
+              <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -750,10 +774,10 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
-              <weight>75</weight>
+              <pointsize>12</pointsize>
+              <weight>50</weight>
               <italic>false</italic>
-              <bold>true</bold>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -771,8 +795,8 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>100</width>
-              <height>30</height>
+              <width>0</width>
+              <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -783,9 +807,9 @@
             </property>
             <property name="font">
              <font>
-              <pointsize>16</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>12</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="text">
@@ -804,7 +828,7 @@
             <property name="minimumSize">
              <size>
               <width>200</width>
-              <height>30</height>
+              <height>0</height>
              </size>
             </property>
             <property name="value">
@@ -826,19 +850,19 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <property name="spacing">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QWidget" name="widget_lista_conceptos" native="true">
@@ -864,7 +888,7 @@
              <widget class="QLabel" name="lbl_lista_de_conceptos">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -880,7 +904,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -891,7 +915,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>11</pointsize>
+                <pointsize>10</pointsize>
                </font>
               </property>
               <property name="text">
@@ -922,19 +946,19 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <property name="spacing">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QWidget" name="widget_lista_medios" native="true">
@@ -960,7 +984,7 @@
              <widget class="QLabel" name="lbl_lista_de_medios">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -976,7 +1000,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -987,7 +1011,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>11</pointsize>
+                <pointsize>10</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1021,19 +1045,19 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_11">
        <property name="spacing">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QWidget" name="widget_lista_periodos" native="true">
@@ -1059,7 +1083,7 @@
              <widget class="QLabel" name="lbl_lista_de_periodos">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1075,7 +1099,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1086,7 +1110,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>11</pointsize>
+                <pointsize>10</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1125,19 +1149,19 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_12">
        <property name="spacing">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QWidget" name="widget_lista_secciones" native="true">
@@ -1163,7 +1187,7 @@
              <widget class="QLabel" name="lbl_lista_de_secciones">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1179,7 +1203,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1190,7 +1214,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>11</pointsize>
+                <pointsize>10</pointsize>
                 <italic>true</italic>
                </font>
               </property>
@@ -1218,19 +1242,19 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_13">
        <property name="spacing">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>5</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QWidget" name="widget_lista_reportes" native="true">
@@ -1256,7 +1280,7 @@
              <widget class="QLabel" name="label_2">
               <property name="font">
                <font>
-                <pointsize>16</pointsize>
+                <pointsize>12</pointsize>
                </font>
               </property>
               <property name="text">
@@ -1272,7 +1296,7 @@
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>30</height>
+                <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1283,7 +1307,7 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>11</pointsize>
+                <pointsize>10</pointsize>
                 <italic>true</italic>
                </font>
               </property>

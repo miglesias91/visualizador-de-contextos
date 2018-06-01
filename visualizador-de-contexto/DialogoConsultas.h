@@ -38,6 +38,14 @@ public:
     DialogoConsultas(QWidget *parent = Q_NULLPTR);
     ~DialogoConsultas();
 
+    virtual void hideEvent(QHideEvent * evento);
+    virtual void showEvent(QShowEvent * evento);
+
+signals:
+
+    void se_cerro();
+    void se_abrio();
+
 private slots:
     void agregar_conceptos();
 
@@ -62,6 +70,10 @@ private slots:
     void resetear_periodo();
 
     void mostrar_resultados();
+
+    void guardar();
+
+    void cerrar();
 
 private:
     Ui::DialogoConsultas *ui;

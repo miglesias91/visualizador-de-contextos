@@ -37,6 +37,25 @@ DialogoTerminos::~DialogoTerminos()
 	delete ui;
 }
 
+void DialogoTerminos::hideEvent(QHideEvent *) {
+    emit se_cerro();
+}
+
+void DialogoTerminos::showEvent(QShowEvent *) {
+    emit se_abrio();
+}
+
+
+void DialogoTerminos::guardar() {
+
+    this->close();
+}
+
+void DialogoTerminos::cerrar() {
+
+    this->close();
+}
+
 // METODOS PRIVADOS
 
 void DialogoTerminos::agregarTerminoALista(modelo::Termino * termino)

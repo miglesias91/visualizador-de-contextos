@@ -47,7 +47,7 @@ public:
     QVBoxLayout *verticalLayout_14;
     QTabWidget *opciones_consulta;
     QWidget *tab_consulta;
-    QVBoxLayout *verticalLayout_8;
+    QVBoxLayout *layout_tab_consulta;
     QWidget *widget_consulta;
     QVBoxLayout *layout_consulta;
     QWidget *widget_periodo;
@@ -142,7 +142,7 @@ public:
     {
         if (DialogoConsultas->objectName().isEmpty())
             DialogoConsultas->setObjectName(QStringLiteral("DialogoConsultas"));
-        DialogoConsultas->resize(500, 672);
+        DialogoConsultas->resize(500, 684);
         DialogoConsultas->setMinimumSize(QSize(500, 0));
         action_agregar_conceptos = new QAction(DialogoConsultas);
         action_agregar_conceptos->setObjectName(QStringLiteral("action_agregar_conceptos"));
@@ -179,7 +179,7 @@ public:
         opciones_consulta->setMaximumSize(QSize(16777215, 16777215));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(12);
+        font.setPointSize(10);
         font.setItalic(false);
         opciones_consulta->setFont(font);
         opciones_consulta->setDocumentMode(true);
@@ -188,11 +188,11 @@ public:
         opciones_consulta->setTabBarAutoHide(false);
         tab_consulta = new QWidget();
         tab_consulta->setObjectName(QStringLiteral("tab_consulta"));
-        verticalLayout_8 = new QVBoxLayout(tab_consulta);
-        verticalLayout_8->setSpacing(5);
-        verticalLayout_8->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
-        verticalLayout_8->setContentsMargins(5, 5, 5, 5);
+        layout_tab_consulta = new QVBoxLayout(tab_consulta);
+        layout_tab_consulta->setSpacing(0);
+        layout_tab_consulta->setContentsMargins(11, 11, 11, 11);
+        layout_tab_consulta->setObjectName(QStringLiteral("layout_tab_consulta"));
+        layout_tab_consulta->setContentsMargins(0, 0, 0, 0);
         widget_consulta = new QWidget(tab_consulta);
         widget_consulta->setObjectName(QStringLiteral("widget_consulta"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -204,6 +204,7 @@ public:
         layout_consulta->setSpacing(5);
         layout_consulta->setContentsMargins(11, 11, 11, 11);
         layout_consulta->setObjectName(QStringLiteral("layout_consulta"));
+        layout_consulta->setContentsMargins(0, 0, 0, 0);
         widget_periodo = new QWidget(widget_consulta);
         widget_periodo->setObjectName(QStringLiteral("widget_periodo"));
         widget_periodo->setMaximumSize(QSize(16777215, 60));
@@ -218,7 +219,7 @@ public:
         lbl_periodo = new QLabel(widget_periodo);
         lbl_periodo->setObjectName(QStringLiteral("lbl_periodo"));
         QFont font1;
-        font1.setPointSize(16);
+        font1.setPointSize(12);
         lbl_periodo->setFont(font1);
         lbl_periodo->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
 
@@ -321,11 +322,9 @@ public:
 
         btn_sacar_medios = new QPushButton(widget_medios);
         btn_sacar_medios->setObjectName(QStringLiteral("btn_sacar_medios"));
-        btn_sacar_medios->setMinimumSize(QSize(0, 30));
+        btn_sacar_medios->setMinimumSize(QSize(0, 0));
         btn_sacar_medios->setMaximumSize(QSize(150, 16777215));
-        QFont font4;
-        font4.setPointSize(11);
-        btn_sacar_medios->setFont(font4);
+        btn_sacar_medios->setFont(font2);
 
         cabecera_medios->addWidget(btn_sacar_medios);
 
@@ -369,9 +368,9 @@ public:
 
         btn_sacar_conceptos = new QPushButton(widget_conceptos);
         btn_sacar_conceptos->setObjectName(QStringLiteral("btn_sacar_conceptos"));
-        btn_sacar_conceptos->setMinimumSize(QSize(0, 30));
+        btn_sacar_conceptos->setMinimumSize(QSize(0, 0));
         btn_sacar_conceptos->setMaximumSize(QSize(150, 16777215));
-        btn_sacar_conceptos->setFont(font4);
+        btn_sacar_conceptos->setFont(font2);
 
         cabecera_conceptos->addWidget(btn_sacar_conceptos);
 
@@ -416,9 +415,9 @@ public:
 
         btn_agregar_reportes = new QPushButton(widget_reportes);
         btn_agregar_reportes->setObjectName(QStringLiteral("btn_agregar_reportes"));
-        btn_agregar_reportes->setMinimumSize(QSize(0, 30));
+        btn_agregar_reportes->setMinimumSize(QSize(0, 0));
         btn_agregar_reportes->setMaximumSize(QSize(150, 16777215));
-        btn_agregar_reportes->setFont(font4);
+        btn_agregar_reportes->setFont(font2);
 
         cabecera_reportes->addWidget(btn_agregar_reportes);
 
@@ -428,10 +427,10 @@ public:
         lista_reportes_en_consulta = new QListWidget(widget_reportes);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_reportes_en_consulta);
         __qlistwidgetitem->setFont(font3);
-        QFont font5;
-        font5.setItalic(true);
+        QFont font4;
+        font4.setItalic(true);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem1->setFont(font5);
+        __qlistwidgetitem1->setFont(font4);
         lista_reportes_en_consulta->setObjectName(QStringLiteral("lista_reportes_en_consulta"));
         lista_reportes_en_consulta->setEnabled(false);
         lista_reportes_en_consulta->setMaximumSize(QSize(16777215, 16777215));
@@ -470,9 +469,9 @@ public:
 
         btn_sacar_secciones = new QPushButton(widget_secciones);
         btn_sacar_secciones->setObjectName(QStringLiteral("btn_sacar_secciones"));
-        btn_sacar_secciones->setMinimumSize(QSize(0, 30));
+        btn_sacar_secciones->setMinimumSize(QSize(0, 0));
         btn_sacar_secciones->setMaximumSize(QSize(150, 16777215));
-        btn_sacar_secciones->setFont(font4);
+        btn_sacar_secciones->setFont(font2);
 
         cabecera_secciones->addWidget(btn_sacar_secciones);
 
@@ -496,7 +495,7 @@ public:
         layout_consulta->addItem(espaciador_consulta);
 
 
-        verticalLayout_8->addWidget(widget_consulta);
+        layout_tab_consulta->addWidget(widget_consulta);
 
         widget_botones = new QWidget(tab_consulta);
         widget_botones->setObjectName(QStringLiteral("widget_botones"));
@@ -504,6 +503,7 @@ public:
         layout_botones->setSpacing(5);
         layout_botones->setContentsMargins(11, 11, 11, 11);
         layout_botones->setObjectName(QStringLiteral("layout_botones"));
+        layout_botones->setContentsMargins(0, 0, 0, 0);
         btn_realizar_consulta = new QPushButton(widget_botones);
         btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -511,14 +511,14 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(btn_realizar_consulta->sizePolicy().hasHeightForWidth());
         btn_realizar_consulta->setSizePolicy(sizePolicy1);
-        btn_realizar_consulta->setMinimumSize(QSize(120, 30));
+        btn_realizar_consulta->setMinimumSize(QSize(0, 0));
         btn_realizar_consulta->setMaximumSize(QSize(150, 16777215));
-        QFont font6;
-        font6.setPointSize(16);
-        font6.setBold(true);
-        font6.setItalic(false);
-        font6.setWeight(75);
-        btn_realizar_consulta->setFont(font6);
+        QFont font5;
+        font5.setPointSize(12);
+        font5.setBold(false);
+        font5.setItalic(false);
+        font5.setWeight(50);
+        btn_realizar_consulta->setFont(font5);
 
         layout_botones->addWidget(btn_realizar_consulta);
 
@@ -526,13 +526,13 @@ public:
         btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
         sizePolicy1.setHeightForWidth(btn_cancelar->sizePolicy().hasHeightForWidth());
         btn_cancelar->setSizePolicy(sizePolicy1);
-        btn_cancelar->setMinimumSize(QSize(100, 30));
+        btn_cancelar->setMinimumSize(QSize(0, 0));
         btn_cancelar->setMaximumSize(QSize(150, 16777215));
-        QFont font7;
-        font7.setPointSize(16);
-        font7.setBold(true);
-        font7.setWeight(75);
-        btn_cancelar->setFont(font7);
+        QFont font6;
+        font6.setPointSize(12);
+        font6.setBold(false);
+        font6.setWeight(50);
+        btn_cancelar->setFont(font6);
 
         layout_botones->addWidget(btn_cancelar);
 
@@ -543,23 +543,23 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(progressbar_realizar_consulta->sizePolicy().hasHeightForWidth());
         progressbar_realizar_consulta->setSizePolicy(sizePolicy2);
-        progressbar_realizar_consulta->setMinimumSize(QSize(200, 30));
+        progressbar_realizar_consulta->setMinimumSize(QSize(200, 0));
         progressbar_realizar_consulta->setValue(24);
         progressbar_realizar_consulta->setTextVisible(false);
 
         layout_botones->addWidget(progressbar_realizar_consulta);
 
 
-        verticalLayout_8->addWidget(widget_botones, 0, Qt::AlignLeft);
+        layout_tab_consulta->addWidget(widget_botones, 0, Qt::AlignLeft);
 
         opciones_consulta->addTab(tab_consulta, QString());
         tab_conceptos = new QWidget();
         tab_conceptos->setObjectName(QStringLiteral("tab_conceptos"));
         verticalLayout_9 = new QVBoxLayout(tab_conceptos);
-        verticalLayout_9->setSpacing(5);
+        verticalLayout_9->setSpacing(0);
         verticalLayout_9->setContentsMargins(11, 11, 11, 11);
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
-        verticalLayout_9->setContentsMargins(5, 5, 5, 5);
+        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
         widget_lista_conceptos = new QWidget(tab_conceptos);
         widget_lista_conceptos->setObjectName(QStringLiteral("widget_lista_conceptos"));
         layout_opciones_conceptos = new QVBoxLayout(widget_lista_conceptos);
@@ -579,9 +579,9 @@ public:
 
         btn_agregar_conceptos = new QPushButton(widget_lista_conceptos);
         btn_agregar_conceptos->setObjectName(QStringLiteral("btn_agregar_conceptos"));
-        btn_agregar_conceptos->setMinimumSize(QSize(0, 30));
+        btn_agregar_conceptos->setMinimumSize(QSize(0, 0));
         btn_agregar_conceptos->setMaximumSize(QSize(150, 16777215));
-        btn_agregar_conceptos->setFont(font4);
+        btn_agregar_conceptos->setFont(font2);
 
         cabecera_lista_conceptos->addWidget(btn_agregar_conceptos);
 
@@ -590,10 +590,10 @@ public:
 
         lista_conceptos = new QListWidget(widget_lista_conceptos);
         lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
-        QFont font8;
-        font8.setPointSize(10);
-        font8.setItalic(false);
-        lista_conceptos->setFont(font8);
+        QFont font7;
+        font7.setPointSize(10);
+        font7.setItalic(false);
+        lista_conceptos->setFont(font7);
 
         layout_opciones_conceptos->addWidget(lista_conceptos);
 
@@ -604,10 +604,10 @@ public:
         tab_medios = new QWidget();
         tab_medios->setObjectName(QStringLiteral("tab_medios"));
         verticalLayout_10 = new QVBoxLayout(tab_medios);
-        verticalLayout_10->setSpacing(5);
+        verticalLayout_10->setSpacing(0);
         verticalLayout_10->setContentsMargins(11, 11, 11, 11);
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
-        verticalLayout_10->setContentsMargins(5, 5, 5, 5);
+        verticalLayout_10->setContentsMargins(0, 0, 0, 0);
         widget_lista_medios = new QWidget(tab_medios);
         widget_lista_medios->setObjectName(QStringLiteral("widget_lista_medios"));
         layout_lista_medios = new QVBoxLayout(widget_lista_medios);
@@ -627,9 +627,9 @@ public:
 
         btn_agregar_medios = new QPushButton(widget_lista_medios);
         btn_agregar_medios->setObjectName(QStringLiteral("btn_agregar_medios"));
-        btn_agregar_medios->setMinimumSize(QSize(0, 30));
+        btn_agregar_medios->setMinimumSize(QSize(0, 0));
         btn_agregar_medios->setMaximumSize(QSize(150, 16777215));
-        btn_agregar_medios->setFont(font4);
+        btn_agregar_medios->setFont(font2);
 
         cabecera_lista_medios->addWidget(btn_agregar_medios);
 
@@ -638,7 +638,7 @@ public:
 
         lista_medios = new QListWidget(widget_lista_medios);
         lista_medios->setObjectName(QStringLiteral("lista_medios"));
-        lista_medios->setFont(font8);
+        lista_medios->setFont(font7);
 
         layout_lista_medios->addWidget(lista_medios);
 
@@ -650,10 +650,10 @@ public:
         tab_periodo->setObjectName(QStringLiteral("tab_periodo"));
         tab_periodo->setEnabled(false);
         verticalLayout_11 = new QVBoxLayout(tab_periodo);
-        verticalLayout_11->setSpacing(5);
+        verticalLayout_11->setSpacing(0);
         verticalLayout_11->setContentsMargins(11, 11, 11, 11);
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
-        verticalLayout_11->setContentsMargins(5, 5, 5, 5);
+        verticalLayout_11->setContentsMargins(0, 0, 0, 0);
         widget_lista_periodos = new QWidget(tab_periodo);
         widget_lista_periodos->setObjectName(QStringLiteral("widget_lista_periodos"));
         verticalLayout_4 = new QVBoxLayout(widget_lista_periodos);
@@ -673,9 +673,9 @@ public:
 
         btn_setear_periodo = new QPushButton(widget_lista_periodos);
         btn_setear_periodo->setObjectName(QStringLiteral("btn_setear_periodo"));
-        btn_setear_periodo->setMinimumSize(QSize(0, 30));
+        btn_setear_periodo->setMinimumSize(QSize(0, 0));
         btn_setear_periodo->setMaximumSize(QSize(150, 16777215));
-        btn_setear_periodo->setFont(font4);
+        btn_setear_periodo->setFont(font2);
 
         cabecera_lista_periodos->addWidget(btn_setear_periodo);
 
@@ -684,7 +684,7 @@ public:
 
         lista_periodos = new QListWidget(widget_lista_periodos);
         lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
-        lista_periodos->setFont(font8);
+        lista_periodos->setFont(font7);
 
         verticalLayout_4->addWidget(lista_periodos);
 
@@ -695,14 +695,14 @@ public:
         tab_secciones = new QWidget();
         tab_secciones->setObjectName(QStringLiteral("tab_secciones"));
         tab_secciones->setEnabled(false);
-        QFont font9;
-        font9.setItalic(false);
-        tab_secciones->setFont(font9);
+        QFont font8;
+        font8.setItalic(false);
+        tab_secciones->setFont(font8);
         verticalLayout_12 = new QVBoxLayout(tab_secciones);
-        verticalLayout_12->setSpacing(5);
+        verticalLayout_12->setSpacing(0);
         verticalLayout_12->setContentsMargins(11, 11, 11, 11);
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        verticalLayout_12->setContentsMargins(5, 5, 5, 5);
+        verticalLayout_12->setContentsMargins(0, 0, 0, 0);
         widget_lista_secciones = new QWidget(tab_secciones);
         widget_lista_secciones->setObjectName(QStringLiteral("widget_lista_secciones"));
         layout_lista_secciones = new QVBoxLayout(widget_lista_secciones);
@@ -722,12 +722,12 @@ public:
 
         btn_agregar_secciones = new QPushButton(widget_lista_secciones);
         btn_agregar_secciones->setObjectName(QStringLiteral("btn_agregar_secciones"));
-        btn_agregar_secciones->setMinimumSize(QSize(0, 30));
+        btn_agregar_secciones->setMinimumSize(QSize(0, 0));
         btn_agregar_secciones->setMaximumSize(QSize(150, 16777215));
-        QFont font10;
-        font10.setPointSize(11);
-        font10.setItalic(true);
-        btn_agregar_secciones->setFont(font10);
+        QFont font9;
+        font9.setPointSize(10);
+        font9.setItalic(true);
+        btn_agregar_secciones->setFont(font9);
 
         cabecera_lista_secciones->addWidget(btn_agregar_secciones);
 
@@ -747,10 +747,10 @@ public:
         tab_reporte->setObjectName(QStringLiteral("tab_reporte"));
         tab_reporte->setEnabled(false);
         verticalLayout_13 = new QVBoxLayout(tab_reporte);
-        verticalLayout_13->setSpacing(5);
+        verticalLayout_13->setSpacing(0);
         verticalLayout_13->setContentsMargins(11, 11, 11, 11);
         verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
-        verticalLayout_13->setContentsMargins(5, 5, 5, 5);
+        verticalLayout_13->setContentsMargins(0, 0, 0, 0);
         widget_lista_reportes = new QWidget(tab_reporte);
         widget_lista_reportes->setObjectName(QStringLiteral("widget_lista_reportes"));
         layout_lista_reportes = new QVBoxLayout(widget_lista_reportes);
@@ -770,9 +770,9 @@ public:
 
         btn_sacar_reportes = new QPushButton(widget_lista_reportes);
         btn_sacar_reportes->setObjectName(QStringLiteral("btn_sacar_reportes"));
-        btn_sacar_reportes->setMinimumSize(QSize(0, 30));
+        btn_sacar_reportes->setMinimumSize(QSize(0, 0));
         btn_sacar_reportes->setMaximumSize(QSize(150, 16777215));
-        btn_sacar_reportes->setFont(font10);
+        btn_sacar_reportes->setFont(font9);
 
         cabecera_lista_reportes->addWidget(btn_sacar_reportes);
 

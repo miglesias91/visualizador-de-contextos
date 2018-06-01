@@ -24,6 +24,20 @@ public:
 	DialogoTerminos(QWidget *parent = Q_NULLPTR);
 	~DialogoTerminos();
 
+    virtual void hideEvent(QHideEvent * evento);
+    virtual void showEvent(QShowEvent * evento);
+
+signals:
+
+    void se_cerro();
+    void se_abrio();
+
+private slots:
+
+    void guardar();
+
+    void cerrar();
+
 private:
 
 	Ui::DialogoTerminos *ui;

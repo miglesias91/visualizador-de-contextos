@@ -21,7 +21,7 @@ DialogoFechas::DialogoFechas(QWidget *parent)
 
     this->cargarListaFechas();
 
-    this->on_action_limpiar_fecha_triggered();
+    this->limpiar_fecha();
 }
 
 DialogoFechas::~DialogoFechas()
@@ -33,7 +33,26 @@ DialogoFechas::~DialogoFechas()
     delete ui;
 }
 
-void DialogoFechas::on_action_guardar_fecha_triggered()
+void DialogoFechas::hideEvent(QHideEvent *) {
+    emit se_cerro();
+}
+
+void DialogoFechas::showEvent(QShowEvent *) {
+    emit se_abrio();
+}
+
+
+void DialogoFechas::guardar() {
+
+    this->actualizar_y_cerrar();
+}
+
+void DialogoFechas::cerrar() {
+
+    this->close();
+}
+
+void DialogoFechas::guardar_fecha()
 {
     std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
 
@@ -61,10 +80,10 @@ void DialogoFechas::on_action_guardar_fecha_triggered()
         delete fecha_nueva;
     }
 
-    this->on_action_limpiar_fecha_triggered();
+    this->limpiar_fecha();
 }
 
-void DialogoFechas::on_action_limpiar_fecha_triggered()
+void DialogoFechas::limpiar_fecha()
 {
     this->ui->lineedit_etiqueta->clear();
     this->ui->dateedit_fecha->setDate(QDate::currentDate());
@@ -72,10 +91,10 @@ void DialogoFechas::on_action_limpiar_fecha_triggered()
 
     aplicacion::Logger::info("Dialogo Fechas reseteado.");
 
-    this->on_action_estado_btn_eliminar_triggered();
+    this->estado_btn_eliminar();
 }
 
-void DialogoFechas::on_action_eliminar_fecha_triggered()
+void DialogoFechas::eliminar_fecha()
 {
     QList<QListWidgetItem*> items = ui->lista_fechas->selectedItems();
     foreach(QListWidgetItem * item, items)
@@ -103,7 +122,7 @@ void DialogoFechas::on_action_eliminar_fecha_triggered()
     }
 }
 
-void DialogoFechas::on_action_actualizar_y_cerrar_triggered()
+void DialogoFechas::actualizar_y_cerrar()
 {
     this->gestor_fechas.guardarCambios();
 
@@ -112,7 +131,7 @@ void DialogoFechas::on_action_actualizar_y_cerrar_triggered()
     this->close();
 }
 
-void DialogoFechas::on_action_estado_btn_eliminar_triggered()
+void DialogoFechas::estado_btn_eliminar()
 {
     int items_seleccionados = this->ui->lista_fechas->selectedItems().size();
     if (0 >= items_seleccionados)

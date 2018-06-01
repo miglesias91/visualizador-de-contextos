@@ -27,6 +27,14 @@ class DialogoMediosFacebook : public QWidget
 public:
     DialogoMediosFacebook(QWidget *parent = Q_NULLPTR);
     ~DialogoMediosFacebook();
+    
+    virtual void hideEvent(QHideEvent * evento);
+    virtual void showEvent(QShowEvent * evento);
+
+signals:
+
+    void se_cerro();
+    void se_abrio();
 
 private slots:
     void actualizar_y_cerrar();
@@ -38,6 +46,9 @@ private slots:
     void estado_btn_eliminar();
 
     void nueva_pagina();
+
+    void guardar();
+    void cerrar();
 
 private:
     Ui::DialogoMediosFacebook *ui;

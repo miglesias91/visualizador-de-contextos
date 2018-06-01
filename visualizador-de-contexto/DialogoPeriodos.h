@@ -24,18 +24,30 @@ public:
     DialogoPeriodos(QWidget *parent = Q_NULLPTR);
     ~DialogoPeriodos();
 
-    private slots:
-    void on_action_guardar_periodo_triggered();
+    virtual void hideEvent(QHideEvent * evento);
+    virtual void showEvent(QShowEvent * evento);
 
-    void on_action_limpiar_periodo_triggered();
+signals:
 
-    void on_action_eliminar_periodo_triggered();
+    void se_cerro();
+    void se_abrio();
 
-    void on_action_actualizar_y_cerrar_triggered();
+private slots:
+    void guardar_periodo();
 
-    void on_action_estado_btn_eliminar_triggered();
+    void limpiar_periodo();
 
-    void on_action_estado_btn_agregar_triggered();
+    void eliminar_periodo();
+
+    void actualizar_y_cerrar();
+
+    void estado_btn_eliminar();
+
+    void estado_btn_agregar();
+
+    void guardar();
+
+    void cerrar();
 
 private:
     Ui::DialogoPeriodos *ui;
