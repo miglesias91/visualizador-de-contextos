@@ -162,7 +162,11 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Concep
             std::string expresion = termino->getValor();
             unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
-            sentimiento_de_concepto_en_medio += resultados->getResultadoMedio(id_medio)->getResultadoSentimiento()->valores(expresion);
+            scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
+
+            if (resultado_medio) {
+                sentimiento_de_concepto_en_medio += resultado_medio->getResultadoSentimiento()->valores(expresion);
+            }
         });
 
         valores_de_concepto_por_medio.push_back(sentimiento_de_concepto_en_medio.informar().c_str());
@@ -180,7 +184,7 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
     std::for_each(medios.begin(), medios.end(),
         [&resultados, &terminos, &valores_de_concepto_por_medio](modelo::Medio * medio)
     {
-        double fuerza_en_noticia_de_concepto_en_medio;
+        double fuerza_en_noticia_de_concepto_en_medio = 0.0f;
 
         std::for_each(terminos.begin(), terminos.end(),
             [&resultados, &medio, &fuerza_en_noticia_de_concepto_en_medio](modelo::Termino * termino)
@@ -188,7 +192,11 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
             std::string expresion = termino->getValor();
             unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
-            fuerza_en_noticia_de_concepto_en_medio += resultados->getResultadoMedio(id_medio)->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
+            scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
+
+            if (resultado_medio) {
+                fuerza_en_noticia_de_concepto_en_medio += resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
+            }
         });
 
         valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia_de_concepto_en_medio).c_str());
@@ -207,7 +215,12 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Termin
         std::string expresion = termino->getValor();
         unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
-        scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento_de_termino_en_medio = resultados->getResultadoMedio(id_medio)->getResultadoSentimiento()->valores(expresion);
+        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
+
+        scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento_de_termino_en_medio;
+        if (resultado_medio) {
+            sentimiento_de_termino_en_medio = resultado_medio->getResultadoSentimiento()->valores(expresion);
+        }
 
         valores_de_termino_por_medio.push_back(sentimiento_de_termino_en_medio.informar().c_str());
     });
@@ -225,7 +238,12 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
         std::string expresion = termino->getValor();
         unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
-        double fuerza_en_noticia_de_termino_en_medio = resultados->getResultadoMedio(id_medio)->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
+        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
+
+        double fuerza_en_noticia_de_termino_en_medio = 0.0f;
+        if (resultado_medio) {
+            fuerza_en_noticia_de_termino_en_medio = resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
+        }
 
         valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia_de_termino_en_medio).c_str());
     });

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogoTerminos_t {
-    QByteArrayData data[8];
-    char stringdata0[246];
+    QByteArrayData data[6];
+    char stringdata0[50];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,21 +32,15 @@ struct qt_meta_stringdata_DialogoTerminos_t {
 static const qt_meta_stringdata_DialogoTerminos_t qt_meta_stringdata_DialogoTerminos = {
     {
 QT_MOC_LITERAL(0, 0, 15), // "DialogoTerminos"
-QT_MOC_LITERAL(1, 16, 39), // "on_action_actualizar_y_cerrar..."
-QT_MOC_LITERAL(2, 56, 0), // ""
-QT_MOC_LITERAL(3, 57, 36), // "on_action_resetear_termino_tr..."
-QT_MOC_LITERAL(4, 94, 35), // "on_action_guardar_termino_tri..."
-QT_MOC_LITERAL(5, 130, 36), // "on_action_eliminar_termino_tr..."
-QT_MOC_LITERAL(6, 167, 39), // "on_action_estado_btn_eliminar..."
-QT_MOC_LITERAL(7, 207, 38) // "on_action_estado_btn_agregar_..."
+QT_MOC_LITERAL(1, 16, 8), // "se_cerro"
+QT_MOC_LITERAL(2, 25, 0), // ""
+QT_MOC_LITERAL(3, 26, 8), // "se_abrio"
+QT_MOC_LITERAL(4, 35, 7), // "guardar"
+QT_MOC_LITERAL(5, 43, 6) // "cerrar"
 
     },
-    "DialogoTerminos\0on_action_actualizar_y_cerrar_triggered\0"
-    "\0on_action_resetear_termino_triggered\0"
-    "on_action_guardar_termino_triggered\0"
-    "on_action_eliminar_termino_triggered\0"
-    "on_action_estado_btn_eliminar_triggered\0"
-    "on_action_estado_btn_agregar_triggered"
+    "DialogoTerminos\0se_cerro\0\0se_abrio\0"
+    "guardar\0cerrar"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,26 +50,26 @@ static const uint qt_meta_data_DialogoTerminos[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   34,    2, 0x06 /* Public */,
+       3,    0,   35,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x08 /* Private */,
-       3,    0,   45,    2, 0x08 /* Private */,
-       4,    0,   46,    2, 0x08 /* Private */,
-       5,    0,   47,    2, 0x08 /* Private */,
-       6,    0,   48,    2, 0x08 /* Private */,
-       7,    0,   49,    2, 0x08 /* Private */,
+       4,    0,   36,    2, 0x08 /* Private */,
+       5,    0,   37,    2, 0x08 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -88,13 +82,28 @@ void DialogoTerminos::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         DialogoTerminos *_t = static_cast<DialogoTerminos *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_action_actualizar_y_cerrar_triggered(); break;
-        case 1: _t->on_action_resetear_termino_triggered(); break;
-        case 2: _t->on_action_guardar_termino_triggered(); break;
-        case 3: _t->on_action_eliminar_termino_triggered(); break;
-        case 4: _t->on_action_estado_btn_eliminar_triggered(); break;
-        case 5: _t->on_action_estado_btn_agregar_triggered(); break;
+        case 0: _t->se_cerro(); break;
+        case 1: _t->se_abrio(); break;
+        case 2: _t->guardar(); break;
+        case 3: _t->cerrar(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (DialogoTerminos::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&DialogoTerminos::se_cerro)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            typedef void (DialogoTerminos::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&DialogoTerminos::se_abrio)) {
+                *result = 1;
+                return;
+            }
         }
     }
     Q_UNUSED(_a);
@@ -125,15 +134,27 @@ int DialogoTerminos::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 4;
     }
     return _id;
+}
+
+// SIGNAL 0
+void DialogoTerminos::se_cerro()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void DialogoTerminos::se_abrio()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

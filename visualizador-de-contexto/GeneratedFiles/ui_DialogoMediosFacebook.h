@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -43,11 +44,12 @@ public:
     QLabel *label;
     QPushButton *btn_eliminar;
     QPushButton *btn_nueva;
-    QListWidget *lista_medios_facebook;
     QWidget *widget_opciones;
     QHBoxLayout *layout_opciones;
+    QFrame *line;
     QPushButton *btn_guardar;
     QPushButton *btn_cancelar;
+    QListWidget *lista_medios_facebook;
 
     void setupUi(QWidget *DialogoMediosFacebook)
     {
@@ -94,7 +96,7 @@ public:
         widget_superior = new QWidget(widget_lista);
         widget_superior->setObjectName(QStringLiteral("widget_superior"));
         layout_superior = new QHBoxLayout(widget_superior);
-        layout_superior->setSpacing(5);
+        layout_superior->setSpacing(3);
         layout_superior->setContentsMargins(11, 11, 11, 11);
         layout_superior->setObjectName(QStringLiteral("layout_superior"));
         layout_superior->setContentsMargins(0, 0, 0, 0);
@@ -102,7 +104,7 @@ public:
         label->setObjectName(QStringLiteral("label"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(16);
+        font.setPointSize(12);
         label->setFont(font);
         label->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
 
@@ -110,59 +112,76 @@ public:
 
         btn_eliminar = new QPushButton(widget_superior);
         btn_eliminar->setObjectName(QStringLiteral("btn_eliminar"));
-        btn_eliminar->setMinimumSize(QSize(0, 30));
-        btn_eliminar->setMaximumSize(QSize(80, 16777215));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(btn_eliminar->sizePolicy().hasHeightForWidth());
+        btn_eliminar->setSizePolicy(sizePolicy);
+        btn_eliminar->setMinimumSize(QSize(0, 0));
+        btn_eliminar->setMaximumSize(QSize(16777215, 16777215));
         QFont font1;
         font1.setFamily(QStringLiteral("Calibri"));
-        font1.setPointSize(11);
+        font1.setPointSize(10);
         btn_eliminar->setFont(font1);
 
         layout_superior->addWidget(btn_eliminar);
 
         btn_nueva = new QPushButton(widget_superior);
         btn_nueva->setObjectName(QStringLiteral("btn_nueva"));
-        btn_nueva->setMinimumSize(QSize(0, 30));
-        btn_nueva->setMaximumSize(QSize(80, 16777215));
+        sizePolicy.setHeightForWidth(btn_nueva->sizePolicy().hasHeightForWidth());
+        btn_nueva->setSizePolicy(sizePolicy);
+        btn_nueva->setMinimumSize(QSize(0, 0));
+        btn_nueva->setMaximumSize(QSize(16777215, 16777215));
         btn_nueva->setFont(font1);
 
         layout_superior->addWidget(btn_nueva);
 
-
-        layout_lista->addWidget(widget_superior);
-
-        lista_medios_facebook = new QListWidget(widget_lista);
-        lista_medios_facebook->setObjectName(QStringLiteral("lista_medios_facebook"));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(10);
-        lista_medios_facebook->setFont(font2);
-
-        layout_lista->addWidget(lista_medios_facebook);
-
-        widget_opciones = new QWidget(widget_lista);
+        widget_opciones = new QWidget(widget_superior);
         widget_opciones->setObjectName(QStringLiteral("widget_opciones"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(widget_opciones->sizePolicy().hasHeightForWidth());
+        widget_opciones->setSizePolicy(sizePolicy1);
         layout_opciones = new QHBoxLayout(widget_opciones);
         layout_opciones->setSpacing(3);
         layout_opciones->setContentsMargins(11, 11, 11, 11);
         layout_opciones->setObjectName(QStringLiteral("layout_opciones"));
         layout_opciones->setContentsMargins(0, 0, 0, 0);
+        line = new QFrame(widget_opciones);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::VLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        layout_opciones->addWidget(line);
+
         btn_guardar = new QPushButton(widget_opciones);
         btn_guardar->setObjectName(QStringLiteral("btn_guardar"));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        font3.setPointSize(12);
-        btn_guardar->setFont(font3);
+        sizePolicy.setHeightForWidth(btn_guardar->sizePolicy().hasHeightForWidth());
+        btn_guardar->setSizePolicy(sizePolicy);
+        btn_guardar->setFont(font1);
 
         layout_opciones->addWidget(btn_guardar);
 
         btn_cancelar = new QPushButton(widget_opciones);
         btn_cancelar->setObjectName(QStringLiteral("btn_cancelar"));
-        btn_cancelar->setFont(font3);
+        sizePolicy.setHeightForWidth(btn_cancelar->sizePolicy().hasHeightForWidth());
+        btn_cancelar->setSizePolicy(sizePolicy);
+        btn_cancelar->setFont(font1);
 
         layout_opciones->addWidget(btn_cancelar);
 
 
-        layout_lista->addWidget(widget_opciones, 0, Qt::AlignHCenter);
+        layout_superior->addWidget(widget_opciones);
+
+
+        layout_lista->addWidget(widget_superior, 0, Qt::AlignBottom);
+
+        lista_medios_facebook = new QListWidget(widget_lista);
+        lista_medios_facebook->setObjectName(QStringLiteral("lista_medios_facebook"));
+        lista_medios_facebook->setFont(font1);
+
+        layout_lista->addWidget(lista_medios_facebook);
 
 
         layout_general->addWidget(widget_lista);

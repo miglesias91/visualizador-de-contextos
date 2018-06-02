@@ -37,9 +37,11 @@ public:
     QHBoxLayout *layout_general;
     QWidget *widget_lista;
     QVBoxLayout *layout_lista;
-    QLabel *label;
-    QListWidget *lista_terminos;
+    QWidget *widget_superior;
+    QHBoxLayout *layout_superior;
+    QLabel *lbl_lista_de_terminos;
     QPushButton *btn_cerrar;
+    QListWidget *lista_terminos;
 
     void setupUi(QWidget *DialogoTerminos)
     {
@@ -70,7 +72,7 @@ public:
         widget_general = new QWidget(DialogoTerminos);
         widget_general->setObjectName(QStringLiteral("widget_general"));
         layout_general = new QHBoxLayout(widget_general);
-        layout_general->setSpacing(5);
+        layout_general->setSpacing(0);
         layout_general->setContentsMargins(11, 11, 11, 11);
         layout_general->setObjectName(QStringLiteral("layout_general"));
         layout_general->setContentsMargins(0, 0, 0, 0);
@@ -81,34 +83,49 @@ public:
         layout_lista->setContentsMargins(11, 11, 11, 11);
         layout_lista->setObjectName(QStringLiteral("layout_lista"));
         layout_lista->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget_lista);
-        label->setObjectName(QStringLiteral("label"));
+        widget_superior = new QWidget(widget_lista);
+        widget_superior->setObjectName(QStringLiteral("widget_superior"));
+        layout_superior = new QHBoxLayout(widget_superior);
+        layout_superior->setSpacing(0);
+        layout_superior->setContentsMargins(11, 11, 11, 11);
+        layout_superior->setObjectName(QStringLiteral("layout_superior"));
+        layout_superior->setContentsMargins(0, 0, 0, 0);
+        lbl_lista_de_terminos = new QLabel(widget_superior);
+        lbl_lista_de_terminos->setObjectName(QStringLiteral("lbl_lista_de_terminos"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
-        font.setPointSize(16);
-        label->setFont(font);
+        font.setPointSize(12);
+        lbl_lista_de_terminos->setFont(font);
 
-        layout_lista->addWidget(label);
+        layout_superior->addWidget(lbl_lista_de_terminos);
 
-        lista_terminos = new QListWidget(widget_lista);
-        lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
+        btn_cerrar = new QPushButton(widget_superior);
+        btn_cerrar->setObjectName(QStringLiteral("btn_cerrar"));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(btn_cerrar->sizePolicy().hasHeightForWidth());
+        btn_cerrar->setSizePolicy(sizePolicy);
         QFont font1;
         font1.setFamily(QStringLiteral("Calibri"));
         font1.setPointSize(10);
-        font1.setItalic(false);
-        lista_terminos->setFont(font1);
-
-        layout_lista->addWidget(lista_terminos);
-
-        btn_cerrar = new QPushButton(widget_lista);
-        btn_cerrar->setObjectName(QStringLiteral("btn_cerrar"));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Calibri"));
-        font2.setPointSize(12);
-        btn_cerrar->setFont(font2);
+        btn_cerrar->setFont(font1);
         btn_cerrar->setFlat(false);
 
-        layout_lista->addWidget(btn_cerrar, 0, Qt::AlignHCenter);
+        layout_superior->addWidget(btn_cerrar);
+
+
+        layout_lista->addWidget(widget_superior);
+
+        lista_terminos = new QListWidget(widget_lista);
+        lista_terminos->setObjectName(QStringLiteral("lista_terminos"));
+        QFont font2;
+        font2.setFamily(QStringLiteral("Calibri"));
+        font2.setPointSize(10);
+        font2.setItalic(false);
+        lista_terminos->setFont(font2);
+
+        layout_lista->addWidget(lista_terminos);
 
 
         layout_general->addWidget(widget_lista);
@@ -155,7 +172,7 @@ public:
         action_estado_btn_eliminar->setToolTip(QApplication::translate("DialogoTerminos", "estado btn eliminar", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
         action_estado_btn_agregar->setText(QApplication::translate("DialogoTerminos", "estado_btn_agregar", Q_NULLPTR));
-        label->setText(QApplication::translate("DialogoTerminos", "Lista de t\303\251rminos", Q_NULLPTR));
+        lbl_lista_de_terminos->setText(QApplication::translate("DialogoTerminos", "Lista de t\303\251rminos", Q_NULLPTR));
         btn_cerrar->setText(QApplication::translate("DialogoTerminos", "Cerrar", Q_NULLPTR));
     } // retranslateUi
 

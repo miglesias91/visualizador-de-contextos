@@ -97,14 +97,6 @@ public:
     QPushButton *btn_realizar_consulta;
     QPushButton *btn_cancelar;
     QProgressBar *progressbar_realizar_consulta;
-    QWidget *tab_conceptos;
-    QVBoxLayout *verticalLayout_9;
-    QWidget *widget_lista_conceptos;
-    QVBoxLayout *layout_opciones_conceptos;
-    QHBoxLayout *cabecera_lista_conceptos;
-    QLabel *lbl_lista_de_conceptos;
-    QPushButton *btn_agregar_conceptos;
-    QListWidget *lista_conceptos;
     QWidget *tab_medios;
     QVBoxLayout *verticalLayout_10;
     QWidget *widget_lista_medios;
@@ -113,6 +105,14 @@ public:
     QLabel *lbl_lista_de_medios;
     QPushButton *btn_agregar_medios;
     QListWidget *lista_medios;
+    QWidget *tab_conceptos;
+    QVBoxLayout *verticalLayout_9;
+    QWidget *widget_lista_conceptos;
+    QVBoxLayout *layout_opciones_conceptos;
+    QHBoxLayout *cabecera_lista_conceptos;
+    QLabel *lbl_lista_de_conceptos;
+    QPushButton *btn_agregar_conceptos;
+    QListWidget *lista_conceptos;
     QWidget *tab_periodo;
     QVBoxLayout *verticalLayout_11;
     QWidget *widget_lista_periodos;
@@ -142,7 +142,7 @@ public:
     {
         if (DialogoConsultas->objectName().isEmpty())
             DialogoConsultas->setObjectName(QStringLiteral("DialogoConsultas"));
-        DialogoConsultas->resize(500, 684);
+        DialogoConsultas->resize(500, 601);
         DialogoConsultas->setMinimumSize(QSize(500, 0));
         action_agregar_conceptos = new QAction(DialogoConsultas);
         action_agregar_conceptos->setObjectName(QStringLiteral("action_agregar_conceptos"));
@@ -270,7 +270,7 @@ public:
 
         layout_periodo_consulta->addWidget(dateedit_hasta);
 
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         layout_periodo_consulta->addItem(horizontalSpacer_2);
 
@@ -290,7 +290,7 @@ public:
         layout_periodo_consulta->addWidget(lineedit_etiqueta_periodo);
 
 
-        verticalLayout_2->addWidget(widget_periodo_consulta);
+        verticalLayout_2->addWidget(widget_periodo_consulta, 0, Qt::AlignLeft);
 
 
         layout_consulta->addWidget(widget_periodo);
@@ -322,8 +322,13 @@ public:
 
         btn_sacar_medios = new QPushButton(widget_medios);
         btn_sacar_medios->setObjectName(QStringLiteral("btn_sacar_medios"));
+        QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(btn_sacar_medios->sizePolicy().hasHeightForWidth());
+        btn_sacar_medios->setSizePolicy(sizePolicy1);
         btn_sacar_medios->setMinimumSize(QSize(0, 0));
-        btn_sacar_medios->setMaximumSize(QSize(150, 16777215));
+        btn_sacar_medios->setMaximumSize(QSize(16777215, 16777215));
         btn_sacar_medios->setFont(font2);
 
         cabecera_medios->addWidget(btn_sacar_medios);
@@ -335,6 +340,7 @@ public:
         lista_medios_en_consulta->setObjectName(QStringLiteral("lista_medios_en_consulta"));
         lista_medios_en_consulta->setMinimumSize(QSize(0, 100));
         lista_medios_en_consulta->setFont(font3);
+        lista_medios_en_consulta->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
         layout_medios_consulta->addWidget(lista_medios_en_consulta);
 
@@ -368,8 +374,10 @@ public:
 
         btn_sacar_conceptos = new QPushButton(widget_conceptos);
         btn_sacar_conceptos->setObjectName(QStringLiteral("btn_sacar_conceptos"));
+        sizePolicy1.setHeightForWidth(btn_sacar_conceptos->sizePolicy().hasHeightForWidth());
+        btn_sacar_conceptos->setSizePolicy(sizePolicy1);
         btn_sacar_conceptos->setMinimumSize(QSize(0, 0));
-        btn_sacar_conceptos->setMaximumSize(QSize(150, 16777215));
+        btn_sacar_conceptos->setMaximumSize(QSize(16777215, 16777215));
         btn_sacar_conceptos->setFont(font2);
 
         cabecera_conceptos->addWidget(btn_sacar_conceptos);
@@ -381,6 +389,7 @@ public:
         lista_conceptos_en_consulta->setObjectName(QStringLiteral("lista_conceptos_en_consulta"));
         lista_conceptos_en_consulta->setMinimumSize(QSize(0, 100));
         lista_conceptos_en_consulta->setFont(font3);
+        lista_conceptos_en_consulta->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
         verticalLayout_3->addWidget(lista_conceptos_en_consulta);
 
@@ -415,8 +424,10 @@ public:
 
         btn_agregar_reportes = new QPushButton(widget_reportes);
         btn_agregar_reportes->setObjectName(QStringLiteral("btn_agregar_reportes"));
+        sizePolicy1.setHeightForWidth(btn_agregar_reportes->sizePolicy().hasHeightForWidth());
+        btn_agregar_reportes->setSizePolicy(sizePolicy1);
         btn_agregar_reportes->setMinimumSize(QSize(0, 0));
-        btn_agregar_reportes->setMaximumSize(QSize(150, 16777215));
+        btn_agregar_reportes->setMaximumSize(QSize(16777215, 16777215));
         btn_agregar_reportes->setFont(font2);
 
         cabecera_reportes->addWidget(btn_agregar_reportes);
@@ -426,11 +437,9 @@ public:
 
         lista_reportes_en_consulta = new QListWidget(widget_reportes);
         QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem->setFont(font3);
-        QFont font4;
-        font4.setItalic(true);
+        __qlistwidgetitem->setFont(font);
         QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem1->setFont(font4);
+        __qlistwidgetitem1->setFont(font);
         lista_reportes_en_consulta->setObjectName(QStringLiteral("lista_reportes_en_consulta"));
         lista_reportes_en_consulta->setEnabled(false);
         lista_reportes_en_consulta->setMaximumSize(QSize(16777215, 16777215));
@@ -469,8 +478,10 @@ public:
 
         btn_sacar_secciones = new QPushButton(widget_secciones);
         btn_sacar_secciones->setObjectName(QStringLiteral("btn_sacar_secciones"));
+        sizePolicy1.setHeightForWidth(btn_sacar_secciones->sizePolicy().hasHeightForWidth());
+        btn_sacar_secciones->setSizePolicy(sizePolicy1);
         btn_sacar_secciones->setMinimumSize(QSize(0, 0));
-        btn_sacar_secciones->setMaximumSize(QSize(150, 16777215));
+        btn_sacar_secciones->setMaximumSize(QSize(16777215, 16777215));
         btn_sacar_secciones->setFont(font2);
 
         cabecera_secciones->addWidget(btn_sacar_secciones);
@@ -480,7 +491,7 @@ public:
 
         lista_secciones_en_consulta = new QListWidget(widget_secciones);
         QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(lista_secciones_en_consulta);
-        __qlistwidgetitem2->setFont(font3);
+        __qlistwidgetitem2->setFont(font);
         lista_secciones_en_consulta->setObjectName(QStringLiteral("lista_secciones_en_consulta"));
         lista_secciones_en_consulta->setEnabled(false);
         lista_secciones_en_consulta->setFont(font2);
@@ -506,19 +517,16 @@ public:
         layout_botones->setContentsMargins(0, 0, 0, 0);
         btn_realizar_consulta = new QPushButton(widget_botones);
         btn_realizar_consulta->setObjectName(QStringLiteral("btn_realizar_consulta"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(btn_realizar_consulta->sizePolicy().hasHeightForWidth());
         btn_realizar_consulta->setSizePolicy(sizePolicy1);
         btn_realizar_consulta->setMinimumSize(QSize(0, 0));
-        btn_realizar_consulta->setMaximumSize(QSize(150, 16777215));
-        QFont font5;
-        font5.setPointSize(12);
-        font5.setBold(false);
-        font5.setItalic(false);
-        font5.setWeight(50);
-        btn_realizar_consulta->setFont(font5);
+        btn_realizar_consulta->setMaximumSize(QSize(16777215, 16777215));
+        QFont font4;
+        font4.setPointSize(10);
+        font4.setBold(false);
+        font4.setItalic(false);
+        font4.setWeight(50);
+        btn_realizar_consulta->setFont(font4);
 
         layout_botones->addWidget(btn_realizar_consulta);
 
@@ -527,12 +535,12 @@ public:
         sizePolicy1.setHeightForWidth(btn_cancelar->sizePolicy().hasHeightForWidth());
         btn_cancelar->setSizePolicy(sizePolicy1);
         btn_cancelar->setMinimumSize(QSize(0, 0));
-        btn_cancelar->setMaximumSize(QSize(150, 16777215));
-        QFont font6;
-        font6.setPointSize(12);
-        font6.setBold(false);
-        font6.setWeight(50);
-        btn_cancelar->setFont(font6);
+        btn_cancelar->setMaximumSize(QSize(16777215, 16777215));
+        QFont font5;
+        font5.setPointSize(10);
+        font5.setBold(false);
+        font5.setWeight(50);
+        btn_cancelar->setFont(font5);
 
         layout_botones->addWidget(btn_cancelar);
 
@@ -553,54 +561,6 @@ public:
         layout_tab_consulta->addWidget(widget_botones, 0, Qt::AlignLeft);
 
         opciones_consulta->addTab(tab_consulta, QString());
-        tab_conceptos = new QWidget();
-        tab_conceptos->setObjectName(QStringLiteral("tab_conceptos"));
-        verticalLayout_9 = new QVBoxLayout(tab_conceptos);
-        verticalLayout_9->setSpacing(0);
-        verticalLayout_9->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
-        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
-        widget_lista_conceptos = new QWidget(tab_conceptos);
-        widget_lista_conceptos->setObjectName(QStringLiteral("widget_lista_conceptos"));
-        layout_opciones_conceptos = new QVBoxLayout(widget_lista_conceptos);
-        layout_opciones_conceptos->setSpacing(0);
-        layout_opciones_conceptos->setContentsMargins(11, 11, 11, 11);
-        layout_opciones_conceptos->setObjectName(QStringLiteral("layout_opciones_conceptos"));
-        layout_opciones_conceptos->setContentsMargins(0, 0, 0, 0);
-        cabecera_lista_conceptos = new QHBoxLayout();
-        cabecera_lista_conceptos->setSpacing(6);
-        cabecera_lista_conceptos->setObjectName(QStringLiteral("cabecera_lista_conceptos"));
-        lbl_lista_de_conceptos = new QLabel(widget_lista_conceptos);
-        lbl_lista_de_conceptos->setObjectName(QStringLiteral("lbl_lista_de_conceptos"));
-        lbl_lista_de_conceptos->setFont(font1);
-        lbl_lista_de_conceptos->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        cabecera_lista_conceptos->addWidget(lbl_lista_de_conceptos);
-
-        btn_agregar_conceptos = new QPushButton(widget_lista_conceptos);
-        btn_agregar_conceptos->setObjectName(QStringLiteral("btn_agregar_conceptos"));
-        btn_agregar_conceptos->setMinimumSize(QSize(0, 0));
-        btn_agregar_conceptos->setMaximumSize(QSize(150, 16777215));
-        btn_agregar_conceptos->setFont(font2);
-
-        cabecera_lista_conceptos->addWidget(btn_agregar_conceptos);
-
-
-        layout_opciones_conceptos->addLayout(cabecera_lista_conceptos);
-
-        lista_conceptos = new QListWidget(widget_lista_conceptos);
-        lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
-        QFont font7;
-        font7.setPointSize(10);
-        font7.setItalic(false);
-        lista_conceptos->setFont(font7);
-
-        layout_opciones_conceptos->addWidget(lista_conceptos);
-
-
-        verticalLayout_9->addWidget(widget_lista_conceptos);
-
-        opciones_consulta->addTab(tab_conceptos, QString());
         tab_medios = new QWidget();
         tab_medios->setObjectName(QStringLiteral("tab_medios"));
         verticalLayout_10 = new QVBoxLayout(tab_medios);
@@ -627,8 +587,10 @@ public:
 
         btn_agregar_medios = new QPushButton(widget_lista_medios);
         btn_agregar_medios->setObjectName(QStringLiteral("btn_agregar_medios"));
+        sizePolicy1.setHeightForWidth(btn_agregar_medios->sizePolicy().hasHeightForWidth());
+        btn_agregar_medios->setSizePolicy(sizePolicy1);
         btn_agregar_medios->setMinimumSize(QSize(0, 0));
-        btn_agregar_medios->setMaximumSize(QSize(150, 16777215));
+        btn_agregar_medios->setMaximumSize(QSize(16777215, 16777215));
         btn_agregar_medios->setFont(font2);
 
         cabecera_lista_medios->addWidget(btn_agregar_medios);
@@ -638,7 +600,11 @@ public:
 
         lista_medios = new QListWidget(widget_lista_medios);
         lista_medios->setObjectName(QStringLiteral("lista_medios"));
-        lista_medios->setFont(font7);
+        QFont font6;
+        font6.setPointSize(10);
+        font6.setItalic(false);
+        lista_medios->setFont(font6);
+        lista_medios->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
         layout_lista_medios->addWidget(lista_medios);
 
@@ -646,6 +612,54 @@ public:
         verticalLayout_10->addWidget(widget_lista_medios);
 
         opciones_consulta->addTab(tab_medios, QString());
+        tab_conceptos = new QWidget();
+        tab_conceptos->setObjectName(QStringLiteral("tab_conceptos"));
+        verticalLayout_9 = new QVBoxLayout(tab_conceptos);
+        verticalLayout_9->setSpacing(0);
+        verticalLayout_9->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
+        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
+        widget_lista_conceptos = new QWidget(tab_conceptos);
+        widget_lista_conceptos->setObjectName(QStringLiteral("widget_lista_conceptos"));
+        layout_opciones_conceptos = new QVBoxLayout(widget_lista_conceptos);
+        layout_opciones_conceptos->setSpacing(0);
+        layout_opciones_conceptos->setContentsMargins(11, 11, 11, 11);
+        layout_opciones_conceptos->setObjectName(QStringLiteral("layout_opciones_conceptos"));
+        layout_opciones_conceptos->setContentsMargins(0, 0, 0, 0);
+        cabecera_lista_conceptos = new QHBoxLayout();
+        cabecera_lista_conceptos->setSpacing(6);
+        cabecera_lista_conceptos->setObjectName(QStringLiteral("cabecera_lista_conceptos"));
+        lbl_lista_de_conceptos = new QLabel(widget_lista_conceptos);
+        lbl_lista_de_conceptos->setObjectName(QStringLiteral("lbl_lista_de_conceptos"));
+        lbl_lista_de_conceptos->setFont(font1);
+        lbl_lista_de_conceptos->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
+
+        cabecera_lista_conceptos->addWidget(lbl_lista_de_conceptos);
+
+        btn_agregar_conceptos = new QPushButton(widget_lista_conceptos);
+        btn_agregar_conceptos->setObjectName(QStringLiteral("btn_agregar_conceptos"));
+        sizePolicy1.setHeightForWidth(btn_agregar_conceptos->sizePolicy().hasHeightForWidth());
+        btn_agregar_conceptos->setSizePolicy(sizePolicy1);
+        btn_agregar_conceptos->setMinimumSize(QSize(0, 0));
+        btn_agregar_conceptos->setMaximumSize(QSize(16777215, 16777215));
+        btn_agregar_conceptos->setFont(font2);
+
+        cabecera_lista_conceptos->addWidget(btn_agregar_conceptos);
+
+
+        layout_opciones_conceptos->addLayout(cabecera_lista_conceptos);
+
+        lista_conceptos = new QListWidget(widget_lista_conceptos);
+        lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
+        lista_conceptos->setFont(font6);
+        lista_conceptos->setSelectionMode(QAbstractItemView::ExtendedSelection);
+
+        layout_opciones_conceptos->addWidget(lista_conceptos);
+
+
+        verticalLayout_9->addWidget(widget_lista_conceptos);
+
+        opciones_consulta->addTab(tab_conceptos, QString());
         tab_periodo = new QWidget();
         tab_periodo->setObjectName(QStringLiteral("tab_periodo"));
         tab_periodo->setEnabled(false);
@@ -673,8 +687,10 @@ public:
 
         btn_setear_periodo = new QPushButton(widget_lista_periodos);
         btn_setear_periodo->setObjectName(QStringLiteral("btn_setear_periodo"));
+        sizePolicy1.setHeightForWidth(btn_setear_periodo->sizePolicy().hasHeightForWidth());
+        btn_setear_periodo->setSizePolicy(sizePolicy1);
         btn_setear_periodo->setMinimumSize(QSize(0, 0));
-        btn_setear_periodo->setMaximumSize(QSize(150, 16777215));
+        btn_setear_periodo->setMaximumSize(QSize(16777215, 16777215));
         btn_setear_periodo->setFont(font2);
 
         cabecera_lista_periodos->addWidget(btn_setear_periodo);
@@ -684,7 +700,7 @@ public:
 
         lista_periodos = new QListWidget(widget_lista_periodos);
         lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
-        lista_periodos->setFont(font7);
+        lista_periodos->setFont(font6);
 
         verticalLayout_4->addWidget(lista_periodos);
 
@@ -695,9 +711,9 @@ public:
         tab_secciones = new QWidget();
         tab_secciones->setObjectName(QStringLiteral("tab_secciones"));
         tab_secciones->setEnabled(false);
-        QFont font8;
-        font8.setItalic(false);
-        tab_secciones->setFont(font8);
+        QFont font7;
+        font7.setItalic(false);
+        tab_secciones->setFont(font7);
         verticalLayout_12 = new QVBoxLayout(tab_secciones);
         verticalLayout_12->setSpacing(0);
         verticalLayout_12->setContentsMargins(11, 11, 11, 11);
@@ -722,12 +738,11 @@ public:
 
         btn_agregar_secciones = new QPushButton(widget_lista_secciones);
         btn_agregar_secciones->setObjectName(QStringLiteral("btn_agregar_secciones"));
+        sizePolicy1.setHeightForWidth(btn_agregar_secciones->sizePolicy().hasHeightForWidth());
+        btn_agregar_secciones->setSizePolicy(sizePolicy1);
         btn_agregar_secciones->setMinimumSize(QSize(0, 0));
-        btn_agregar_secciones->setMaximumSize(QSize(150, 16777215));
-        QFont font9;
-        font9.setPointSize(10);
-        font9.setItalic(true);
-        btn_agregar_secciones->setFont(font9);
+        btn_agregar_secciones->setMaximumSize(QSize(16777215, 16777215));
+        btn_agregar_secciones->setFont(font6);
 
         cabecera_lista_secciones->addWidget(btn_agregar_secciones);
 
@@ -770,9 +785,11 @@ public:
 
         btn_sacar_reportes = new QPushButton(widget_lista_reportes);
         btn_sacar_reportes->setObjectName(QStringLiteral("btn_sacar_reportes"));
+        sizePolicy1.setHeightForWidth(btn_sacar_reportes->sizePolicy().hasHeightForWidth());
+        btn_sacar_reportes->setSizePolicy(sizePolicy1);
         btn_sacar_reportes->setMinimumSize(QSize(0, 0));
-        btn_sacar_reportes->setMaximumSize(QSize(150, 16777215));
-        btn_sacar_reportes->setFont(font9);
+        btn_sacar_reportes->setMaximumSize(QSize(16777215, 16777215));
+        btn_sacar_reportes->setFont(font6);
 
         cabecera_lista_reportes->addWidget(btn_sacar_reportes);
 
@@ -849,12 +866,12 @@ public:
         btn_realizar_consulta->setText(QApplication::translate("DialogoConsultas", "Consultar", Q_NULLPTR));
         btn_cancelar->setText(QApplication::translate("DialogoConsultas", "Cancelar", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_consulta), QApplication::translate("DialogoConsultas", "Consulta", Q_NULLPTR));
-        lbl_lista_de_conceptos->setText(QApplication::translate("DialogoConsultas", "Lista de Conceptos", Q_NULLPTR));
-        btn_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "Agregar", Q_NULLPTR));
-        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_conceptos), QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
         lbl_lista_de_medios->setText(QApplication::translate("DialogoConsultas", "Lista de Medios", Q_NULLPTR));
         btn_agregar_medios->setText(QApplication::translate("DialogoConsultas", "Agregar", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_medios), QApplication::translate("DialogoConsultas", "Medios", Q_NULLPTR));
+        lbl_lista_de_conceptos->setText(QApplication::translate("DialogoConsultas", "Lista de Conceptos", Q_NULLPTR));
+        btn_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "Agregar", Q_NULLPTR));
+        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_conceptos), QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
         lbl_lista_de_periodos->setText(QApplication::translate("DialogoConsultas", "Lista de Per\303\255odos", Q_NULLPTR));
         btn_setear_periodo->setText(QApplication::translate("DialogoConsultas", "Setear", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_periodo), QApplication::translate("DialogoConsultas", "Per\303\255odo", Q_NULLPTR));

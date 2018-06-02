@@ -21,26 +21,26 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>5</number>
+    <number>2</number>
    </property>
    <property name="leftMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>5</number>
+    <number>0</number>
    </property>
    <item>
     <widget class="QTabWidget" name="analisis">
      <property name="font">
       <font>
        <family>Calibri</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="tabPosition">
@@ -50,7 +50,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideLeft</enum>
@@ -101,7 +101,7 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>50</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="autoFillBackground">
@@ -154,7 +154,7 @@
          <property name="font">
           <font>
            <family>Calibri</family>
-           <pointsize>50</pointsize>
+           <pointsize>16</pointsize>
           </font>
          </property>
          <property name="layoutDirection">
@@ -198,21 +198,21 @@
      <item>
       <widget class="QDateEdit" name="calendario">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="minimumSize">
         <size>
-         <width>150</width>
+         <width>91</width>
          <height>0</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Calibri</family>
-         <pointsize>15</pointsize>
+         <pointsize>10</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
@@ -322,17 +322,20 @@
          </font>
         </property>
         <layout class="QHBoxLayout" name="layout_exportar_botones">
+         <property name="spacing">
+          <number>2</number>
+         </property>
          <property name="leftMargin">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="topMargin">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="bottomMargin">
-          <number>1</number>
+          <number>0</number>
          </property>
          <item>
           <widget class="QPushButton" name="btn_exportar_fecha_actual">
@@ -344,8 +347,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>160</width>
-             <height>30</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -357,7 +360,7 @@
            <property name="font">
             <font>
              <family>Calibri</family>
-             <pointsize>12</pointsize>
+             <pointsize>10</pointsize>
             </font>
            </property>
            <property name="text">
@@ -369,8 +372,8 @@
           <widget class="QPushButton" name="btn_exportar_todo">
            <property name="minimumSize">
             <size>
-             <width>110</width>
-             <height>30</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -382,7 +385,7 @@
            <property name="font">
             <font>
              <family>Calibri</family>
-             <pointsize>12</pointsize>
+             <pointsize>10</pointsize>
             </font>
            </property>
            <property name="text">
@@ -394,8 +397,8 @@
           <widget class="QPushButton" name="btn_exportar_rango">
            <property name="minimumSize">
             <size>
-             <width>120</width>
-             <height>30</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -407,11 +410,29 @@
            <property name="font">
             <font>
              <family>Calibri</family>
-             <pointsize>12</pointsize>
+             <pointsize>10</pointsize>
             </font>
            </property>
            <property name="text">
             <string>Exportar rango</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_desde">
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Calibri</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>desde</string>
            </property>
           </widget>
          </item>
@@ -446,24 +467,6 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="lbl_desde">
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Calibri</family>
-               </font>
-              </property>
-              <property name="text">
-               <string>desde</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QDateEdit" name="dateedit_desde">
               <property name="minimumSize">
                <size>
@@ -489,6 +492,24 @@
              </widget>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_hasta">
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Calibri</family>
+            </font>
+           </property>
+           <property name="text">
+            <string>hasta</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -521,24 +542,6 @@
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
-             <widget class="QLabel" name="lbl_hasta">
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <family>Calibri</family>
-               </font>
-              </property>
-              <property name="text">
-               <string>hasta</string>
-              </property>
-             </widget>
-            </item>
             <item>
              <widget class="QDateEdit" name="dateedit_hasta">
               <property name="minimumSize">
@@ -583,14 +586,17 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>200</width>
-          <height>30</height>
+          <width>0</width>
+          <height>0</height>
          </size>
         </property>
         <property name="value">
          <number>50</number>
         </property>
         <property name="textVisible">
+         <bool>false</bool>
+        </property>
+        <property name="invertedAppearance">
          <bool>false</bool>
         </property>
        </widget>

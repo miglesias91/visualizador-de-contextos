@@ -45,17 +45,18 @@ public:
     QPushButton *btn_consulta;
     QFrame *line_2;
     QPushButton *btn_analizar_ctx;
+    QProgressBar *bar_analizar_ctx;
     QFrame *line;
     QWidget *widget_area_trabajo;
     QVBoxLayout *layout_area_trabajo;
     QVBoxLayout *layout_ventana_abierta;
-    QProgressBar *bar_analizar_ctx;
 
     void setupUi(QMainWindow *visualizadordecontextoClass)
     {
         if (visualizadordecontextoClass->objectName().isEmpty())
             visualizadordecontextoClass->setObjectName(QStringLiteral("visualizadordecontextoClass"));
-        visualizadordecontextoClass->resize(827, 449);
+        visualizadordecontextoClass->resize(952, 400);
+        visualizadordecontextoClass->setStyleSheet(QStringLiteral(""));
         visualizadordecontextoClass->setDocumentMode(false);
         visualizadordecontextoClass->setUnifiedTitleAndToolBarOnMac(false);
         widget_central = new QWidget(visualizadordecontextoClass);
@@ -73,6 +74,14 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(widget_opciones->sizePolicy().hasHeightForWidth());
         widget_opciones->setSizePolicy(sizePolicy);
+        widget_opciones->setStyleSheet(QLatin1String("QPushButton {\n"
+"	background-color: rgba(255, 255, 255, 0);\n"
+"	border: 3px solid transparent;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(247, 247, 247);\n"
+"}"));
         layout_opciones = new QHBoxLayout(widget_opciones);
         layout_opciones->setSpacing(3);
         layout_opciones->setContentsMargins(11, 11, 11, 11);
@@ -86,23 +95,25 @@ public:
         sizePolicy1.setHeightForWidth(widget_entidades->sizePolicy().hasHeightForWidth());
         widget_entidades->setSizePolicy(sizePolicy1);
         layout_fila_entidades = new QHBoxLayout(widget_entidades);
-        layout_fila_entidades->setSpacing(2);
+        layout_fila_entidades->setSpacing(5);
         layout_fila_entidades->setContentsMargins(11, 11, 11, 11);
         layout_fila_entidades->setObjectName(QStringLiteral("layout_fila_entidades"));
         layout_fila_entidades->setContentsMargins(0, 0, 0, 0);
         btn_medios_facebook = new QPushButton(widget_entidades);
         btn_medios_facebook->setObjectName(QStringLiteral("btn_medios_facebook"));
-        btn_medios_facebook->setMinimumSize(QSize(0, 0));
+        btn_medios_facebook->setMinimumSize(QSize(80, 0));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
         font.setPointSize(10);
         btn_medios_facebook->setFont(font);
+        btn_medios_facebook->setAutoFillBackground(false);
+        btn_medios_facebook->setStyleSheet(QStringLiteral(""));
         btn_medios_facebook->setCheckable(false);
         btn_medios_facebook->setChecked(false);
         btn_medios_facebook->setAutoRepeat(false);
         btn_medios_facebook->setAutoExclusive(false);
         btn_medios_facebook->setAutoDefault(false);
-        btn_medios_facebook->setFlat(true);
+        btn_medios_facebook->setFlat(false);
 
         layout_fila_entidades->addWidget(btn_medios_facebook);
 
@@ -110,13 +121,16 @@ public:
         btn_medios_twitter->setObjectName(QStringLiteral("btn_medios_twitter"));
         btn_medios_twitter->setMinimumSize(QSize(0, 0));
         btn_medios_twitter->setFont(font);
-        btn_medios_twitter->setFlat(true);
+        btn_medios_twitter->setStyleSheet(QStringLiteral(""));
+        btn_medios_twitter->setAutoDefault(false);
+        btn_medios_twitter->setFlat(false);
 
         layout_fila_entidades->addWidget(btn_medios_twitter);
 
         btn_periodos = new QPushButton(widget_entidades);
         btn_periodos->setObjectName(QStringLiteral("btn_periodos"));
         btn_periodos->setFont(font);
+        btn_periodos->setStyleSheet(QStringLiteral(""));
         btn_periodos->setFlat(true);
 
         layout_fila_entidades->addWidget(btn_periodos);
@@ -124,6 +138,7 @@ public:
         btn_fechas = new QPushButton(widget_entidades);
         btn_fechas->setObjectName(QStringLiteral("btn_fechas"));
         btn_fechas->setFont(font);
+        btn_fechas->setStyleSheet(QStringLiteral(""));
         btn_fechas->setFlat(true);
 
         layout_fila_entidades->addWidget(btn_fechas);
@@ -131,6 +146,7 @@ public:
         btn_conceptos = new QPushButton(widget_entidades);
         btn_conceptos->setObjectName(QStringLiteral("btn_conceptos"));
         btn_conceptos->setFont(font);
+        btn_conceptos->setStyleSheet(QStringLiteral(""));
         btn_conceptos->setFlat(true);
 
         layout_fila_entidades->addWidget(btn_conceptos);
@@ -138,6 +154,7 @@ public:
         btn_terminos = new QPushButton(widget_entidades);
         btn_terminos->setObjectName(QStringLiteral("btn_terminos"));
         btn_terminos->setFont(font);
+        btn_terminos->setStyleSheet(QStringLiteral(""));
         btn_terminos->setFlat(true);
 
         layout_fila_entidades->addWidget(btn_terminos);
@@ -170,6 +187,7 @@ public:
         font1.setItalic(false);
         font1.setWeight(50);
         btn_consulta->setFont(font1);
+        btn_consulta->setStyleSheet(QStringLiteral(""));
         btn_consulta->setFlat(true);
 
         layout_acciones->addWidget(btn_consulta);
@@ -201,9 +219,29 @@ public:
         font2.setKerning(true);
         font2.setStyleStrategy(QFont::PreferAntialias);
         btn_analizar_ctx->setFont(font2);
+        btn_analizar_ctx->setStyleSheet(QStringLiteral(""));
+        btn_analizar_ctx->setAutoExclusive(false);
         btn_analizar_ctx->setFlat(true);
 
         layout_acciones->addWidget(btn_analizar_ctx);
+
+        bar_analizar_ctx = new QProgressBar(widget_acciones);
+        bar_analizar_ctx->setObjectName(QStringLiteral("bar_analizar_ctx"));
+        bar_analizar_ctx->setEnabled(false);
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(bar_analizar_ctx->sizePolicy().hasHeightForWidth());
+        bar_analizar_ctx->setSizePolicy(sizePolicy3);
+        bar_analizar_ctx->setMinimumSize(QSize(0, 0));
+        QFont font3;
+        font3.setFamily(QStringLiteral("Calibri"));
+        bar_analizar_ctx->setFont(font3);
+        bar_analizar_ctx->setValue(0);
+        bar_analizar_ctx->setTextVisible(false);
+        bar_analizar_ctx->setInvertedAppearance(false);
+
+        layout_acciones->addWidget(bar_analizar_ctx);
 
 
         layout_opciones->addWidget(widget_acciones);
@@ -220,11 +258,11 @@ public:
 
         widget_area_trabajo = new QWidget(widget_central);
         widget_area_trabajo->setObjectName(QStringLiteral("widget_area_trabajo"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(widget_area_trabajo->sizePolicy().hasHeightForWidth());
-        widget_area_trabajo->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(widget_area_trabajo->sizePolicy().hasHeightForWidth());
+        widget_area_trabajo->setSizePolicy(sizePolicy4);
         widget_area_trabajo->setAutoFillBackground(false);
         layout_area_trabajo = new QVBoxLayout(widget_area_trabajo);
         layout_area_trabajo->setSpacing(0);
@@ -240,29 +278,13 @@ public:
 
         verticalLayout->addWidget(widget_area_trabajo);
 
-        bar_analizar_ctx = new QProgressBar(widget_central);
-        bar_analizar_ctx->setObjectName(QStringLiteral("bar_analizar_ctx"));
-        bar_analizar_ctx->setEnabled(false);
-        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(bar_analizar_ctx->sizePolicy().hasHeightForWidth());
-        bar_analizar_ctx->setSizePolicy(sizePolicy4);
-        bar_analizar_ctx->setMinimumSize(QSize(300, 20));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        bar_analizar_ctx->setFont(font3);
-        bar_analizar_ctx->setValue(0);
-        bar_analizar_ctx->setTextVisible(false);
-        bar_analizar_ctx->setInvertedAppearance(false);
-
-        verticalLayout->addWidget(bar_analizar_ctx);
-
         visualizadordecontextoClass->setCentralWidget(widget_central);
 
         retranslateUi(visualizadordecontextoClass);
 
         btn_medios_facebook->setDefault(false);
+        btn_medios_twitter->setDefault(false);
+        btn_periodos->setDefault(true);
 
 
         QMetaObject::connectSlotsByName(visualizadordecontextoClass);
