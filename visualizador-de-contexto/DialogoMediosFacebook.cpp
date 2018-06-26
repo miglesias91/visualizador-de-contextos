@@ -184,6 +184,7 @@ void DialogoMediosFacebook::nueva_pagina()
             // si NO existe, creo su cuenta de scraping asociada y se la seteo...
             std::string nombre_pagina = medio_facebook_nuevo->getNombrePagina();
             scraping::facebook::modelo::Pagina * nueva_pagina = new scraping::facebook::modelo::Pagina(nombre_pagina);
+            //scraping::extraccion::interfaceo::MedioFacebook* * nueva_pagina = new scraping::extraccion::interfaceo::MedioFacebook*(nombre_pagina);
             nueva_pagina->asignarNuevoId();
             medio_facebook_nuevo->setPaginaAScrapear(nueva_pagina);
 
