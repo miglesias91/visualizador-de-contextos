@@ -61,6 +61,7 @@ private:
     scraping::extraccion::Medio * medio_a_scrapear;
 
     std::string nombre;
+    std::string seccion;
 };
 
 };
