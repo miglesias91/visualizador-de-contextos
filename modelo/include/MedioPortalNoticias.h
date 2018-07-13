@@ -27,14 +27,6 @@ public:
 
     virtual std::string seccion() const;
     virtual void seccion(const std::string & seccion_portal);
-
-    // metodos de Medio
-
-    virtual scraping::extraccion::Medio * getMedioAScrapear();
-
-	// SETTERS
-
-    virtual void setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear);
     
     // METODOS
 
@@ -73,8 +65,6 @@ private:
     herramientas::utiles::Fecha fecha_publicacion_mas_reciente;
     herramientas::utiles::Fecha fecha_publicacion_mas_antigua;
     unsigned long long int cantidad_publicaciones_analizadas;
-
-    scraping::facebook::modelo::Pagina * pagina_a_scrapear;
 };
 
 };

@@ -55,12 +55,24 @@ std::vector<visualizador::modelo::IEntidad*> visualizador::aplicacion::GestorEnt
     return this->entidades_a_eliminar;
 }
 
+void GestorEntidades::registrar() {
+    herramientas::utiles::Json registro;
+    std::vector<herramientas::utiles::Json*> registros;
+
+    std::for_each(this->entidades_a_almacenar.begin(), this->entidades_a_almacenar.end(), [=](visualizador::modelo::IEntidad * entidad) {
+        herramientas::utiles::Json json_entidad;
+        json_entidad.agregarAtributoValor("id", entidad->getId()->string());
+        json_entidad.agregarAtributoValor("usuario", entidad->getGrupo());
+    });
+}
+
 // SETTERS
 
 // METODOS
 
-bool GestorEntidades::guardarCambios()
-{
+bool GestorEntidades::guardarCambios() {
+    this->registrar();
+
     for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
     {
         visualizador::modelo::IEntidad * entidad_a_almacenar = *this->entidades_it;

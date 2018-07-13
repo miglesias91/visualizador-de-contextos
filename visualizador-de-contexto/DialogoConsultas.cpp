@@ -400,15 +400,15 @@ void DialogoConsultas::cargarListaMedios()
     }
 
     // recupero los portales de noticia
-    std::vector<modelo::MedioPortalNoticias*> medios_portales_actuales = gestor_entidades.recuperar<modelo::MedioPortalNoticias>();
-    std::for_each(medios_portales_actuales.begin(), medios_portales_actuales.end(), [=](modelo::MedioPortalNoticias * portal) {
-        std::vector<std::string> secciones = portal->secciones();
-        std::for_each(secciones.begin(), secciones.end(), [=](std::string seccion){
-            modelo::MedioPortalNoticias * seccion_de_portal = new modelo::MedioPortalNoticias(portal->web() + " - " + seccion, seccion);
-            seccion_de_portal->asignarId(portal->getId()->copia());
-            this->agregarMedioALista(seccion_de_portal, this->ui->lista_medios);
-        });
-    });
+    //std::vector<modelo::MedioPortalNoticias*> medios_portales_actuales = gestor_entidades.recuperar<modelo::MedioPortalNoticias>();
+    //std::for_each(medios_portales_actuales.begin(), medios_portales_actuales.end(), [=](modelo::MedioPortalNoticias * portal) {
+    //    std::vector<std::string> secciones = portal->secciones();
+    //    std::for_each(secciones.begin(), secciones.end(), [=](std::string seccion){
+    //        modelo::MedioPortalNoticias * seccion_de_portal = new modelo::MedioPortalNoticias(portal->web() + " - " + seccion, seccion);
+    //        seccion_de_portal->asignarId(portal->getId()->copia());
+    //        this->agregarMedioALista(seccion_de_portal, this->ui->lista_medios);
+    //    });
+    //});
 
     aplicacion::Logger::info(std::to_string(medios_facebook_actuales.size()) + " medios de facebook cargados.");
 

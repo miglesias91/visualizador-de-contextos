@@ -35,12 +35,13 @@ int main(int argc, char *argv[])
     // INIT INFO SCRAPING
     try
     {
-        scraping::IAdministradorScraping::iniciar("config_scraping.json");
+        //scraping::IAdministradorScraping::iniciar("config_scraping.json");
 
-        scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
-        scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
+        ////scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
+        ////scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
 
-        scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->abrirBD();
+        //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->abrirBD();
+        //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->recuperarIDsActuales();
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
     {
@@ -56,12 +57,13 @@ int main(int argc, char *argv[])
     delete visu;
 
     // CIERRE INFO SCRAPING
-    scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->cerrarBD();
+    //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->cerrarBD();
+    //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->almacenarIDsActuales();
 
-    scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenarIDsActuales();
-    scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
+    //scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenarIDsActuales();
+    //scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
 
-    scraping::IAdministradorScraping::liberar();
+    //scraping::IAdministradorScraping::liberar();
 
 	// CIERRE APP
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();

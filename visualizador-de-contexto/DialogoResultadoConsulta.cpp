@@ -163,7 +163,7 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Concep
             unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
             scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-            scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
+            //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->seccion());
 
             if (resultado_medio) {
                 sentimiento_de_concepto_en_medio += resultado_medio->getResultadoSentimiento()->valores(expresion);
@@ -194,7 +194,7 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
             unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
             scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-            scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
+            //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
 
             if (resultado_medio) {
                 fuerza_en_noticia_de_concepto_en_medio += resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
@@ -218,7 +218,7 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Termin
         unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
         scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
+        //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
 
         scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento_de_termino_en_medio;
         if (resultado_medio) {
@@ -242,7 +242,7 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
         unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
 
         scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
+        //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
 
         double fuerza_en_noticia_de_termino_en_medio = 0.0f;
         if (resultado_medio) {

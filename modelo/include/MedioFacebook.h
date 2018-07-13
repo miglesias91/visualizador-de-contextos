@@ -1,8 +1,5 @@
 #pragma once
 
-// scraping::extraccion
-#include <facebook/include/Pagina.h>
-
 // modelo
 #include <modelo/include/Medio.h>
 
@@ -27,17 +24,17 @@ public:
 
     virtual std::string getNombrePagina();
 
-    virtual scraping::facebook::modelo::Pagina * getPaginaAScrapear();
+    //virtual scraping::facebook::modelo::Pagina * getPaginaAScrapear();
 
     // metodos de Medio
 
-    virtual scraping::extraccion::Medio * getMedioAScrapear();
+    //virtual scraping::extraccion::Medio * getMedioAScrapear();
 
 	// SETTERS
 
     virtual void setNombrePagina(std::string nombre_pagina);
 
-    virtual void setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear);
+    //virtual void setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear);
     
     // METODOS
 
@@ -77,7 +74,7 @@ private:
     herramientas::utiles::Fecha fecha_publicacion_mas_antigua;
     unsigned long long int cantidad_publicaciones_analizadas;
 
-    scraping::facebook::modelo::Pagina * pagina_a_scrapear;
+    //scraping::facebook::modelo::Pagina * pagina_a_scrapear;
 };
 
 };

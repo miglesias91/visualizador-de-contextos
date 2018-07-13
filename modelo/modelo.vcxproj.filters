@@ -129,9 +129,6 @@
     <ClInclude Include="include\MedioFacebook.h">
       <Filter>Archivos de encabezado\medios</Filter>
     </ClInclude>
-    <ClInclude Include="include\MedioPortalNoticias.h">
-      <Filter>Archivos de encabezado\medios</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Concepto.cpp">
@@ -222,9 +219,6 @@
       <Filter>Archivos de código fuente\medios</Filter>
     </ClCompile>
     <ClCompile Include="source\MedioFacebook.cpp">
-      <Filter>Archivos de código fuente\medios</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MedioPortalNoticias.cpp">
       <Filter>Archivos de código fuente\medios</Filter>
     </ClCompile>
   </ItemGroup>

@@ -206,13 +206,13 @@ void visualizadordecontexto::conectar_componentes() {
 
 void visualizadordecontexto::tarea_analizar_ctx() 
 {
-    this->emitirProgreso(10);
-    scraping::aplicacion::GestorTareas::scrapearTwitter();
-    this->emitirProgreso(25);
-    scraping::aplicacion::GestorTareas::scrapearFacebook();
-    this->emitirProgreso(40);
-    scraping::aplicacion::GestorTareas::depurarYAnalizarContenidos();
-    this->emitirProgreso(70);
-    scraping::aplicacion::GestorTareas::prepararYAlmacenarContenidos();
-    this->emitirProgreso(100);
+    //this->emitirProgreso(10);
+    //scraping::aplicacion::GestorTareas::scrapearTwitter();
+    //this->emitirProgreso(25);
+    //scraping::aplicacion::GestorTareas::scrapearFacebook();
+    //this->emitirProgreso(40);
+    //scraping::aplicacion::GestorTareas::depurarYAnalizarContenidos();
+    //this->emitirProgreso(70);
+    //scraping::aplicacion::GestorTareas::prepararYAlmacenarContenidos();
+    //this->emitirProgreso(100);
 }

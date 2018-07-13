@@ -11,9 +11,6 @@
 // scraping::extraccion
 #include <extraccion/include/Medio.h>
 
-// scraping::twitter
-#include <twitter/include/Cuenta.h>
-
 // visualizador
 #include <visualizador-de-contexto/DialogoEditarCuentaTwitter.h>
 #include <declaraciones_metatipos.h>

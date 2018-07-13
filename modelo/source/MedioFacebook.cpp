@@ -11,41 +11,17 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 MedioFacebook::MedioFacebook() :
-    Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioFacebook(), ""), nombre_pagina(""), pagina_a_scrapear(NULL)
-{
-}
+    Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioFacebook(), ""), nombre_pagina("") {}
 
 MedioFacebook::MedioFacebook(std::string nombre_pagina, std::string etiqueta) :
-    Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioFacebook(), etiqueta), nombre_pagina(nombre_pagina), pagina_a_scrapear(NULL)
-{
-}
+    Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioFacebook(), etiqueta), nombre_pagina(nombre_pagina) {}
 
-MedioFacebook::~MedioFacebook()
-{
-    if (NULL != this->pagina_a_scrapear)
-    {
-        delete this->pagina_a_scrapear;
-        this->pagina_a_scrapear = NULL;
-    }
-}
+MedioFacebook::~MedioFacebook() {}
 
 // GETTERS
 
-std::string MedioFacebook::getNombrePagina()
-{
+std::string MedioFacebook::getNombrePagina() {
     return this->nombre_pagina;
-}
-
-scraping::facebook::modelo::Pagina * MedioFacebook::getPaginaAScrapear()
-{
-    return this->pagina_a_scrapear;
-}
-
-// metodos de Medio
-
-scraping::extraccion::Medio * MedioFacebook::getMedioAScrapear()
-{
-    return this->getPaginaAScrapear();
 }
 
 // SETTERS
@@ -57,24 +33,24 @@ void MedioFacebook::setNombrePagina(std::string nombre_pagina)
     this->setNombre(this->nombre_pagina);
 }
 
-void MedioFacebook::setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear)
-{
-    if (NULL != this->pagina_a_scrapear)
-    {
-        delete this->pagina_a_scrapear;
-    }
-
-    this->pagina_a_scrapear = pagina_a_scrapear;
-
-    this->setNombrePagina(this->pagina_a_scrapear->getNombre());
-    this->fecha_publicacion_mas_antigua = this->pagina_a_scrapear->getFechaContenidoHistoricoMasAntiguo();
-    this->fecha_publicacion_mas_reciente = this->pagina_a_scrapear->getFechaContenidoHistoricoMasReciente();
-    this->cantidad_publicaciones_analizadas = this->pagina_a_scrapear->getCantidadDeContenidosHistoricos();
-
-    this->getRelacionesMedio()->setIDMedioAScrapear(this->pagina_a_scrapear->getId()->numero());
-
-    this->setMedioAScrapear(this->pagina_a_scrapear);
-}
+//void MedioFacebook::setPaginaAScrapear(scraping::facebook::modelo::Pagina * pagina_a_scrapear)
+//{
+//    if (NULL != this->pagina_a_scrapear)
+//    {
+//        delete this->pagina_a_scrapear;
+//    }
+//
+//    this->pagina_a_scrapear = pagina_a_scrapear;
+//
+//    this->setNombrePagina(this->pagina_a_scrapear->getNombre());
+//    this->fecha_publicacion_mas_antigua = this->pagina_a_scrapear->getFechaContenidoHistoricoMasAntiguo();
+//    this->fecha_publicacion_mas_reciente = this->pagina_a_scrapear->getFechaContenidoHistoricoMasReciente();
+//    this->cantidad_publicaciones_analizadas = this->pagina_a_scrapear->getCantidadDeContenidosHistoricos();
+//
+//    this->getRelacionesMedio()->setIDMedioAScrapear(this->pagina_a_scrapear->getId()->numero());
+//
+//    this->setMedioAScrapear(this->pagina_a_scrapear);
+//}
 
 // METODOS
 
@@ -116,11 +92,11 @@ IEntidad * MedioFacebook::clonar()
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
 
-    if (NULL != this->pagina_a_scrapear)
-    {// si hay una cuenta a scrapear, la clono.
-        scraping::aplicacion::GestorMedios gestor_medios;
-        clon->setPaginaAScrapear(gestor_medios.clonar<scraping::facebook::modelo::Pagina>(this->pagina_a_scrapear));
-    }
+    //if (NULL != this->pagina_a_scrapear)
+    //{// si hay una cuenta a scrapear, la clono.
+    //    scraping::aplicacion::GestorMedios gestor_medios;
+    //    clon->setPaginaAScrapear(gestor_medios.clonar<scraping::facebook::modelo::Pagina>(this->pagina_a_scrapear));
+    //}
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     relaciones::RelacionesMedio * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesMedio>(this->getRelacionesMedio());
@@ -139,27 +115,29 @@ bool MedioFacebook::recuperarContenidoDeRelaciones()
         return true;
     }
 
-    scraping::facebook::modelo::Pagina * pagina_a_scrapear = new scraping::facebook::modelo::Pagina();
-    pagina_a_scrapear->setId(new herramientas::utiles::ID(this->getRelacionesMedio()->getIDMedioAScrapear()));
+    //scraping::facebook::modelo::Pagina * pagina_a_scrapear = new scraping::facebook::modelo::Pagina();
+    //pagina_a_scrapear->setId(new herramientas::utiles::ID(this->getRelacionesMedio()->getIDMedioAScrapear()));
 
-    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-    bool existe_datos_scraping = gestor_datos_scraping.recuperarMedio(pagina_a_scrapear);
-    if (existe_datos_scraping)
-    {
-        this->setPaginaAScrapear(pagina_a_scrapear);
-    }
+    //visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
+    //bool existe_datos_scraping = gestor_datos_scraping.recuperarMedio(pagina_a_scrapear);
+    //if (existe_datos_scraping)
+    //{
+    //    this->setPaginaAScrapear(pagina_a_scrapear);
+    //}
 
-    return existe_datos_scraping;
+    //return existe_datos_scraping;
+
+    return false;
 }
 
 void MedioFacebook::vincular()
 {
-    if (NULL != this->getPaginaAScrapear())
-    {
-        visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-        gestor_datos_scraping.almacenarMedio(this->getPaginaAScrapear());
-        gestor_datos_scraping.almacenarIDActualMedio();
-    }
+    //if (NULL != this->getPaginaAScrapear())
+    //{
+    //    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
+    //    gestor_datos_scraping.almacenarMedio(this->getPaginaAScrapear());
+    //    gestor_datos_scraping.almacenarIDActualMedio();
+    //}
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.vincularMedioFacebook(this->getRelacionesMedio(), this->getId());
@@ -167,11 +145,11 @@ void MedioFacebook::vincular()
 
 void MedioFacebook::desvincular()
 {
-    if (NULL != this->getPaginaAScrapear())
-    {
-        visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-        gestor_datos_scraping.eliminarMedio(this->getPaginaAScrapear());
-    }
+    //if (NULL != this->getPaginaAScrapear())
+    //{
+    //    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
+    //    gestor_datos_scraping.eliminarMedio(this->getPaginaAScrapear());
+    //}
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.desvincularMedioFacebook(this->getRelacionesMedio(), this->getId());

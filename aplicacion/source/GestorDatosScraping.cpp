@@ -7,9 +7,9 @@ using namespace visualizador::aplicacion;
 
 GestorDatosScraping::GestorDatosScraping()
 {
-    this->admin_datos_scraping = scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario();
+    this->admin_datos_scraping = scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios();
 
-    this->admin_info_scraping = scraping::IAdministradorScraping::getInstanciaAdminInfo();
+    this->admin_info_scraping = scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios();
 }
 
 GestorDatosScraping::~GestorDatosScraping()
@@ -26,26 +26,26 @@ bool GestorDatosScraping::almacenarMedio(scraping::extraccion::Medio * medio_a_a
 {
     medio_a_almacenar->setGrupo(medio_a_almacenar->getGrupoMedio());
 
-    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenar(medio_a_almacenar);
+    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->almacenar(medio_a_almacenar);
 }
 
 bool GestorDatosScraping::recuperarMedio(scraping::extraccion::Medio * medio_a_recuperar)
 {
     medio_a_recuperar->setGrupo(medio_a_recuperar->getGrupoMedio());
 
-    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperar(medio_a_recuperar);
+    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->recuperar(medio_a_recuperar);
 }
 
 bool GestorDatosScraping::eliminarMedio(scraping::extraccion::Medio * medio_a_eliminar)
 {
     medio_a_eliminar->setGrupo(medio_a_eliminar->getGrupoMedio());
 
-    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->eliminar(medio_a_eliminar);
+    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->eliminar(medio_a_eliminar);
 }
 
 bool GestorDatosScraping::almacenarIDActualMedio()
 {
-    return scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenarIDActual<scraping::extraccion::Medio>();
+    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->almacenarIDActual<scraping::extraccion::Medio>();
 }
 
 // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.

@@ -30,6 +30,9 @@ public:
 
     virtual std::string getNombre();
 
+    virtual std::string seccion() const;
+    virtual void seccion(const std::string & seccion_medio);
+
 	// SETTERS
 
     void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
@@ -60,8 +63,7 @@ private:
 
     scraping::extraccion::Medio * medio_a_scrapear;
 
-    std::string nombre;
-    std::string seccion;
+    std::string nombre, seccion_medio;
 };
 
 };

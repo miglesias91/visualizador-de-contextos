@@ -35,6 +35,8 @@ public:
 
     // METODOS
 
+    void registrar();
+
     template <class ENTIDAD>
     void gestionar(std::vector<ENTIDAD*> entidades_a_gestionar);
 

@@ -39,14 +39,15 @@ int main(int argc, char **argv)
     //scraping::IAdministradorScraping::crearAdministradorScrapingLocal();
 
     scraping::IAdministradorScraping::iniciar("config_scraping.json");
-    scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->abrirBD();
-    scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
+    scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->abrirBD();
+    //scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
 
 	int result = RUN_ALL_TESTS();
 
     // CIERO INFO SCRAPING
-    scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
-    scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->cerrarBD();
+    //scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
+    //scraping::IAdministradorScraping::getInstanciaAdminResultadosAnalisisDiario()->cerrarBD();
+    scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->cerrarBD();
 
     // CIERRO APP
 

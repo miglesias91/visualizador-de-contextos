@@ -1,6 +1,9 @@
 #include "DialogoMediosTwitter.h"
 #include "ui_DialogoMediosTwitter.h"
 
+// utiles
+#include <utiles/include/FuncionesSistemaArchivos.h>
+
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
@@ -51,6 +54,30 @@ void DialogoMediosTwitter::showEvent(QShowEvent *) {
 
 void DialogoMediosTwitter::actualizar_y_cerrar()
 {
+    std::vector<modelo::IEntidad*> entidades_de_alta = gestor_medios.getEntidadesAAlmacenar();
+    std::vector<modelo::IEntidad*> entidades_de_baja = gestor_medios.getEntidadesAEliminar();
+
+    std::vector<herramientas::utiles::Json*> altas;
+    std::for_each(entidades_de_alta.begin(), entidades_de_alta.end(), [=, &altas](modelo::IEntidad * entidad) {
+        modelo::MedioTwitter * twitter = static_cast<modelo::MedioTwitter*>(entidad);
+        herramientas::utiles::Json * alta = new herramientas::utiles::Json();
+        alta->agregarAtributoValor("id", twitter->getId()->string());
+        alta->agregarAtributoValor("usuario", twitter->getNombreUsuario());
+        altas.push_back(alta);
+    });
+
+    std::vector<uint64_t> bajas;
+    std::for_each(entidades_de_baja.begin(), entidades_de_baja.end(), [=, &bajas](modelo::IEntidad * entidad) {
+        bajas.push_back(entidad->getId()->numero());
+    });
+
+    herramientas::utiles::Json registro;
+    registro.agregarAtributoArray("altas", altas);
+    registro.agregarAtributoArray("bajas", bajas);
+
+    //exporto 'registro' al path indicado.
+    herramientas::utiles::FuncionesSistemaArchivos::escribir("abm_medios.json", registro.jsonStringLindo());
+
     this->gestor_medios.guardarCambios();
     
     aplicacion::Logger::info("Dialogo Medios Twitter guardado.");
@@ -179,10 +206,10 @@ void DialogoMediosTwitter::nueva_cuenta()
         if (false == this->gestor_medios.existe(medio_twitter_nuevo))
         {
             // si NO existe, creo su cuenta de scraping asociada y se la seteo...
-            std::string nombre_cuenta = medio_twitter_nuevo->getNombreUsuario();
-            scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_cuenta);
-            nueva_cuenta->asignarNuevoId();
-            medio_twitter_nuevo->setCuentaAScrapear(nueva_cuenta);
+            //std::string nombre_cuenta = medio_twitter_nuevo->getNombreUsuario();
+            //scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_cuenta);
+            //nueva_cuenta->asignarNuevoId();
+            //medio_twitter_nuevo->setCuentaAScrapear(nueva_cuenta);
 
             // y lo agrego en la lista visible.
             this->agregarMedioTwitterALista(medio_twitter_nuevo);

@@ -1,8 +1,5 @@
 #pragma once
 
-// scraping::extraccion
-#include <twitter/include/Cuenta.h>
-
 // modelo
 #include <modelo/include/Medio.h>
 
@@ -27,17 +24,17 @@ public:
 
     virtual std::string getNombreUsuario();
 
-    virtual scraping::twitter::modelo::Cuenta * getCuentaAScrapear();
+    //virtual scraping::twitter::modelo::Cuenta * getCuentaAScrapear();
 
     // metodos de Medio
 
-    virtual scraping::extraccion::Medio * getMedioAScrapear();
+    //virtual scraping::extraccion::Medio * getMedioAScrapear();
 
 	// SETTERS
 
     virtual void setNombreUsuario(std::string nombre_usuario);
 
-    virtual void setCuentaAScrapear(scraping::twitter::modelo::Cuenta * medio_a_scrapear);
+    //virtual void setCuentaAScrapear(scraping::twitter::modelo::Cuenta * medio_a_scrapear);
 
     // METODOS
 
@@ -83,7 +80,7 @@ private:
     herramientas::utiles::Fecha fecha_tweet_mas_antiguo;
     unsigned long long int cantidad_tweets_analizados;
 
-    scraping::twitter::modelo::Cuenta * cuenta_a_scrapear;
+    //scraping::twitter::modelo::Cuenta * cuenta_a_scrapear;
 };
 
 };

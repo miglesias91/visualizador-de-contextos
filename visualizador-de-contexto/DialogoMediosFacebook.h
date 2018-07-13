@@ -11,9 +11,6 @@
 // scraping::extraccion
 #include <extraccion/include/Medio.h>
 
-// scraping::facebook
-#include <facebook/include/Pagina.h>
-
 // visualizador
 #include <visualizador-de-contexto/DialogoEditarMedioFacebook.h>
 #include <declaraciones_metatipos.h>
