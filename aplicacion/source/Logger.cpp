@@ -107,15 +107,15 @@ std::string Logger::infoLog(visualizador::modelo::Medio * medio)
 
     std::string info_analisis = "sin contenido para visualizar";
 
-    unsigned long long int cantidad_de_tweets_historicos = medio->getMedioAScrapear()->getCantidadDeContenidosHistoricos();
-    if (cantidad_de_tweets_historicos != 0)
-    {
-        std::string fecha_tweet_mas_reciente = medio->getMedioAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
-        std::string fecha_tweet_mas_antiguo = medio->getMedioAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
-        std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
+    //unsigned long long int cantidad_de_tweets_historicos = medio->getMedioAScrapear()->getCantidadDeContenidosHistoricos();
+    //if (cantidad_de_tweets_historicos != 0)
+    //{
+    //    std::string fecha_tweet_mas_reciente = medio->getMedioAScrapear()->getFechaContenidoHistoricoMasReciente().getStringDDMMAAAA("/");
+    //    std::string fecha_tweet_mas_antiguo = medio->getMedioAScrapear()->getFechaContenidoHistoricoMasAntiguo().getStringDDMMAAAA("/");
+    //    std::string string_cantidad_de_tweets_historicos = std::to_string(cantidad_de_tweets_historicos);
 
-        info_analisis = fecha_tweet_mas_antiguo + " - " + fecha_tweet_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
-    }
+    //    info_analisis = fecha_tweet_mas_antiguo + " - " + fecha_tweet_mas_reciente + " | " + string_cantidad_de_tweets_historicos;
+    //}
 
     return etiqueta + " (" + nombre_medio + ") | " + info_analisis;
 }

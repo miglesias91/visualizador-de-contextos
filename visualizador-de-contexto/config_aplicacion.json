@@ -29,6 +29,8 @@
 
         "db_aplicacion_entidades" : "db_aplicacion_entidades.json",
 
-        "log_aplicacion" : "log_aplicacion.json"
+        "log_aplicacion" : "log_aplicacion.json",
+
+        "dir_abm" : "abm/"
     }
 }

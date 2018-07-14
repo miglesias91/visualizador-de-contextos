@@ -56,6 +56,8 @@ public:
 
     static std::string archivoConfigLog();
 
+    static std::string dirABM();
+
 protected:
 
     // TAGS
@@ -90,6 +92,8 @@ protected:
     static std::string tagArchivoConfigDBAplicacionEntidades();
 
     static std::string tagArchivoConfigLog();
+
+    static std::string tagDirABM();
 
 private:
 
@@ -128,6 +132,8 @@ private:
     static std::string archivo_config_db_aplicacion_entidades;
 
     static std::string archivo_config_log;
+
+    static std::string dir_abm;
 
 	static std::string clave_id_actual;
 };

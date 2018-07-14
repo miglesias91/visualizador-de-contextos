@@ -52,31 +52,8 @@ void DialogoMediosTwitter::showEvent(QShowEvent *) {
     emit se_abrio();
 }
 
-void DialogoMediosTwitter::actualizar_y_cerrar()
-{
-    std::vector<modelo::IEntidad*> entidades_de_alta = gestor_medios.getEntidadesAAlmacenar();
-    std::vector<modelo::IEntidad*> entidades_de_baja = gestor_medios.getEntidadesAEliminar();
-
-    std::vector<herramientas::utiles::Json*> altas;
-    std::for_each(entidades_de_alta.begin(), entidades_de_alta.end(), [=, &altas](modelo::IEntidad * entidad) {
-        modelo::MedioTwitter * twitter = static_cast<modelo::MedioTwitter*>(entidad);
-        herramientas::utiles::Json * alta = new herramientas::utiles::Json();
-        alta->agregarAtributoValor("id", twitter->getId()->string());
-        alta->agregarAtributoValor("usuario", twitter->getNombreUsuario());
-        altas.push_back(alta);
-    });
-
-    std::vector<uint64_t> bajas;
-    std::for_each(entidades_de_baja.begin(), entidades_de_baja.end(), [=, &bajas](modelo::IEntidad * entidad) {
-        bajas.push_back(entidad->getId()->numero());
-    });
-
-    herramientas::utiles::Json registro;
-    registro.agregarAtributoArray("altas", altas);
-    registro.agregarAtributoArray("bajas", bajas);
-
-    //exporto 'registro' al path indicado.
-    herramientas::utiles::FuncionesSistemaArchivos::escribir("abm_medios.json", registro.jsonStringLindo());
+void DialogoMediosTwitter::actualizar_y_cerrar() {
+    this->registrar_abm();
 
     this->gestor_medios.guardarCambios();
     
@@ -189,6 +166,36 @@ void DialogoMediosTwitter::agregarMedioTwitterALista(modelo::MedioTwitter * medi
     item->setText(texto_item.c_str());
 
     this->ui->lista_medios_twitter->insertItem(0, item);
+}
+
+void DialogoMediosTwitter::registrar_abm() {
+    std::vector<modelo::IEntidad*> entidades_de_alta = gestor_medios.getEntidadesAAlmacenar();
+    std::vector<modelo::IEntidad*> entidades_de_baja = gestor_medios.getEntidadesAEliminar();
+
+    std::vector<herramientas::utiles::Json*> altas;
+    std::for_each(entidades_de_alta.begin(), entidades_de_alta.end(), [=, &altas](modelo::IEntidad * entidad) {
+        modelo::MedioTwitter * twitter = static_cast<modelo::MedioTwitter*>(entidad);
+        herramientas::utiles::Json * alta = new herramientas::utiles::Json();
+        alta->agregarAtributoValor("id", twitter->getId()->string());
+        alta->agregarAtributoValor("usuario", twitter->getNombreUsuario());
+        altas.push_back(alta);
+    });
+
+    std::vector<uint64_t> bajas;
+    std::for_each(entidades_de_baja.begin(), entidades_de_baja.end(), [=, &bajas](modelo::IEntidad * entidad) {
+        bajas.push_back(entidad->getId()->numero());
+    });
+
+    herramientas::utiles::Json registro;
+    registro.agregarAtributoArray("altas", altas);
+    registro.agregarAtributoArray("bajas", bajas);
+
+    //exporto 'registro' al path indicado.
+    if(altas.size() > 0 || bajas.size() > 0) { 
+        herramientas::utiles::FuncionesSistemaArchivos::escribir(aplicacion::ConfiguracionAplicacion::dirABM() + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json", registro.jsonStringLindo());
+    }
+
+    std::for_each(altas.begin(), altas.end(), [=](herramientas::utiles::Json * json) { delete json; });
 }
 
 QMessageBox * DialogoMediosTwitter::crearInformacionMedioTwitterExistente()

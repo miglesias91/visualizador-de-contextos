@@ -45,6 +45,7 @@ std::string ConfiguracionAplicacion::prefijo_relaciones_medio;
 std::string ConfiguracionAplicacion::archivo_config_db_aplicacion_entidades;
 
 std::string ConfiguracionAplicacion::archivo_config_log;
+std::string ConfiguracionAplicacion::dir_abm;
 
 std::string ConfiguracionAplicacion::clave_id_actual;
 
@@ -99,6 +100,8 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         prefijo_relaciones_medio = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoRelacionesMedio());
 
         archivo_config_db_aplicacion_entidades = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades());
+
+        dir_abm = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagDirABM());
 
         archivo_config_log = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagArchivoConfigLog());
     }
@@ -264,6 +267,10 @@ std::string ConfiguracionAplicacion::archivoConfigLog()
     return archivo_config_log;
 }
 
+std::string ConfiguracionAplicacion::dirABM() {
+    return dir_abm;
+}
+
 std::string ConfiguracionAplicacion::claveIDActual()
 {
 	return "id_actual";
@@ -394,6 +401,10 @@ std::string ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades()
 std::string ConfiguracionAplicacion::tagArchivoConfigLog()
 {
     return "log_aplicacion";
+}
+
+std::string ConfiguracionAplicacion::tagDirABM() {
+    return "dir_abm";
 }
 
 ConfiguracionAplicacion::ConfiguracionAplicacion()

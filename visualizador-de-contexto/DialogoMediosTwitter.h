@@ -60,6 +60,8 @@ private:
     // agregar un termino a la lista de terminos de la ui.
     void agregarMedioTwitterALista(modelo::MedioTwitter * medio_twitter);
 
+    void registrar_abm();
+
     // mensajes
 
     QMessageBox * crearInformacionMedioTwitterExistente();
