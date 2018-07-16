@@ -26,6 +26,9 @@ int main(int argc, char *argv[])
         aplicacion::IAdministradorAplicacion::iniciar("config_aplicacion.json");
         aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->abrirBD();
         aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
+
+        aplicacion::IAdministradorAplicacion::getInstanciaAdminResultados()->abrirBD();
+        //aplicacion::IAdministradorAplicacion::getInstanciaAdminResultados()->recuperarIDActual();
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
     {
@@ -66,7 +69,10 @@ int main(int argc, char *argv[])
     //scraping::IAdministradorScraping::liberar();
 
 	// CIERRE APP
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenarIDActual();
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->cerrarBD();
+
+    aplicacion::IAdministradorAplicacion::getInstanciaAdminResultados()->cerrarBD();
 	aplicacion::IAdministradorAplicacion::liberar();
 
 	return retorno;

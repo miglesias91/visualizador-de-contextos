@@ -28,9 +28,10 @@
         "prefijo_medio_facebook" : "018",
 
         "db_aplicacion_entidades" : "db_aplicacion_entidades.json",
+        "db_resultados_diarios" : "db_resultados_diarios.json",
 
         "log_aplicacion" : "log_aplicacion.json",
 
-        "dir_abm" : "abm/"
+        "dir_abm" : "C:/temp/abms"
     }
 }

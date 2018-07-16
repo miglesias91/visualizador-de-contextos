@@ -53,6 +53,7 @@ public:
 	static std::string claveIDActual();
     
     static std::string archivoConfigDBAplicacionEntidades();
+    static std::string archivoConfigDBResultadosDiarios();
 
     static std::string archivoConfigLog();
 
@@ -90,6 +91,7 @@ protected:
     static std::string tagPrefijoRelacionesMedio();
 
     static std::string tagArchivoConfigDBAplicacionEntidades();
+    static std::string tagArchivoConfigDBResultadosDiarios();
 
     static std::string tagArchivoConfigLog();
 
@@ -130,6 +132,7 @@ private:
     static std::string prefijo_relaciones_medio;
 
     static std::string archivo_config_db_aplicacion_entidades;
+    static std::string archivo_config_db_resultados_diarios;
 
     static std::string archivo_config_log;
 

@@ -1,6 +1,9 @@
 #include "DialogoMediosFacebook.h"
 #include "ui_DialogoMediosFacebook.h"
 
+// utiles
+#include <utiles/include/FuncionesSistemaArchivos.h>
+
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
@@ -51,6 +54,7 @@ void DialogoMediosFacebook::showEvent(QShowEvent *) {
 
 void DialogoMediosFacebook::actualizar_y_cerrar()
 {
+    this->registrar_abm();
     this->gestor_medios.guardarCambios();
 
     aplicacion::Logger::info("Dialogo Medios Facebook guardado.");
@@ -165,6 +169,39 @@ void DialogoMediosFacebook::agregarMedioFacebookALista(modelo::MedioFacebook * m
     item->setText(texto_item.c_str());
 
     this->ui->lista_medios_facebook->insertItem(0, item);
+}
+
+void DialogoMediosFacebook::registrar_abm() {
+    std::vector<modelo::IEntidad*> entidades_de_alta = gestor_medios.getEntidadesAAlmacenar();
+    std::vector<modelo::IEntidad*> entidades_de_baja = gestor_medios.getEntidadesAEliminar();
+
+    std::vector<herramientas::utiles::Json*> altas;
+    std::for_each(entidades_de_alta.begin(), entidades_de_alta.end(), [=, &altas](modelo::IEntidad * entidad) {
+        modelo::MedioFacebook * facebook = static_cast<modelo::MedioFacebook*>(entidad);
+        herramientas::utiles::Json * alta = new herramientas::utiles::Json();
+        alta->agregarAtributoValor("id", facebook->getId()->numero());
+        alta->agregarAtributoValor("usuario", facebook->getNombrePagina());
+        altas.push_back(alta);
+    });
+
+    std::vector<uint64_t> bajas;
+    std::for_each(entidades_de_baja.begin(), entidades_de_baja.end(), [=, &bajas](modelo::IEntidad * entidad) {
+        bajas.push_back(entidad->getId()->numero());
+    });
+
+    herramientas::utiles::Json registro;
+    registro.agregarAtributoArray("altas", altas);
+    registro.agregarAtributoArray("bajas", bajas);
+
+    herramientas::utiles::Json abm;
+    abm.agregarAtributoJson("facebook", &registro);
+
+    //exporto 'registro' al path indicado.
+    if(altas.size() > 0 || bajas.size() > 0) { 
+        herramientas::utiles::FuncionesSistemaArchivos::escribir(aplicacion::ConfiguracionAplicacion::dirABM() + "/" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json", abm.jsonStringLindo());
+    }
+
+    std::for_each(altas.begin(), altas.end(), [=](herramientas::utiles::Json * json) { delete json; });
 }
 
 QMessageBox * DialogoMediosFacebook::crearInformacionMedioFacebookExistente()

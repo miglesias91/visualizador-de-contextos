@@ -43,6 +43,7 @@ std::string ConfiguracionAplicacion::prefijo_relaciones_fecha;
 std::string ConfiguracionAplicacion::prefijo_relaciones_medio;
 
 std::string ConfiguracionAplicacion::archivo_config_db_aplicacion_entidades;
+std::string ConfiguracionAplicacion::archivo_config_db_resultados_diarios;
 
 std::string ConfiguracionAplicacion::archivo_config_log;
 std::string ConfiguracionAplicacion::dir_abm;
@@ -100,6 +101,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         prefijo_relaciones_medio = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoRelacionesMedio());
 
         archivo_config_db_aplicacion_entidades = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades());
+        archivo_config_db_resultados_diarios = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagArchivoConfigDBResultadosDiarios());
 
         dir_abm = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagDirABM());
 
@@ -262,6 +264,11 @@ std::string ConfiguracionAplicacion::archivoConfigDBAplicacionEntidades()
     return archivo_config_db_aplicacion_entidades;
 }
 
+std::string ConfiguracionAplicacion::archivoConfigDBResultadosDiarios()
+{
+    return archivo_config_db_resultados_diarios;
+}
+
 std::string ConfiguracionAplicacion::archivoConfigLog()
 {
     return archivo_config_log;
@@ -396,6 +403,11 @@ std::string ConfiguracionAplicacion::tagPrefijoRelacionesMedio()
 std::string ConfiguracionAplicacion::tagArchivoConfigDBAplicacionEntidades()
 {
     return "db_aplicacion_entidades";
+}
+
+std::string ConfiguracionAplicacion::tagArchivoConfigDBResultadosDiarios()
+{
+    return "db_resultados_diarios";
 }
 
 std::string ConfiguracionAplicacion::tagArchivoConfigLog()

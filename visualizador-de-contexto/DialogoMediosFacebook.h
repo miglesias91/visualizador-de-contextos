@@ -61,6 +61,8 @@ private:
     // agregar un termino a la lista de terminos de la ui.
     void agregarMedioFacebookALista(modelo::MedioFacebook * medio_facebook);
 
+    void registrar_abm();
+
     // mensajes
 
     QMessageBox * crearInformacionMedioFacebookExistente();

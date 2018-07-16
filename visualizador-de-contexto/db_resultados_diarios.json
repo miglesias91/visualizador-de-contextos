@@ -1,0 +1,10 @@
+{
+    "almacenamiento" :
+    {
+        "path_db" : "C:/temp/checkpoints/resultados_diarios",
+        "almacenamiento_local" : true,
+        "almacenamiento_distribuido" : false,
+        "solo_lectura" : true,
+        "log_db" : "log_db_resultados-diarios.json"
+    }
+}

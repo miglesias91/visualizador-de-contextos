@@ -176,7 +176,7 @@ void DialogoMediosTwitter::registrar_abm() {
     std::for_each(entidades_de_alta.begin(), entidades_de_alta.end(), [=, &altas](modelo::IEntidad * entidad) {
         modelo::MedioTwitter * twitter = static_cast<modelo::MedioTwitter*>(entidad);
         herramientas::utiles::Json * alta = new herramientas::utiles::Json();
-        alta->agregarAtributoValor("id", twitter->getId()->string());
+        alta->agregarAtributoValor("id", twitter->getId()->numero());
         alta->agregarAtributoValor("usuario", twitter->getNombreUsuario());
         altas.push_back(alta);
     });
@@ -190,9 +190,12 @@ void DialogoMediosTwitter::registrar_abm() {
     registro.agregarAtributoArray("altas", altas);
     registro.agregarAtributoArray("bajas", bajas);
 
+    herramientas::utiles::Json abm;
+    abm.agregarAtributoJson("twitter", &registro);
+
     //exporto 'registro' al path indicado.
     if(altas.size() > 0 || bajas.size() > 0) { 
-        herramientas::utiles::FuncionesSistemaArchivos::escribir(aplicacion::ConfiguracionAplicacion::dirABM() + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json", registro.jsonStringLindo());
+        herramientas::utiles::FuncionesSistemaArchivos::escribir(aplicacion::ConfiguracionAplicacion::dirABM() + "/" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json", abm.jsonStringLindo());
     }
 
     std::for_each(altas.begin(), altas.end(), [=](herramientas::utiles::Json * json) { delete json; });
