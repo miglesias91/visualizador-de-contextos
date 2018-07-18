@@ -22,8 +22,8 @@
 #include <modelo/include/Consulta.h>
 
 // visualizador
-#include <visualizador-de-contexto/include/GraficoDeBarras.h>
 #include <visualizador-de-contexto/DialogoResultadoConsulta.h>
+#include <visualizador-de-contexto/include/GraficoDeBarras.h>
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
 
 #include <declaraciones_metatipos.h>

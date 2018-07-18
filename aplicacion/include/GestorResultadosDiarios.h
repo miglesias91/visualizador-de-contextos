@@ -7,7 +7,6 @@
 #include <utiles/include/Fecha.h>
 
 // scraping
-#include <scraping/include/IAdministradorScraping.h>
 #include <preparacion/include/ResultadoAnalisisDiario.h>
 
 // extraccion
@@ -25,26 +24,19 @@ namespace visualizador
 namespace aplicacion
 {
 
-class GestorDatosScraping
+class GestorResultadosDiarios
 {
 public:
-    GestorDatosScraping();
+    GestorResultadosDiarios();
 
-    virtual ~GestorDatosScraping();
+    virtual ~GestorResultadosDiarios();
 
     // GETTERS
 
     // SETTERS
 
     // METODOS
-
-    bool recuperarMedio(scraping::extraccion::Medio * medio_a_recuperar);
-
-    bool eliminarMedio(scraping::extraccion::Medio * medio_a_eliminar);
-
-    bool almacenarMedio(scraping::extraccion::Medio * medio_a_almacenar);
-
-    bool almacenarIDActualMedio();
+    bool recuperar(scraping::extraccion::Medio * medio) const;
 
     // la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta);
@@ -63,10 +55,9 @@ public:
 private:
 
     // ATRIBUTOS
-
-    scraping::IAdministradorScraping * admin_datos_scraping;
-    scraping::IAdministradorScraping * admin_info_scraping;
+    aplicacion::IAdministradorAplicacion* admin_resultados;
 };
+
 
 };
 };

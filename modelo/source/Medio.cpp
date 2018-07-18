@@ -3,7 +3,7 @@
 using namespace visualizador::modelo;
 
 // aplicacion
-#include <aplicacion/include/GestorDatosScraping.h>
+#include <aplicacion/include/GestorResultadosDiarios.h>
 #include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
@@ -40,6 +40,30 @@ std::string visualizador::modelo::Medio::seccion() const {
 
 void Medio::seccion(const std::string & seccion_medio) {
     this->seccion_medio = seccion_medio;
+}
+
+herramientas::utiles::Fecha Medio::fecha_contenido_mas_reciente() const {
+    return this->fecha_contenido_analizado_mas_reciente;
+}
+
+void Medio::fecha_contenido_mas_reciente(const herramientas::utiles::Fecha & fecha) {
+    this->fecha_contenido_analizado_mas_reciente = fecha;
+}
+
+herramientas::utiles::Fecha Medio::fecha_contenido_mas_antiguo() const {
+    return this->fecha_contenido_analizado_mas_antiguo;
+}
+
+void Medio::fecha_contenido_mas_antiguo(const herramientas::utiles::Fecha & fecha) {
+    this->fecha_contenido_analizado_mas_antiguo = fecha;
+}
+
+uint64_t Medio::contenidos_analizados() const {
+    return this->cantidad_contenidos_analizados;
+}
+
+void Medio::contenidos_analizados(const uint64_t & cantidad) {
+    this->cantidad_contenidos_analizados = cantidad;
 }
 
 // SETTERS

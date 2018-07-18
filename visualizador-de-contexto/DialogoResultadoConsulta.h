@@ -14,7 +14,7 @@
 #include <utiles/include/FuncionesSistemaArchivos.h>
 
 // aplicacion
-#include <aplicacion/include/GestorDatosScraping.h>
+#include <aplicacion/include/GestorResultadosDiarios.h>
 
 namespace Ui { class DialogoResultadoConsulta; };
 

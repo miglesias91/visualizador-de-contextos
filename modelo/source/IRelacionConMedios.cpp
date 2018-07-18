@@ -36,6 +36,11 @@ RelacionConGrupo * IRelacionConMedios::getRelacionConMediosFacebook()
     return this->relacion_con_medios_facebook;
 }
 
+RelacionConGrupo * IRelacionConMedios::getRelacionConMediosPortalNoticias()
+{
+    return this->relacion_con_medios_portal_noticias;
+}
+
 // SETTERS
 
 void IRelacionConMedios::setRelacionConMediosTwitter(RelacionConGrupo * relacion_con_medios_twitter)
@@ -46,6 +51,11 @@ void IRelacionConMedios::setRelacionConMediosTwitter(RelacionConGrupo * relacion
 void IRelacionConMedios::setRelacionConMediosFacebook(RelacionConGrupo * relacion_con_medios_facebook)
 {
     this->relacion_con_medios_facebook = relacion_con_medios_facebook;
+}
+
+void IRelacionConMedios::setRelacionConMediosPortalNoticias(RelacionConGrupo * relacion_con_medios)
+{
+    this->relacion_con_medios_portal_noticias = relacion_con_medios_facebook;
 }
 
 // METODOS
@@ -78,4 +88,19 @@ void IRelacionConMedios::eliminarRelacionConMedioFacebook(herramientas::utiles::
 void IRelacionConMedios::actualizarRelacionConMedioFacebook(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo)
 {
     this->relacion_con_medios_facebook->actualizarRelacion(id_medio_nuevo, id_medio_viejo);
+}
+
+void IRelacionConMedios::agregarRelacionConMedioPortalNoticias(herramientas::utiles::ID * id_medio)
+{
+    this->relacion_con_medios_portal_noticias->agregarRelacion(id_medio);
+}
+
+void IRelacionConMedios::eliminarRelacionConMedioPortalNoticias(herramientas::utiles::ID * id_medio)
+{
+    this->relacion_con_medios_portal_noticias->eliminarRelacion(id_medio);
+}
+
+void IRelacionConMedios::actualizarRelacionConMedioPortalNoticias(herramientas::utiles::ID * id_medio_nuevo, herramientas::utiles::ID * id_medio_viejo)
+{
+    this->relacion_con_medios_portal_noticias->actualizarRelacion(id_medio_nuevo, id_medio_viejo);
 }

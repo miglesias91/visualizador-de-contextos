@@ -22,6 +22,7 @@ public:
 	// CONFIGURACIONES
 
     static std::string pathConfiguracion();
+    static std::string pathConfiguracionScraping();
 
 	static bool aplicacionLocal();
 	static bool aplicacionDistribuida();
@@ -40,6 +41,7 @@ public:
 
     static std::string prefijoMedioTwitter();
     static std::string prefijoMedioFacebook();
+    static std::string prefijoMedioPortalNoticias();
 
     static std::string prefijoRelacionesConcepto();
     static std::string prefijoRelacionesTermino();
@@ -63,6 +65,8 @@ protected:
 
     // TAGS
 
+    static std::string tagPathConfiguracionScraping();
+
     static std::string tagAplicacionLocal();
     static std::string tagAplicacionDistribuida();
     static std::string tagPrefijoHabilitado();
@@ -80,6 +84,7 @@ protected:
 
     static std::string tagPrefijoMedioTwitter();
     static std::string tagPrefijoMedioFacebook();
+    static std::string tagPrefijoMedioPortalNoticias();
 
     static std::string tagPrefijoRelacionesConcepto();
     static std::string tagPrefijoRelacionesTermino();
@@ -103,6 +108,7 @@ private:
 	virtual ~ConfiguracionAplicacion();
 
     static std::string path_config;
+    static std::string path_config_scraping;
 
 	static bool aplicacion_local;
 	static bool aplicacion_distribuida;
@@ -121,6 +127,7 @@ private:
 
     static std::string prefijo_medio_twitter;
     static std::string prefijo_medio_facebook;
+    static std::string prefijo_medio_portal_noticias;
 
     static std::string prefijo_relaciones_concepto;
     static std::string prefijo_relaciones_termino;

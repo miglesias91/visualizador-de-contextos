@@ -33,6 +33,15 @@ public:
     virtual std::string seccion() const;
     virtual void seccion(const std::string & seccion_medio);
 
+    virtual herramientas::utiles::Fecha fecha_contenido_mas_reciente() const;
+    virtual void fecha_contenido_mas_reciente(const herramientas::utiles::Fecha & fecha);
+
+    virtual herramientas::utiles::Fecha fecha_contenido_mas_antiguo() const;
+    virtual void fecha_contenido_mas_antiguo(const herramientas::utiles::Fecha & fecha);
+
+    virtual uint64_t contenidos_analizados() const;
+    virtual void contenidos_analizados(const uint64_t & cantidad);
+
 	// SETTERS
 
     void setRelacionesMedio(relaciones::RelacionesMedio * relaciones_medio);
@@ -55,6 +64,11 @@ public:
 
     virtual bool tieneRelacionesDependientes();
 
+protected:
+    std::string nombre, seccion_medio;
+    unsigned long long int cantidad_contenidos_analizados;
+    herramientas::utiles::Fecha fecha_contenido_analizado_mas_reciente, fecha_contenido_analizado_mas_antiguo;
+
 private:
 
     // ATRIBUTOS
@@ -62,8 +76,6 @@ private:
     relaciones::RelacionesMedio * relaciones_medio;
 
     scraping::extraccion::Medio * medio_a_scrapear;
-
-    std::string nombre, seccion_medio;
 };
 
 };

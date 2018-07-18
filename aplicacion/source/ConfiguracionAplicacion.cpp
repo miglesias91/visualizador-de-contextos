@@ -14,6 +14,7 @@ using namespace visualizador::aplicacion;
 #include <aplicacion/include/Logger.h>
 
 std::string ConfiguracionAplicacion::path_config;
+std::string ConfiguracionAplicacion::path_config_scraping;
 
 bool ConfiguracionAplicacion::aplicacion_local;
 bool ConfiguracionAplicacion::aplicacion_distribuida;
@@ -32,6 +33,7 @@ std::string ConfiguracionAplicacion::prefijo_medio;
 
 std::string ConfiguracionAplicacion::prefijo_medio_twitter;
 std::string ConfiguracionAplicacion::prefijo_medio_facebook;
+std::string ConfiguracionAplicacion::prefijo_medio_portal_noticias;
 
 std::string ConfiguracionAplicacion::prefijo_relaciones_concepto;
 std::string ConfiguracionAplicacion::prefijo_relaciones_termino;
@@ -73,6 +75,8 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         config_json = new herramientas::utiles::Json(string_config);
         config_app_json = config_json->getAtributoValorJson("aplicacion");
 
+        path_config_scraping = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPathConfiguracionScraping());
+
         aplicacion_local = config_app_json->getAtributoValorBool(ConfiguracionAplicacion::tagAplicacionLocal());
         aplicacion_distribuida = config_app_json->getAtributoValorBool(ConfiguracionAplicacion::tagAplicacionDistribuida());
         prefijo_habilitado = config_app_json->getAtributoValorBool(ConfiguracionAplicacion::tagPrefijoHabilitado());
@@ -90,6 +94,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 
         prefijo_medio_twitter = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoMedioTwitter());
         prefijo_medio_facebook = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoMedioFacebook());
+        prefijo_medio_portal_noticias = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoMedioPortalNoticias());
 
         prefijo_relaciones_concepto = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoRelacionesConcepto());
         prefijo_relaciones_termino = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPrefijoRelacionesTermino());
@@ -140,6 +145,11 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 std::string ConfiguracionAplicacion::pathConfiguracion()
 {
     return path_config;
+}
+
+std::string ConfiguracionAplicacion::pathConfiguracionScraping()
+{
+    return path_config_scraping;
 }
 
 bool ConfiguracionAplicacion::aplicacionLocal()
@@ -218,6 +228,11 @@ std::string ConfiguracionAplicacion::prefijoMedioFacebook()
     return prefijo_medio_facebook;
 }
 
+std::string ConfiguracionAplicacion::prefijoMedioPortalNoticias()
+{
+    return prefijo_medio_portal_noticias;
+}
+
 // relaciones
 std::string ConfiguracionAplicacion::prefijoRelacionesConcepto()
 {
@@ -276,6 +291,11 @@ std::string ConfiguracionAplicacion::archivoConfigLog()
 
 std::string ConfiguracionAplicacion::dirABM() {
     return dir_abm;
+}
+
+std::string ConfiguracionAplicacion::tagPathConfiguracionScraping()
+{
+    return "path_config_scraping";
 }
 
 std::string ConfiguracionAplicacion::claveIDActual()
@@ -357,6 +377,11 @@ std::string ConfiguracionAplicacion::tagPrefijoMedioTwitter()
 std::string ConfiguracionAplicacion::tagPrefijoMedioFacebook()
 {
     return "prefijo_medio_facebook";
+}
+
+std::string ConfiguracionAplicacion::tagPrefijoMedioPortalNoticias()
+{
+    return "prefijo_medio_portal_noticias";
 }
 
 // RELACIONES

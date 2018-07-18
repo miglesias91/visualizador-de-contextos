@@ -57,9 +57,6 @@
     <ClInclude Include="include\Pregunta.h">
       <Filter>Archivos de encabezado\comunicacion</Filter>
     </ClInclude>
-    <ClInclude Include="include\GestorDatosScraping.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="include\AdminAplicacionIniciadoPreviamente.h">
       <Filter>Archivos de encabezado\excepciones</Filter>
     </ClInclude>
@@ -67,6 +64,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="include\GestorConsultas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GestorResultadosDiarios.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,9 +101,6 @@
     <ClCompile Include="source\Pregunta.cpp">
       <Filter>Archivos de código fuente\comunicacion</Filter>
     </ClCompile>
-    <ClCompile Include="source\GestorDatosScraping.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="source\AdminAplicacionIniciadoPreviamente.cpp">
       <Filter>Archivos de código fuente\excepciones</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="source\GestorConsultas.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GestorResultadosDiarios.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

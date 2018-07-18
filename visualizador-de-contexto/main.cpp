@@ -2,7 +2,6 @@
 #include <QtWidgets/QApplication>
 
 // scraping
-#include <scraping/include/IAdministradorScraping.h>
 #include <scraping/include/ConfiguracionScraping.h>
 
 // aplicacion
@@ -39,9 +38,10 @@ int main(int argc, char *argv[])
     try
     {
         //scraping::IAdministradorScraping::iniciar("config_scraping.json");
+        scraping::ConfiguracionScraping::leerConfiguracion(aplicacion::ConfiguracionAplicacion::pathConfiguracionScraping());
 
-        ////scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
-        ////scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
+        //scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
+        //scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
 
         //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->abrirBD();
         //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->recuperarIDsActuales();

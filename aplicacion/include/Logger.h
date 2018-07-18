@@ -5,7 +5,6 @@
 #include <modelo/include/Consulta.h>
 #include <modelo/include/Fecha.h>
 #include <modelo/include/Grafico.h>
-#include <modelo/include/MedioTwitter.h>
 #include <modelo/include/Periodo.h>
 #include <modelo/include/Reporte.h>
 #include <modelo/include/Seccion.h>

@@ -35,31 +35,9 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     this->ui->progressbar_exportacion->hide();
 
     this->volcar_datos(medios, conceptos, resultados);
-
-    //this->completar_arboles(medios, conceptos, resultados);
-
-    //std::string string_fecha_minima = std::to_string((*resultados.begin())->getId()->numero());
-    //QDate qfecha_minima = QDate::fromString(string_fecha_minima.c_str(), "yyyyMMdd");
-    //this->ui->dateedit_desde->setDate(qfecha_minima);
-
-    //this->fecha_actual = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(string_fecha_minima);
-
-    //std::string string_fecha_maxima = std::to_string((*(resultados.end() - 1))->getId()->numero());
-    //QDate qfecha_maxima = QDate::fromString(string_fecha_maxima.c_str(), "yyyyMMdd");
-    //this->ui->dateedit_hasta->setDate(qfecha_maxima);
-
-    //this->ui->dias->setMinimum(qfecha_minima.toJulianDay());
-    //this->ui->dias->setMaximum(qfecha_maxima.toJulianDay());
-
-    //this->ui->calendario->setDateRange(qfecha_minima, qfecha_maxima);
-    //this->ui->calendario->setDate(qfecha_minima);
-
-    //this->mostrar_resultado(std::stoi(string_fecha_minima));
-
 }
 
-DialogoResultadoConsulta::~DialogoResultadoConsulta()
-{
+DialogoResultadoConsulta::~DialogoResultadoConsulta() {
     std::for_each(this->sentimientos.begin(), this->sentimientos.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
     std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
 
@@ -160,13 +138,14 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Concep
             [&resultados, &medio, &sentimiento_de_concepto_en_medio](modelo::Termino * termino)
         {
             std::string expresion = termino->getValor();
-            unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
+            unsigned long long int id_medio = medio->getId()->numero();
 
             scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-            //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->seccion());
 
             if (resultado_medio) {
-                sentimiento_de_concepto_en_medio += resultado_medio->getResultadoSentimiento()->valores(expresion);
+                scraping::analisis::tecnicas::ResultadoSentimiento resultado;
+                resultado_medio->sentimiento_de_categoria(&resultado, medio->seccion());
+                sentimiento_de_concepto_en_medio += resultado.valores(expresion);
             }
         });
 
@@ -191,13 +170,14 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
             [&resultados, &medio, &fuerza_en_noticia_de_concepto_en_medio](modelo::Termino * termino)
         {
             std::string expresion = termino->getValor();
-            unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
+            unsigned long long int id_medio = medio->getId()->numero();
 
             scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-            //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
 
             if (resultado_medio) {
-                fuerza_en_noticia_de_concepto_en_medio += resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
+                scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado;
+                resultado_medio->fuerza_en_noticia_de_categoria(&resultado, medio->seccion());
+                fuerza_en_noticia_de_concepto_en_medio += resultado.getFuerza(expresion);
             }
         });
 
@@ -215,14 +195,15 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Termin
         [&resultados, &termino, &valores_de_termino_por_medio](modelo::Medio * medio)
     {
         std::string expresion = termino->getValor();
-        unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
+        unsigned long long int id_medio = medio->getId()->numero();
 
         scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-        //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
 
         scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento_de_termino_en_medio;
         if (resultado_medio) {
-            sentimiento_de_termino_en_medio = resultado_medio->getResultadoSentimiento()->valores(expresion);
+            scraping::analisis::tecnicas::ResultadoSentimiento resultado;
+            resultado_medio->sentimiento_de_categoria(&resultado, medio->seccion());
+            sentimiento_de_termino_en_medio = resultado.valores(expresion);
         }
 
         valores_de_termino_por_medio.push_back(sentimiento_de_termino_en_medio.informar().c_str());
@@ -239,14 +220,15 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
         [&resultados, &termino, &valores_de_termino_por_medio](modelo::Medio * medio)
     {
         std::string expresion = termino->getValor();
-        unsigned long long int id_medio = medio->getMedioAScrapear()->getId()->numero();
+        unsigned long long int id_medio = medio->getId()->numero();
 
         scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-        //scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio, medio->categoria());
 
         double fuerza_en_noticia_de_termino_en_medio = 0.0f;
         if (resultado_medio) {
-            fuerza_en_noticia_de_termino_en_medio = resultado_medio->getResultadoFuerzaEnNoticia()->getFuerza(expresion);
+            scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado;
+            resultado_medio->fuerza_en_noticia_de_categoria(&resultado, medio->seccion());
+            fuerza_en_noticia_de_termino_en_medio = resultado.getFuerza(expresion);
         }
 
         valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia_de_termino_en_medio).c_str());

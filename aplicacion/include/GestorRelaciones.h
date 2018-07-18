@@ -42,6 +42,7 @@ public:
 
     virtual bool vincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio);
     virtual bool vincularMedioFacebook(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio);
+    virtual bool vincularMedioPortalNoticias(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio);
 
     virtual bool desvincular(modelo::relaciones::RelacionesConcepto * relaciones_termino, herramientas::utiles::ID * id_concepto);
     virtual bool desvincular(modelo::relaciones::RelacionesConsulta * relaciones_consulta, herramientas::utiles::ID * id_consulta);
@@ -53,6 +54,7 @@ public:
 
     virtual bool desvincularMedioTwitter(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio);
     virtual bool desvincularMedioFacebook(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio);
+    virtual bool desvincularMedioPortalNoticias(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio);
 
     // clona la entidad devolviendo un puntero de la clase especifica de la entidad.
     // Similar al metodo "clonar" de cada entidad, solo que agrega el tipo de entidad indicado en <ENTIDAD>.
@@ -60,7 +62,6 @@ public:
     RELACIONES* clonar(visualizador::modelo::relaciones::IRelaciones * relaciones_a_clonar);
 
 private:
-
     IAdministradorAplicacion * admin_app;
 
 };

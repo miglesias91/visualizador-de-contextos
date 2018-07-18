@@ -11,12 +11,11 @@ namespace modelo
 class MedioPortalNoticias : public Medio
 {
 public:
-
 	// CONSTRUCTORES
 
     MedioPortalNoticias();
 
-    MedioPortalNoticias(const std::string & web_portal, const std::string & seccion_portal, const std::string & etiqueta = "");
+    MedioPortalNoticias(const std::string & web_portal, const std::string & etiqueta = "");
 
 	virtual ~MedioPortalNoticias();
 
@@ -25,8 +24,8 @@ public:
     virtual std::string web() const;
     virtual void web(const std::string & web_portal);
 
-    virtual std::string seccion() const;
-    virtual void seccion(const std::string & seccion_portal);
+    virtual std::vector<std::string> secciones() const;
+    virtual void secciones(const std::vector<std::string> & secciones_portal);
     
     // METODOS
 
@@ -60,11 +59,15 @@ private:
 
     // ATRIBUTOS
 
-    std::string nombre_pagina;
+    std::string web_portal;
+    std::vector<std::string> secciones_portal;
+};
 
-    herramientas::utiles::Fecha fecha_publicacion_mas_reciente;
-    herramientas::utiles::Fecha fecha_publicacion_mas_antigua;
-    unsigned long long int cantidad_publicaciones_analizadas;
+struct subseccion : public MedioPortalNoticias {
+    subseccion(const std::string & web_portal, const std::string & seccion_portal, const std::string & etiqueta = "")
+        : MedioPortalNoticias(web_portal, etiqueta), web_portal(web_portal) {
+        this->seccion(seccion_portal);
+    }
 };
 
 };

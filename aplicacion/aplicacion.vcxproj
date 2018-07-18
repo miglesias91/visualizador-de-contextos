@@ -133,7 +133,7 @@
     <ClInclude Include="include\Advertencia.h" />
     <ClInclude Include="include\Error.h" />
     <ClInclude Include="include\GestorConsultas.h" />
-    <ClInclude Include="include\GestorDatosScraping.h" />
+    <ClInclude Include="include\GestorResultadosDiarios.h" />
     <ClInclude Include="include\Informacion.h" />
     <ClInclude Include="include\Logger.h" />
     <ClInclude Include="include\Mensaje.h" />
@@ -149,7 +149,7 @@
     <ClCompile Include="source\Advertencia.cpp" />
     <ClCompile Include="source\Error.cpp" />
     <ClCompile Include="source\GestorConsultas.cpp" />
-    <ClCompile Include="source\GestorDatosScraping.cpp" />
+    <ClCompile Include="source\GestorResultadosDiarios.cpp" />
     <ClCompile Include="source\Informacion.cpp" />
     <ClCompile Include="source\Logger.cpp" />
     <ClCompile Include="source\Mensaje.cpp" />

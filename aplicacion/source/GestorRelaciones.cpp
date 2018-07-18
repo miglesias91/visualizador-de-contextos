@@ -230,6 +230,23 @@ bool GestorRelaciones::vincularMedioFacebook(modelo::relaciones::RelacionesMedio
     return true;
 }
 
+bool GestorRelaciones::vincularMedioPortalNoticias(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+{
+    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
+
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
+        if (this->admin_app->recuperar(&relaciones_consulta))
+        {
+            relaciones_consulta.agregarRelacionConMedioPortalNoticias(id_medio);
+            this->admin_app->modificar(&relaciones_consulta);
+        }
+    }
+
+    return true;
+}
+
 // DESVINCULACIONES
 
 bool GestorRelaciones::desvincular(modelo::relaciones::RelacionesConcepto * relaciones_concepto, herramientas::utiles::ID * id_concepto)
@@ -439,6 +456,23 @@ bool GestorRelaciones::desvincularMedioFacebook(modelo::relaciones::RelacionesMe
         if (this->admin_app->recuperar(&relaciones_consulta))
         {
             relaciones_consulta.eliminarRelacionConMedioFacebook(id_medio);
+            this->admin_app->modificar(&relaciones_consulta);
+        }
+    }
+
+    return true;
+}
+
+bool GestorRelaciones::desvincularMedioPortalNoticias(modelo::relaciones::RelacionesMedio * relaciones_medio, herramientas::utiles::ID * id_medio)
+{
+    std::vector<herramientas::utiles::ID*> ids_consultas = relaciones_medio->getRelacionConConsultas()->getIdsGrupo();
+
+    for (std::vector<herramientas::utiles::ID*>::iterator it = ids_consultas.begin(); it != ids_consultas.end(); it++)
+    {
+        modelo::relaciones::RelacionesConsulta relaciones_consulta((*it)->copia());
+        if (this->admin_app->recuperar(&relaciones_consulta))
+        {
+            relaciones_consulta.eliminarRelacionConMedioPortalNoticias(id_medio);
             this->admin_app->modificar(&relaciones_consulta);
         }
     }

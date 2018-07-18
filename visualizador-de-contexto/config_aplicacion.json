@@ -26,12 +26,14 @@
 
         "prefijo_medio_twitter" : "017",
         "prefijo_medio_facebook" : "018",
+        "prefijo_medio_portal_noticias" : "019",
 
         "db_aplicacion_entidades" : "db_aplicacion_entidades.json",
         "db_resultados_diarios" : "db_resultados_diarios.json",
 
         "log_aplicacion" : "log_aplicacion.json",
 
-        "dir_abm" : "C:/temp/abms"
+        "dir_abm" : "C:/temp/abms",
+        "path_config_scraping" : "C:/repositorio/repo-git-miglesias91/scraping/scraping-aplicacion/config_scraping.json"
     }
 }

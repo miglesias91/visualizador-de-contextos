@@ -104,7 +104,8 @@ bool IAdministradorAplicacion::recuperarGrupo(std::string prefijo_grupo, std::ve
         unsigned long long int id = std::stoull((*it)->getClave());
         entidad->setId(new herramientas::utiles::ID(id));
 
-        this->recuperar(entidad);
+        entidad->parsearValorAlmacenable((*it)->getValor());
+        //this->recuperar(entidad);
 
         entidades_recuperadas->push_back(entidad);
 

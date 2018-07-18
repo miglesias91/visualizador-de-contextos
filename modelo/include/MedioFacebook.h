@@ -69,12 +69,6 @@ private:
     // ATRIBUTOS
 
     std::string nombre_pagina;
-
-    herramientas::utiles::Fecha fecha_publicacion_mas_reciente;
-    herramientas::utiles::Fecha fecha_publicacion_mas_antigua;
-    unsigned long long int cantidad_publicaciones_analizadas;
-
-    //scraping::facebook::modelo::Pagina * pagina_a_scrapear;
 };
 
 };

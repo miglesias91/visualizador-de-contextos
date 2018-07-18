@@ -4,9 +4,10 @@ using namespace visualizador::modelo;
 
 // scraping
 #include <scraping/include/GestorMedios.h>
+#include <extraccion/include/MedioTwitter.h>
 
 // aplicacion
-#include <aplicacion/include/GestorDatosScraping.h>
+#include <aplicacion/include/GestorResultadosDiarios.h>
 #include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
@@ -98,6 +99,10 @@ IEntidad * MedioTwitter::clonar()
     //    scraping::aplicacion::GestorMedios gestor_medios;
     //    clon->setCuentaAScrapear(gestor_medios.clonar<scraping::twitter::modelo::Cuenta>(this->cuenta_a_scrapear));
     //}
+    clon->setNombreUsuario(this->nombre_usuario);
+    clon->fecha_contenido_mas_antiguo(this->fecha_contenido_analizado_mas_antiguo);
+    clon->fecha_contenido_mas_reciente(this->fecha_contenido_analizado_mas_reciente);
+    clon->contenidos_analizados(this->cantidad_contenidos_analizados);
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     relaciones::RelacionesMedio * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesMedio>(this->getRelacionesMedio());
@@ -109,32 +114,27 @@ IEntidad * MedioTwitter::clonar()
 
 // metodos de IRelacionable
 
-bool MedioTwitter::recuperarContenidoDeRelaciones()
-{
-    if (0 == this->getRelacionesMedio()->getIDMedioAScrapear())
-    {// si no tiene cuenta a scrapear asociada, entonces no recupero nada y devuelve q la operacion salio bien.
-        return true;
+bool MedioTwitter::recuperarContenidoDeRelaciones() {
+    scraping::extraccion::interfaceo::MedioTwitter cuenta;
+    cuenta.setId(this->getId()->copia());
+
+    aplicacion::GestorResultadosDiarios gestor_resultados;
+    bool existe_medio = gestor_resultados.recuperar(&cuenta);
+    if (existe_medio) {
+        this->setNombreUsuario(cuenta.etiqueta());
+        this->fecha_contenido_analizado_mas_antiguo = cuenta.getFechaContenidoHistoricoMasAntiguo();
+        this->fecha_contenido_analizado_mas_reciente = cuenta.getFechaContenidoHistoricoMasReciente();
+        this->cantidad_contenidos_analizados = cuenta.getCantidadDeContenidosHistoricos();
     }
 
-    //scraping::twitter::modelo::Cuenta * cuenta_a_scrapear = new scraping::twitter::modelo::Cuenta();
-    //cuenta_a_scrapear->setId(new herramientas::utiles::ID(this->getRelacionesMedio()->getIDMedioAScrapear()));
-
-    //visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-    //bool existe_datos_scraping = gestor_datos_scraping.recuperarMedio(cuenta_a_scrapear);
-    //if (existe_datos_scraping)
-    //{
-    //    this->setCuentaAScrapear(cuenta_a_scrapear);
-    //}
-
-    //return existe_datos_scraping;
-    return false;
+    return existe_medio;
 }
 
 void MedioTwitter::vincular()
 {
     //if (NULL != this->getCuentaAScrapear())
     //{
-    //    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
+    //    visualizador::aplicacion::GestorResultadosDiarios gestor_datos_scraping;
     //    gestor_datos_scraping.almacenarMedio(this->getCuentaAScrapear());
     //    gestor_datos_scraping.almacenarIDActualMedio();
     //}
@@ -147,7 +147,7 @@ void MedioTwitter::desvincular()
 {
     //if (NULL != this->getCuentaAScrapear())
     //{
-    //    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
+    //    visualizador::aplicacion::GestorResultadosDiarios gestor_datos_scraping;
     //    gestor_datos_scraping.eliminarMedio(this->getCuentaAScrapear());
     //}
 

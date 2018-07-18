@@ -75,12 +75,6 @@ private:
     // ATRIBUTOS
 
     std::string nombre_usuario;
-
-    herramientas::utiles::Fecha fecha_tweet_mas_reciente;
-    herramientas::utiles::Fecha fecha_tweet_mas_antiguo;
-    unsigned long long int cantidad_tweets_analizados;
-
-    //scraping::twitter::modelo::Cuenta * cuenta_a_scrapear;
 };
 
 };

@@ -1,20 +1,15 @@
-#include <aplicacion/include/GestorDatosScraping.h>
+#include <aplicacion/include/GestorResultadosDiarios.h>
 
 using namespace visualizador::aplicacion;
 
 // scraping
 #include <scraping/include/ConfiguracionScraping.h>
 
-GestorDatosScraping::GestorDatosScraping()
-{
-    this->admin_datos_scraping = scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios();
-
-    this->admin_info_scraping = scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios();
+GestorResultadosDiarios::GestorResultadosDiarios() {
+    this->admin_resultados = aplicacion::IAdministradorAplicacion::getInstanciaAdminResultados();
 }
 
-GestorDatosScraping::~GestorDatosScraping()
-{
-}
+GestorResultadosDiarios::~GestorResultadosDiarios() {}
 
 // GETTERS
 
@@ -22,39 +17,28 @@ GestorDatosScraping::~GestorDatosScraping()
 
 // METODOS
 
-bool GestorDatosScraping::almacenarMedio(scraping::extraccion::Medio * medio_a_almacenar)
-{
-    medio_a_almacenar->setGrupo(medio_a_almacenar->getGrupoMedio());
+bool GestorResultadosDiarios::recuperar(scraping::extraccion::Medio * medio) const {
+    std::string clave = medio->getId()->string();
+    std::string grupo = medio->getGrupo();
 
-    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->almacenar(medio_a_almacenar);
+    almacenamiento::IAlmacenableClaveValor* clave_valor_a_recuperar = new almacenamiento::IAlmacenableClaveValor(clave, grupo);
+
+    bool existe_valor = this->admin_resultados->getAdminAlmacenamiento()->recuperar(clave_valor_a_recuperar);
+
+    if (existe_valor) {
+        medio->parsearValorAlmacenable(clave_valor_a_recuperar->getValor());
+    }
+
+    delete clave_valor_a_recuperar;
+
+    return existe_valor;
 }
 
-bool GestorDatosScraping::recuperarMedio(scraping::extraccion::Medio * medio_a_recuperar)
-{
-    medio_a_recuperar->setGrupo(medio_a_recuperar->getGrupoMedio());
-
-    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->recuperar(medio_a_recuperar);
-}
-
-bool GestorDatosScraping::eliminarMedio(scraping::extraccion::Medio * medio_a_eliminar)
-{
-    medio_a_eliminar->setGrupo(medio_a_eliminar->getGrupoMedio());
-
-    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->eliminar(medio_a_eliminar);
-}
-
-bool GestorDatosScraping::almacenarIDActualMedio()
-{
-    return scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->almacenarIDActual<scraping::extraccion::Medio>();
-}
-
-// la memoria creada para los resultados devueltos HAY QUE ELIMINARLA.
-std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorDatosScraping::recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta)
-{
+std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorResultadosDiarios::recuperarResultadosEntreRangoDeFechas(herramientas::utiles::Fecha desde, herramientas::utiles::Fecha hasta) {
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_recuperados;
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_entre_rango;
 
-    this->admin_datos_scraping->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), &resultados_recuperados);
+    this->admin_resultados->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), &resultados_recuperados);
 
     for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados_recuperados.begin(); it != resultados_recuperados.end(); it++)
     {
@@ -73,7 +57,7 @@ std::vector<scraping::preparacion::ResultadoAnalisisDiario*> GestorDatosScraping
     return resultados_entre_rango;
 }
 
-void GestorDatosScraping::recuperarResultados(
+void GestorResultadosDiarios::recuperarResultados(
     const herramientas::utiles::Fecha & desde,
     const herramientas::utiles::Fecha & hasta,
     const std::vector<visualizador::modelo::Medio*> & medios,
@@ -82,7 +66,7 @@ void GestorDatosScraping::recuperarResultados(
 {
 
     // recupero TODOS los resultados diarios.
-    this->admin_datos_scraping->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), resultados_filtrados);
+    this->admin_resultados->recuperarGrupo<scraping::preparacion::ResultadoAnalisisDiario>(scraping::ConfiguracionScraping::prefijoResultadoDiario(), resultados_filtrados);
 
     // elimino los que no estan dentro del rango
     herramientas::utiles::Fecha copia_desde = desde;
