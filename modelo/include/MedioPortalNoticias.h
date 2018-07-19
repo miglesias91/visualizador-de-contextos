@@ -1,5 +1,8 @@
 #pragma once
 
+// aplicacion
+#include <aplicacion/include/GestorRelaciones.h>
+
 // modelo
 #include <modelo/include/Medio.h>
 
@@ -30,7 +33,21 @@ public:
     }
 
     // metodos de IEntidad
-    virtual IEntidad * clonar() { return nullptr; }
+    virtual IEntidad * clonar() {
+        subseccion * clon = new subseccion(this->getEtiqueta(), this->seccion());
+        clon->setId(this->getId()->copia());
+        clon->setJson(this->getJson()->clonar());
+        clon->fecha_contenido_mas_antiguo(this->fecha_contenido_analizado_mas_antiguo);
+        clon->fecha_contenido_mas_reciente(this->fecha_contenido_analizado_mas_reciente);
+        clon->contenidos_analizados(this->cantidad_contenidos_analizados);
+
+        visualizador::aplicacion::GestorRelaciones gestor_relaciones;
+        relaciones::RelacionesMedio * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesMedio>(this->getRelacionesMedio());
+
+        clon->setRelacionesMedio(relaciones_clon);
+
+        return clon;
+    }
 
     // metodos de IRelacionable
     virtual bool recuperarContenidoDeRelaciones() { return true; }

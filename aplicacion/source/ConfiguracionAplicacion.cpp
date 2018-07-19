@@ -15,6 +15,7 @@ using namespace visualizador::aplicacion;
 
 std::string ConfiguracionAplicacion::path_config;
 std::string ConfiguracionAplicacion::path_config_scraping;
+std::string ConfiguracionAplicacion::path_config_noticias;
 
 bool ConfiguracionAplicacion::aplicacion_local;
 bool ConfiguracionAplicacion::aplicacion_distribuida;
@@ -76,6 +77,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         config_app_json = config_json->getAtributoValorJson("aplicacion");
 
         path_config_scraping = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPathConfiguracionScraping());
+        path_config_noticias = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPathConfiguracionNoticias());
 
         aplicacion_local = config_app_json->getAtributoValorBool(ConfiguracionAplicacion::tagAplicacionLocal());
         aplicacion_distribuida = config_app_json->getAtributoValorBool(ConfiguracionAplicacion::tagAplicacionDistribuida());
@@ -150,6 +152,10 @@ std::string ConfiguracionAplicacion::pathConfiguracion()
 std::string ConfiguracionAplicacion::pathConfiguracionScraping()
 {
     return path_config_scraping;
+}
+
+std::string ConfiguracionAplicacion::pathConfiguracionNoticias() {
+    return path_config_noticias;
 }
 
 bool ConfiguracionAplicacion::aplicacionLocal()
@@ -296,6 +302,10 @@ std::string ConfiguracionAplicacion::dirABM() {
 std::string ConfiguracionAplicacion::tagPathConfiguracionScraping()
 {
     return "path_config_scraping";
+}
+
+std::string ConfiguracionAplicacion::tagPathConfiguracionNoticias() {
+    return "path_config_noticias";
 }
 
 std::string ConfiguracionAplicacion::claveIDActual()

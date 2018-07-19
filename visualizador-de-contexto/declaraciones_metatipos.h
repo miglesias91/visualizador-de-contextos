@@ -13,6 +13,7 @@
 #include <modelo/include/Medio.h>
 #include <modelo/include/MedioTwitter.h>
 #include <modelo/include/MedioFacebook.h>
+#include <modelo/include/MedioPortalNoticias.h>
 
 Q_DECLARE_METATYPE(visualizador::modelo::Concepto*)
 Q_DECLARE_METATYPE(visualizador::modelo::Consulta*)
@@ -24,3 +25,5 @@ Q_DECLARE_METATYPE(visualizador::modelo::Seccion*)
 Q_DECLARE_METATYPE(visualizador::modelo::Medio*)
 Q_DECLARE_METATYPE(visualizador::modelo::MedioTwitter*)
 Q_DECLARE_METATYPE(visualizador::modelo::MedioFacebook*)
+Q_DECLARE_METATYPE(visualizador::modelo::MedioPortalNoticias*)
+Q_DECLARE_METATYPE(visualizador::modelo::subseccion*)

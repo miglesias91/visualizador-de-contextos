@@ -4,12 +4,12 @@
 
 TEMPLATE = app
 TARGET = visualizador-de-contexto
-DESTDIR = ../Win32/Release
+DESTDIR = ../Win32/Debug
 QT += core gui widgets
-CONFIG += release
+CONFIG += debug
 DEFINES += QT_WIDGETS_LIB
-INCLUDEPATH += ./GeneratedFiles \
-    . \
+INCLUDEPATH += . \
+    ./GeneratedFiles \
     $(qt-dir)5.9.1/msvc2015/include \
     ./GeneratedFiles/$(ConfigurationName) \
     $(qt-dir)5.9.1/msvc2015/include/QtCore \
@@ -18,16 +18,20 @@ INCLUDEPATH += ./GeneratedFiles \
     $(SolutionDir) \
     $(repos-git)almacenamiento \
     $(repos-git)herramientas_desarrollo \
+    $(repos-git)medios-digitales \
     $(repos-git)scraping \
     $(repos)rapidjson/include \
     $(repos)spdlog/include
-LIBS += -L"$(SolutionDir)Release" \
+LIBS += -L"$(SolutionDir)Debug" \
     -L"$(qt-dir)5.9.1/msvc2015/lib" \
-    -L"$(repos-git)almacenamiento/Release" \
-    -L"$(repos-git)herramientas_desarrollo/Release" \
-    -L"$(repos-git)scraping/Release" \
-    -L"$(repos)rocksdb/build_x86/Release" \
-    -L"$(repos)cpprestsdk/Binaries/Win32/Release" \
+    -L"$(repos-git)almacenamiento/Debug" \
+    -L"$(repos-git)herramientas_desarrollo/Debug" \
+    -L"$(repos-git)scraping/Debug" \
+    -L"$(repos-git)ia/Debug" \
+    -L"$(repos-git)medios-digitales/Debug" \
+    -L"$(repos)rocksdb/build_x86/Debug" \
+    -L"$(repos)cpprestsdk/Binaries/Win32/Debug" \
+    -L"$(repos)pugixml/build/Debug" \
     -lmodelo \
     -laplicacion \
     -lscraping \
@@ -37,19 +41,24 @@ LIBS += -L"$(SolutionDir)Release" \
     -lextraccion \
     -ltwitter \
     -lfacebook \
+    -lnoticias \
+    -lfeed \
     -lutiles \
+    -lclasificacion-de-texto \
     -llog \
     -lprotocolos \
     -lcasablanca_wrapper \
-    -lcpprest141_2_10 \
-    -lWrapperRocksDB \
+    -lcpprest141d_2_10 \
+    -lpugixml \
     -lalmacenamiento \
+    -lWrapperRocksDB \
     -lrocksdb \
     -lShlwapi \
-    -lRpcrt4
+    -lRpcrt4 \
+    -lwininet
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
-OBJECTS_DIR += release
+OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(visualizador-de-contexto.pri)

@@ -1,6 +1,9 @@
 #include "visualizadordecontexto.h"
 #include <QtWidgets/QApplication>
 
+// medios
+#include <noticias/include/config.h>
+
 // scraping
 #include <scraping/include/ConfiguracionScraping.h>
 
@@ -39,6 +42,7 @@ int main(int argc, char *argv[])
     {
         //scraping::IAdministradorScraping::iniciar("config_scraping.json");
         scraping::ConfiguracionScraping::leerConfiguracion(aplicacion::ConfiguracionAplicacion::pathConfiguracionScraping());
+        medios::noticias::config::levantar(aplicacion::ConfiguracionAplicacion::pathConfiguracionNoticias());
 
         //scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
         //scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();

@@ -8,7 +8,6 @@ using namespace visualizador::modelo;
 
 // aplicacion
 #include <aplicacion/include/GestorResultadosDiarios.h>
-#include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
 MedioPortalNoticias::MedioPortalNoticias() :
@@ -24,7 +23,7 @@ MedioPortalNoticias::~MedioPortalNoticias() {
 }
 
 std::string MedioPortalNoticias::web() const {
-    return std::string();
+    return this->web_portal;
 }
 
 void MedioPortalNoticias::web(const std::string & web_portal) {

@@ -27,7 +27,9 @@ visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     visualizador::aplicacion::Logger::marca("INICIO INTERFAZ QT");
 
     this->ui.btn_fechas->setEnabled(false);
+    this->ui.btn_fechas->setVisible(false);
     this->ui.btn_periodos->setEnabled(false);
+    this->ui.btn_periodos->setVisible(false);
 
     this->ui.bar_analizar_ctx->hide();
 }
@@ -135,6 +137,20 @@ void visualizadordecontexto::abrir_medios_facebook() {
     this->dialogo_activo = this->dialogo_medios_facebook;
 }
 
+void visualizadordecontexto::abrir_medios_portales() {
+
+    this->guardar_activo();
+
+    this->dialogo_medios_portales = new DialogoMediosPortales(this->ui.widget_area_trabajo);
+    this->dialogo_medios_portales->showMaximized();
+    this->ui.layout_ventana_abierta->addWidget(this->dialogo_medios_portales);
+
+    QObject::connect(this->dialogo_medios_portales, &DialogoMediosPortales::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+
+    this->hay_dialogo_abierto = true;
+    this->dialogo_activo = this->dialogo_medios_portales;
+}
+
 void visualizadordecontexto::guardar_activo() {
 
     if (this->hay_dialogo_abierto) {
@@ -199,6 +215,7 @@ void visualizadordecontexto::conectar_componentes() {
     QObject::connect(this->ui.btn_periodos, &QPushButton::released, this, &visualizadordecontexto::abrir_periodos);
     QObject::connect(this->ui.btn_medios_twitter, &QPushButton::released, this, &visualizadordecontexto::abrir_medios_twitter);
     QObject::connect(this->ui.btn_medios_facebook, &QPushButton::released, this, &visualizadordecontexto::abrir_medios_facebook);
+    QObject::connect(this->ui.btn_medios_portales, &QPushButton::released, this, &visualizadordecontexto::abrir_medios_portales);
 
     QObject::connect(this->ui.btn_consulta, &QPushButton::released, this, &visualizadordecontexto::abrir_consulta);
     QObject::connect(this->ui.btn_analizar_ctx, &QPushButton::released, this, &visualizadordecontexto::analizar_ctx);

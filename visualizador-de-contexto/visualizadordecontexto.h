@@ -14,6 +14,7 @@
 #include <visualizador-de-contexto/DialogoConsultas.h>
 #include <visualizador-de-contexto/DialogoMediosTwitter.h>
 #include <visualizador-de-contexto/DialogoMediosFacebook.h>
+#include <visualizador-de-contexto/DialogoMediosPortales.h>
 
 class visualizadordecontexto : public QMainWindow
 {
@@ -31,46 +32,32 @@ signals:
 
 private slots:
     void abrir_terminos();
-
     void abrir_conceptos();
-
     void abrir_fechas();
-
     void abrir_periodos();
-
     void abrir_consulta();
-
     void abrir_medios_twitter();
+    void abrir_medios_facebook();
+    void abrir_medios_portales();
 
     void analizar_ctx();
-
     void deshabilitar_menu();
-
     void habilitar_menu();
-
-    void abrir_medios_facebook();
-
     void guardar_activo();
-
     void hay_dialogo_activo();
-
     void sin_dialogo_activo();
 
 private:
 	Ui::visualizadordecontextoClass ui;
 
     // METODOS PRIVADOS
-
     void conectar_componentes();
-
     void tarea_analizar_ctx();
 
     // ATRIBUTOS
-
     QFutureWatcher<void> observador;
 
 	// DIALOGOS
-
     DialogoTerminos * dialogo_terminos;
     DialogoConceptos * dialogo_conceptos;
     DialogoFechas * dialogo_fechas;
@@ -78,6 +65,7 @@ private:
     DialogoConsultas * dialogo_consultas;
     DialogoMediosTwitter * dialogo_medios_twitter;
     DialogoMediosFacebook * dialogo_medios_facebook;
+    DialogoMediosPortales * dialogo_medios_portales;
 
     QWidget * dialogo_activo;
     bool hay_dialogo_abierto;

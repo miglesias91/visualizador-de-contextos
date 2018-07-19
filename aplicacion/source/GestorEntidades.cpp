@@ -3,6 +3,9 @@
 using namespace visualizador::aplicacion;
 using namespace visualizador;
 
+// herramientas
+#include <utiles/include/Fecha.h>
+
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 #include <aplicacion/include/IAdministradorAplicacion.h>
@@ -45,12 +48,12 @@ GestorEntidades::~GestorEntidades()
 
 // GETTERS
 
-std::vector<visualizador::modelo::IEntidad*> visualizador::aplicacion::GestorEntidades::getEntidadesAAlmacenar()
+std::vector<visualizador::modelo::IEntidad*> GestorEntidades::getEntidadesAAlmacenar()
 {
     return this->entidades_a_almacenar;
 }
 
-std::vector<visualizador::modelo::IEntidad*> visualizador::aplicacion::GestorEntidades::getEntidadesAEliminar()
+std::vector<visualizador::modelo::IEntidad*> GestorEntidades::getEntidadesAEliminar()
 {
     return this->entidades_a_eliminar;
 }

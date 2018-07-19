@@ -33,6 +33,7 @@ public:
     QHBoxLayout *layout_opciones;
     QWidget *widget_entidades;
     QHBoxLayout *layout_fila_entidades;
+    QPushButton *btn_medios_portales;
     QPushButton *btn_medios_facebook;
     QPushButton *btn_medios_twitter;
     QPushButton *btn_periodos;
@@ -81,6 +82,8 @@ public:
 "\n"
 "QPushButton:hover {\n"
 "	background-color: rgb(247, 247, 247);\n"
+"	border-bottom-color: rgb(157, 157, 157);\n"
+"	border-bottom: 1px solid;\n"
 "}"));
         layout_opciones = new QHBoxLayout(widget_opciones);
         layout_opciones->setSpacing(3);
@@ -99,12 +102,18 @@ public:
         layout_fila_entidades->setContentsMargins(11, 11, 11, 11);
         layout_fila_entidades->setObjectName(QStringLiteral("layout_fila_entidades"));
         layout_fila_entidades->setContentsMargins(0, 0, 0, 0);
-        btn_medios_facebook = new QPushButton(widget_entidades);
-        btn_medios_facebook->setObjectName(QStringLiteral("btn_medios_facebook"));
-        btn_medios_facebook->setMinimumSize(QSize(80, 0));
+        btn_medios_portales = new QPushButton(widget_entidades);
+        btn_medios_portales->setObjectName(QStringLiteral("btn_medios_portales"));
         QFont font;
         font.setFamily(QStringLiteral("Calibri"));
         font.setPointSize(10);
+        btn_medios_portales->setFont(font);
+
+        layout_fila_entidades->addWidget(btn_medios_portales);
+
+        btn_medios_facebook = new QPushButton(widget_entidades);
+        btn_medios_facebook->setObjectName(QStringLiteral("btn_medios_facebook"));
+        btn_medios_facebook->setMinimumSize(QSize(0, 0));
         btn_medios_facebook->setFont(font);
         btn_medios_facebook->setAutoFillBackground(false);
         btn_medios_facebook->setStyleSheet(QStringLiteral(""));
@@ -293,8 +302,9 @@ public:
     void retranslateUi(QMainWindow *visualizadordecontextoClass)
     {
         visualizadordecontextoClass->setWindowTitle(QApplication::translate("visualizadordecontextoClass", "Visualizador de contexto", Q_NULLPTR));
-        btn_medios_facebook->setText(QApplication::translate("visualizadordecontextoClass", "P\303\241ginas de Facebook", Q_NULLPTR));
-        btn_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "Cuentas de Twitter", Q_NULLPTR));
+        btn_medios_portales->setText(QApplication::translate("visualizadordecontextoClass", "Portales de noticias", Q_NULLPTR));
+        btn_medios_facebook->setText(QApplication::translate("visualizadordecontextoClass", "Facebook", Q_NULLPTR));
+        btn_medios_twitter->setText(QApplication::translate("visualizadordecontextoClass", "Twitter", Q_NULLPTR));
         btn_periodos->setText(QApplication::translate("visualizadordecontextoClass", "Per\303\255odos", Q_NULLPTR));
         btn_fechas->setText(QApplication::translate("visualizadordecontextoClass", "Fechas", Q_NULLPTR));
         btn_conceptos->setText(QApplication::translate("visualizadordecontextoClass", "Conceptos", Q_NULLPTR));

@@ -125,6 +125,15 @@
     <ClCompile Include="DialogoResultadoConsulta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DialogoMediosPortales.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DialogoMediosPortales.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogoMediosPortales.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -250,6 +259,12 @@
     <CustomBuild Include="DialogoResultadoConsulta.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="DialogoMediosPortales.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DialogoMediosPortales.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_visualizadordecontexto.h">
@@ -298,6 +313,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DialogoResultadoConsulta.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_DialogoMediosPortales.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
