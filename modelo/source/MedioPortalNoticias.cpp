@@ -19,7 +19,9 @@ MedioPortalNoticias::MedioPortalNoticias(const std::string & web_portal, const s
     Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioPortalNoticias(), etiqueta), web_portal(web_portal) {
 }
 
-MedioPortalNoticias::~MedioPortalNoticias() {}
+MedioPortalNoticias::~MedioPortalNoticias() {
+    std::for_each(begin(this->subsecciones_portal), end(this->subsecciones_portal), [=](subseccion * subseccion_portal) { delete subseccion_portal; });
+}
 
 std::string MedioPortalNoticias::web() const {
     return std::string();
@@ -27,14 +29,15 @@ std::string MedioPortalNoticias::web() const {
 
 void MedioPortalNoticias::web(const std::string & web_portal) {
     this->web_portal = web_portal;
+    this->setNombre(this->web_portal);
 }
 
-std::vector<std::string> MedioPortalNoticias::secciones() const {
-    return this->secciones_portal;
+std::vector<subseccion*> MedioPortalNoticias::subsecciones() const {
+    return this->subsecciones_portal;
 }
 
-void MedioPortalNoticias::secciones(const std::vector<std::string> & secciones_portal) {
-    this->secciones_portal = secciones_portal;
+void MedioPortalNoticias::subsecciones(const std::vector<subseccion*> & secciones_portal) {
+    this->subsecciones_portal = secciones_portal;
 }
 
 // metodos de IContieneJson
@@ -44,7 +47,6 @@ bool MedioPortalNoticias::armarJson()
     this->getJson()->reset();
 
     this->getJson()->agregarAtributoValor("web_portal", this->web_portal);
-    this->getJson()->agregarAtributoArray("secciones", this->secciones);
 
     return true;
 }
@@ -52,7 +54,6 @@ bool MedioPortalNoticias::armarJson()
 bool MedioPortalNoticias::parsearJson()
 {
     this->web(this->getJson()->getAtributoValorString("web_portal"));
-    this->secciones(this->getJson()->getAtributoArrayString("secciones"));
 
     return true;
 }
@@ -86,6 +87,14 @@ IEntidad * MedioPortalNoticias::clonar()
     clon->fecha_contenido_mas_antiguo(this->fecha_contenido_analizado_mas_antiguo);
     clon->fecha_contenido_mas_reciente(this->fecha_contenido_analizado_mas_reciente);
     clon->contenidos_analizados(this->cantidad_contenidos_analizados);
+    clon->seccion(this->seccion());
+
+    std::vector<subseccion*> subsecciones_clon;
+    std::for_each(this->subsecciones_portal.begin(), this->subsecciones_portal.end(), [=, &subsecciones_clon](subseccion * subseccion_portal) {
+        subsecciones_clon.push_back(new subseccion(this->web(), subseccion_portal->seccion()));
+    });
+
+    clon->subsecciones(subsecciones_clon);
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     relaciones::RelacionesMedio * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesMedio>(this->getRelacionesMedio());
@@ -104,10 +113,16 @@ bool MedioPortalNoticias::recuperarContenidoDeRelaciones() {
     aplicacion::GestorResultadosDiarios gestor_resultados;
     bool existe_medio = gestor_resultados.recuperar(&portal);
     if (existe_medio) {
-        this->web(portal.etiqueta());
-        this->fecha_contenido_analizado_mas_antiguo = portal.getFechaContenidoHistoricoMasAntiguo();
-        this->fecha_contenido_analizado_mas_reciente = portal.getFechaContenidoHistoricoMasReciente();
-        this->cantidad_contenidos_analizados = portal.getCantidadDeContenidosHistoricos();
+        std::unordered_map<std::string, scraping::extraccion::interfaceo::seccion> info_secciones = portal.secciones();
+        std::for_each(info_secciones.begin(), info_secciones.end(), [=](std::pair<std::string, scraping::extraccion::interfaceo::seccion> seccion_info) {
+            subseccion * subseccion_portal = new subseccion(portal.etiqueta(), seccion_info.first);
+            subseccion_portal->setId(this->getId()->copia());
+            subseccion_portal->fecha_contenido_mas_antiguo(portal.getFechaContenidoHistoricoMasAntiguo());
+            subseccion_portal->fecha_contenido_mas_reciente(portal.getFechaContenidoHistoricoMasReciente());
+            subseccion_portal->contenidos_analizados(portal.getCantidadDeContenidosHistoricos());
+
+            this->subsecciones_portal.push_back(subseccion_portal);
+        });
     }
 
     return existe_medio;

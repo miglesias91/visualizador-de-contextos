@@ -8,6 +8,36 @@ namespace visualizador
 namespace modelo
 {
 
+struct subseccion : public Medio {
+public:
+    subseccion(const std::string & web_portal, const std::string & seccion_portal)
+        : Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioPortalNoticias(), web_portal) {
+        this->setNombre(seccion_portal);
+        this->seccion(seccion_portal);
+    }
+
+    // metodos de IContieneJson
+    virtual bool armarJson() { return true; }
+    virtual bool parsearJson() { return true; }
+
+    // metodos de IAlmacenable
+    virtual std::string prefijoGrupo() {
+        return aplicacion::ConfiguracionAplicacion::prefijoMedioPortalNoticias();
+    }
+
+    virtual unsigned long long int hashcode() {
+        return herramientas::utiles::IHashable::hashear(this->getNombre() + this->seccion());
+    }
+
+    // metodos de IEntidad
+    virtual IEntidad * clonar() { return nullptr; }
+
+    // metodos de IRelacionable
+    virtual bool recuperarContenidoDeRelaciones() { return true; }
+    virtual void vincular() {}
+    virtual void desvincular() {}
+};
+
 class MedioPortalNoticias : public Medio
 {
 public:
@@ -24,8 +54,8 @@ public:
     virtual std::string web() const;
     virtual void web(const std::string & web_portal);
 
-    virtual std::vector<std::string> secciones() const;
-    virtual void secciones(const std::vector<std::string> & secciones_portal);
+    virtual std::vector<subseccion*> subsecciones() const;
+    virtual void subsecciones(const std::vector<subseccion*> & subsecciones_portal);
     
     // METODOS
 
@@ -56,18 +86,9 @@ public:
     // CONSULTAS
 
 private:
-
     // ATRIBUTOS
-
     std::string web_portal;
-    std::vector<std::string> secciones_portal;
-};
-
-struct subseccion : public MedioPortalNoticias {
-    subseccion(const std::string & web_portal, const std::string & seccion_portal, const std::string & etiqueta = "")
-        : MedioPortalNoticias(web_portal, etiqueta), web_portal(web_portal) {
-        this->seccion(seccion_portal);
-    }
+    std::vector<subseccion*> subsecciones_portal;
 };
 
 };
