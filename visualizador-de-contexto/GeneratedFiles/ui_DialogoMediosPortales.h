@@ -122,8 +122,19 @@ public:
         layout_lista->addWidget(widget_superior, 0, Qt::AlignBottom);
 
         arbol_medios_portales = new QTreeWidget(widget_lista);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(0, QStringLiteral("1"));
+        arbol_medios_portales->setHeaderItem(__qtreewidgetitem);
         arbol_medios_portales->setObjectName(QStringLiteral("arbol_medios_portales"));
         arbol_medios_portales->setFont(font1);
+        arbol_medios_portales->setProperty("showDropIndicator", QVariant(true));
+        arbol_medios_portales->setAlternatingRowColors(false);
+        arbol_medios_portales->setSelectionMode(QAbstractItemView::SingleSelection);
+        arbol_medios_portales->setIndentation(10);
+        arbol_medios_portales->setRootIsDecorated(true);
+        arbol_medios_portales->setHeaderHidden(true);
+        arbol_medios_portales->setExpandsOnDoubleClick(true);
+        arbol_medios_portales->setColumnCount(1);
 
         layout_lista->addWidget(arbol_medios_portales);
 

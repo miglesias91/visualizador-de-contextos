@@ -46,9 +46,7 @@ private:
     void conectar_componentes();
 
     void cargarListaMediosPortales();
-    void descargarListaMediosPortales();
     void agregarPortalALista(modelo::MedioPortalNoticias * medio_portal_noticias);
-    void agregarSubseccionALista(modelo::subseccion * subseccion_portal_noticias);
 
     void registrar_abm();
 

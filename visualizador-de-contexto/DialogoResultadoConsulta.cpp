@@ -432,10 +432,16 @@ herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
             }
             json_concepto->agregarAtributoArray("terminos", terminos_de_concepto);
             conceptos_de_medio.push_back(json_concepto);
+
+            std::for_each(terminos_de_concepto.begin(), terminos_de_concepto.end(), [](herramientas::utiles::Json * json_termino) { delete json_termino; });
+            terminos_de_concepto.clear();
         }
 
         json_medio->agregarAtributoArray("conceptos", conceptos_de_medio);
         medios_en_fecha.push_back(json_medio);
+
+        std::for_each(conceptos_de_medio.begin(), conceptos_de_medio.end(), [](herramientas::utiles::Json * json_concepto) { delete json_concepto; });
+        conceptos_de_medio.clear();
     }
 
     herramientas::utiles::Json json_fecha_aux;

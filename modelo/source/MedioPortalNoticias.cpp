@@ -19,7 +19,7 @@ MedioPortalNoticias::MedioPortalNoticias(const std::string & web_portal, const s
 }
 
 MedioPortalNoticias::~MedioPortalNoticias() {
-    std::for_each(begin(this->subsecciones_portal), end(this->subsecciones_portal), [=](subseccion * subseccion_portal) { delete subseccion_portal; });
+    std::for_each(begin(this->subsecciones_portal), end(this->subsecciones_portal), [=](std::pair<std::string,subseccion*> subseccion_portal) { delete subseccion_portal.second; });
 }
 
 std::string MedioPortalNoticias::web() const {
@@ -31,11 +31,12 @@ void MedioPortalNoticias::web(const std::string & web_portal) {
     this->setNombre(this->web_portal);
 }
 
-std::vector<subseccion*> MedioPortalNoticias::subsecciones() const {
+std::unordered_map<std::string, subseccion*> MedioPortalNoticias::subsecciones() const {
     return this->subsecciones_portal;
 }
 
-void MedioPortalNoticias::subsecciones(const std::vector<subseccion*> & secciones_portal) {
+void MedioPortalNoticias::subsecciones(const std::unordered_map<std::string, subseccion*> & secciones_portal) {
+    std::for_each(begin(this->subsecciones_portal), end(this->subsecciones_portal), [=](std::pair<std::string,subseccion*> subseccion_portal) { delete subseccion_portal.second; });
     this->subsecciones_portal = secciones_portal;
 }
 
@@ -77,20 +78,15 @@ IEntidad * MedioPortalNoticias::clonar()
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
 
-    //if (NULL != this->pagina_a_scrapear)
-    //{// si hay una cuenta a scrapear, la clono.
-    //    scraping::aplicacion::GestorMedios gestor_medios;
-    //    clon->setPaginaAScrapear(gestor_medios.clonar<scraping::facebook::modelo::Pagina>(this->pagina_a_scrapear));
-    //}
     clon->web(this->web_portal);
     clon->fecha_contenido_mas_antiguo(this->fecha_contenido_analizado_mas_antiguo);
     clon->fecha_contenido_mas_reciente(this->fecha_contenido_analizado_mas_reciente);
     clon->contenidos_analizados(this->cantidad_contenidos_analizados);
     clon->seccion(this->seccion());
 
-    std::vector<subseccion*> subsecciones_clon;
-    std::for_each(this->subsecciones_portal.begin(), this->subsecciones_portal.end(), [=, &subsecciones_clon](subseccion * subseccion_portal) {
-        subsecciones_clon.push_back(new subseccion(this->web(), subseccion_portal->seccion()));
+    std::unordered_map<std::string, subseccion*> subsecciones_clon;
+    std::for_each(this->subsecciones_portal.begin(), this->subsecciones_portal.end(), [=, &subsecciones_clon](std::pair<std::string, subseccion*> subseccion_portal) {
+        subsecciones_clon[subseccion_portal.second->seccion()] = new subseccion(this->web(), subseccion_portal.second->seccion());
     });
 
     clon->subsecciones(subsecciones_clon);
@@ -113,14 +109,17 @@ bool MedioPortalNoticias::recuperarContenidoDeRelaciones() {
     bool existe_medio = gestor_resultados.recuperar(&portal);
     if (existe_medio) {
         std::unordered_map<std::string, scraping::extraccion::interfaceo::seccion> info_secciones = portal.secciones();
-        std::for_each(info_secciones.begin(), info_secciones.end(), [=](std::pair<std::string, scraping::extraccion::interfaceo::seccion> seccion_info) {
-            subseccion * subseccion_portal = new subseccion(portal.etiqueta(), seccion_info.first);
-            subseccion_portal->setId(this->getId()->copia());
-            subseccion_portal->fecha_contenido_mas_antiguo(portal.getFechaContenidoHistoricoMasAntiguo());
-            subseccion_portal->fecha_contenido_mas_reciente(portal.getFechaContenidoHistoricoMasReciente());
-            subseccion_portal->contenidos_analizados(portal.getCantidadDeContenidosHistoricos());
 
-            this->subsecciones_portal.push_back(subseccion_portal);
+        std::for_each(info_secciones.begin(), info_secciones.end(), [=](std::pair<std::string, scraping::extraccion::interfaceo::seccion> seccion_info) {
+            if (this->subsecciones_portal.count(seccion_info.first) == 0) {
+                this->subsecciones_portal[seccion_info.first] = new subseccion(this->web(), seccion_info.first);
+            }
+
+            this->subsecciones_portal[seccion_info.first]->setId(this->getId()->copia());
+            this->subsecciones_portal[seccion_info.first]->fecha_contenido_mas_antiguo(seccion_info.second.mas_antiguo);
+            this->subsecciones_portal[seccion_info.first]->fecha_contenido_mas_reciente(seccion_info.second.mas_reciente);
+            this->subsecciones_portal[seccion_info.first]->contenidos_analizados(seccion_info.second.cantidad_total);
+            this->subsecciones_portal[seccion_info.first]->tamanio(seccion_info.second.tamanio_total);
         });
     }
 
@@ -128,24 +127,11 @@ bool MedioPortalNoticias::recuperarContenidoDeRelaciones() {
 }
 
 void MedioPortalNoticias::vincular() {
-    //if (NULL != this->getPaginaAScrapear())
-    //{
-    //    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-    //    gestor_datos_scraping.almacenarMedio(this->getPaginaAScrapear());
-    //    gestor_datos_scraping.almacenarIDActualMedio();
-    //}
-
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.vincularMedioPortalNoticias(this->getRelacionesMedio(), this->getId());
 }
 
 void MedioPortalNoticias::desvincular() {
-    //if (NULL != this->getPaginaAScrapear())
-    //{
-    //    visualizador::aplicacion::GestorDatosScraping gestor_datos_scraping;
-    //    gestor_datos_scraping.eliminarMedio(this->getPaginaAScrapear());
-    //}
-
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.desvincularMedioPortalNoticias(this->getRelacionesMedio(), this->getId());
 }

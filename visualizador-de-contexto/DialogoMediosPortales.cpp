@@ -34,8 +34,6 @@ DialogoMediosPortales::DialogoMediosPortales(QWidget* parent)
 }
 
 DialogoMediosPortales::~DialogoMediosPortales() {
-    this->descargarListaMediosPortales();
-
     aplicacion::Logger::info("Cerrando dialogo medios portales.");
 
     delete ui;
@@ -59,23 +57,8 @@ void DialogoMediosPortales::cerrar() {
 
 // METODOS PRIVADOS
 
-void DialogoMediosPortales::agregarSubseccionALista(modelo::subseccion* portal) {
-    portal->sumarReferencia();
-
-    QListWidgetItem* item = new QListWidgetItem();
-
-    QVariant data = QVariant::fromValue(portal);
-    item->setData(Qt::UserRole, data);
-
-    std::string texto_item = aplicacion::Logger::infoLog(portal);
-
-    item->setText(texto_item.c_str());
-
-    this->ui->lista_medios_portales->insertItem(0, item);
-}
-
 void DialogoMediosPortales::cargarListaMediosPortales() {
-    std::vector<modelo::MedioPortalNoticias*> portales_actuales = this->gestor_medios.gestionar<modelo::MedioPortalNoticias>();
+    std::vector<modelo::MedioPortalNoticias*> portales_actuales = this->gestor_medios.recuperar<modelo::MedioPortalNoticias>();
 
     if (portales_actuales.size() == 0) {  // si no hay portales agregados, entonces:
         this->registrar_abm();  // registor el abm de los portales preexistentes + almaceno las entidades,
@@ -83,54 +66,35 @@ void DialogoMediosPortales::cargarListaMediosPortales() {
     }
 
     std::for_each(portales_actuales.begin(), portales_actuales.end(), [=](modelo::MedioPortalNoticias * portal){
-        //std::vector<modelo::subseccion*> subsecciones_portal = portal->subsecciones();
-        //std::for_each(subsecciones_portal.begin(), subsecciones_portal.end(), [=](modelo::subseccion * subseccion){
-        //    modelo::subseccion* clon = this->gestor_medios.clonar<modelo::subseccion>(subseccion);
-        //    this->agregarSubseccionALista(clon);
-        //});
         this->agregarPortalALista(portal);
     });
 
     aplicacion::Logger::info(std::to_string(portales_actuales.size()) + " portales cargados.");
 
-    this->ui->lista_medios_portales->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
-}
+    std::for_each(portales_actuales.begin(), portales_actuales.end(), [=](modelo::MedioPortalNoticias * medio_portal) { delete medio_portal; });
 
-void DialogoMediosPortales::descargarListaMediosPortales() {
-    //QListWidgetItem* item = nullptr;
-
-    //// elimino los periodos de la lista
-    //modelo::subseccion* subseccion_lista = nullptr;
-    //unsigned int count = ui->lista_medios_portales->count();
-
-    //while (0 != ui->lista_medios_portales->count()) {
-    //    count = ui->lista_medios_portales->count();
-
-    //    subseccion_lista = this->ui->lista_medios_portales->item(0)->data(Qt::UserRole).value<modelo::subseccion*>();
-
-    //    if (0 == subseccion_lista->restarReferencia()) {
-    //        delete subseccion_lista;
-    //    }
-
-    //    item = this->ui->lista_medios_portales->takeItem(0);
-    //    delete item;
-    //}
-
-    //aplicacion::Logger::info(std::to_string(count) + " portales descargados.");
+    this->ui->arbol_medios_portales->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }
 
 void DialogoMediosPortales::agregarPortalALista(modelo::MedioPortalNoticias * medio_portal_noticias) {
 
     uint32_t cantidad_total = 0;
+    uint32_t tamanio_total = 0;
     QList<QTreeWidgetItem*> items_subsecciones;
-    std::vector<modelo::subseccion*> subsecciones_portal = medio_portal_noticias->subsecciones();
-    std::for_each(subsecciones_portal.begin(), subsecciones_portal.end(), [=, &items_subsecciones, &cantidad_total](modelo::subseccion * subseccion){
-        QTreeWidgetItem* item_subseccion = new QTreeWidgetItem(QStringList((subseccion->seccion() + " | " + std::to_string(subseccion->contenidos_analizados())).c_str()));
+    std::unordered_map<std::string, modelo::subseccion*> subsecciones_portal = medio_portal_noticias->subsecciones();
+
+    std::for_each(subsecciones_portal.begin(), subsecciones_portal.end(), [=, &items_subsecciones, &cantidad_total, &tamanio_total](std::pair<std::string, modelo::subseccion*> nombre_subseccion) {
+        std::string texto_item = nombre_subseccion.first + " | " +
+            nombre_subseccion.second->fecha_contenido_mas_antiguo().getStringDDMMAAAA("/") + " - " + nombre_subseccion.second->fecha_contenido_mas_reciente().getStringDDMMAAAA("/") + " | " +
+            std::to_string(nombre_subseccion.second->contenidos_analizados()) + " | " + std::to_string(nombre_subseccion.second->tamanio());
+        QTreeWidgetItem* item_subseccion = new QTreeWidgetItem(QStringList(texto_item.c_str()));
         items_subsecciones.push_back(item_subseccion);
-        cantidad_total += subseccion->contenidos_analizados();
+        cantidad_total += nombre_subseccion.second->contenidos_analizados();
+        tamanio_total += nombre_subseccion.second->tamanio();
     });
 
-    QTreeWidgetItem * item_portal = new QTreeWidgetItem(QStringList((medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total)).c_str()));
+    std::string texto_item = (medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total));
+    QTreeWidgetItem * item_portal = new QTreeWidgetItem(QStringList((medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total) + " | " + std::to_string(tamanio_total)).c_str()));
     item_portal->addChildren(items_subsecciones);
 
     this->ui->arbol_medios_portales->addTopLevelItem(item_portal);

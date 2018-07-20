@@ -284,7 +284,6 @@ void DialogoConsultas::recuperar_resultados() {
     //{
     //    delete *it;
     //}
-
 }
 
 void DialogoConsultas::mostrar_resultados() {
@@ -404,13 +403,13 @@ void DialogoConsultas::cargarListaMedios()
 
     // recupero los portales de noticia
     std::vector<modelo::MedioPortalNoticias*> medios_portales_actuales = gestor_entidades.recuperar<modelo::MedioPortalNoticias>();
-    std::for_each(medios_portales_actuales.begin(), medios_portales_actuales.end(), [=](modelo::MedioPortalNoticias * portal) {
-        std::vector<modelo::subseccion*> secciones = portal->subsecciones();
-        std::for_each(secciones.begin(), secciones.end(), [=](modelo::subseccion * subseccion_portal) {
-            this->agregarMedioALista(subseccion_portal, this->ui->lista_medios);
+    std::for_each(medios_portales_actuales.begin(), medios_portales_actuales.end(), [=, &gestor_entidades](modelo::MedioPortalNoticias * portal) {
+        std::unordered_map<std::string, modelo::subseccion*> subsecciones = portal->subsecciones();
+        std::for_each(subsecciones.begin(), subsecciones.end(), [=, &gestor_entidades](std::pair<std::string, modelo::subseccion*> subseccion_portal) {
+            this->agregarMedioALista(gestor_entidades.clonar<modelo::subseccion>(subseccion_portal.second), this->ui->lista_medios);
         });
+        delete portal;
     });
-
 
     this->ui->lista_medios->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 }

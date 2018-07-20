@@ -30,6 +30,9 @@ public:
 
     virtual std::string getNombre();
 
+    virtual uintmax_t tamanio() const;
+    virtual void tamanio(const uintmax_t & tamanio_total);
+
     virtual std::string seccion() const;
     virtual void seccion(const std::string & seccion_medio);
 
@@ -66,7 +69,8 @@ public:
 
 protected:
     std::string nombre, seccion_medio;
-    unsigned long long int cantidad_contenidos_analizados;
+    uintmax_t tamanio_total;
+    uintmax_t cantidad_contenidos_analizados;
     herramientas::utiles::Fecha fecha_contenido_analizado_mas_reciente, fecha_contenido_analizado_mas_antiguo;
 
 private:

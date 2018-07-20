@@ -15,7 +15,7 @@ struct subseccion : public Medio {
 public:
     subseccion(const std::string & web_portal, const std::string & seccion_portal)
         : Medio(visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioPortalNoticias(), web_portal) {
-        this->setNombre(seccion_portal);
+        this->setNombre(web_portal + "/" + seccion_portal);
         this->seccion(seccion_portal);
     }
 
@@ -40,6 +40,7 @@ public:
         clon->fecha_contenido_mas_antiguo(this->fecha_contenido_analizado_mas_antiguo);
         clon->fecha_contenido_mas_reciente(this->fecha_contenido_analizado_mas_reciente);
         clon->contenidos_analizados(this->cantidad_contenidos_analizados);
+        clon->tamanio(this->tamanio_total);
 
         visualizador::aplicacion::GestorRelaciones gestor_relaciones;
         relaciones::RelacionesMedio * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesMedio>(this->getRelacionesMedio());
@@ -71,8 +72,9 @@ public:
     virtual std::string web() const;
     virtual void web(const std::string & web_portal);
 
-    virtual std::vector<subseccion*> subsecciones() const;
-    virtual void subsecciones(const std::vector<subseccion*> & subsecciones_portal);
+    virtual std::unordered_map<std::string, subseccion*> subsecciones() const;
+
+    virtual void subsecciones(const std::unordered_map<std::string, subseccion*> & subsecciones_portal);
     
     // METODOS
 
@@ -105,7 +107,7 @@ public:
 private:
     // ATRIBUTOS
     std::string web_portal;
-    std::vector<subseccion*> subsecciones_portal;
+    std::unordered_map<std::string, subseccion*> subsecciones_portal;
 };
 
 };

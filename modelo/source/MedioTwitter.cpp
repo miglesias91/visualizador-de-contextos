@@ -94,15 +94,11 @@ IEntidad * MedioTwitter::clonar()
     clon->setId(this->getId()->copia());
     clon->setJson(this->getJson()->clonar());
 
-    //if (NULL != this->cuenta_a_scrapear)
-    //{// si hay una cuenta a scrapear, la clono.
-    //    scraping::aplicacion::GestorMedios gestor_medios;
-    //    clon->setCuentaAScrapear(gestor_medios.clonar<scraping::twitter::modelo::Cuenta>(this->cuenta_a_scrapear));
-    //}
     clon->setNombreUsuario(this->nombre_usuario);
     clon->fecha_contenido_mas_antiguo(this->fecha_contenido_analizado_mas_antiguo);
     clon->fecha_contenido_mas_reciente(this->fecha_contenido_analizado_mas_reciente);
     clon->contenidos_analizados(this->cantidad_contenidos_analizados);
+    clon->tamanio(this->tamanio_total);
 
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     relaciones::RelacionesMedio * relaciones_clon = gestor_relaciones.clonar<relaciones::RelacionesMedio>(this->getRelacionesMedio());
@@ -125,32 +121,18 @@ bool MedioTwitter::recuperarContenidoDeRelaciones() {
         this->fecha_contenido_analizado_mas_antiguo = cuenta.getFechaContenidoHistoricoMasAntiguo();
         this->fecha_contenido_analizado_mas_reciente = cuenta.getFechaContenidoHistoricoMasReciente();
         this->cantidad_contenidos_analizados = cuenta.getCantidadDeContenidosHistoricos();
+        this->tamanio_total = cuenta.tamanio();
     }
 
     return existe_medio;
 }
 
-void MedioTwitter::vincular()
-{
-    //if (NULL != this->getCuentaAScrapear())
-    //{
-    //    visualizador::aplicacion::GestorResultadosDiarios gestor_datos_scraping;
-    //    gestor_datos_scraping.almacenarMedio(this->getCuentaAScrapear());
-    //    gestor_datos_scraping.almacenarIDActualMedio();
-    //}
-
+void MedioTwitter::vincular() {
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.vincularMedioTwitter(this->getRelacionesMedio(), this->getId());
 }
 
-void MedioTwitter::desvincular()
-{
-    //if (NULL != this->getCuentaAScrapear())
-    //{
-    //    visualizador::aplicacion::GestorResultadosDiarios gestor_datos_scraping;
-    //    gestor_datos_scraping.eliminarMedio(this->getCuentaAScrapear());
-    //}
-
+void MedioTwitter::desvincular() {
     visualizador::aplicacion::GestorRelaciones gestor_relaciones;
     gestor_relaciones.desvincularMedioTwitter(this->getRelacionesMedio(), this->getId());
 }

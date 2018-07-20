@@ -163,6 +163,35 @@
              <pointsize>10</pointsize>
             </font>
            </property>
+           <property name="showDropIndicator" stdset="0">
+            <bool>true</bool>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>false</bool>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="indentation">
+            <number>10</number>
+           </property>
+           <property name="rootIsDecorated">
+            <bool>true</bool>
+           </property>
+           <property name="headerHidden">
+            <bool>true</bool>
+           </property>
+           <property name="expandsOnDoubleClick">
+            <bool>true</bool>
+           </property>
+           <property name="columnCount">
+            <number>1</number>
+           </property>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
           </widget>
          </item>
         </layout>

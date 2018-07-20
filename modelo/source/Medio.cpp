@@ -7,7 +7,8 @@ using namespace visualizador::modelo;
 #include <aplicacion/include/GestorRelaciones.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
-Medio::Medio(std::string tipo_medio, std::string etiqueta) : IEntidad(etiqueta, tipo_medio, NULL), seccion_medio("")
+Medio::Medio(std::string tipo_medio, std::string etiqueta) :
+    IEntidad(etiqueta, tipo_medio, NULL), nombre(""), seccion_medio(""), cantidad_contenidos_analizados(0), tamanio_total(0)
 {
     this->relaciones_medio = new relaciones::RelacionesMedio();
     this->setRelaciones(this->relaciones_medio);
@@ -32,6 +33,14 @@ scraping::extraccion::Medio * Medio::getMedioAScrapear()
 std::string Medio::getNombre()
 {
     return this->nombre;
+}
+
+uintmax_t Medio::tamanio() const {
+    return this->tamanio_total;
+}
+
+void Medio::tamanio(const uintmax_t & tamanio_total) {
+    this->tamanio_total = tamanio_total;
 }
 
 std::string visualizador::modelo::Medio::seccion() const {

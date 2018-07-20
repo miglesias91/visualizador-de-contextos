@@ -112,8 +112,9 @@ std::string Logger::infoLog(visualizador::modelo::Medio * medio) {
         std::string fecha_contenido_mas_reciente = medio->fecha_contenido_mas_reciente().getStringDDMMAAAA("/");
         std::string fecha_contenido_mas_antiguo = medio->fecha_contenido_mas_antiguo().getStringDDMMAAAA("/");
         std::string string_cantidad_de_contenidos_historicos = std::to_string(cantidad_de_contenidos_historicos );
+        std::string string_tamanio_total = std::to_string(medio->tamanio());
 
-        info_analisis = fecha_contenido_mas_antiguo + " - " + fecha_contenido_mas_reciente + " | " + string_cantidad_de_contenidos_historicos;
+        info_analisis = fecha_contenido_mas_antiguo + " - " + fecha_contenido_mas_reciente + " | " + string_cantidad_de_contenidos_historicos + " | " + string_tamanio_total;
     }
 
     return etiqueta + " (" + nombre_medio + ") | " + info_analisis;
