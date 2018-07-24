@@ -255,6 +255,7 @@ void DialogoMediosFacebook::conectar_componentes() {
 
     QObject::connect(this->ui->btn_nueva, &QPushButton::released, this, &DialogoMediosFacebook::nueva_pagina);
     QObject::connect(this->ui->btn_eliminar, &QPushButton::released, this, &DialogoMediosFacebook::eliminar);
-    QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoMediosFacebook::actualizar_y_cerrar);
+	QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoMediosFacebook::actualizar_y_cerrar);
+	QObject::connect(this->ui->lista_medios_facebook, &QListWidget::itemSelectionChanged, this, &DialogoMediosFacebook::estado_btn_eliminar);
     QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoMediosFacebook::close);
 }

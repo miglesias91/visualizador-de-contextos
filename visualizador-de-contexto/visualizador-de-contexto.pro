@@ -5,7 +5,6 @@
 TEMPLATE = app
 TARGET = visualizador-de-contexto
 DESTDIR = ../Win32/Debug
-QT += core gui widgets
 CONFIG += debug
 DEFINES += QT_WIDGETS_LIB
 INCLUDEPATH += . \

@@ -44,8 +44,9 @@ DialogoResultadoConsulta::~DialogoResultadoConsulta() {
     delete ui;
 }
 
-void DialogoResultadoConsulta::volcar_datos(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados)
+void DialogoResultadoConsulta::volcar_datos(const std::vector<modelo::Medio*>& medios, const std::vector<modelo::Concepto*>& conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados)
 {
+	this->completar_tendencias(medios, resultados);
     this->completar_arboles(medios, conceptos, resultados);
 
     std::string string_fecha_minima = std::to_string((*resultados.begin())->getId()->numero());
@@ -67,13 +68,22 @@ void DialogoResultadoConsulta::volcar_datos(std::vector<modelo::Medio*> medios, 
     this->mostrar_resultado(std::stoi(string_fecha_minima));
 }
 
-void DialogoResultadoConsulta::completar_arboles(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados) {
+void DialogoResultadoConsulta::completar_tendencias(const std::vector<modelo::Medio*>& medios, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados) {
+	std::for_each(resultados.begin(), resultados.end(),
+		[=](scraping::preparacion::ResultadoAnalisisDiario * resultado) {
+
+		std::for_each(medios.begin(), medios.end(), [=](modelo::Medio* medio) {
+			this->nueva_tendencia(medio, resultado);
+		});
+	});
+}
+
+void DialogoResultadoConsulta::completar_arboles(const std::vector<modelo::Medio*>& medios, const std::vector<modelo::Concepto*>& conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados) {
     
     // rescato los nombres de columnas(medios),
     QStringList etiquetas_medios("fecha-a-reemplazar");
     std::for_each(medios.begin(), medios.end(),
-        [&etiquetas_medios](modelo::Medio * medio)
-    {
+        [&etiquetas_medios](modelo::Medio * medio) {
         etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
     });
 
@@ -235,6 +245,13 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
     });
 
     return new QTreeWidgetItem(valores_de_termino_por_medio);
+}
+
+void DialogoResultadoConsulta::nueva_tendencia(const modelo::Medio * medio, const scraping::preparacion::ResultadoAnalisisDiario * resultado) {
+	QTableWidget * tendencia = new QTableWidget(this->ui->pestania_3);
+	this->ui->layout_pestania_3->addWidget(tendencia);
+
+
 }
 
 QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios)

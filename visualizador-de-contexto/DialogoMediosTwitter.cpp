@@ -252,5 +252,6 @@ void DialogoMediosTwitter::conectar_componentes() {
     QObject::connect(this->ui->btn_nueva, &QPushButton::released, this, &DialogoMediosTwitter::nueva_cuenta);
     QObject::connect(this->ui->btn_eliminar, &QPushButton::released, this, &DialogoMediosTwitter::eliminar_cuenta);
     QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoMediosTwitter::actualizar_y_cerrar);
-    QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoMediosTwitter::close);
+	QObject::connect(this->ui->lista_medios_twitter, &QListWidget::itemSelectionChanged, this, &DialogoMediosTwitter::estado_btn_eliminar);
+	QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoMediosTwitter::close);
 }

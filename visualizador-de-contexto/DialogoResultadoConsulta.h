@@ -3,6 +3,7 @@
 // qt
 #include <QWidget>
 #include <qtreewidget.h>
+#include <qtablewidget.h>
 #include <qdatetime.h>
 #include <qsizepolicy.h>
 #include <qfuturewatcher.h>
@@ -32,9 +33,9 @@ public:
         QWidget *parent = Q_NULLPTR);
     ~DialogoResultadoConsulta();
 
-    void volcar_datos(std::vector<modelo::Medio*> medios,
-        std::vector<modelo::Concepto*> conceptos,
-        std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados);
+    void volcar_datos(const std::vector<modelo::Medio*>& medios,
+        const std::vector<modelo::Concepto*>& conceptos,
+        const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados);
 
 private:
     Ui::DialogoResultadoConsulta *ui;
@@ -43,9 +44,11 @@ private:
 
     void conectar_componentes();
 
-    void completar_arboles(std::vector<modelo::Medio*> medios, std::vector<modelo::Concepto*> conceptos, std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados);
+	void completar_tendencias(const std::vector<modelo::Medio*> & medios, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
+    void completar_arboles(const std::vector<modelo::Medio*> & medios, const std::vector<modelo::Concepto*> & conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
     
-    QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
+	void nueva_tendencia(const modelo::Medio* medio, const scraping::preparacion::ResultadoAnalisisDiario* resultado);
+	QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
     QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
 
     QTreeWidgetItem * completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
@@ -64,9 +67,6 @@ private:
 
     void colapsar_fuerza_en_noticia(QTreeWidgetItem *item);
     void expandir_fuerza_en_noticia(QTreeWidgetItem *item);
-
-    //void exportar(int fecha);
-    //void exportar(std::vector<int> fechas);
     void exportar_actual();
     void exportar_todo();
     void exportar_rango();
@@ -84,7 +84,8 @@ private:
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados;
 
     std::unordered_map<unsigned long long int, QTreeWidget*> sentimientos;
-    std::unordered_map<unsigned long long int, QTreeWidget*> fuerzas_en_noticia;
+	std::unordered_map<unsigned long long int, QTreeWidget*> fuerzas_en_noticia;
+	std::unordered_map<unsigned long long int, std::vector<QTableWidget*>> tendencias;
 
     herramientas::utiles::Fecha fecha_actual;
 
