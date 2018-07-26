@@ -195,7 +195,7 @@
       <attribute name="title">
        <string>Tendencias</string>
       </attribute>
-      <layout class="QVBoxLayout" name="layout_pestania_3">
+      <layout class="QHBoxLayout" name="layout_pestania_3">
        <property name="spacing">
         <number>0</number>
        </property>

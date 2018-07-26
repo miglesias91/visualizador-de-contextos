@@ -38,6 +38,9 @@ public:
     QWidget *pestania_2;
     QVBoxLayout *layout_pestania_2;
     QLabel *lbl_sin_valores_2;
+    QWidget *pestania_3;
+    QHBoxLayout *layout_pestania_3;
+    QLabel *lbl_sin_valores_3;
     QHBoxLayout *layout_fechas;
     QDateEdit *calendario;
     QSlider *dias;
@@ -134,6 +137,31 @@ public:
         layout_pestania_2->addWidget(lbl_sin_valores_2);
 
         analisis->addTab(pestania_2, QString());
+        pestania_3 = new QWidget();
+        pestania_3->setObjectName(QStringLiteral("pestania_3"));
+        layout_pestania_3 = new QHBoxLayout(pestania_3);
+        layout_pestania_3->setSpacing(0);
+        layout_pestania_3->setContentsMargins(11, 11, 11, 11);
+        layout_pestania_3->setObjectName(QStringLiteral("layout_pestania_3"));
+        layout_pestania_3->setContentsMargins(0, 0, 0, 0);
+        lbl_sin_valores_3 = new QLabel(pestania_3);
+        lbl_sin_valores_3->setObjectName(QStringLiteral("lbl_sin_valores_3"));
+        sizePolicy.setHeightForWidth(lbl_sin_valores_3->sizePolicy().hasHeightForWidth());
+        lbl_sin_valores_3->setSizePolicy(sizePolicy);
+        lbl_sin_valores_3->setFont(font1);
+        lbl_sin_valores_3->setLayoutDirection(Qt::LeftToRight);
+        lbl_sin_valores_3->setAutoFillBackground(false);
+        lbl_sin_valores_3->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        lbl_sin_valores_3->setFrameShape(QFrame::Box);
+        lbl_sin_valores_3->setFrameShadow(QFrame::Plain);
+        lbl_sin_valores_3->setTextFormat(Qt::PlainText);
+        lbl_sin_valores_3->setScaledContents(false);
+        lbl_sin_valores_3->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        lbl_sin_valores_3->setWordWrap(false);
+
+        layout_pestania_3->addWidget(lbl_sin_valores_3);
+
+        analisis->addTab(pestania_3, QString());
 
         verticalLayout->addWidget(analisis);
 
@@ -335,6 +363,8 @@ public:
         analisis->setTabText(analisis->indexOf(pestania_1), QApplication::translate("DialogoResultadoConsulta", "Fuerza en noticia", Q_NULLPTR));
         lbl_sin_valores_2->setText(QApplication::translate("DialogoResultadoConsulta", "sin valores", Q_NULLPTR));
         analisis->setTabText(analisis->indexOf(pestania_2), QApplication::translate("DialogoResultadoConsulta", "Sentimiento", Q_NULLPTR));
+        lbl_sin_valores_3->setText(QApplication::translate("DialogoResultadoConsulta", "sin valores", Q_NULLPTR));
+        analisis->setTabText(analisis->indexOf(pestania_3), QApplication::translate("DialogoResultadoConsulta", "Tendencias", Q_NULLPTR));
         btn_exportar_fecha_actual->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar fecha actual", Q_NULLPTR));
         btn_exportar_todo->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar todo", Q_NULLPTR));
         btn_exportar_rango->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar rango", Q_NULLPTR));

@@ -40,6 +40,9 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
 DialogoResultadoConsulta::~DialogoResultadoConsulta() {
     std::for_each(this->sentimientos.begin(), this->sentimientos.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
     std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(), [](std::pair<unsigned long long int, QTreeWidget*> id_y_tabla) { delete id_y_tabla.second; });
+    std::for_each(this->tendencias.begin(), this->tendencias.end(), [](std::pair<unsigned long long int, std::vector<QWidget*>> id_y_tabla) { 
+        std::for_each(id_y_tabla.second.begin(), id_y_tabla.second.end(), [=](QWidget* widget) { delete widget; });
+    });
 
     delete ui;
 }
@@ -247,11 +250,55 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::
     return new QTreeWidgetItem(valores_de_termino_por_medio);
 }
 
-void DialogoResultadoConsulta::nueva_tendencia(const modelo::Medio * medio, const scraping::preparacion::ResultadoAnalisisDiario * resultado) {
-	QTableWidget * tendencia = new QTableWidget(this->ui->pestania_3);
-	this->ui->layout_pestania_3->addWidget(tendencia);
+void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado) {
+    QTableWidget * tendencia = new QTableWidget(this->ui->pestania_3);
+    tendencia->setSortingEnabled(true);
+    tendencia->verticalHeader()->setVisible(false);
+    tendencia->verticalHeader()->setDefaultSectionSize(20);
+    tendencia->horizontalHeader()->setVisible(false);
+    tendencia->horizontalHeader()->setDefaultSectionSize(80);
 
+    scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultado->getResultadoMedio(medio->getId()->numero());
+    if (resultado_medio) {
+        scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado_fuerzas;
+        std::vector<std::pair<std::string, float>> fuerzas;
+        if (resultado_medio->fuerza_en_noticia_de_categoria(&resultado_fuerzas, medio->seccion())) {
+            fuerzas = resultado_fuerzas.getTop(10);
+        }
 
+        tendencia->setRowCount(fuerzas.size());
+        tendencia->setColumnCount(3);
+
+        uint32_t fila = 0;
+        std::for_each(fuerzas.begin(), fuerzas.end(), [=, &fila](std::pair<std::string, float> fuerza) {
+            tendencia->setItem(fila, 0, new QTableWidgetItem(fuerza.first.c_str()));
+            tendencia->setItem(fila, 1, new QTableWidgetItem(herramientas::utiles::FuncionesString::toString(fuerza.second).c_str()));
+
+            scraping::analisis::tecnicas::ResultadoSentimiento resultado_sentimiento;
+            std::string sentimiento = "";
+            if (resultado_medio->sentimiento_de_categoria(&resultado_sentimiento, medio->seccion())) {
+                sentimiento = resultado_sentimiento.valores(fuerza.first).informar();
+            }
+
+            tendencia->setItem(fila, 2, new QTableWidgetItem(sentimiento.c_str()));
+
+            fila++;
+        });
+    }
+    
+    QVBoxLayout * layout_tendencia = new QVBoxLayout(this->ui->pestania_3);
+    layout_tendencia->setContentsMargins(QMargins(0, 0, 0, 0));
+    layout_tendencia->setSpacing(0);
+
+    QWidget * widget_tendencia = new QWidget(this->ui->pestania_3);
+    widget_tendencia->setLayout(layout_tendencia);
+    widget_tendencia->setVisible(false);
+
+    layout_tendencia->addWidget(new QLabel(medio->getNombre().c_str(), this->ui->pestania_3));
+    layout_tendencia->addWidget(tendencia);
+
+    this->ui->layout_pestania_3->addWidget(widget_tendencia);
+    (&this->tendencias[resultado->getId()->numero()])->push_back(widget_tendencia);
 }
 
 QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios)
@@ -310,12 +357,24 @@ void DialogoResultadoConsulta::mostrar_resultado(int fecha) {
 
     if (this->sentimientos.count(fecha)) {
         this->sentimientos[fecha]->setVisible(true);
-        this->fuerzas_en_noticia[fecha]->raise();
+        this->sentimientos[fecha]->raise();
         this->ui->lbl_sin_valores_2->setVisible(false);
     }
     else {
         this->ui->lbl_sin_valores_2->setVisible(true);
         this->ui->lbl_sin_valores_2->raise();
+    }
+
+    if (this->tendencias.count(fecha)) {
+        std::for_each(this->tendencias[fecha].begin(), this->tendencias[fecha].end(), [=](QWidget * widget_tendencia) {
+            widget_tendencia->setVisible(true);
+            widget_tendencia->raise();
+        });
+        this->ui->lbl_sin_valores_3->setVisible(false);
+    }
+    else {
+        this->ui->lbl_sin_valores_3->setVisible(true);
+        this->ui->lbl_sin_valores_3->raise();
     }
 }
 
@@ -327,6 +386,12 @@ void DialogoResultadoConsulta::ocultar_resultado(int fecha) {
 
     if (this->sentimientos.count(fecha)) {
         this->sentimientos[fecha]->setVisible(false);
+    }
+
+    if (this->tendencias.count(fecha)) {
+        std::for_each(this->tendencias[fecha].begin(), this->tendencias[fecha].end(), [=](QWidget * widget_tendencia) {
+            widget_tendencia->setVisible(false);
+        });
     }
 }
 

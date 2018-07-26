@@ -47,7 +47,7 @@ private:
 	void completar_tendencias(const std::vector<modelo::Medio*> & medios, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
     void completar_arboles(const std::vector<modelo::Medio*> & medios, const std::vector<modelo::Concepto*> & conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
     
-	void nueva_tendencia(const modelo::Medio* medio, const scraping::preparacion::ResultadoAnalisisDiario* resultado);
+	void nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
 	QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
     QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
 
@@ -85,7 +85,7 @@ private:
 
     std::unordered_map<unsigned long long int, QTreeWidget*> sentimientos;
 	std::unordered_map<unsigned long long int, QTreeWidget*> fuerzas_en_noticia;
-	std::unordered_map<unsigned long long int, std::vector<QTableWidget*>> tendencias;
+	std::unordered_map<unsigned long long int, std::vector<QWidget*>> tendencias;
 
     herramientas::utiles::Fecha fecha_actual;
 
