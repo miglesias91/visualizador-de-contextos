@@ -1,6 +1,9 @@
 #include "DialogoResultadoConsulta.h"
 #include "ui_DialogoResultadoConsulta.h"
 
+// aplicacion
+#include <aplicacion/include/ConfiguracionAplicacion.h>
+
 DialogoResultadoConsulta::DialogoResultadoConsulta(QWidget *parent) : QWidget(parent) {
 
     ui = new Ui::DialogoResultadoConsulta();
@@ -84,25 +87,23 @@ void DialogoResultadoConsulta::completar_tendencias(const std::vector<modelo::Me
 void DialogoResultadoConsulta::completar_arboles(const std::vector<modelo::Medio*>& medios, const std::vector<modelo::Concepto*>& conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados) {
     
     // rescato los nombres de columnas(medios),
-    QStringList etiquetas_medios("fecha-a-reemplazar");
-    std::for_each(medios.begin(), medios.end(),
-        [&etiquetas_medios](modelo::Medio * medio) {
-        etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
-    });
+    //QStringList etiquetas_medios("fecha-a-reemplazar");
+    //std::for_each(medios.begin(), medios.end(),
+    //    [&etiquetas_medios](modelo::Medio * medio) {
+    //    etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
+    //});
 
     // y paso los resultados a la tabla.
     std::for_each(resultados.begin(), resultados.end(),
-        [this, &conceptos, &etiquetas_medios, &medios](scraping::preparacion::ResultadoAnalisisDiario * resultado)
+        [this, &conceptos, &medios](scraping::preparacion::ResultadoAnalisisDiario * resultado)
     {
         herramientas::utiles::ID * id_resultado = resultado->getId();
 
         // lleno los datos de los arboles
         herramientas::utiles::Fecha fecha_arbol = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(id_resultado->string());
-        etiquetas_medios.pop_front();
-        etiquetas_medios.push_front(fecha_arbol.getStringDDmesAAAA(" ").c_str());
 
-        QTreeWidget * sentimiento = this->nuevo_arbol_sentimiento(id_resultado->numero(), etiquetas_medios);
-        QTreeWidget * fuerza_en_noticia = this->nuevo_arbol_fuerza_en_noticia(id_resultado->numero(), etiquetas_medios);
+        QTreeWidget * sentimiento = this->nuevo_arbol_sentimiento(id_resultado->numero(), medios);
+        QTreeWidget * fuerza_en_noticia = this->nuevo_arbol_fuerza_en_noticia(id_resultado->numero(), medios);
 
         std::for_each(conceptos.begin(), conceptos.end(),
             [&resultado,
@@ -294,14 +295,29 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
     widget_tendencia->setLayout(layout_tendencia);
     widget_tendencia->setVisible(false);
 
-    layout_tendencia->addWidget(new QLabel(medio->getNombre().c_str(), this->ui->pestania_3));
+    QHBoxLayout * layout_etiqueta = new QHBoxLayout(this->ui->pestania_3);
+    layout_etiqueta->setContentsMargins(QMargins(1, 1, 1, 1));
+    layout_etiqueta->setSpacing(1);
+    layout_etiqueta->setAlignment(Qt::AlignLeft);
+
+    QWidget * widget_etiqueta = new QWidget(this->ui->pestania_3);
+    widget_etiqueta->setLayout(layout_etiqueta);
+
+    QLabel * etiqueta = new QLabel(medio->getNombre().c_str(), this->ui->pestania_3);
+    QLabel * icono = new QLabel(this->ui->pestania_3);
+
+    icono->setPixmap(QIcon(this->path_icono(medio).c_str()).pixmap(QSize(16, 16)));
+    layout_etiqueta->addWidget(icono);
+    layout_etiqueta->addWidget(etiqueta);
+
+    layout_tendencia->addWidget(widget_etiqueta);
     layout_tendencia->addWidget(tendencia);
 
     this->ui->layout_pestania_3->addWidget(widget_tendencia);
     (&this->tendencias[resultado->getId()->numero()])->push_back(widget_tendencia);
 }
 
-QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios)
+QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios)
 {
     QTreeWidget * sentimiento = new QTreeWidget(this->ui->pestania_2);
 
@@ -311,8 +327,16 @@ QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned l
     sentimiento->move(this->ui->lbl_sin_valores_2->pos());
     this->ui->layout_pestania_2->addWidget(sentimiento);
 
+    sentimiento->setColumnCount((medios.size() + 1));
+
+    QStringList etiquetas_medios(herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(std::to_string(fecha)).getStringDDmesAAAA(" ").c_str());
+    std::for_each(medios.begin(), medios.end(),
+        [=, &etiquetas_medios, &sentimiento](modelo::Medio * medio) {
+        sentimiento->model()->setHeaderData(etiquetas_medios.size(), Qt::Horizontal, QVariant::fromValue(QIcon(this->path_icono(medio).c_str())), Qt::DecorationRole);
+        etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
+    });
+
     sentimiento->setHeaderLabels(etiquetas_medios);
-    sentimiento->setColumnCount(etiquetas_medios.size());
     sentimiento->setSortingEnabled(true);
     sentimiento->setVisible(false);
     sentimiento->setSelectionMode(QAbstractItemView::SelectionMode::ContiguousSelection);
@@ -322,7 +346,7 @@ QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned l
     return sentimiento;
 }
 
-QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const QStringList & etiquetas_medios)
+QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios)
 {
     QTreeWidget * fuerza_en_noticia = new QTreeWidget(this->ui->pestania_1);
 
@@ -332,8 +356,16 @@ QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_fuerza_en_noticia(const unsi
     fuerza_en_noticia->move(this->ui->lbl_sin_valores_1->pos());
     this->ui->layout_pestania_1->addWidget(fuerza_en_noticia);
 
+    fuerza_en_noticia->setColumnCount(medios.size() + 1);
+
+    QStringList etiquetas_medios(herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(std::to_string(fecha)).getStringDDmesAAAA(" ").c_str());
+    std::for_each(medios.begin(), medios.end(),
+        [=, &etiquetas_medios, &fuerza_en_noticia](modelo::Medio * medio) {
+        fuerza_en_noticia->model()->setHeaderData(etiquetas_medios.size(), Qt::Horizontal, QVariant::fromValue(QIcon(this->path_icono(medio).c_str())), Qt::DecorationRole);
+        etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
+    });
+
     fuerza_en_noticia->setHeaderLabels(etiquetas_medios);
-    fuerza_en_noticia->setColumnCount(etiquetas_medios.size());
     fuerza_en_noticia->setSortingEnabled(true);
     fuerza_en_noticia->setVisible(false);
     fuerza_en_noticia->setSelectionMode(QAbstractItemView::SelectionMode::ContiguousSelection);
@@ -570,6 +602,19 @@ herramientas::utiles::Json * DialogoResultadoConsulta::termino_a_json(QTreeWidge
     json_termino->agregarAtributoValor("sentimiento", sentimiento_valor_termino_en_medio);
 
     return json_termino;
+}
+
+std::string DialogoResultadoConsulta::path_icono(modelo::Medio * medio) {
+    if (visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioFacebook() == medio->getGrupo()) {
+        return "Resources/icono_facebook.png";
+    }
+    if (visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioTwitter() == medio->getGrupo()) {
+        return "Resources/icono_twitter.png";
+    }
+    if (visualizador::aplicacion::ConfiguracionAplicacion::prefijoMedioPortalNoticias() == medio->getGrupo()) {
+        return "Resources/icono_portal.png";
+    }
+    return "Resources/icono_portal.png";
 }
 
 void DialogoResultadoConsulta::exportar_actual() {

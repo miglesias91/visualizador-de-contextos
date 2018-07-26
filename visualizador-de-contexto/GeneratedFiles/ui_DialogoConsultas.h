@@ -340,7 +340,12 @@ public:
         lista_medios_en_consulta->setObjectName(QStringLiteral("lista_medios_en_consulta"));
         lista_medios_en_consulta->setMinimumSize(QSize(0, 100));
         lista_medios_en_consulta->setFont(font3);
+        lista_medios_en_consulta->setDragEnabled(true);
+        lista_medios_en_consulta->setDragDropMode(QAbstractItemView::DragOnly);
+        lista_medios_en_consulta->setDefaultDropAction(Qt::IgnoreAction);
         lista_medios_en_consulta->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        lista_medios_en_consulta->setMovement(QListView::Free);
+        lista_medios_en_consulta->setViewMode(QListView::ListMode);
 
         layout_medios_consulta->addWidget(lista_medios_en_consulta);
 

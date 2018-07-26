@@ -48,8 +48,8 @@ private:
     void completar_arboles(const std::vector<modelo::Medio*> & medios, const std::vector<modelo::Concepto*> & conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
     
 	void nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
-	QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
-    QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const QStringList & etiquetas_medios);
+	QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
+    QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
 
     QTreeWidgetItem * completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
     QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
@@ -77,6 +77,8 @@ private:
     herramientas::utiles::Json * fecha_a_json(int fecha);
     herramientas::utiles::Json * concepto_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_medio);
     herramientas::utiles::Json * termino_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_termino, int idx_medio);
+
+    std::string path_icono(modelo::Medio* medio);
 
     // atributos
     std::vector<modelo::Medio*> medios;
