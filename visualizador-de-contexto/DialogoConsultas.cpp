@@ -1,6 +1,9 @@
 #include "DialogoConsultas.h"
 #include "ui_DialogoConsultas.h"
 
+// qt
+#include <qcheckbox.h>
+
 // scraping
 #include <scraping/include/GestorMedios.h>
 
@@ -23,6 +26,12 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
     this->ui->lbl_etiqueta->setVisible(false);
     this->ui->lineedit_etiqueta_periodo->setVisible(false);
     this->ui->progressbar_realizar_consulta->setVisible(false);
+
+    herramientas::utiles::Fecha actual = herramientas::utiles::Fecha::getFechaActual();
+    herramientas::utiles::Fecha desde = actual;
+    desde -= std::chrono::hours(7 * 24);  // una semana para atras.
+    this->ui->dateedit_desde->setDate(QDate(desde.getAnio(), desde.getMes(), desde.getDia()));
+    this->ui->dateedit_hasta->setDate(QDate(actual.getAnio(), actual.getMes(), actual.getDia()));
 
     this->conectar_componentes();
 
@@ -206,7 +215,7 @@ void DialogoConsultas::agregar_reportes()
 
     for (std::vector<modelo::Reporte*>::iterator it = reportes_seleccionados.begin(); it != reportes_seleccionados.end(); it++)
     {
-        this->agregarReporteALista(*it, this->ui->lista_reportes_en_consulta);
+        //this->agregarReporteALista(*it, this->ui->lista_reportes_en_consulta);
     }
 
     aplicacion::Logger::info(std::to_string(reportes_seleccionados.size()) + " reportes agregados a la consulta.");
@@ -216,16 +225,16 @@ void DialogoConsultas::agregar_reportes()
 
 void DialogoConsultas::sacar_reportes()
 {
-    std::vector<modelo::Reporte*> reportes_seleccionados = this->itemsSeleccionados<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
+    //std::vector<modelo::Reporte*> reportes_seleccionados = this->itemsSeleccionados<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
 
-    for (std::vector<modelo::Reporte*>::iterator it = reportes_seleccionados.begin(); it != reportes_seleccionados.end(); it++)
-    {
-        this->agregarReporteALista(*it, this->ui->lista_reportes);
-    }
+    //for (std::vector<modelo::Reporte*>::iterator it = reportes_seleccionados.begin(); it != reportes_seleccionados.end(); it++)
+    //{
+    //    this->agregarReporteALista(*it, this->ui->lista_reportes);
+    //}
 
-    aplicacion::Logger::info(std::to_string(reportes_seleccionados.size()) + " reportes sacados de la consulta.");
+    //aplicacion::Logger::info(std::to_string(reportes_seleccionados.size()) + " reportes sacados de la consulta.");
 
-    this->sacarItemsSeleccionados(this->ui->lista_reportes_en_consulta);
+    //this->sacarItemsSeleccionados(this->ui->lista_reportes_en_consulta);
 }
 
 void DialogoConsultas::recuperar_resultados() {
@@ -307,7 +316,13 @@ void DialogoConsultas::mostrar_resultados() {
 
     aplicacion::Logger::info("Realizando consulta: " + std::to_string(this->resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
-    this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, this->resultados_filtrados);
+    QCheckBox checkbox;
+    checkbox.isChecked();
+    DialogoResultadoConsulta::reportes_checkeados reportes_habilitados{
+        this->ui->checkbox_fuerza->isChecked(), this->ui->checkbox_sentimiento->isChecked(), this->ui->checkbox_tendencia->isChecked()
+    };
+
+    this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, this->resultados_filtrados, reportes_habilitados);
     this->ui->opciones_consulta->addTab(dialogo_resultados, ("consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS()).c_str());
     this->ui->opciones_consulta->setCurrentWidget(this->dialogo_resultados);
     this->dialogo_resultados->show();

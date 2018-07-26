@@ -23,6 +23,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     std::vector<modelo::Medio*> medios,
     std::vector<modelo::Concepto*> conceptos,
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados,
+    const reportes_checkeados& reportes_habilitados,
     QWidget *parent)
     : medios(medios), conceptos(conceptos), resultados(resultados), QWidget(parent)
 {
@@ -36,6 +37,16 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
 
     this->ui->progressbar_exportacion->hide();
+
+    if (false == reportes_habilitados.tendencia) {
+        this->ui->analisis->removeTab(2);
+    }
+    if (false == reportes_habilitados.sentimiento) {
+        this->ui->analisis->removeTab(1);
+    }
+    if (false == reportes_habilitados.fuerza_en_noticia) {
+        this->ui->analisis->removeTab(0);
+    }
 
     this->volcar_datos(medios, conceptos, resultados);
 }
@@ -86,13 +97,6 @@ void DialogoResultadoConsulta::completar_tendencias(const std::vector<modelo::Me
 
 void DialogoResultadoConsulta::completar_arboles(const std::vector<modelo::Medio*>& medios, const std::vector<modelo::Concepto*>& conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados) {
     
-    // rescato los nombres de columnas(medios),
-    //QStringList etiquetas_medios("fecha-a-reemplazar");
-    //std::for_each(medios.begin(), medios.end(),
-    //    [&etiquetas_medios](modelo::Medio * medio) {
-    //    etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
-    //});
-
     // y paso los resultados a la tabla.
     std::for_each(resultados.begin(), resultados.end(),
         [this, &conceptos, &medios](scraping::preparacion::ResultadoAnalisisDiario * resultado)

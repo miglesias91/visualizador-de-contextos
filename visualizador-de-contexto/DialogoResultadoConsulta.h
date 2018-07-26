@@ -24,12 +24,17 @@ class DialogoResultadoConsulta : public QWidget
     Q_OBJECT
 
 public:
+    struct reportes_checkeados {
+        bool fuerza_en_noticia = false, sentimiento = false, tendencia = false;
+    };
+
     DialogoResultadoConsulta(QWidget *parent = Q_NULLPTR);
 
     DialogoResultadoConsulta(
         std::vector<modelo::Medio*> medios,
         std::vector<modelo::Concepto*> conceptos,
         std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados,
+        const reportes_checkeados& reportes_habilitados,
         QWidget *parent = Q_NULLPTR);
     ~DialogoResultadoConsulta();
 

@@ -350,7 +350,7 @@ public:
 
         retranslateUi(DialogoResultadoConsulta);
 
-        analisis->setCurrentIndex(2);
+        analisis->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(DialogoResultadoConsulta);

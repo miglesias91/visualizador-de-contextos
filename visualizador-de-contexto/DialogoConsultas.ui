@@ -203,6 +203,9 @@
                   <property name="buttonSymbols">
                    <enum>QAbstractSpinBox::NoButtons</enum>
                   </property>
+                  <property name="currentSection">
+                   <enum>QDateTimeEdit::DaySection</enum>
+                  </property>
                   <property name="calendarPopup">
                    <bool>true</bool>
                   </property>
@@ -531,7 +534,7 @@
           <item>
            <widget class="QWidget" name="widget_reportes" native="true">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="maximumSize">
              <size>
@@ -608,56 +611,33 @@
               </layout>
              </item>
              <item>
-              <widget class="QListWidget" name="lista_reportes_en_consulta">
-               <property name="enabled">
+              <widget class="QCheckBox" name="checkbox_tendencia">
+               <property name="text">
+                <string>Tendencia</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <property name="autoRepeat">
                 <bool>false</bool>
                </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
+               <property name="tristate">
+                <bool>false</bool>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkbox_fuerza">
+               <property name="text">
+                <string>Fuerza de concepto en medio</string>
                </property>
-               <item>
-                <property name="text">
-                 <string>Fuerza de concepto en medio</string>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Calibri</family>
-                  <pointsize>10</pointsize>
-                  <italic>false</italic>
-                 </font>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Sentimiento</string>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Calibri</family>
-                  <pointsize>10</pointsize>
-                  <italic>false</italic>
-                 </font>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Tendencias</string>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Calibri</family>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkbox_sentimiento">
+               <property name="text">
+                <string>Sentimiento</string>
+               </property>
               </widget>
              </item>
             </layout>

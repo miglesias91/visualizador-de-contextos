@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -83,7 +84,9 @@ public:
     QHBoxLayout *cabecera_reportes;
     QLabel *lbl_reportes;
     QPushButton *btn_agregar_reportes;
-    QListWidget *lista_reportes_en_consulta;
+    QCheckBox *checkbox_tendencia;
+    QCheckBox *checkbox_fuerza;
+    QCheckBox *checkbox_sentimiento;
     QFrame *line_4;
     QWidget *widget_secciones;
     QVBoxLayout *layout_secciones_consulta;
@@ -252,6 +255,7 @@ public:
         font3.setItalic(true);
         dateedit_desde->setFont(font3);
         dateedit_desde->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        dateedit_desde->setCurrentSection(QDateTimeEdit::DaySection);
         dateedit_desde->setCalendarPopup(true);
 
         layout_periodo_consulta->addWidget(dateedit_desde);
@@ -410,7 +414,7 @@ public:
 
         widget_reportes = new QWidget(widget_consulta);
         widget_reportes->setObjectName(QStringLiteral("widget_reportes"));
-        widget_reportes->setEnabled(false);
+        widget_reportes->setEnabled(true);
         widget_reportes->setMaximumSize(QSize(16777215, 80));
         verticalLayout = new QVBoxLayout(widget_reportes);
         verticalLayout->setSpacing(0);
@@ -440,22 +444,23 @@ public:
 
         verticalLayout->addLayout(cabecera_reportes);
 
-        lista_reportes_en_consulta = new QListWidget(widget_reportes);
-        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem->setFont(font);
-        QListWidgetItem *__qlistwidgetitem1 = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem1->setFont(font);
-        QFont font4;
-        font4.setFamily(QStringLiteral("Calibri"));
-        font4.setPointSize(10);
-        QListWidgetItem *__qlistwidgetitem2 = new QListWidgetItem(lista_reportes_en_consulta);
-        __qlistwidgetitem2->setFont(font4);
-        lista_reportes_en_consulta->setObjectName(QStringLiteral("lista_reportes_en_consulta"));
-        lista_reportes_en_consulta->setEnabled(false);
-        lista_reportes_en_consulta->setMaximumSize(QSize(16777215, 16777215));
-        lista_reportes_en_consulta->setFont(font2);
+        checkbox_tendencia = new QCheckBox(widget_reportes);
+        checkbox_tendencia->setObjectName(QStringLiteral("checkbox_tendencia"));
+        checkbox_tendencia->setChecked(true);
+        checkbox_tendencia->setAutoRepeat(false);
+        checkbox_tendencia->setTristate(false);
 
-        verticalLayout->addWidget(lista_reportes_en_consulta);
+        verticalLayout->addWidget(checkbox_tendencia);
+
+        checkbox_fuerza = new QCheckBox(widget_reportes);
+        checkbox_fuerza->setObjectName(QStringLiteral("checkbox_fuerza"));
+
+        verticalLayout->addWidget(checkbox_fuerza);
+
+        checkbox_sentimiento = new QCheckBox(widget_reportes);
+        checkbox_sentimiento->setObjectName(QStringLiteral("checkbox_sentimiento"));
+
+        verticalLayout->addWidget(checkbox_sentimiento);
 
 
         layout_consulta->addWidget(widget_reportes);
@@ -500,8 +505,8 @@ public:
         layout_secciones_consulta->addLayout(cabecera_secciones);
 
         lista_secciones_en_consulta = new QListWidget(widget_secciones);
-        QListWidgetItem *__qlistwidgetitem3 = new QListWidgetItem(lista_secciones_en_consulta);
-        __qlistwidgetitem3->setFont(font);
+        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_secciones_en_consulta);
+        __qlistwidgetitem->setFont(font);
         lista_secciones_en_consulta->setObjectName(QStringLiteral("lista_secciones_en_consulta"));
         lista_secciones_en_consulta->setEnabled(false);
         lista_secciones_en_consulta->setFont(font2);
@@ -531,12 +536,12 @@ public:
         btn_realizar_consulta->setSizePolicy(sizePolicy1);
         btn_realizar_consulta->setMinimumSize(QSize(0, 0));
         btn_realizar_consulta->setMaximumSize(QSize(16777215, 16777215));
-        QFont font5;
-        font5.setPointSize(10);
-        font5.setBold(false);
-        font5.setItalic(false);
-        font5.setWeight(50);
-        btn_realizar_consulta->setFont(font5);
+        QFont font4;
+        font4.setPointSize(10);
+        font4.setBold(false);
+        font4.setItalic(false);
+        font4.setWeight(50);
+        btn_realizar_consulta->setFont(font4);
 
         layout_botones->addWidget(btn_realizar_consulta);
 
@@ -546,11 +551,11 @@ public:
         btn_cancelar->setSizePolicy(sizePolicy1);
         btn_cancelar->setMinimumSize(QSize(0, 0));
         btn_cancelar->setMaximumSize(QSize(16777215, 16777215));
-        QFont font6;
-        font6.setPointSize(10);
-        font6.setBold(false);
-        font6.setWeight(50);
-        btn_cancelar->setFont(font6);
+        QFont font5;
+        font5.setPointSize(10);
+        font5.setBold(false);
+        font5.setWeight(50);
+        btn_cancelar->setFont(font5);
 
         layout_botones->addWidget(btn_cancelar);
 
@@ -610,10 +615,10 @@ public:
 
         lista_medios = new QListWidget(widget_lista_medios);
         lista_medios->setObjectName(QStringLiteral("lista_medios"));
-        QFont font7;
-        font7.setPointSize(10);
-        font7.setItalic(false);
-        lista_medios->setFont(font7);
+        QFont font6;
+        font6.setPointSize(10);
+        font6.setItalic(false);
+        lista_medios->setFont(font6);
         lista_medios->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
         layout_lista_medios->addWidget(lista_medios);
@@ -661,7 +666,7 @@ public:
 
         lista_conceptos = new QListWidget(widget_lista_conceptos);
         lista_conceptos->setObjectName(QStringLiteral("lista_conceptos"));
-        lista_conceptos->setFont(font7);
+        lista_conceptos->setFont(font6);
         lista_conceptos->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
         layout_opciones_conceptos->addWidget(lista_conceptos);
@@ -710,7 +715,7 @@ public:
 
         lista_periodos = new QListWidget(widget_lista_periodos);
         lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
-        lista_periodos->setFont(font7);
+        lista_periodos->setFont(font6);
 
         verticalLayout_4->addWidget(lista_periodos);
 
@@ -721,9 +726,9 @@ public:
         tab_secciones = new QWidget();
         tab_secciones->setObjectName(QStringLiteral("tab_secciones"));
         tab_secciones->setEnabled(false);
-        QFont font8;
-        font8.setItalic(false);
-        tab_secciones->setFont(font8);
+        QFont font7;
+        font7.setItalic(false);
+        tab_secciones->setFont(font7);
         verticalLayout_12 = new QVBoxLayout(tab_secciones);
         verticalLayout_12->setSpacing(0);
         verticalLayout_12->setContentsMargins(11, 11, 11, 11);
@@ -752,7 +757,7 @@ public:
         btn_agregar_secciones->setSizePolicy(sizePolicy1);
         btn_agregar_secciones->setMinimumSize(QSize(0, 0));
         btn_agregar_secciones->setMaximumSize(QSize(16777215, 16777215));
-        btn_agregar_secciones->setFont(font7);
+        btn_agregar_secciones->setFont(font6);
 
         cabecera_lista_secciones->addWidget(btn_agregar_secciones);
 
@@ -799,7 +804,7 @@ public:
         btn_sacar_reportes->setSizePolicy(sizePolicy1);
         btn_sacar_reportes->setMinimumSize(QSize(0, 0));
         btn_sacar_reportes->setMaximumSize(QSize(16777215, 16777215));
-        btn_sacar_reportes->setFont(font7);
+        btn_sacar_reportes->setFont(font6);
 
         cabecera_lista_reportes->addWidget(btn_sacar_reportes);
 
@@ -855,25 +860,17 @@ public:
         btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "Sacar conceptos", Q_NULLPTR));
         lbl_reportes->setText(QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
         btn_agregar_reportes->setText(QApplication::translate("DialogoConsultas", "Sacar reportes", Q_NULLPTR));
-
-        const bool __sortingEnabled = lista_reportes_en_consulta->isSortingEnabled();
-        lista_reportes_en_consulta->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = lista_reportes_en_consulta->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("DialogoConsultas", "Fuerza de concepto en medio", Q_NULLPTR));
-        QListWidgetItem *___qlistwidgetitem1 = lista_reportes_en_consulta->item(1);
-        ___qlistwidgetitem1->setText(QApplication::translate("DialogoConsultas", "Sentimiento", Q_NULLPTR));
-        QListWidgetItem *___qlistwidgetitem2 = lista_reportes_en_consulta->item(2);
-        ___qlistwidgetitem2->setText(QApplication::translate("DialogoConsultas", "Tendencias", Q_NULLPTR));
-        lista_reportes_en_consulta->setSortingEnabled(__sortingEnabled);
-
+        checkbox_tendencia->setText(QApplication::translate("DialogoConsultas", "Tendencia", Q_NULLPTR));
+        checkbox_fuerza->setText(QApplication::translate("DialogoConsultas", "Fuerza de concepto en medio", Q_NULLPTR));
+        checkbox_sentimiento->setText(QApplication::translate("DialogoConsultas", "Sentimiento", Q_NULLPTR));
         lbl_secciones->setText(QApplication::translate("DialogoConsultas", "Secciones", Q_NULLPTR));
         btn_sacar_secciones->setText(QApplication::translate("DialogoConsultas", "Sacar secciones", Q_NULLPTR));
 
-        const bool __sortingEnabled1 = lista_secciones_en_consulta->isSortingEnabled();
+        const bool __sortingEnabled = lista_secciones_en_consulta->isSortingEnabled();
         lista_secciones_en_consulta->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem3 = lista_secciones_en_consulta->item(0);
-        ___qlistwidgetitem3->setText(QApplication::translate("DialogoConsultas", "Todas", Q_NULLPTR));
-        lista_secciones_en_consulta->setSortingEnabled(__sortingEnabled1);
+        QListWidgetItem *___qlistwidgetitem = lista_secciones_en_consulta->item(0);
+        ___qlistwidgetitem->setText(QApplication::translate("DialogoConsultas", "Todas", Q_NULLPTR));
+        lista_secciones_en_consulta->setSortingEnabled(__sortingEnabled);
 
         btn_realizar_consulta->setText(QApplication::translate("DialogoConsultas", "Consultar", Q_NULLPTR));
         btn_cancelar->setText(QApplication::translate("DialogoConsultas", "Cancelar", Q_NULLPTR));
