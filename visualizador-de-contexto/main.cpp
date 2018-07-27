@@ -43,12 +43,6 @@ int main(int argc, char *argv[])
         //scraping::IAdministradorScraping::iniciar("config_scraping.json");
         scraping::ConfiguracionScraping::leerConfiguracion(aplicacion::ConfiguracionAplicacion::pathConfiguracionScraping());
         medios::noticias::config::levantar(aplicacion::ConfiguracionAplicacion::pathConfiguracionNoticias());
-
-        //scraping::IAdministradorScraping::getInstanciaAdminInfo()->abrirBD();
-        //scraping::IAdministradorScraping::getInstanciaAdminInfo()->recuperarIDsActuales();
-
-        //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->abrirBD();
-        //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->recuperarIDsActuales();
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
     {

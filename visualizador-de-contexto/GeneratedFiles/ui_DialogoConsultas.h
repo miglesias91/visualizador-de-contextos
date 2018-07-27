@@ -83,17 +83,11 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *cabecera_reportes;
     QLabel *lbl_reportes;
-    QPushButton *btn_agregar_reportes;
     QCheckBox *checkbox_tendencia;
     QCheckBox *checkbox_fuerza;
     QCheckBox *checkbox_sentimiento;
-    QFrame *line_4;
     QWidget *widget_secciones;
     QVBoxLayout *layout_secciones_consulta;
-    QHBoxLayout *cabecera_secciones;
-    QLabel *lbl_secciones;
-    QPushButton *btn_sacar_secciones;
-    QListWidget *lista_secciones_en_consulta;
     QSpacerItem *espaciador_consulta;
     QWidget *widget_botones;
     QHBoxLayout *layout_botones;
@@ -124,22 +118,6 @@ public:
     QLabel *lbl_lista_de_periodos;
     QPushButton *btn_setear_periodo;
     QListWidget *lista_periodos;
-    QWidget *tab_secciones;
-    QVBoxLayout *verticalLayout_12;
-    QWidget *widget_lista_secciones;
-    QVBoxLayout *layout_lista_secciones;
-    QHBoxLayout *cabecera_lista_secciones;
-    QLabel *lbl_lista_de_secciones;
-    QPushButton *btn_agregar_secciones;
-    QListWidget *lista_secciones;
-    QWidget *tab_reporte;
-    QVBoxLayout *verticalLayout_13;
-    QWidget *widget_lista_reportes;
-    QVBoxLayout *layout_lista_reportes;
-    QHBoxLayout *cabecera_lista_reportes;
-    QLabel *label_2;
-    QPushButton *btn_sacar_reportes;
-    QListWidget *lista_reportes;
 
     void setupUi(QWidget *DialogoConsultas)
     {
@@ -431,16 +409,6 @@ public:
 
         cabecera_reportes->addWidget(lbl_reportes);
 
-        btn_agregar_reportes = new QPushButton(widget_reportes);
-        btn_agregar_reportes->setObjectName(QStringLiteral("btn_agregar_reportes"));
-        sizePolicy1.setHeightForWidth(btn_agregar_reportes->sizePolicy().hasHeightForWidth());
-        btn_agregar_reportes->setSizePolicy(sizePolicy1);
-        btn_agregar_reportes->setMinimumSize(QSize(0, 0));
-        btn_agregar_reportes->setMaximumSize(QSize(16777215, 16777215));
-        btn_agregar_reportes->setFont(font2);
-
-        cabecera_reportes->addWidget(btn_agregar_reportes);
-
 
         verticalLayout->addLayout(cabecera_reportes);
 
@@ -465,13 +433,6 @@ public:
 
         layout_consulta->addWidget(widget_reportes);
 
-        line_4 = new QFrame(widget_consulta);
-        line_4->setObjectName(QStringLiteral("line_4"));
-        line_4->setFrameShape(QFrame::HLine);
-        line_4->setFrameShadow(QFrame::Sunken);
-
-        layout_consulta->addWidget(line_4);
-
         widget_secciones = new QWidget(widget_consulta);
         widget_secciones->setObjectName(QStringLiteral("widget_secciones"));
         widget_secciones->setEnabled(false);
@@ -481,38 +442,6 @@ public:
         layout_secciones_consulta->setContentsMargins(11, 11, 11, 11);
         layout_secciones_consulta->setObjectName(QStringLiteral("layout_secciones_consulta"));
         layout_secciones_consulta->setContentsMargins(0, 0, 0, 0);
-        cabecera_secciones = new QHBoxLayout();
-        cabecera_secciones->setSpacing(0);
-        cabecera_secciones->setObjectName(QStringLiteral("cabecera_secciones"));
-        lbl_secciones = new QLabel(widget_secciones);
-        lbl_secciones->setObjectName(QStringLiteral("lbl_secciones"));
-        lbl_secciones->setFont(font1);
-        lbl_secciones->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        cabecera_secciones->addWidget(lbl_secciones);
-
-        btn_sacar_secciones = new QPushButton(widget_secciones);
-        btn_sacar_secciones->setObjectName(QStringLiteral("btn_sacar_secciones"));
-        sizePolicy1.setHeightForWidth(btn_sacar_secciones->sizePolicy().hasHeightForWidth());
-        btn_sacar_secciones->setSizePolicy(sizePolicy1);
-        btn_sacar_secciones->setMinimumSize(QSize(0, 0));
-        btn_sacar_secciones->setMaximumSize(QSize(16777215, 16777215));
-        btn_sacar_secciones->setFont(font2);
-
-        cabecera_secciones->addWidget(btn_sacar_secciones);
-
-
-        layout_secciones_consulta->addLayout(cabecera_secciones);
-
-        lista_secciones_en_consulta = new QListWidget(widget_secciones);
-        QListWidgetItem *__qlistwidgetitem = new QListWidgetItem(lista_secciones_en_consulta);
-        __qlistwidgetitem->setFont(font);
-        lista_secciones_en_consulta->setObjectName(QStringLiteral("lista_secciones_en_consulta"));
-        lista_secciones_en_consulta->setEnabled(false);
-        lista_secciones_en_consulta->setFont(font2);
-
-        layout_secciones_consulta->addWidget(lista_secciones_en_consulta);
-
 
         layout_consulta->addWidget(widget_secciones);
 
@@ -723,103 +652,6 @@ public:
         verticalLayout_11->addWidget(widget_lista_periodos);
 
         opciones_consulta->addTab(tab_periodo, QString());
-        tab_secciones = new QWidget();
-        tab_secciones->setObjectName(QStringLiteral("tab_secciones"));
-        tab_secciones->setEnabled(false);
-        QFont font7;
-        font7.setItalic(false);
-        tab_secciones->setFont(font7);
-        verticalLayout_12 = new QVBoxLayout(tab_secciones);
-        verticalLayout_12->setSpacing(0);
-        verticalLayout_12->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        verticalLayout_12->setContentsMargins(0, 0, 0, 0);
-        widget_lista_secciones = new QWidget(tab_secciones);
-        widget_lista_secciones->setObjectName(QStringLiteral("widget_lista_secciones"));
-        layout_lista_secciones = new QVBoxLayout(widget_lista_secciones);
-        layout_lista_secciones->setSpacing(0);
-        layout_lista_secciones->setContentsMargins(11, 11, 11, 11);
-        layout_lista_secciones->setObjectName(QStringLiteral("layout_lista_secciones"));
-        layout_lista_secciones->setContentsMargins(0, 0, 0, 0);
-        cabecera_lista_secciones = new QHBoxLayout();
-        cabecera_lista_secciones->setSpacing(6);
-        cabecera_lista_secciones->setObjectName(QStringLiteral("cabecera_lista_secciones"));
-        lbl_lista_de_secciones = new QLabel(widget_lista_secciones);
-        lbl_lista_de_secciones->setObjectName(QStringLiteral("lbl_lista_de_secciones"));
-        lbl_lista_de_secciones->setFont(font1);
-        lbl_lista_de_secciones->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        cabecera_lista_secciones->addWidget(lbl_lista_de_secciones);
-
-        btn_agregar_secciones = new QPushButton(widget_lista_secciones);
-        btn_agregar_secciones->setObjectName(QStringLiteral("btn_agregar_secciones"));
-        sizePolicy1.setHeightForWidth(btn_agregar_secciones->sizePolicy().hasHeightForWidth());
-        btn_agregar_secciones->setSizePolicy(sizePolicy1);
-        btn_agregar_secciones->setMinimumSize(QSize(0, 0));
-        btn_agregar_secciones->setMaximumSize(QSize(16777215, 16777215));
-        btn_agregar_secciones->setFont(font6);
-
-        cabecera_lista_secciones->addWidget(btn_agregar_secciones);
-
-
-        layout_lista_secciones->addLayout(cabecera_lista_secciones);
-
-        lista_secciones = new QListWidget(widget_lista_secciones);
-        lista_secciones->setObjectName(QStringLiteral("lista_secciones"));
-
-        layout_lista_secciones->addWidget(lista_secciones);
-
-
-        verticalLayout_12->addWidget(widget_lista_secciones);
-
-        opciones_consulta->addTab(tab_secciones, QString());
-        tab_reporte = new QWidget();
-        tab_reporte->setObjectName(QStringLiteral("tab_reporte"));
-        tab_reporte->setEnabled(false);
-        verticalLayout_13 = new QVBoxLayout(tab_reporte);
-        verticalLayout_13->setSpacing(0);
-        verticalLayout_13->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_13->setObjectName(QStringLiteral("verticalLayout_13"));
-        verticalLayout_13->setContentsMargins(0, 0, 0, 0);
-        widget_lista_reportes = new QWidget(tab_reporte);
-        widget_lista_reportes->setObjectName(QStringLiteral("widget_lista_reportes"));
-        layout_lista_reportes = new QVBoxLayout(widget_lista_reportes);
-        layout_lista_reportes->setSpacing(0);
-        layout_lista_reportes->setContentsMargins(11, 11, 11, 11);
-        layout_lista_reportes->setObjectName(QStringLiteral("layout_lista_reportes"));
-        layout_lista_reportes->setContentsMargins(0, 0, 0, 0);
-        cabecera_lista_reportes = new QHBoxLayout();
-        cabecera_lista_reportes->setSpacing(6);
-        cabecera_lista_reportes->setObjectName(QStringLiteral("cabecera_lista_reportes"));
-        label_2 = new QLabel(widget_lista_reportes);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setFont(font1);
-        label_2->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        cabecera_lista_reportes->addWidget(label_2);
-
-        btn_sacar_reportes = new QPushButton(widget_lista_reportes);
-        btn_sacar_reportes->setObjectName(QStringLiteral("btn_sacar_reportes"));
-        sizePolicy1.setHeightForWidth(btn_sacar_reportes->sizePolicy().hasHeightForWidth());
-        btn_sacar_reportes->setSizePolicy(sizePolicy1);
-        btn_sacar_reportes->setMinimumSize(QSize(0, 0));
-        btn_sacar_reportes->setMaximumSize(QSize(16777215, 16777215));
-        btn_sacar_reportes->setFont(font6);
-
-        cabecera_lista_reportes->addWidget(btn_sacar_reportes);
-
-
-        layout_lista_reportes->addLayout(cabecera_lista_reportes);
-
-        lista_reportes = new QListWidget(widget_lista_reportes);
-        lista_reportes->setObjectName(QStringLiteral("lista_reportes"));
-
-        layout_lista_reportes->addWidget(lista_reportes);
-
-
-        verticalLayout_13->addWidget(widget_lista_reportes);
-
-        opciones_consulta->addTab(tab_reporte, QString());
 
         verticalLayout_14->addWidget(opciones_consulta);
 
@@ -859,19 +691,9 @@ public:
         lbl_conceptos->setText(QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
         btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "Sacar conceptos", Q_NULLPTR));
         lbl_reportes->setText(QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
-        btn_agregar_reportes->setText(QApplication::translate("DialogoConsultas", "Sacar reportes", Q_NULLPTR));
         checkbox_tendencia->setText(QApplication::translate("DialogoConsultas", "Tendencia", Q_NULLPTR));
         checkbox_fuerza->setText(QApplication::translate("DialogoConsultas", "Fuerza de concepto en medio", Q_NULLPTR));
         checkbox_sentimiento->setText(QApplication::translate("DialogoConsultas", "Sentimiento", Q_NULLPTR));
-        lbl_secciones->setText(QApplication::translate("DialogoConsultas", "Secciones", Q_NULLPTR));
-        btn_sacar_secciones->setText(QApplication::translate("DialogoConsultas", "Sacar secciones", Q_NULLPTR));
-
-        const bool __sortingEnabled = lista_secciones_en_consulta->isSortingEnabled();
-        lista_secciones_en_consulta->setSortingEnabled(false);
-        QListWidgetItem *___qlistwidgetitem = lista_secciones_en_consulta->item(0);
-        ___qlistwidgetitem->setText(QApplication::translate("DialogoConsultas", "Todas", Q_NULLPTR));
-        lista_secciones_en_consulta->setSortingEnabled(__sortingEnabled);
-
         btn_realizar_consulta->setText(QApplication::translate("DialogoConsultas", "Consultar", Q_NULLPTR));
         btn_cancelar->setText(QApplication::translate("DialogoConsultas", "Cancelar", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_consulta), QApplication::translate("DialogoConsultas", "Consulta", Q_NULLPTR));
@@ -884,12 +706,6 @@ public:
         lbl_lista_de_periodos->setText(QApplication::translate("DialogoConsultas", "Lista de Per\303\255odos", Q_NULLPTR));
         btn_setear_periodo->setText(QApplication::translate("DialogoConsultas", "Setear", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_periodo), QApplication::translate("DialogoConsultas", "Per\303\255odo", Q_NULLPTR));
-        lbl_lista_de_secciones->setText(QApplication::translate("DialogoConsultas", "Lista de Secciones", Q_NULLPTR));
-        btn_agregar_secciones->setText(QApplication::translate("DialogoConsultas", "Agregar", Q_NULLPTR));
-        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_secciones), QApplication::translate("DialogoConsultas", "Secciones", Q_NULLPTR));
-        label_2->setText(QApplication::translate("DialogoConsultas", "Lista de Reportes", Q_NULLPTR));
-        btn_sacar_reportes->setText(QApplication::translate("DialogoConsultas", "Agregar", Q_NULLPTR));
-        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_reporte), QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
     } // retranslateUi
 
 };

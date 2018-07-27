@@ -18,6 +18,7 @@ public:
         this->setNombre(web_portal + "/" + seccion_portal);
         this->seccion(seccion_portal);
     }
+    virtual ~subseccion() {};
 
     // metodos de IContieneJson
     virtual bool armarJson() { return true; }

@@ -40,8 +40,6 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
     this->cargarListaConceptos();
     this->cargarListaMedios();
     this->cargarListaPeriodos();
-    this->cargarListaReportes();
-    this->cargarListaSecciones();
 }
 
 DialogoConsultas::~DialogoConsultas()
@@ -57,21 +55,6 @@ DialogoConsultas::~DialogoConsultas()
     this->descargarLista<modelo::Periodo>(this->ui->lista_periodos);
     aplicacion::Logger::info("Periodos descargados.");
 
-    this->descargarLista<modelo::Reporte>(this->ui->lista_reportes);
-    // COMENTADA ESTA LINEA XQ HAY CARGADO POR DEFECTO 1 ITEM QUE NO SE PUEDE BORRAR. CUANDO SE SAQUE ESE ITEM SE TIENE Q VOLVER A USAR ESTA LINEA.
-    // this->descargarLista<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
-    aplicacion::Logger::info("Reportes descargados.");
-
-    this->descargarLista<modelo::Seccion>(this->ui->lista_secciones);
-    // COMENTADA ESTA LINEA XQ HAY CARGADO POR DEFECTO 1 ITEM QUE NO SE PUEDE BORRAR. CUANDO SE SAQUE ESE ITEM SE TIENE Q VOLVER A USAR ESTA LINEA.
-    // this->descargarLista<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
-    aplicacion::Logger::info("Secciones descargados.");
-
-    if (NULL != this->grafico_fuerza_en_noticia)
-    {
-        delete this->grafico_fuerza_en_noticia;
-    }
-
     delete ui;
 }
 
@@ -84,13 +67,19 @@ void DialogoConsultas::showEvent(QShowEvent *) {
 }
 
 void DialogoConsultas::guardar() {
-
     this->close();
 }
 
 void DialogoConsultas::cerrar() {
-
     this->close();
+}
+
+void DialogoConsultas::habilitar_consulta() {
+    if (this->ui->checkbox_fuerza->isChecked() || this->ui->checkbox_sentimiento->isChecked() || this->ui->checkbox_tendencia->isChecked()) {
+        this->ui->btn_realizar_consulta->setEnabled(true);
+    } else {
+        this->ui->btn_realizar_consulta->setEnabled(false);
+    }
 }
 
 void DialogoConsultas::agregar_conceptos()
@@ -181,118 +170,39 @@ void DialogoConsultas::sacar_medios()
     this->sacarItemsSeleccionados(this->ui->lista_medios_en_consulta);
 }
 
-void DialogoConsultas::agregar_secciones()
-{
-    std::vector<modelo::Seccion*> secciones_seleccionados = this->itemsSeleccionados<modelo::Seccion>(this->ui->lista_secciones);
-
-    for (std::vector<modelo::Seccion*>::iterator it = secciones_seleccionados.begin(); it != secciones_seleccionados.end(); it++)
-    {
-        this->agregarSeccionALista(*it, this->ui->lista_secciones_en_consulta);
-    }
-    
-    aplicacion::Logger::info(std::to_string(secciones_seleccionados.size()) + " secciones agregadas a la consulta.");
-
-    this->sacarItemsSeleccionados(this->ui->lista_secciones);
-}
-
-void DialogoConsultas::sacar_secciones()
-{
-    std::vector<modelo::Seccion*> secciones_seleccionados = this->itemsSeleccionados<modelo::Seccion>(this->ui->lista_secciones_en_consulta);
-
-    for (std::vector<modelo::Seccion*>::iterator it = secciones_seleccionados.begin(); it != secciones_seleccionados.end(); it++)
-    {
-        this->agregarSeccionALista(*it, this->ui->lista_secciones);
-    }
-
-    aplicacion::Logger::info(std::to_string(secciones_seleccionados.size()) + " secciones sacadas de la consulta.");
-
-    this->sacarItemsSeleccionados(this->ui->lista_secciones_en_consulta);
-}
-
-void DialogoConsultas::agregar_reportes()
-{
-    std::vector<modelo::Reporte*> reportes_seleccionados = this->itemsSeleccionados<modelo::Reporte>(this->ui->lista_reportes);
-
-    for (std::vector<modelo::Reporte*>::iterator it = reportes_seleccionados.begin(); it != reportes_seleccionados.end(); it++)
-    {
-        //this->agregarReporteALista(*it, this->ui->lista_reportes_en_consulta);
-    }
-
-    aplicacion::Logger::info(std::to_string(reportes_seleccionados.size()) + " reportes agregados a la consulta.");
-
-    this->sacarItemsSeleccionados(this->ui->lista_reportes);
-}
-
-void DialogoConsultas::sacar_reportes()
-{
-    //std::vector<modelo::Reporte*> reportes_seleccionados = this->itemsSeleccionados<modelo::Reporte>(this->ui->lista_reportes_en_consulta);
-
-    //for (std::vector<modelo::Reporte*>::iterator it = reportes_seleccionados.begin(); it != reportes_seleccionados.end(); it++)
-    //{
-    //    this->agregarReporteALista(*it, this->ui->lista_reportes);
-    //}
-
-    //aplicacion::Logger::info(std::to_string(reportes_seleccionados.size()) + " reportes sacados de la consulta.");
-
-    //this->sacarItemsSeleccionados(this->ui->lista_reportes_en_consulta);
-}
-
 void DialogoConsultas::recuperar_resultados() {
 
-    QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
+    std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
+    std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
 
-        std::vector<modelo::Medio*> medios_seleccionados = this->mediosSeleccionados();
-        std::vector<modelo::Concepto*> conceptos_seleccionados = this->conceptosSeleccionados();
+    if (medios_seleccionados.empty()) {
+        QMessageBox * informacion_no_hay_medios_seleccionados = this->crearInformacionNoHayMediosSeleccionados();
+        informacion_no_hay_medios_seleccionados->exec();
 
+        delete informacion_no_hay_medios_seleccionados;
+
+        return;
+    }
+
+    if (conceptos_seleccionados.empty() && (this->ui->checkbox_sentimiento->isChecked() || this->ui->checkbox_fuerza->isChecked())) {
+        QMessageBox * informacion_no_hay_conceptos_seleccionados = this->crearInformacionNoHayConceptosSeleccionados();
+        informacion_no_hay_conceptos_seleccionados->exec();
+
+        delete informacion_no_hay_conceptos_seleccionados;
+
+        return;
+    }
+
+    QFuture<void> tarea_exportacion = QtConcurrent::run([=]() {
         aplicacion::GestorResultadosDiarios gestor_datos;
 
         herramientas::utiles::Fecha desde(this->ui->dateedit_desde->date().day(), this->ui->dateedit_desde->date().month(), this->ui->dateedit_desde->date().year());
         herramientas::utiles::Fecha hasta(this->ui->dateedit_hasta->date().day(), this->ui->dateedit_hasta->date().month(), this->ui->dateedit_hasta->date().year());
-
-        if (medios_seleccionados.empty()) {
-            QMessageBox * informacion_no_hay_medios_seleccionados = this->crearInformacionNoHayMediosSeleccionados();
-            informacion_no_hay_medios_seleccionados->exec();
-
-            delete informacion_no_hay_medios_seleccionados;
-
-            return;
-        }
-
-        if (conceptos_seleccionados.empty()) {
-            QMessageBox * informacion_no_hay_conceptos_seleccionados = this->crearInformacionNoHayConceptosSeleccionados();
-            informacion_no_hay_conceptos_seleccionados->exec();
-
-            delete informacion_no_hay_conceptos_seleccionados;
-
-            return;
-        }
-
+        
         gestor_datos.recuperarResultados(desde, hasta, medios_seleccionados, conceptos_seleccionados, &(this->resultados_filtrados));
     });
 
     this->observador_realizar_consulta.setFuture(tarea_exportacion);
-
-    //aplicacion::GestorConsultas gestor_consultas;
-    //gestor_consultas.setMedios(medios_seleccionados);
-    //gestor_consultas.setConceptos(conceptos_seleccionados);
-    //gestor_consultas.setData(resultados);
-
-    //std::vector<graficos::modelo::Individuo*> individuos;
-    //std::vector<graficos::modelo::Categoria*> categorias;
-    //gestor_consultas.fuerzaDeConceptosEnMedios(individuos, categorias);
-
-    //if (NULL != this->grafico_fuerza_en_noticia)
-    //{
-    //    delete this->grafico_fuerza_en_noticia;
-    //}
-
-    //this->grafico_fuerza_en_noticia = new graficos::GraficoDeBarras(individuos, categorias, 0.0f, 200.0f, u8"Aparición de conceptos en medios, desde " + desde.getStringDDMMAAAA("/") + " hasta " + hasta.getStringDDMMAAAA("/"));
-    //this->grafico_fuerza_en_noticia->mostrar();
-
-    //for (std::vector<scraping::preparacion::ResultadoAnalisisDiario*>::iterator it = resultados.begin(); it != resultados.end(); it++)
-    //{
-    //    delete *it;
-    //}
 }
 
 void DialogoConsultas::mostrar_resultados() {
@@ -421,7 +331,9 @@ void DialogoConsultas::cargarListaMedios()
     std::for_each(medios_portales_actuales.begin(), medios_portales_actuales.end(), [=, &gestor_entidades](modelo::MedioPortalNoticias * portal) {
         std::unordered_map<std::string, modelo::subseccion*> subsecciones = portal->subsecciones();
         std::for_each(subsecciones.begin(), subsecciones.end(), [=, &gestor_entidades](std::pair<std::string, modelo::subseccion*> subseccion_portal) {
-            this->agregarMedioALista(gestor_entidades.clonar<modelo::subseccion>(subseccion_portal.second), this->ui->lista_medios);
+            modelo::subseccion* clon = gestor_entidades.clonar<modelo::subseccion>(subseccion_portal.second);
+            clon->sumarReferencia();
+            this->agregarMedioALista(clon, this->ui->lista_medios);
         });
         delete portal;
     });
@@ -437,64 +349,6 @@ void DialogoConsultas::agregarMedioALista(visualizador::modelo::Medio * medio, Q
     item->setData(Qt::UserRole, data);
 
     std::string texto_item = aplicacion::Logger::infoLog(medio);
-
-    item->setText(texto_item.c_str());
-
-    lista->insertItem(0, item);
-}
-
-void DialogoConsultas::cargarListaSecciones()
-{
-    aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Seccion*> secciones_actuales = gestor.recuperar<modelo::Seccion>();
-    for (std::vector<modelo::Seccion*>::iterator it = secciones_actuales.begin(); it != secciones_actuales.end(); it++)
-    {
-        (*it)->sumarReferencia();
-        this->agregarSeccionALista(*it, this->ui->lista_secciones);
-    }
-
-    aplicacion::Logger::info(std::to_string(secciones_actuales.size()) + " secciones cargadas.");
-
-    this->ui->lista_secciones->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
-}
-
-void DialogoConsultas::agregarSeccionALista(visualizador::modelo::Seccion * seccion, QListWidget * lista)
-{
-    QListWidgetItem* item = new QListWidgetItem();
-
-    QVariant data = QVariant::fromValue(seccion);
-    item->setData(Qt::UserRole, data);
-
-    std::string texto_item = seccion->getEtiqueta();
-
-    item->setText(texto_item.c_str());
-
-    lista->insertItem(0, item);
-}
-
-void DialogoConsultas::cargarListaReportes()
-{
-    aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Reporte*> reportes_actuales = gestor.recuperar<modelo::Reporte>();
-    for (std::vector<modelo::Reporte*>::iterator it = reportes_actuales.begin(); it != reportes_actuales.end(); it++)
-    {
-        (*it)->sumarReferencia();
-        this->agregarReporteALista(*it, this->ui->lista_reportes);
-    }
-
-    aplicacion::Logger::info(std::to_string(reportes_actuales.size()) + " reportes cargados.");
-
-    this->ui->lista_reportes->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
-}
-
-void DialogoConsultas::agregarReporteALista(visualizador::modelo::Reporte * reporte, QListWidget * lista)
-{
-    QListWidgetItem* item = new QListWidgetItem();
-
-    QVariant data = QVariant::fromValue(reporte);
-    item->setData(Qt::UserRole, data);
-
-    std::string texto_item = reporte->getEtiqueta();
 
     item->setText(texto_item.c_str());
 
@@ -552,16 +406,6 @@ std::vector<modelo::Medio*> DialogoConsultas::mediosSeleccionados()
     return medios_seleccionados;
 }
 
-std::vector<modelo::Seccion*> DialogoConsultas::seccionesSeleccionados()
-{
-    return std::vector<modelo::Seccion*>();
-}
-
-std::vector<modelo::Reporte*> DialogoConsultas::reportesSeleccionados()
-{
-    return std::vector<modelo::Reporte*>();
-}
-
 void DialogoConsultas::conectar_componentes()
 {
     QObject::connect(this->ui->btn_agregar_conceptos, &QPushButton::released, this, &DialogoConsultas::agregar_conceptos);
@@ -572,6 +416,10 @@ void DialogoConsultas::conectar_componentes()
 
     QObject::connect(this->ui->btn_realizar_consulta, &QPushButton::released, this, &DialogoConsultas::recuperar_resultados);
     QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &QWidget::close);
+
+    QObject::connect(this->ui->checkbox_fuerza, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
+    QObject::connect(this->ui->checkbox_sentimiento, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
+    QObject::connect(this->ui->checkbox_tendencia, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
 
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this, &DialogoConsultas::deshabilitar_opciones);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this->ui->progressbar_realizar_consulta, &QProgressBar::show);

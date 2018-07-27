@@ -4,6 +4,7 @@ using namespace visualizador::aplicacion;
 
 // stl
 #include <iostream>
+#include <filesystem>
 
 // aplicacion
 #include <aplicacion/include/AdministradorAplicacionLocal.h>
@@ -94,7 +95,12 @@ void IAdministradorAplicacion::crearAdministradorAplicacionLocal()
     try
     {
         administrador_resultados = new AdministradorAplicacionLocal();
-        administrador_resultados->iniciarDB(ConfiguracionAplicacion::archivoConfigDBResultadosDiarios());
+
+        almacenamiento::ConfiguracionAlmacenamiento config_resultados(ConfiguracionAplicacion::archivoConfigDBResultadosDiarios());
+        config_resultados.pathDB(obtener_path_db_mas_reciente(config_resultados.pathDB()));
+
+        //administrador_resultados->iniciarDB(ConfiguracionAplicacion::archivoConfigDBResultadosDiarios());
+        administrador_resultados->iniciarDB(config_resultados);
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
     {
@@ -163,4 +169,39 @@ void IAdministradorAplicacion::iniciarDB(std::string path_config_db)
     }
 
     Logger::info("inicio IAdministradorAlmacenamiento OK.");
+}
+
+void IAdministradorAplicacion::iniciarDB(const almacenamiento::ConfiguracionAlmacenamiento & config_db) {
+    Logger::info("iniciando nuevo IAdministradorAlmacenamiento. config = " + config_db.pathDB() + ".");
+
+    try
+    {
+        this->handler_almacenamiento = almacenamiento::IAdministradorAlmacenamiento::iniciarNuevo(config_db);
+        this->admin_almacenamiento = almacenamiento::IAdministradorAlmacenamiento::getInstancia(this->handler_almacenamiento);
+    }
+    catch (std::exception & e)
+    {
+        Logger::error("no se pudo iniciar IAdministradorAlmacenamiento: " + std::string(e.what()));
+        throw e;
+    }
+
+    Logger::info("inicio IAdministradorAlmacenamiento OK.");
+}
+
+std::string IAdministradorAplicacion::obtener_path_db_mas_reciente(const std::string & path_db_resultados_diarios) {
+
+    std::experimental::filesystem::path path_db(path_db_resultados_diarios);
+
+    std::experimental::filesystem::path path_mas_reciente = path_db;
+    herramientas::utiles::Fecha fecha_mas_reciente;
+    for(auto path : std::experimental::filesystem::directory_iterator(path_db.parent_path())) {
+        herramientas::utiles::Fecha fecha_de_creacion = herramientas::utiles::Fecha::parsear(std::experimental::filesystem::last_write_time(path));
+
+        if (fecha_mas_reciente < fecha_de_creacion) {
+            fecha_mas_reciente = fecha_de_creacion;
+            path_mas_reciente = path;
+        }
+    }
+
+    return path_mas_reciente.u8string();
 }

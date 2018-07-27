@@ -55,15 +55,7 @@ private slots:
 
     void agregar_medios();
 
-    void agregar_secciones();
-
     void sacar_medios();
-
-    void sacar_secciones();
-
-    void agregar_reportes();
-
-    void sacar_reportes();
 
     void recuperar_resultados();
 
@@ -74,6 +66,8 @@ private slots:
     void guardar();
 
     void cerrar();
+
+    void habilitar_consulta();
 
 private:
     Ui::DialogoConsultas *ui;
@@ -104,12 +98,6 @@ private:
     void cargarListaMedios();
     void agregarMedioALista(visualizador::modelo::Medio* medio, QListWidget * lista);
 
-    void cargarListaSecciones();
-    void agregarSeccionALista(visualizador::modelo::Seccion* seccion, QListWidget * lista);
-
-    void cargarListaReportes();
-    void agregarReporteALista(visualizador::modelo::Reporte* reporte, QListWidget * lista);
-
     // obtener seleccionados de listas
 
     template <class ENTIDAD>
@@ -122,10 +110,6 @@ private:
     modelo::Periodo* periodoSeleccionado();
 
     std::vector<modelo::Medio*> mediosSeleccionados();
-
-    std::vector<modelo::Seccion*> seccionesSeleccionados();
-
-    std::vector<modelo::Reporte*> reportesSeleccionados();
 
     // descargar listas
 

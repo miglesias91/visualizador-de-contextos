@@ -75,7 +75,9 @@ public:
 protected:
 
     void iniciarDB(std::string path_config_db);
+    void iniciarDB(const almacenamiento::ConfiguracionAlmacenamiento& config_db);
 
+    static std::string obtener_path_db_mas_reciente(const std::string& path_db);
     // ATRIBUTOS
 
     almacenamiento::IAdministradorAlmacenamiento* admin_almacenamiento;
