@@ -1,7 +1,7 @@
 {
     "almacenamiento" :
     {
-        "path_db" : "C:/temp/db_visualizador-de-contexto-app--visualizador-de-contexto--debug",
+        "path_db" : "C:/temp/entidades",
         "almacenamiento_local" : true,
         "almacenamiento_distribuido" : false,
         "solo_lectura" : false,
