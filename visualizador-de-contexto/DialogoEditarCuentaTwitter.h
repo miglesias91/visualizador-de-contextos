@@ -39,6 +39,7 @@ private:
 
     QMessageBox * crearInformacionEtiquetaVacia();
     QMessageBox * crearInformacionNombreVacio();
+    QMessageBox * crearInformacionCuentaInexistente();
 
     // ATRIBUTOS
     visualizador::modelo::MedioTwitter * medio_twitter;

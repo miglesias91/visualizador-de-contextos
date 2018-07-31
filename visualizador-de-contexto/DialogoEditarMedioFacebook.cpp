@@ -1,6 +1,9 @@
 #include "DialogoEditarMedioFacebook.h"
 #include "ui_DialogoEditarMedioFacebook.h"
 
+// medios
+#include <facebook/include/Aplicacion.h>
+
 DialogoEditarMedioFacebook::DialogoEditarMedioFacebook(modelo::MedioFacebook * medio_facebook_nuevo, visualizador::aplicacion::GestorEntidades * gestor_medios, QWidget *parent)
     : medio_facebook(medio_facebook_nuevo), QDialog(parent)
 {
@@ -47,6 +50,15 @@ void DialogoEditarMedioFacebook::guardar()
     std::string etiqueta = this->ui->lineedit_etiqueta->text().toStdString();
     std::string nombre_pagina = this->ui->lineedit_nombre_pagina->text().toStdString();
 
+    if (false == medios::facebook::aplicacion::existe(nombre_pagina)) {
+        QMessageBox * informacion_pagina_inexistente = this->crearInformacionPaginaInexistente();
+        informacion_pagina_inexistente->exec();
+
+        delete informacion_pagina_inexistente;
+
+        return;
+    }
+
     this->medio_facebook->setEtiqueta(etiqueta);
     this->medio_facebook->setNombrePagina(nombre_pagina);
 
@@ -72,6 +84,12 @@ QMessageBox * DialogoEditarMedioFacebook::crearInformacionNombreVacio()
     std::string texto = u8"No se asigno un nombre de página.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+}
+
+QMessageBox * DialogoEditarMedioFacebook::crearInformacionPaginaInexistente() {
+    std::string texto = u8"La página \"" + this->ui->lineedit_nombre_pagina->text().toStdString() + "\" no existe. ";
+    visualizador::aplicacion::comunicacion::Informacion informacion(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion);
 }
 
 void DialogoEditarMedioFacebook::conectar_componentes() {

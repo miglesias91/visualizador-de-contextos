@@ -39,6 +39,7 @@ private:
 
     QMessageBox * crearInformacionEtiquetaVacia();
     QMessageBox * crearInformacionNombreVacio();
+    QMessageBox * crearInformacionPaginaInexistente();
 
     // ATRIBUTOS
     visualizador::modelo::MedioFacebook * medio_facebook;

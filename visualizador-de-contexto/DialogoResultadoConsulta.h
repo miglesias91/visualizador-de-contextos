@@ -13,6 +13,7 @@
 #include <utiles/include/Fecha.h>
 #include <utiles/include/Json.h>
 #include <utiles/include/FuncionesSistemaArchivos.h>
+#include <utiles/include/csv.h>
 
 // aplicacion
 #include <aplicacion/include/GestorResultadosDiarios.h>
@@ -79,6 +80,9 @@ private:
     void habilitar_exportar_botones();
     void deshabilitar_exportar_botones();
 
+    bool fecha_fuerza_sentimiento_a_csv(int fecha, herramientas::utiles::csv * doc);
+    bool fecha_tendencia_a_csv(int fecha, herramientas::utiles::csv * doc);
+
     herramientas::utiles::Json * fecha_a_json(int fecha);
     herramientas::utiles::Json * concepto_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_medio);
     herramientas::utiles::Json * termino_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_termino, int idx_medio);
@@ -92,11 +96,14 @@ private:
 
     std::unordered_map<unsigned long long int, QTreeWidget*> sentimientos;
 	std::unordered_map<unsigned long long int, QTreeWidget*> fuerzas_en_noticia;
-	std::unordered_map<unsigned long long int, std::vector<QWidget*>> tendencias;
+    std::unordered_map<unsigned long long int, std::vector<QWidget*>> tendencias;
+    std::unordered_map<unsigned long long int, std::vector<std::pair<std::string, QTableWidget*>>> tablas_tendencias;
 
     herramientas::utiles::Fecha fecha_actual;
 
     std::vector<unsigned int> meses_con_treinta_dias;
 
     QFutureWatcher<void> observador_exportacion;
+    
+    std::vector<std::string> nombres_columnas_csv;
 };

@@ -1,6 +1,9 @@
 #include "DialogoResultadoConsulta.h"
 #include "ui_DialogoResultadoConsulta.h"
 
+// stl
+#include <unordered_map>
+
 // aplicacion
 #include <aplicacion/include/ConfiguracionAplicacion.h>
 
@@ -14,6 +17,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(QWidget *parent) : QWidget(pa
     this->conectar_componentes();
 
     this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
+    this->nombres_columnas_csv = {"medio", "termino", "es_concepto", "fuerza", "sentimiento", "fecha"};
 
     this->ui->progressbar_exportacion->hide();
 }
@@ -35,6 +39,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     this->conectar_componentes();
 
     this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
+    this->nombres_columnas_csv = { "medio", "termino", "es_concepto", "fuerza", "sentimiento", "fecha" };
 
     this->ui->progressbar_exportacion->hide();
 
@@ -319,6 +324,7 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
 
     this->ui->layout_pestania_3->addWidget(widget_tendencia);
     (&this->tendencias[resultado->getId()->numero()])->push_back(widget_tendencia);
+    (&this->tablas_tendencias[resultado->getId()->numero()])->push_back(std::make_pair(medio->getNombre(),tendencia));
 }
 
 QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios)
@@ -516,6 +522,64 @@ void DialogoResultadoConsulta::expandir_fuerza_en_noticia(QTreeWidgetItem * item
     });
 }
 
+bool DialogoResultadoConsulta::fecha_tendencia_a_csv(int fecha, herramientas::utiles::csv * doc) {
+    if (0 == this->fuerzas_en_noticia.count(fecha)) { // si no existe la fecha, devuelvo false.
+        return false;
+    }
+
+    std::vector<std::pair<std::string, QTableWidget*>> tendencias = this->tablas_tendencias[fecha];
+    std::for_each(tendencias.begin(), tendencias.end(), [=](std::pair<std::string, QTableWidget*> medio_tabla) {
+        for (uint16_t i_fila = 0; i_fila < medio_tabla.second->rowCount(); i_fila++) {
+            std::string medio = medio_tabla.first;
+            std::string es_concepto = "0";
+            std::string termino = medio_tabla.second->item(i_fila, 0)->text().toStdString();
+            std::string fuerza = medio_tabla.second->item(i_fila, 1)->text().toStdString();
+            std::string sentimiento = medio_tabla.second->item(i_fila, 2)->text().toStdString();
+            std::string string_fecha = std::to_string(fecha);
+
+            doc->agregar({medio, termino, es_concepto, fuerza, sentimiento, string_fecha });
+        }
+    });
+    return true;
+}
+
+bool DialogoResultadoConsulta::fecha_fuerza_sentimiento_a_csv(int fecha, herramientas::utiles::csv * doc) {
+    if (0 == this->fuerzas_en_noticia.count(fecha)) { // si no existe la fecha, devuelvo false.
+        return false;
+    }
+
+    QTreeWidget * fuerza_en_noticia = this->fuerzas_en_noticia[fecha];
+    QTreeWidget * sentimiento = this->sentimientos[fecha];
+
+    int cantidad_de_columnas = fuerza_en_noticia->columnCount();
+    for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) {  // itero medios/columnas
+        std::string nombre_medio = fuerza_en_noticia->headerItem()->text(i_medios).toStdString();
+
+        int cantidad_de_conceptos = fuerza_en_noticia->topLevelItemCount();
+        for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) {  // itero conceptos/top level items
+
+            std::string nombre_concepto = fuerza_en_noticia->topLevelItem(i_conceptos)->text(0).toStdString();
+            std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->text(i_medios).toStdString();
+            std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->text(i_medios).toStdString();
+
+            doc->agregar( {nombre_medio, nombre_concepto, "1", fuerza_en_noticia_valor_concepto_en_medio, sentimiento_valor_concepto_en_medio, std::to_string(fecha)} );
+
+            int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
+            for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) {  // itero terminos
+
+                std::string nombre_termino = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(0).toStdString();
+                std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
+                std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
+
+                // doc.agregar( {nombre_medio, nombre_termino, es_concepto=false, fuerza, sentimiento, fecha} );
+                doc->agregar({ nombre_medio, nombre_termino, "0", fuerza_en_noticia_valor_concepto_en_medio, sentimiento_valor_concepto_en_medio, std::to_string(fecha) });
+            }
+        }
+    }
+
+    return true;
+}
+
 herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
 
     if (0 == this->fuerzas_en_noticia.count(fecha)) { // si no existe la fecha, devuelvo false.
@@ -530,21 +594,32 @@ herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
     std::vector<herramientas::utiles::Json*> terminos_de_concepto;
 
     int cantidad_de_columnas = fuerza_en_noticia->columnCount();
-    for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) { // itero medios/columnas
+    for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) {  // itero medios/columnas
         std::string nombre_medio = fuerza_en_noticia->headerItem()->text(i_medios).toStdString();
 
         herramientas::utiles::Json * json_medio = new herramientas::utiles::Json();
-        json_medio->agregarAtributoValor("nombre", nombre_medio);
+        json_medio->agregarAtributoValor("nombre", nombre_medio);  // medio,
 
         int cantidad_de_conceptos = fuerza_en_noticia->topLevelItemCount();
-        for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) { // itero conceptos/top level items
+        for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) {  // itero conceptos/top level items
 
-            herramientas::utiles::Json * json_concepto = this->concepto_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_medios);
+            herramientas::utiles::Json * json_concepto = this->concepto_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_medios);  // termino, es_concepto, fuerza, sentimiento, fecha
+            std::string nombre_concepto = fuerza_en_noticia->topLevelItem(i_conceptos)->text(0).toStdString();
+            std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->text(i_medios).toStdString();
+            std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->text(i_medios).toStdString();
+
+            // doc.agregar( {nombre_medio, nombre_concepto, es_concepto=true, fuerza, sentimiento, fecha} );
 
             int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
-            for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) { // itero terminos
+            for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) {  // itero terminos
 
                 herramientas::utiles::Json * json_termino = this->termino_a_json(fuerza_en_noticia, sentimiento, i_conceptos, i_terminos, i_medios);
+
+                std::string nombre_termino = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(0).toStdString();
+                std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
+                std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
+
+                // doc.agregar( {nombre_medio, nombre_termino, es_concepto=false, fuerza, sentimiento, fecha} );
 
                 terminos_de_concepto.push_back(json_termino);
             }
@@ -625,20 +700,37 @@ void DialogoResultadoConsulta::exportar_actual() {
 
     QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
 
+        //std::string string_fecha_actual = this->fecha_actual.getStringAAAAMMDD();
+
+        //herramientas::utiles::Json json_consulta;
+
+        //herramientas::utiles::Json * json_fecha_actual = this->fecha_a_json(std::stoi(string_fecha_actual));
+
+        //std::vector<herramientas::utiles::Json*> json_fechas = { json_fecha_actual };
+
+        //json_consulta.agregarAtributoArray("fechas", json_fechas);
+
+        //std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
+        //herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
+
+        //std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
+
         std::string string_fecha_actual = this->fecha_actual.getStringAAAAMMDD();
 
-        herramientas::utiles::Json json_consulta;
+        herramientas::utiles::csv csv_fecha_fuerza_sentimiento(this->nombres_columnas_csv);
+        herramientas::utiles::csv csv_fecha_tendencia(this->nombres_columnas_csv);
 
-        herramientas::utiles::Json * json_fecha_actual = this->fecha_a_json(std::stoi(string_fecha_actual));
+        if (this->fecha_fuerza_sentimiento_a_csv(std::stoi(string_fecha_actual), &csv_fecha_fuerza_sentimiento)) {
+            std::string path_exportacion = "fuerza_y_sentimiento_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
+            std::ofstream salida(path_exportacion);
+            csv_fecha_fuerza_sentimiento.exportar(salida);
+        }
 
-        std::vector<herramientas::utiles::Json*> json_fechas = { json_fecha_actual };
-
-        json_consulta.agregarAtributoArray("fechas", json_fechas);
-
-        std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-        herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
-
-        std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
+        if (this->fecha_tendencia_a_csv(std::stoi(string_fecha_actual), &csv_fecha_tendencia)) {
+            std::string path_exportacion = "tendencia_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
+            std::ofstream salida(path_exportacion);
+            csv_fecha_tendencia.exportar(salida);
+        }
     });
 
     this->observador_exportacion.setFuture(tarea_exportacion);
@@ -648,22 +740,51 @@ void DialogoResultadoConsulta::exportar_todo() {
 
     QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
 
-        herramientas::utiles::Json json_consulta;
+        //herramientas::utiles::Json json_consulta;
 
-        std::vector<herramientas::utiles::Json*> json_fechas;
+        //std::vector<herramientas::utiles::Json*> json_fechas;
+        //std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(),
+        //    [this, &json_fechas](std::pair<unsigned long long int, QTreeWidget*> fecha_arbol) {
+
+        //    herramientas::utiles::Json * json_fecha = this->fecha_a_json(fecha_arbol.first);
+        //    json_fechas.push_back(json_fecha);
+        //});
+
+        //json_consulta.agregarAtributoArray("fechas", json_fechas);
+
+        //std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
+        //herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
+
+        //std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
+
+        herramientas::utiles::csv csv_fechas_fuerza_sentimiento(this->nombres_columnas_csv);
+        herramientas::utiles::csv csv_fechas_tendencia(this->nombres_columnas_csv);
+
         std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(),
-            [this, &json_fechas](std::pair<unsigned long long int, QTreeWidget*> fecha_arbol) {
+            [this, &csv_fechas_fuerza_sentimiento, &csv_fechas_tendencia](std::pair<unsigned long long int, QTreeWidget*> fecha_arbol) {
 
-            herramientas::utiles::Json * json_fecha = this->fecha_a_json(fecha_arbol.first);
-            json_fechas.push_back(json_fecha);
+            herramientas::utiles::csv csv_fecha_fuerza_sentimiento({});
+            if (this->fecha_fuerza_sentimiento_a_csv(fecha_arbol.first, &csv_fecha_fuerza_sentimiento)) {
+                csv_fechas_fuerza_sentimiento += csv_fecha_fuerza_sentimiento;
+            }
+
+            herramientas::utiles::csv csv_fecha_tendencia({});
+            if (this->fecha_tendencia_a_csv(fecha_arbol.first, &csv_fecha_tendencia)) {
+                csv_fechas_tendencia += csv_fecha_tendencia;
+            }
         });
 
-        json_consulta.agregarAtributoArray("fechas", json_fechas);
+        if (csv_fechas_fuerza_sentimiento.filas().size()) {
+            std::string path_exportacion = "fuerza_y_sentimiento_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
+            std::ofstream salida(path_exportacion);
+            csv_fechas_fuerza_sentimiento.exportar(salida);
+        }
 
-        std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-        herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
-
-        std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
+        if (csv_fechas_tendencia.filas().size()) {
+            std::string path_exportacion = "tendencia_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
+            std::ofstream salida(path_exportacion);
+            csv_fechas_tendencia.exportar(salida);
+        }
     });
 
     this->observador_exportacion.setFuture(tarea_exportacion);
@@ -673,26 +794,55 @@ void DialogoResultadoConsulta::exportar_rango() {
 
     QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
 
-        herramientas::utiles::Json json_consulta;
+        //herramientas::utiles::Json json_consulta;
 
-        std::vector<herramientas::utiles::Json*> json_fechas;
+        //std::vector<herramientas::utiles::Json*> json_fechas;
+
+        //for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i < this->ui->dateedit_hasta->date().toJulianDay(); i++) {
+        //    std::string string_fecha = QDate::fromJulianDay(i).toString("yyyyMMdd").toStdString();
+
+        //    herramientas::utiles::Json * json_fecha = this->fecha_a_json(std::stoi(string_fecha));
+
+        //    if (json_fecha) {
+        //        json_fechas.push_back(json_fecha);
+        //    }
+        //}
+
+        //json_consulta.agregarAtributoArray("fechas", json_fechas);
+
+        //std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
+        //herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
+
+        //std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
+
+        herramientas::utiles::csv csv_fechas_fuerza_sentimiento(this->nombres_columnas_csv);
+        herramientas::utiles::csv csv_fechas_tendencia(this->nombres_columnas_csv);
 
         for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i < this->ui->dateedit_hasta->date().toJulianDay(); i++) {
             std::string string_fecha = QDate::fromJulianDay(i).toString("yyyyMMdd").toStdString();
 
-            herramientas::utiles::Json * json_fecha = this->fecha_a_json(std::stoi(string_fecha));
+            herramientas::utiles::csv csv_fecha_fuerza_sentimiento({});
+            if (this->fecha_fuerza_sentimiento_a_csv(std::stoi(string_fecha), &csv_fecha_fuerza_sentimiento)) {
+                csv_fechas_fuerza_sentimiento += csv_fecha_fuerza_sentimiento;
+            }
 
-            if (json_fecha) {
-                json_fechas.push_back(json_fecha);
+            herramientas::utiles::csv csv_fecha_tendencia({});
+            if (this->fecha_tendencia_a_csv(std::stoi(string_fecha), &csv_fecha_tendencia)) {
+                csv_fechas_tendencia += csv_fecha_tendencia;
             }
         }
 
-        json_consulta.agregarAtributoArray("fechas", json_fechas);
+        if (csv_fechas_fuerza_sentimiento.filas().size()) {
+            std::string path_exportacion = "fuerza_y_sentimiento_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
+            std::ofstream salida(path_exportacion);
+            csv_fechas_fuerza_sentimiento.exportar(salida);
+        }
 
-        std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-        herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
-
-        std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
+        if (csv_fechas_tendencia.filas().size()) {
+            std::string path_exportacion = "tendencia_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
+            std::ofstream salida(path_exportacion);
+            csv_fechas_tendencia.exportar(salida);
+        }
     });
 
     this->observador_exportacion.setFuture(tarea_exportacion);
