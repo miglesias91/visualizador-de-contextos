@@ -4,6 +4,7 @@
 #include "ui_visualizadordecontexto.h"
 
 // qt
+#include <qprocess.h>
 #include <qfuturewatcher.h>
 
 // interfaz
@@ -55,6 +56,7 @@ private:
     void tarea_analizar_ctx();
 
     // ATRIBUTOS
+    QProcess scraping;
     QFutureWatcher<void> observador;
 
 	// DIALOGOS

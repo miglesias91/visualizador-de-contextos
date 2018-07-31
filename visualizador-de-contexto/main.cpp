@@ -51,20 +51,23 @@ int main(int argc, char *argv[])
 
     // LANZAMIENTO INTERFAZ QT
 	QApplication qt_app(argc, argv);
+    QFile f("qdarkstyle/style.qss");
+    if (!f.exists())
+    {
+        qDebug("No se encontro el archivo de estilos.\n");
+    }
+    else
+    {
+        f.open(QFile::ReadOnly | QFile::Text);
+        QTextStream ts(&f);
+        qt_app.setStyleSheet(ts.readAll());
+    }
+
     visualizadordecontexto * visu = new visualizadordecontexto();
     visu->show();
 	int retorno = qt_app.exec();
 
     delete visu;
-
-    // CIERRE INFO SCRAPING
-    //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->cerrarBD();
-    //scraping::IAdministradorScraping::getInstanciaAdminResultadosDiarios()->almacenarIDsActuales();
-
-    //scraping::IAdministradorScraping::getInstanciaAdminInfo()->almacenarIDsActuales();
-    //scraping::IAdministradorScraping::getInstanciaAdminInfo()->cerrarBD();
-
-    //scraping::IAdministradorScraping::liberar();
 
 	// CIERRE APP
     aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->almacenarIDActual();

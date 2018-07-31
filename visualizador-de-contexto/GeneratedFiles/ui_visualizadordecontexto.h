@@ -81,8 +81,7 @@ public:
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"	background-color: rgb(247, 247, 247);\n"
-"	border-bottom-color: rgb(157, 157, 157);\n"
+"	border-bottom-color: rgb(155, 255, 255);\n"
 "	border-bottom: 1px solid;\n"
 "}"));
         layout_opciones = new QHBoxLayout(widget_opciones);

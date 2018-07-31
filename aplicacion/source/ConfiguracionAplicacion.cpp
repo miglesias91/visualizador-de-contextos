@@ -14,6 +14,7 @@ using namespace visualizador::aplicacion;
 #include <aplicacion/include/Logger.h>
 
 std::string ConfiguracionAplicacion::path_config;
+std::string ConfiguracionAplicacion::path_scraping;
 std::string ConfiguracionAplicacion::path_config_scraping;
 std::string ConfiguracionAplicacion::path_config_noticias;
 
@@ -76,6 +77,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         config_json = new herramientas::utiles::Json(string_config);
         config_app_json = config_json->getAtributoValorJson("aplicacion");
 
+        path_scraping = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPathScraping());
         path_config_scraping = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPathConfiguracionScraping());
         path_config_noticias = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagPathConfiguracionNoticias());
 
@@ -147,6 +149,11 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 std::string ConfiguracionAplicacion::pathConfiguracion()
 {
     return path_config;
+}
+
+std::string ConfiguracionAplicacion::pathScraping()
+{
+    return path_scraping;
 }
 
 std::string ConfiguracionAplicacion::pathConfiguracionScraping()
@@ -297,6 +304,11 @@ std::string ConfiguracionAplicacion::archivoConfigLog()
 
 std::string ConfiguracionAplicacion::dirABM() {
     return dir_abm;
+}
+
+std::string ConfiguracionAplicacion::tagPathScraping()
+{
+    return "path_scraping";
 }
 
 std::string ConfiguracionAplicacion::tagPathConfiguracionScraping()

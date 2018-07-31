@@ -56,4 +56,5 @@ FORMS += ./visualizadordecontexto.ui \
     ./DialogoEditarCuentaTwitter.ui \
     ./DialogoResultadoConsulta.ui \
     ./DialogoMediosPortales.ui
+RESOURCES += oscuro.qrc
 RESOURCES += visualizadordecontexto.qrc

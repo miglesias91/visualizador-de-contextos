@@ -22,6 +22,7 @@ public:
 	// CONFIGURACIONES
 
     static std::string pathConfiguracion();
+    static std::string pathScraping();
     static std::string pathConfiguracionScraping();
     static std::string pathConfiguracionNoticias();
 
@@ -66,6 +67,7 @@ protected:
 
     // TAGS
 
+    static std::string tagPathScraping();
     static std::string tagPathConfiguracionScraping();
     static std::string tagPathConfiguracionNoticias();
 
@@ -110,6 +112,7 @@ private:
 	virtual ~ConfiguracionAplicacion();
 
     static std::string path_config;
+    static std::string path_scraping;
     static std::string path_config_scraping;
     static std::string path_config_noticias;
 

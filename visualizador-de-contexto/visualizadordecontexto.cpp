@@ -169,6 +169,11 @@ void visualizadordecontexto::sin_dialogo_activo() {
 
 void visualizadordecontexto::analizar_ctx() {
 
+    QObject::connect(&(this->scraping), &QProcess::started, this, &visualizadordecontexto::deshabilitar_menu);
+    QObject::connect(&(this->scraping), &QProcess::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
+    QObject::connect(&(this->scraping), &QProcess::finished, this, &visualizadordecontexto::habilitar_menu);
+    QObject::connect(&(this->scraping), &QProcess::finished, this->ui.bar_analizar_ctx, &QProgressBar::hide);
+
     QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this, &visualizadordecontexto::deshabilitar_menu);
     QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
     QObject::connect(&(this->observador), &QFutureWatcher<void>::finished, this, &visualizadordecontexto::habilitar_menu);
@@ -221,15 +226,7 @@ void visualizadordecontexto::conectar_componentes() {
     QObject::connect(this->ui.btn_analizar_ctx, &QPushButton::released, this, &visualizadordecontexto::analizar_ctx);
 }
 
-void visualizadordecontexto::tarea_analizar_ctx() 
-{
-    //this->emitirProgreso(10);
-    //scraping::aplicacion::GestorTareas::scrapearTwitter();
-    //this->emitirProgreso(25);
-    //scraping::aplicacion::GestorTareas::scrapearFacebook();
-    //this->emitirProgreso(40);
-    //scraping::aplicacion::GestorTareas::depurarYAnalizarContenidos();
-    //this->emitirProgreso(70);
-    //scraping::aplicacion::GestorTareas::prepararYAlmacenarContenidos();
-    //this->emitirProgreso(100);
+void visualizadordecontexto::tarea_analizar_ctx()  {
+    QProcess* scraping = new QProcess(this);
+    scraping->start(visualizador::aplicacion::ConfiguracionAplicacion::pathScraping().c_str());
 }

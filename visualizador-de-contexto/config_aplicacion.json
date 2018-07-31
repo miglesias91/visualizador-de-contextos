@@ -34,7 +34,8 @@
         "log_aplicacion" : "log_aplicacion.json",
 
         "dir_abm" : "C:/temp/abms",
-        "path_config_scraping" : "C:/repositorio/repo-git-miglesias91/scraping/scraping-aplicacion/config_scraping.json",
-        "path_config_noticias" : "C:/repositorio/repo-git-miglesias91/scraping/scraping-aplicacion/config_noticias.json"
+        "path_config_scraping" : "C:/Users/Usuario/Documents/manu/scraping/scraping-aplicacion/config_scraping.json",
+        "path_scraping" : "C:/Users/Usuario/Documents/manu/scraping/scraping-aplicacion.exe",
+        "path_config_noticias" : "C:/Users/Usuario/Documents/manu/scraping/scraping-aplicacion/config_noticias.json"
     }
 }
