@@ -521,7 +521,7 @@ QPushButton {
     border-width: 1px;
     border-color: #76797C;
     border-style: solid;
-    padding: 5px;
+    padding: 3px;
     border-radius: 2px;
     outline: none;
 }
@@ -540,7 +540,7 @@ QPushButton:disabled {
 }
 
 QPushButton:focus {
-    background-color: #3daee9;
+    /*background-color: #3daee9;*/
     color: white;
 }
 

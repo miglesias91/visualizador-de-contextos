@@ -16,6 +16,7 @@
 #include <visualizador-de-contexto/DialogoMediosTwitter.h>
 #include <visualizador-de-contexto/DialogoMediosFacebook.h>
 #include <visualizador-de-contexto/DialogoMediosPortales.h>
+#include <visualizador-de-contexto/include/waitingspinnerwidget.h>
 
 class visualizadordecontexto : public QMainWindow
 {
@@ -58,6 +59,8 @@ private:
     // ATRIBUTOS
     QProcess scraping;
     QFutureWatcher<void> observador;
+    WaitingSpinnerWidget spinner;
+
 
 	// DIALOGOS
     DialogoTerminos * dialogo_terminos;

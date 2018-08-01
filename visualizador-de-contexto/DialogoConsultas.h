@@ -25,6 +25,7 @@
 #include <visualizador-de-contexto/DialogoResultadoConsulta.h>
 #include <visualizador-de-contexto/include/GraficoDeBarras.h>
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
+#include <visualizador-de-contexto/include/waitingspinnerwidget.h>
 
 #include <declaraciones_metatipos.h>
 
@@ -76,6 +77,7 @@ private:
 
     DialogoResultadoConsulta * dialogo_resultados;
 
+    WaitingSpinnerWidget spinner;
     QFutureWatcher<void> observador_realizar_consulta;
 
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados_filtrados;

@@ -76,20 +76,20 @@ QMessageBox * DialogoEditarCuentaTwitter::crearInformacionEtiquetaVacia()
 {
     std::string texto = u8"No se asigno la etiqueta. La etiqueta sirve para describir e identificar al medio en las consultas.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 QMessageBox * DialogoEditarCuentaTwitter::crearInformacionNombreVacio()
 {
     std::string texto = u8"No se asigno un nombre de cuenta.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 QMessageBox * DialogoEditarCuentaTwitter::crearInformacionCuentaInexistente() {
     std::string texto = u8"La cuenta \"" + this->ui->lineedit_nombre_cuenta->text().toStdString() + "\" no existe. ";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 void DialogoEditarCuentaTwitter::conectar_componentes() {

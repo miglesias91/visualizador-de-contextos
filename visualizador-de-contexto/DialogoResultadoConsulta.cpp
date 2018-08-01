@@ -17,7 +17,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(QWidget *parent) : QWidget(pa
     this->conectar_componentes();
 
     this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
-    this->nombres_columnas_csv = {"medio", "termino", "es_concepto", "fuerza", "sentimiento", "fecha"};
+    this->nombres_columnas_csv = { "medio", "termino", "es_concepto", "fuerza", "positividad", "negatividad", "neutralidad", "fecha" };
 
     this->ui->progressbar_exportacion->hide();
 }
@@ -29,7 +29,7 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados,
     const reportes_checkeados& reportes_habilitados,
     QWidget *parent)
-    : medios(medios), conceptos(conceptos), resultados(resultados), QWidget(parent)
+    : medios(medios), conceptos(conceptos), resultados(resultados), spinner(this, false, false), QWidget(parent)
 {
     ui = new Ui::DialogoResultadoConsulta();
     ui->setupUi(this);
@@ -39,9 +39,15 @@ DialogoResultadoConsulta::DialogoResultadoConsulta(
     this->conectar_componentes();
 
     this->meses_con_treinta_dias = std::vector<unsigned int>{ 4, 6, 9, 11 };
-    this->nombres_columnas_csv = { "medio", "termino", "es_concepto", "fuerza", "sentimiento", "fecha" };
+    this->nombres_columnas_csv = { "medio", "termino", "es_concepto", "fuerza", "positividad", "negatividad", "neutralidad", "fecha" };
 
     this->ui->progressbar_exportacion->hide();
+
+    this->ui->layout_exportar->addWidget(&this->spinner);
+    this->spinner.setColor(QColor(61, 174, 233));
+    this->spinner.setLineLength(3);
+    this->spinner.setLineWidth(3);
+    this->spinner.setInnerRadius(5);
 
     if (false == reportes_habilitados.tendencia) {
         this->ui->analisis->removeTab(2);
@@ -267,6 +273,8 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
     tendencia->verticalHeader()->setDefaultSectionSize(20);
     tendencia->horizontalHeader()->setVisible(false);
     tendencia->horizontalHeader()->setDefaultSectionSize(80);
+    tendencia->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
+    tendencia->horizontalHeader()->setStretchLastSection(true);
 
     scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultado->getResultadoMedio(medio->getId()->numero());
     if (resultado_medio) {
@@ -277,12 +285,14 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
         }
 
         tendencia->setRowCount(fuerzas.size());
-        tendencia->setColumnCount(3);
+        tendencia->setColumnCount(4);
 
+        double_t fuerza_total = resultado_fuerzas.getFuerzaTotal();
         uint32_t fila = 0;
         std::for_each(fuerzas.begin(), fuerzas.end(), [=, &fila](std::pair<std::string, float> fuerza) {
             tendencia->setItem(fila, 0, new QTableWidgetItem(fuerza.first.c_str()));
             tendencia->setItem(fila, 1, new QTableWidgetItem(herramientas::utiles::FuncionesString::toString(fuerza.second).c_str()));
+            tendencia->setItem(fila, 2, new QTableWidgetItem(herramientas::utiles::FuncionesString::toString(fuerza.second / fuerza_total).c_str()));
 
             scraping::analisis::tecnicas::ResultadoSentimiento resultado_sentimiento;
             std::string sentimiento = "";
@@ -290,7 +300,7 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
                 sentimiento = resultado_sentimiento.valores(fuerza.first).informar();
             }
 
-            tendencia->setItem(fila, 2, new QTableWidgetItem(sentimiento.c_str()));
+            tendencia->setItem(fila, 3, new QTableWidgetItem(sentimiento.c_str()));
 
             fila++;
         });
@@ -534,10 +544,19 @@ bool DialogoResultadoConsulta::fecha_tendencia_a_csv(int fecha, herramientas::ut
             std::string es_concepto = "0";
             std::string termino = medio_tabla.second->item(i_fila, 0)->text().toStdString();
             std::string fuerza = medio_tabla.second->item(i_fila, 1)->text().toStdString();
+
             std::string sentimiento = medio_tabla.second->item(i_fila, 2)->text().toStdString();
+            herramientas::utiles::FuncionesString::eliminarOcurrencias(sentimiento, "+");
+            herramientas::utiles::FuncionesString::eliminarOcurrencias(sentimiento, "-");
+            herramientas::utiles::FuncionesString::eliminarOcurrencias(sentimiento, "n");
+
+            std::vector<std::string> positividad_negatividad_neutralidad = herramientas::utiles::FuncionesString::separar(sentimiento);
+            std::string positividad = positividad_negatividad_neutralidad[0];
+            std::string negatividad = positividad_negatividad_neutralidad[1];
+            std::string neutralidad = positividad_negatividad_neutralidad[2];
             std::string string_fecha = std::to_string(fecha);
 
-            doc->agregar({medio, termino, es_concepto, fuerza, sentimiento, string_fecha });
+            doc->agregar({medio, termino, es_concepto, fuerza, positividad, negatividad, neutralidad, string_fecha });
         }
     });
     return true;
@@ -560,19 +579,33 @@ bool DialogoResultadoConsulta::fecha_fuerza_sentimiento_a_csv(int fecha, herrami
 
             std::string nombre_concepto = fuerza_en_noticia->topLevelItem(i_conceptos)->text(0).toStdString();
             std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->text(i_medios).toStdString();
-            std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->text(i_medios).toStdString();
+            std::string string_sentimiento_concepto = sentimiento->topLevelItem(i_conceptos)->text(i_medios).toStdString();
+            herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_concepto, "+");
+            herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_concepto, "-");
+            herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_concepto, "n");
 
-            doc->agregar( {nombre_medio, nombre_concepto, "1", fuerza_en_noticia_valor_concepto_en_medio, sentimiento_valor_concepto_en_medio, std::to_string(fecha)} );
+            std::vector<std::string> positividad_negatividad_neutralidad_concepto = herramientas::utiles::FuncionesString::separar(string_sentimiento_concepto);
+            std::string positividad_concepto = positividad_negatividad_neutralidad_concepto[0];
+            std::string negatividad_concepto = positividad_negatividad_neutralidad_concepto[1];
+            std::string neutralidad_concepto = positividad_negatividad_neutralidad_concepto[2];
+
+            doc->agregar( {nombre_medio, nombre_concepto, "1", fuerza_en_noticia_valor_concepto_en_medio, positividad_concepto, negatividad_concepto, neutralidad_concepto, std::to_string(fecha)} );
 
             int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
             for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) {  // itero terminos
 
                 std::string nombre_termino = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(0).toStdString();
                 std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
-                std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
+                std::string string_sentimiento_termino = sentimiento->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
+                herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_termino, "+");
+                herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_termino, "-");
+                herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_termino, "n");
 
-                // doc.agregar( {nombre_medio, nombre_termino, es_concepto=false, fuerza, sentimiento, fecha} );
-                doc->agregar({ nombre_medio, nombre_termino, "0", fuerza_en_noticia_valor_concepto_en_medio, sentimiento_valor_concepto_en_medio, std::to_string(fecha) });
+                std::vector<std::string> positividad_negatividad_neutralidad_termino = herramientas::utiles::FuncionesString::separar(string_sentimiento_termino);
+                std::string positividad_termino = positividad_negatividad_neutralidad_termino[0];
+                std::string negatividad_termino = positividad_negatividad_neutralidad_termino[1];
+                std::string neutralidad_termino = positividad_negatividad_neutralidad_termino[2];
+                doc->agregar({ nombre_medio, nombre_termino, "0", fuerza_en_noticia_valor_concepto_en_medio, positividad_concepto, negatividad_concepto, neutralidad_concepto, std::to_string(fecha) });
             }
         }
     }
@@ -608,8 +641,6 @@ herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
             std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->text(i_medios).toStdString();
             std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->text(i_medios).toStdString();
 
-            // doc.agregar( {nombre_medio, nombre_concepto, es_concepto=true, fuerza, sentimiento, fecha} );
-
             int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
             for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) {  // itero terminos
 
@@ -618,8 +649,6 @@ herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
                 std::string nombre_termino = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(0).toStdString();
                 std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
                 std::string sentimiento_valor_concepto_en_medio = sentimiento->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
-
-                // doc.agregar( {nombre_medio, nombre_termino, es_concepto=false, fuerza, sentimiento, fecha} );
 
                 terminos_de_concepto.push_back(json_termino);
             }
@@ -867,8 +896,10 @@ void DialogoResultadoConsulta::conectar_componentes() {
     QObject::connect(this->ui->btn_exportar_rango, &QPushButton::released, this, &DialogoResultadoConsulta::exportar_rango);
 
     QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::started, this, &DialogoResultadoConsulta::deshabilitar_exportar_botones);
-    QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::started, this->ui->progressbar_exportacion, &QProgressBar::show);
+    //QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::started, this->ui->progressbar_exportacion, &QProgressBar::show);
+    QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::started, &(this->spinner), &WaitingSpinnerWidget::start);
     QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::finished, this, &DialogoResultadoConsulta::habilitar_exportar_botones);
-    QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::finished, this->ui->progressbar_exportacion, &QProgressBar::hide);
+    //QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::finished, this->ui->progressbar_exportacion, &QProgressBar::hide);
+    QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::finished, &(this->spinner), &WaitingSpinnerWidget::stop);
     QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::progressValueChanged, this->ui->progressbar_exportacion, &QProgressBar::valueChanged);
 }

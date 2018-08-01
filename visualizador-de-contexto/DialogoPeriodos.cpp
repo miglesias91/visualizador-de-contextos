@@ -250,12 +250,12 @@ QMessageBox * DialogoPeriodos::crearInformacionPeriodoExistente()
 {
     std::string texto = u8"El período que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_periodo_existente(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_periodo_existente);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_periodo_existente, this);
 }
 
 QMessageBox * DialogoPeriodos::crearErrorFechaDesdeMayorAFechaHasta()
 {
     std::string texto = u8"La fecha 'hasta' debe ser menor a la fecha 'desde'.";
     visualizador::aplicacion::comunicacion::Error error_fecha_desde_mayor_fecha_hasta(texto);
-    return comunicacion::FabricaMensajes::fabricar(&error_fecha_desde_mayor_fecha_hasta);
+    return comunicacion::FabricaMensajes::fabricar(&error_fecha_desde_mayor_fecha_hasta, this);
 }

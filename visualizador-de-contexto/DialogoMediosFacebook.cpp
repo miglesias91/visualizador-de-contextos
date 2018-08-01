@@ -204,27 +204,14 @@ void DialogoMediosFacebook::registrar_abm() {
     std::for_each(altas.begin(), altas.end(), [=](herramientas::utiles::Json * json) { delete json; });
 }
 
-QMessageBox * DialogoMediosFacebook::crearInformacionMedioFacebookExistente()
-{
-    std::string texto = u8"La cuenta de Facebook que se quiere agregar ya existe!";
-    visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
-}
 void DialogoMediosFacebook::nueva_pagina()
 {
     modelo::MedioFacebook * medio_facebook_nuevo = new modelo::MedioFacebook();
-    this->dialogo_editar_medio_facebook = new DialogoEditarMedioFacebook(medio_facebook_nuevo, &this->gestor_medios);
+    this->dialogo_editar_medio_facebook = new DialogoEditarMedioFacebook(medio_facebook_nuevo, &this->gestor_medios, this);
     if (this->dialogo_editar_medio_facebook->exec())
     {
         if (false == this->gestor_medios.existe(medio_facebook_nuevo))
         {
-            // si NO existe, creo su cuenta de scraping asociada y se la seteo...
-            //std::string nombre_pagina = medio_facebook_nuevo->getNombrePagina();
-            //scraping::facebook::modelo::Pagina * nueva_pagina = new scraping::facebook::modelo::Pagina(nombre_pagina);
-            ////scraping::extraccion::interfaceo::MedioFacebook* * nueva_pagina = new scraping::extraccion::interfaceo::MedioFacebook*(nombre_pagina);
-            //nueva_pagina->asignarNuevoId();
-            //medio_facebook_nuevo->setPaginaAScrapear(nueva_pagina);
-
             // y lo agrego en la lista visible.
             this->agregarMedioFacebookALista(medio_facebook_nuevo);
 
@@ -249,6 +236,13 @@ void DialogoMediosFacebook::nueva_pagina()
     {
         delete medio_facebook_nuevo;
     }
+}
+
+QMessageBox * DialogoMediosFacebook::crearInformacionMedioFacebookExistente()
+{
+    std::string texto = u8"La cuenta de Facebook que se quiere agregar ya existe!";
+    visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente, this);
 }
 
 void DialogoMediosFacebook::conectar_componentes() {

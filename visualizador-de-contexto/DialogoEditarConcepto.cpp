@@ -254,21 +254,21 @@ QMessageBox * DialogoEditarConcepto::crearInformacionTerminoExistente()
 {
     std::string texto = u8"El término que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente, this);
 }
 
 QMessageBox * DialogoEditarConcepto::crearInformacionEtiquetaVacia()
 {
     std::string texto = u8"No se asigno la etiqueta. La etiqueta sirve para describir e identificar al concepto en las consultas.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 QMessageBox * DialogoEditarConcepto::crearInformacionListaDeTerminosVacia()
 {
     std::string texto = u8"El concepto no tiene términos. La lista de términos no puede estar vacía.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 void DialogoEditarConcepto::conectar_componentes() {

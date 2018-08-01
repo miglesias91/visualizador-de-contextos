@@ -4,6 +4,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <filesystem>
 
 // qt
 #include <QtConcurrent/qtconcurrentrun.h>
@@ -18,7 +19,7 @@
 visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     : QMainWindow(parent),
     dialogo_terminos(nullptr), dialogo_conceptos(nullptr), dialogo_fechas(nullptr), dialogo_periodos(nullptr), dialogo_consultas(nullptr), dialogo_activo(nullptr),
-    hay_dialogo_abierto(false)
+    hay_dialogo_abierto(false), spinner(this, false, false)
 {
 	ui.setupUi(this);
 
@@ -30,6 +31,12 @@ visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     this->ui.btn_fechas->setVisible(false);
     this->ui.btn_periodos->setEnabled(false);
     this->ui.btn_periodos->setVisible(false);
+
+    this->ui.layout_acciones->addWidget(&this->spinner);
+    this->spinner.setColor(QColor(61, 174, 233));
+    this->spinner.setLineLength(3);
+    this->spinner.setLineWidth(3);
+    this->spinner.setInnerRadius(5);
 
     this->ui.bar_analizar_ctx->hide();
 }
@@ -170,43 +177,40 @@ void visualizadordecontexto::sin_dialogo_activo() {
 void visualizadordecontexto::analizar_ctx() {
 
     QObject::connect(&(this->scraping), &QProcess::started, this, &visualizadordecontexto::deshabilitar_menu);
-    QObject::connect(&(this->scraping), &QProcess::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
-    QObject::connect(&(this->scraping), &QProcess::finished, this, &visualizadordecontexto::habilitar_menu);
-    QObject::connect(&(this->scraping), &QProcess::finished, this->ui.bar_analizar_ctx, &QProgressBar::hide);
+    //QObject::connect(&(this->scraping), &QProcess::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
+    QObject::connect(&(this->scraping), &QProcess::started, &(this->spinner), &WaitingSpinnerWidget::start);
+    QObject::connect(&(this->scraping), QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &visualizadordecontexto::habilitar_menu);
+    //QObject::connect(&(this->scraping), QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this->ui.bar_analizar_ctx, &QProgressBar::hide);
+    QObject::connect(&(this->scraping), QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), &(this->spinner), &WaitingSpinnerWidget::stop);
 
-    QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this, &visualizadordecontexto::deshabilitar_menu);
-    QObject::connect(&(this->observador), &QFutureWatcher<void>::started, this->ui.bar_analizar_ctx, &QProgressBar::show);
-    QObject::connect(&(this->observador), &QFutureWatcher<void>::finished, this, &visualizadordecontexto::habilitar_menu);
-    QObject::connect(&(this->observador), &QFutureWatcher<void>::finished, this->ui.bar_analizar_ctx, &QProgressBar::hide);
+    std::experimental::filesystem::path path_scraping = visualizador::aplicacion::ConfiguracionAplicacion::pathScraping();
 
-    QObject::connect(this, &visualizadordecontexto::senialProgresoAnalisisCTX, this->ui.bar_analizar_ctx, &QProgressBar::setValue);
-
-    QFuture<void> funcion = QtConcurrent::run(this, &visualizadordecontexto::tarea_analizar_ctx);
-
-    this->observador.setFuture(funcion);
+    this->scraping.setWorkingDirectory(path_scraping.parent_path().string().c_str());
+    this->scraping.setProgram(path_scraping.string().c_str());
+    this->scraping.start();
 }
 
 void visualizadordecontexto::deshabilitar_menu()
 {
-    this->ui.btn_terminos->setEnabled(false);
-    this->ui.btn_conceptos->setEnabled(false);
+    //this->ui.btn_terminos->setEnabled(false);
+    //this->ui.btn_conceptos->setEnabled(false);
     //this->ui.btn_fechas->setEnabled(false);
     //this->ui.btn_periodos->setEnabled(false);
-    this->ui.btn_medios_twitter->setEnabled(false);
-    this->ui.btn_medios_facebook->setEnabled(false);
-    this->ui.btn_consulta->setEnabled(false);
+    //this->ui.btn_medios_twitter->setEnabled(false);
+    //this->ui.btn_medios_facebook->setEnabled(false);
+    //this->ui.btn_consulta->setEnabled(false);
     this->ui.btn_analizar_ctx->setEnabled(false);
 }
 
 void visualizadordecontexto::habilitar_menu()
 {
-    this->ui.btn_terminos->setEnabled(true);
-    this->ui.btn_conceptos->setEnabled(true);
+    //this->ui.btn_terminos->setEnabled(true);
+    //this->ui.btn_conceptos->setEnabled(true);
     //this->ui.btn_fechas->setEnabled(true);
     //this->ui.btn_periodos->setEnabled(true);
-    this->ui.btn_medios_twitter->setEnabled(true);
-    this->ui.btn_medios_facebook->setEnabled(true);
-    this->ui.btn_consulta->setEnabled(true);
+    //this->ui.btn_medios_twitter->setEnabled(true);
+    //this->ui.btn_medios_facebook->setEnabled(true);
+    //this->ui.btn_consulta->setEnabled(true);
     this->ui.btn_analizar_ctx->setEnabled(true);
 }
 
@@ -227,6 +231,6 @@ void visualizadordecontexto::conectar_componentes() {
 }
 
 void visualizadordecontexto::tarea_analizar_ctx()  {
-    QProcess* scraping = new QProcess(this);
-    scraping->start(visualizador::aplicacion::ConfiguracionAplicacion::pathScraping().c_str());
+    //QProcess* scraping = new QProcess(this);
+    //scraping->start(visualizador::aplicacion::ConfiguracionAplicacion::pathScraping().c_str());
 }

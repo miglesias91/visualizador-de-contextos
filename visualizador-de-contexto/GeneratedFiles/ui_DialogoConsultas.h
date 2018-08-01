@@ -286,7 +286,7 @@ public:
 
         widget_medios = new QWidget(widget_consulta);
         widget_medios->setObjectName(QStringLiteral("widget_medios"));
-        widget_medios->setMaximumSize(QSize(16777215, 200));
+        widget_medios->setMaximumSize(QSize(16777215, 16777215));
         layout_medios_consulta = new QVBoxLayout(widget_medios);
         layout_medios_consulta->setSpacing(0);
         layout_medios_consulta->setContentsMargins(11, 11, 11, 11);
@@ -692,7 +692,7 @@ public:
         btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "Sacar conceptos", Q_NULLPTR));
         lbl_reportes->setText(QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
         checkbox_tendencia->setText(QApplication::translate("DialogoConsultas", "Tendencia", Q_NULLPTR));
-        checkbox_fuerza->setText(QApplication::translate("DialogoConsultas", "Fuerza de concepto en medio", Q_NULLPTR));
+        checkbox_fuerza->setText(QApplication::translate("DialogoConsultas", "Fuerza en noticia", Q_NULLPTR));
         checkbox_sentimiento->setText(QApplication::translate("DialogoConsultas", "Sentimiento", Q_NULLPTR));
         btn_realizar_consulta->setText(QApplication::translate("DialogoConsultas", "Consultar", Q_NULLPTR));
         btn_cancelar->setText(QApplication::translate("DialogoConsultas", "Cancelar", Q_NULLPTR));

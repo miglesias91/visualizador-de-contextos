@@ -22,10 +22,10 @@ public:
 
     // METODOS
 
-    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Informacion * mensaje_informacion);
-    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Error * mensaje_error);
-    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Advertencia * mensaje_advertencia);
-    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Pregunta * mensaje_pregunta);
+    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Informacion * mensaje_informacion, QWidget* padre = nullptr);
+    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Error * mensaje_error, QWidget* padre = nullptr);
+    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Advertencia * mensaje_advertencia, QWidget* padre = nullptr);
+    static QMessageBox * fabricar(visualizador::aplicacion::comunicacion::Pregunta * mensaje_pregunta, QWidget* padre = nullptr);
 };
 
 };

@@ -50,7 +50,7 @@ public:
             DialogoConceptos->setObjectName(QStringLiteral("DialogoConceptos"));
         DialogoConceptos->resize(800, 400);
         DialogoConceptos->setAutoFillBackground(false);
-        DialogoConceptos->setStyleSheet(QStringLiteral("border-color: rgb(29, 29, 29);"));
+        DialogoConceptos->setStyleSheet(QStringLiteral(""));
         verticalLayout = new QVBoxLayout(DialogoConceptos);
         verticalLayout->setSpacing(3);
         verticalLayout->setContentsMargins(11, 11, 11, 11);

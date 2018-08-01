@@ -248,7 +248,7 @@ QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
 {
     std::string texto = u8"El concepto que se quiere agregar ya existe!";
     visualizador::aplicacion::comunicacion::Informacion informacion_concepto_existente(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente, this);
 }
 
 void DialogoConceptos::conectar_componentes() {

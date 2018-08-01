@@ -18,7 +18,7 @@
 using namespace visualizador;
 
 DialogoConsultas::DialogoConsultas(QWidget *parent)
-    : QWidget(parent), grafico_fuerza_en_noticia(NULL), dialogo_resultados(nullptr)
+    : QWidget(parent), grafico_fuerza_en_noticia(NULL), dialogo_resultados(nullptr), spinner(this, false, false)
 {
     ui = new Ui::DialogoConsultas();
     ui->setupUi(this);
@@ -32,6 +32,12 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
     desde -= std::chrono::hours(7 * 24);  // una semana para atras.
     this->ui->dateedit_desde->setDate(QDate(desde.getAnio(), desde.getMes(), desde.getDia()));
     this->ui->dateedit_hasta->setDate(QDate(actual.getAnio(), actual.getMes(), actual.getDia()));
+
+    this->ui->layout_botones->addWidget(&this->spinner);
+    this->spinner.setColor(QColor(61, 174, 233));
+    this->spinner.setLineLength(3);
+    this->spinner.setLineWidth(3);
+    this->spinner.setInnerRadius(5);
 
     this->conectar_componentes();
 
@@ -422,10 +428,12 @@ void DialogoConsultas::conectar_componentes()
     QObject::connect(this->ui->checkbox_tendencia, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
 
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this, &DialogoConsultas::deshabilitar_opciones);
-    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this->ui->progressbar_realizar_consulta, &QProgressBar::show);
+    //QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this->ui->progressbar_realizar_consulta, &QProgressBar::show);
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, &(this->spinner), &WaitingSpinnerWidget::start);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this, &DialogoConsultas::habilitar_opciones);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this, &DialogoConsultas::mostrar_resultados);
-    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this->ui->progressbar_realizar_consulta, &QProgressBar::hide);
+    //QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this->ui->progressbar_realizar_consulta, &QProgressBar::hide);
+    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, &(this->spinner), &WaitingSpinnerWidget::stop);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::progressValueChanged, this->ui->progressbar_realizar_consulta, &QProgressBar::valueChanged);
 }
 
@@ -443,19 +451,19 @@ QMessageBox * DialogoConsultas::crearInformacionSinResultados()
 {
     std::string texto = u8"No se encontró contenido para visualizar dentro del rango de fechas seleccionado.";
     visualizador::aplicacion::comunicacion::Informacion informacion_sin_resultados(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados, this);
 }
 
 QMessageBox * DialogoConsultas::crearInformacionNoHayMediosSeleccionados()
 {
     std::string texto = u8"No hay medios seleccionados.";
     visualizador::aplicacion::comunicacion::Informacion informacion_sin_resultados(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados, this);
 }
 
 QMessageBox * DialogoConsultas::crearInformacionNoHayConceptosSeleccionados()
 {
     std::string texto = u8"No hay conceptos seleccionados.";
     visualizador::aplicacion::comunicacion::Informacion informacion_sin_resultados(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_sin_resultados, this);
 }

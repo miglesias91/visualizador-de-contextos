@@ -137,6 +137,15 @@
     <ClCompile Include="GeneratedFiles\qrc_oscuro.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_waitingspinnerwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_waitingspinnerwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\waitingspinnerwidget.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resource Files">
@@ -269,6 +278,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="oscuro.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\waitingspinnerwidget.h">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>

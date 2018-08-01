@@ -18,6 +18,9 @@
 // aplicacion
 #include <aplicacion/include/GestorResultadosDiarios.h>
 
+// visu
+#include <visualizador-de-contexto/include/waitingspinnerwidget.h>
+
 namespace Ui { class DialogoResultadoConsulta; };
 
 class DialogoResultadoConsulta : public QWidget
@@ -103,6 +106,7 @@ private:
 
     std::vector<unsigned int> meses_con_treinta_dias;
 
+    WaitingSpinnerWidget spinner;
     QFutureWatcher<void> observador_exportacion;
     
     std::vector<std::string> nombres_columnas_csv;

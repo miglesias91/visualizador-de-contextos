@@ -76,20 +76,20 @@ QMessageBox * DialogoEditarMedioFacebook::crearInformacionEtiquetaVacia()
 {
     std::string texto = u8"No se asigno la etiqueta. La etiqueta sirve para describir e identificar al medio en las consultas.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 QMessageBox * DialogoEditarMedioFacebook::crearInformacionNombreVacio()
 {
     std::string texto = u8"No se asigno un nombre de página.";
     visualizador::aplicacion::comunicacion::Informacion informacion_etiqueta_vacia(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_etiqueta_vacia, this);
 }
 
 QMessageBox * DialogoEditarMedioFacebook::crearInformacionPaginaInexistente() {
     std::string texto = u8"La página \"" + this->ui->lineedit_nombre_pagina->text().toStdString() + "\" no existe. ";
     visualizador::aplicacion::comunicacion::Informacion informacion(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion);
+    return comunicacion::FabricaMensajes::fabricar(&informacion, this);
 }
 
 void DialogoEditarMedioFacebook::conectar_componentes() {

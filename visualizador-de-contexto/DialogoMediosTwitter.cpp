@@ -201,26 +201,14 @@ void DialogoMediosTwitter::registrar_abm() {
     std::for_each(altas.begin(), altas.end(), [=](herramientas::utiles::Json * json) { delete json; });
 }
 
-QMessageBox * DialogoMediosTwitter::crearInformacionMedioTwitterExistente()
-{
-    std::string texto = u8"La cuenta de Twitter que se quiere agregar ya existe!";
-    visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
-    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente);
-}
 void DialogoMediosTwitter::nueva_cuenta()
 {
     modelo::MedioTwitter * medio_twitter_nuevo = new modelo::MedioTwitter();
-    this->dialogo_editar_medio_twitter = new DialogoEditarCuentaTwitter(medio_twitter_nuevo, &this->gestor_medios);
+    this->dialogo_editar_medio_twitter = new DialogoEditarCuentaTwitter(medio_twitter_nuevo, &this->gestor_medios, this);
     if (this->dialogo_editar_medio_twitter->exec())
     {
         if (false == this->gestor_medios.existe(medio_twitter_nuevo))
         {
-            // si NO existe, creo su cuenta de scraping asociada y se la seteo...
-            //std::string nombre_cuenta = medio_twitter_nuevo->getNombreUsuario();
-            //scraping::twitter::modelo::Cuenta * nueva_cuenta = new scraping::twitter::modelo::Cuenta(nombre_cuenta);
-            //nueva_cuenta->asignarNuevoId();
-            //medio_twitter_nuevo->setCuentaAScrapear(nueva_cuenta);
-
             // y lo agrego en la lista visible.
             this->agregarMedioTwitterALista(medio_twitter_nuevo);
 
@@ -245,6 +233,13 @@ void DialogoMediosTwitter::nueva_cuenta()
     {
         delete medio_twitter_nuevo;
     }
+}
+
+QMessageBox * DialogoMediosTwitter::crearInformacionMedioTwitterExistente()
+{
+    std::string texto = u8"La cuenta de Twitter que se quiere agregar ya existe!";
+    visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente, this);
 }
 
 void DialogoMediosTwitter::conectar_componentes() {
