@@ -59,12 +59,17 @@ private:
 	void nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
 	QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
     QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
+    QTreeWidget * nuevo_arbol_medio(const std::vector<modelo::Concepto*> &conceptos, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
 
     QTreeWidgetItem * completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
     QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
 
     QTreeWidgetItem * completar_sentimiento(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
     QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+
+    QTreeWidgetItem * completar_fila_arbol(modelo::Concepto * concepto, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+    QTreeWidgetItem * completar_fila_arbol(modelo::Termino * termino, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+
 
     void mostrar_resultado(int fecha);
     void ocultar_resultado(int fecha);
@@ -101,6 +106,10 @@ private:
 	std::unordered_map<unsigned long long int, QTreeWidget*> fuerzas_en_noticia;
     std::unordered_map<unsigned long long int, std::vector<QWidget*>> tendencias;
     std::unordered_map<unsigned long long int, std::vector<std::pair<std::string, QTableWidget*>>> tablas_tendencias;
+
+
+    std::unordered_map<unsigned long long int, std::vector<QWidget*>> resultados_por_conceptos;
+    std::unordered_map<unsigned long long int, std::vector<std::pair<std::string, QTreeWidget*>>> arboles_resultados_por_conceptos;
 
     herramientas::utiles::Fecha fecha_actual;
 

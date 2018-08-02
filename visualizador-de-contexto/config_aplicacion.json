@@ -33,9 +33,9 @@
 
         "log_aplicacion" : "log_aplicacion.json",
 
-        "dir_abm" : "C:/temp/abms",
-        "path_config_scraping" : "C:/repositorio/repo-git-miglesias91/scraping/scraping-aplicacion/config_scraping.json",
-        "path_scraping" : "C:/Users/Manuel/Desktop/visu_20180729/scraping/scraping-aplicacion.exe",
-        "path_config_noticias" : "C:/repositorio/repo-git-miglesias91/scraping/scraping-aplicacion/config_noticias.json"
+        "dir_abm" : "C:/Users/Usuario/Desktop/visu_20180729/scraping/abms",
+        "path_config_scraping" : "C:/Users/Usuario/Desktop/visu_20180729/scraping/config_scraping.json",
+        "path_scraping" : "C:/Users/Usuario/Desktop/visu_20180729/scraping/scraping-aplicacion.exe",
+        "path_config_noticias" : "C:/Users/Usuario/Desktop/visu_20180729/scraping/config_noticias.json"
     }
 }

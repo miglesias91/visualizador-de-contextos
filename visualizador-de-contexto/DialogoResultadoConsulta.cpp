@@ -284,8 +284,13 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
             fuerzas = resultado_fuerzas.getTop(10);
         }
 
+        scraping::analisis::tecnicas::ResultadoSentimiento resultado_sentimiento;
+        if (resultado_medio->sentimiento_de_categoria(&resultado_sentimiento, medio->seccion())) {
+
+        }
+
         tendencia->setRowCount(fuerzas.size());
-        tendencia->setColumnCount(4);
+        tendencia->setColumnCount(5);
 
         double_t fuerza_total = resultado_fuerzas.getFuerzaTotal();
         uint32_t fila = 0;
@@ -293,6 +298,7 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
             tendencia->setItem(fila, 0, new QTableWidgetItem(fuerza.first.c_str()));
             tendencia->setItem(fila, 1, new QTableWidgetItem(herramientas::utiles::FuncionesString::toString(fuerza.second).c_str()));
             tendencia->setItem(fila, 2, new QTableWidgetItem(herramientas::utiles::FuncionesString::toString(fuerza.second / fuerza_total).c_str()));
+            tendencia->setItem(fila, 3, new QTableWidgetItem(herramientas::utiles::FuncionesString::toString(resultado_sentimiento.valores(fuerza.first).total()).c_str()));
 
             scraping::analisis::tecnicas::ResultadoSentimiento resultado_sentimiento;
             std::string sentimiento = "";
@@ -300,7 +306,7 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
                 sentimiento = resultado_sentimiento.valores(fuerza.first).informar();
             }
 
-            tendencia->setItem(fila, 3, new QTableWidgetItem(sentimiento.c_str()));
+            tendencia->setItem(fila, 4, new QTableWidgetItem(sentimiento.c_str()));
 
             fila++;
         });
@@ -335,6 +341,65 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
     this->ui->layout_pestania_3->addWidget(widget_tendencia);
     (&this->tendencias[resultado->getId()->numero()])->push_back(widget_tendencia);
     (&this->tablas_tendencias[resultado->getId()->numero()])->push_back(std::make_pair(medio->getNombre(),tendencia));
+}
+
+QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_medio(const std::vector<modelo::Concepto*> &conceptos, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado) {
+    QTreeWidget * arbol = new QTreeWidget(this->ui->pestania_4);
+    this->ui->layout_pestania_4->addWidget(arbol);
+
+    //arbol->verticalHeader()->setVisible(false);
+    //arbol->verticalHeader()->setDefaultSectionSize(20);
+    //arbol->horizontalHeader()->setVisible(false);
+    //arbol->horizontalHeader()->setDefaultSectionSize(80);
+    //arbol->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::ResizeToContents);
+    //arbol->scolumhsetSecorizontalHeader()->setStretchLastSection(true);
+
+    arbol->setColumnCount(5);
+    arbol->setSortingEnabled(true);
+    arbol->setVisible(false);
+    arbol->setSelectionMode(QAbstractItemView::SelectionMode::ContiguousSelection);
+
+    std::for_each(conceptos.begin(), conceptos.end(), [=](modelo::Concepto * concepto) {
+        QTreeWidgetItem * fila_concepto = this->completar_fila_arbol(concepto, medio, resultado);
+
+        std::vector<modelo::Termino*> terminos = concepto->getTerminos();
+        std::for_each(terminos.begin(), terminos.end(), [=](modelo::Termino* termino) {
+            QTreeWidgetItem * fila_termino = this->completar_fila_arbol(termino, medio, resultado);
+            fila_concepto->addChild(fila_termino);
+        });
+
+        arbol->addTopLevelItem(fila_concepto);
+    });
+
+    QVBoxLayout * layout_conceptos = new QVBoxLayout(this->ui->pestania_4);
+    layout_conceptos->setContentsMargins(QMargins(0, 0, 0, 0));
+    layout_conceptos->setSpacing(0);
+
+    QWidget * widget_conceptos = new QWidget(this->ui->pestania_4);
+    widget_conceptos->setLayout(layout_conceptos);
+    widget_conceptos->setVisible(false);
+
+    QHBoxLayout * layout_etiqueta = new QHBoxLayout(this->ui->pestania_4);
+    layout_etiqueta->setContentsMargins(QMargins(1, 1, 1, 1));
+    layout_etiqueta->setSpacing(1);
+    layout_etiqueta->setAlignment(Qt::AlignLeft);
+
+    QWidget * widget_etiqueta = new QWidget(this->ui->pestania_4);
+    widget_etiqueta->setLayout(layout_etiqueta);
+
+    QLabel * etiqueta = new QLabel(medio->getNombre().c_str(), this->ui->pestania_4);
+    QLabel * icono = new QLabel(this->ui->pestania_4);
+
+    icono->setPixmap(QIcon(this->path_icono(medio).c_str()).pixmap(QSize(16, 16)));
+    layout_etiqueta->addWidget(icono);
+    layout_etiqueta->addWidget(etiqueta);
+
+    layout_conceptos->addWidget(widget_etiqueta);
+    layout_conceptos->addWidget(arbol);
+
+    this->ui->layout_pestania_3->addWidget(widget_conceptos);
+    (&this->resultados_por_conceptos[resultado->getId()->numero()])->push_back(widget_conceptos);
+    (&this->arboles_resultados_por_conceptos[resultado->getId()->numero()])->push_back(std::make_pair(medio->getNombre(), arbol));
 }
 
 QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios)
@@ -545,7 +610,7 @@ bool DialogoResultadoConsulta::fecha_tendencia_a_csv(int fecha, herramientas::ut
             std::string termino = medio_tabla.second->item(i_fila, 0)->text().toStdString();
             std::string fuerza = medio_tabla.second->item(i_fila, 1)->text().toStdString();
 
-            std::string sentimiento = medio_tabla.second->item(i_fila, 2)->text().toStdString();
+            std::string sentimiento = medio_tabla.second->item(i_fila, 4)->text().toStdString();
             herramientas::utiles::FuncionesString::eliminarOcurrencias(sentimiento, "+");
             herramientas::utiles::FuncionesString::eliminarOcurrencias(sentimiento, "-");
             herramientas::utiles::FuncionesString::eliminarOcurrencias(sentimiento, "n");
@@ -902,4 +967,74 @@ void DialogoResultadoConsulta::conectar_componentes() {
     //QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::finished, this->ui->progressbar_exportacion, &QProgressBar::hide);
     QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::finished, &(this->spinner), &WaitingSpinnerWidget::stop);
     QObject::connect(&(this->observador_exportacion), &QFutureWatcher<void>::progressValueChanged, this->ui->progressbar_exportacion, &QProgressBar::valueChanged);
+}
+
+QTreeWidgetItem * DialogoResultadoConsulta::completar_fila_arbol(modelo::Concepto * concepto, modelo::Medio * medio, scraping::preparacion::ResultadoAnalisisDiario * resultado) {
+    std::vector<modelo::Termino*> terminos = concepto->getTerminos();
+    QStringList valores_de_concepto_por_medio(concepto->getEtiqueta().c_str());
+    
+    double fuerza_total = 1.0f;
+    double fuerza = 0.0f;
+    scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento;
+
+    std::for_each(terminos.begin(), terminos.end(),
+        [&resultado, &medio, &fuerza_total, &fuerza, &sentimiento](modelo::Termino * termino)
+    {
+        std::string expresion = termino->getValor();
+        unsigned long long int id_medio = medio->getId()->numero();
+
+        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultado->getResultadoMedio(id_medio);
+
+        if (resultado_medio) {
+            scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado_fuerza;
+            resultado_medio->fuerza_en_noticia_de_categoria(&resultado_fuerza, medio->seccion());
+            fuerza += resultado_fuerza.getFuerza(expresion);
+            fuerza_total = resultado_fuerza.getFuerzaTotal();  // lo reseteo todo el tiempo, pero el valor tiene que ser siempre el mismo.
+
+            scraping::analisis::tecnicas::ResultadoSentimiento resultado_sentimiento;
+            resultado_medio->sentimiento_de_categoria(&resultado_sentimiento, medio->seccion());
+            sentimiento += resultado_sentimiento.valores(expresion);
+        }
+    });
+
+    valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza).c_str());
+    valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza / fuerza_total).c_str());
+    valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(sentimiento.total()).c_str());
+    valores_de_concepto_por_medio.push_back(sentimiento.informar().c_str());
+
+    return new QTreeWidgetItem(valores_de_concepto_por_medio);
+}
+
+QTreeWidgetItem * DialogoResultadoConsulta::completar_fila_arbol(modelo::Termino * termino, modelo::Medio * medio, scraping::preparacion::ResultadoAnalisisDiario * resultado) {
+    QStringList valores_de_termino_por_medio(termino->getValor().c_str());
+
+    std::for_each(medios.begin(), medios.end(),
+        [&resultado, &termino, &valores_de_termino_por_medio](modelo::Medio * medio)
+    {
+        std::string expresion = termino->getValor();
+        unsigned long long int id_medio = medio->getId()->numero();
+
+        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultado->getResultadoMedio(id_medio);
+
+        double fuerza_total = 1.0f;
+        double fuerza_en_noticia = 0.0f;
+        scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento;
+        if (resultado_medio) {
+            scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado_fuerza;
+            resultado_medio->fuerza_en_noticia_de_categoria(&resultado_fuerza, medio->seccion());
+            fuerza_en_noticia = resultado_fuerza.getFuerza(expresion);
+            fuerza_total = resultado_fuerza.getFuerzaTotal();
+
+            scraping::analisis::tecnicas::ResultadoSentimiento resultado_sentimiento;
+            resultado_medio->sentimiento_de_categoria(&resultado_sentimiento, medio->seccion());
+            sentimiento = resultado_sentimiento.valores(expresion);
+        }
+
+        valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia).c_str());
+        valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia / fuerza_total).c_str());
+        valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(sentimiento.total()).c_str());
+        valores_de_termino_por_medio.push_back(sentimiento.informar().c_str());
+    });
+
+    return new QTreeWidgetItem(valores_de_termino_por_medio);
 }
