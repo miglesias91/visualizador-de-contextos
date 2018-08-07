@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DialogoConsultas_t {
-    QByteArrayData data[15];
-    char stringdata0[204];
+    QByteArrayData data[16];
+    char stringdata0[230];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,23 +37,25 @@ QT_MOC_LITERAL(2, 26, 0), // ""
 QT_MOC_LITERAL(3, 27, 8), // "se_abrio"
 QT_MOC_LITERAL(4, 36, 17), // "agregar_conceptos"
 QT_MOC_LITERAL(5, 54, 15), // "sacar_conceptos"
-QT_MOC_LITERAL(6, 70, 14), // "setear_periodo"
-QT_MOC_LITERAL(7, 85, 14), // "agregar_medios"
-QT_MOC_LITERAL(8, 100, 12), // "sacar_medios"
-QT_MOC_LITERAL(9, 113, 20), // "recuperar_resultados"
-QT_MOC_LITERAL(10, 134, 16), // "resetear_periodo"
-QT_MOC_LITERAL(11, 151, 18), // "mostrar_resultados"
-QT_MOC_LITERAL(12, 170, 7), // "guardar"
-QT_MOC_LITERAL(13, 178, 6), // "cerrar"
-QT_MOC_LITERAL(14, 185, 18) // "habilitar_consulta"
+QT_MOC_LITERAL(6, 70, 14), // "agregar_medios"
+QT_MOC_LITERAL(7, 85, 12), // "sacar_medios"
+QT_MOC_LITERAL(8, 98, 20), // "recuperar_resultados"
+QT_MOC_LITERAL(9, 119, 16), // "resetear_periodo"
+QT_MOC_LITERAL(10, 136, 18), // "mostrar_resultados"
+QT_MOC_LITERAL(11, 155, 7), // "guardar"
+QT_MOC_LITERAL(12, 163, 6), // "cerrar"
+QT_MOC_LITERAL(13, 170, 18), // "habilitar_consulta"
+QT_MOC_LITERAL(14, 189, 19), // "habilitar_conceptos"
+QT_MOC_LITERAL(15, 209, 20) // "habilitar_tendencias"
 
     },
     "DialogoConsultas\0se_cerro\0\0se_abrio\0"
     "agregar_conceptos\0sacar_conceptos\0"
-    "setear_periodo\0agregar_medios\0"
-    "sacar_medios\0recuperar_resultados\0"
-    "resetear_periodo\0mostrar_resultados\0"
-    "guardar\0cerrar\0habilitar_consulta"
+    "agregar_medios\0sacar_medios\0"
+    "recuperar_resultados\0resetear_periodo\0"
+    "mostrar_resultados\0guardar\0cerrar\0"
+    "habilitar_consulta\0habilitar_conceptos\0"
+    "habilitar_tendencias"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,7 +65,7 @@ static const uint qt_meta_data_DialogoConsultas[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,27 +73,29 @@ static const uint qt_meta_data_DialogoConsultas[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   79,    2, 0x06 /* Public */,
-       3,    0,   80,    2, 0x06 /* Public */,
+       1,    0,   84,    2, 0x06 /* Public */,
+       3,    0,   85,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   81,    2, 0x08 /* Private */,
-       5,    0,   82,    2, 0x08 /* Private */,
-       6,    0,   83,    2, 0x08 /* Private */,
-       7,    0,   84,    2, 0x08 /* Private */,
-       8,    0,   85,    2, 0x08 /* Private */,
-       9,    0,   86,    2, 0x08 /* Private */,
-      10,    0,   87,    2, 0x08 /* Private */,
-      11,    0,   88,    2, 0x08 /* Private */,
-      12,    0,   89,    2, 0x08 /* Private */,
-      13,    0,   90,    2, 0x08 /* Private */,
-      14,    0,   91,    2, 0x08 /* Private */,
+       4,    0,   86,    2, 0x08 /* Private */,
+       5,    0,   87,    2, 0x08 /* Private */,
+       6,    0,   88,    2, 0x08 /* Private */,
+       7,    0,   89,    2, 0x08 /* Private */,
+       8,    0,   90,    2, 0x08 /* Private */,
+       9,    0,   91,    2, 0x08 /* Private */,
+      10,    0,   92,    2, 0x08 /* Private */,
+      11,    0,   93,    2, 0x08 /* Private */,
+      12,    0,   94,    2, 0x08 /* Private */,
+      13,    0,   95,    2, 0x08 /* Private */,
+      14,    0,   96,    2, 0x08 /* Private */,
+      15,    0,   97,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -117,15 +121,16 @@ void DialogoConsultas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 1: _t->se_abrio(); break;
         case 2: _t->agregar_conceptos(); break;
         case 3: _t->sacar_conceptos(); break;
-        case 4: _t->setear_periodo(); break;
-        case 5: _t->agregar_medios(); break;
-        case 6: _t->sacar_medios(); break;
-        case 7: _t->recuperar_resultados(); break;
-        case 8: _t->resetear_periodo(); break;
-        case 9: _t->mostrar_resultados(); break;
-        case 10: _t->guardar(); break;
-        case 11: _t->cerrar(); break;
-        case 12: _t->habilitar_consulta(); break;
+        case 4: _t->agregar_medios(); break;
+        case 5: _t->sacar_medios(); break;
+        case 6: _t->recuperar_resultados(); break;
+        case 7: _t->resetear_periodo(); break;
+        case 8: _t->mostrar_resultados(); break;
+        case 9: _t->guardar(); break;
+        case 10: _t->cerrar(); break;
+        case 11: _t->habilitar_consulta(); break;
+        case 12: _t->habilitar_conceptos(); break;
+        case 13: _t->habilitar_tendencias(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -174,13 +179,13 @@ int DialogoConsultas::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

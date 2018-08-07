@@ -23,22 +23,29 @@
 
 namespace Ui { class DialogoResultadoConsulta; };
 
+struct info_consulta {
+    enum ordenar_por {
+        APARICIONES = 0, FUERZA = 1
+    };
+
+    bool conceptos = false;
+    bool tendencias = false;
+    uint32_t top_tendencias = 0;
+    ordenar_por orden = APARICIONES;
+};
+
 class DialogoResultadoConsulta : public QWidget
 {
     Q_OBJECT
 
 public:
-    struct reportes_checkeados {
-        bool fuerza_en_noticia = false, sentimiento = false, tendencia = false;
-    };
-
     DialogoResultadoConsulta(QWidget *parent = Q_NULLPTR);
 
     DialogoResultadoConsulta(
         std::vector<modelo::Medio*> medios,
         std::vector<modelo::Concepto*> conceptos,
         std::vector<scraping::preparacion::ResultadoAnalisisDiario*> resultados,
-        const reportes_checkeados& reportes_habilitados,
+        const info_consulta& info,
         QWidget *parent = Q_NULLPTR);
     ~DialogoResultadoConsulta();
 
@@ -53,23 +60,23 @@ private:
 
     void conectar_componentes();
 
-	void completar_tendencias(const std::vector<modelo::Medio*> & medios, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
-    void completar_arboles(const std::vector<modelo::Medio*> & medios, const std::vector<modelo::Concepto*> & conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
+    void completar_resultados_por_concepto(const std::vector<modelo::Concepto*> & conceptos, const std::vector<modelo::Medio*> & medios, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
+    void completar_tendencias(const std::vector<modelo::Medio*> & medios, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
+    //void completar_arboles(const std::vector<modelo::Medio*> & medios, const std::vector<modelo::Concepto*> & conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*> & resultados);
     
-	void nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
-	QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
-    QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
-    QTreeWidget * nuevo_arbol_medio(const std::vector<modelo::Concepto*> &conceptos, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
+    void nuevo_arbol_medio(const std::vector<modelo::Concepto*> &conceptos, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
+    void nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado);
+	//QTreeWidget * nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
+ //   QTreeWidget * nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios);
 
-    QTreeWidgetItem * completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
-    QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+ //   QTreeWidgetItem * completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+ //   QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
 
-    QTreeWidgetItem * completar_sentimiento(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
-    QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+ //   QTreeWidgetItem * completar_sentimiento(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
+ //   QTreeWidgetItem * completar_fuerza_en_noticia(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultado);
 
     QTreeWidgetItem * completar_fila_arbol(modelo::Concepto * concepto, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado);
     QTreeWidgetItem * completar_fila_arbol(modelo::Termino * termino, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado);
-
 
     void mostrar_resultado(int fecha);
     void ocultar_resultado(int fecha);
@@ -88,14 +95,16 @@ private:
     void habilitar_exportar_botones();
     void deshabilitar_exportar_botones();
 
-    bool fecha_fuerza_sentimiento_a_csv(int fecha, herramientas::utiles::csv * doc);
+    //bool fecha_fuerza_sentimiento_a_csv(int fecha, herramientas::utiles::csv * doc);
     bool fecha_tendencia_a_csv(int fecha, herramientas::utiles::csv * doc);
+    bool fecha_conceptos_a_csv(int fecha, herramientas::utiles::csv * doc);
 
     herramientas::utiles::Json * fecha_a_json(int fecha);
     herramientas::utiles::Json * concepto_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_medio);
     herramientas::utiles::Json * termino_a_json(QTreeWidget * fuerza_en_noticia, QTreeWidget * sentimiento, int idx_concepto, int idx_termino, int idx_medio);
 
     std::string path_icono(modelo::Medio* medio);
+    std::string tipo_medio(modelo::Medio* medio);
 
     // atributos
     std::vector<modelo::Medio*> medios;
@@ -119,4 +128,5 @@ private:
     QFutureWatcher<void> observador_exportacion;
     
     std::vector<std::string> nombres_columnas_csv;
+    info_consulta info;
 };

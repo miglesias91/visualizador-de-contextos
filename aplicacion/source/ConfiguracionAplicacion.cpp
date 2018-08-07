@@ -51,6 +51,7 @@ std::string ConfiguracionAplicacion::archivo_config_db_resultados_diarios;
 
 std::string ConfiguracionAplicacion::archivo_config_log;
 std::string ConfiguracionAplicacion::dir_abm;
+std::string ConfiguracionAplicacion::dir_consultas;
 
 std::string ConfiguracionAplicacion::clave_id_actual;
 
@@ -113,6 +114,7 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
         archivo_config_db_resultados_diarios = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagArchivoConfigDBResultadosDiarios());
 
         dir_abm = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagDirABM());
+        dir_consultas = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagDirConsultas());
 
         archivo_config_log = config_app_json->getAtributoValorString(ConfiguracionAplicacion::tagArchivoConfigLog());
     }
@@ -306,6 +308,10 @@ std::string ConfiguracionAplicacion::dirABM() {
     return dir_abm;
 }
 
+std::string ConfiguracionAplicacion::dirConsultas() {
+    return dir_consultas;
+}
+
 std::string ConfiguracionAplicacion::tagPathScraping()
 {
     return "path_scraping";
@@ -464,6 +470,10 @@ std::string ConfiguracionAplicacion::tagArchivoConfigLog()
 
 std::string ConfiguracionAplicacion::tagDirABM() {
     return "dir_abm";
+}
+
+std::string ConfiguracionAplicacion::tagDirConsultas() {
+    return "dir_consultas";
 }
 
 ConfiguracionAplicacion::ConfiguracionAplicacion()

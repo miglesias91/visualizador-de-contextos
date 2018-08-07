@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -21,9 +22,9 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -72,28 +73,26 @@ public:
     QPushButton *btn_sacar_medios;
     QListWidget *lista_medios_en_consulta;
     QFrame *line_2;
-    QWidget *widget_conceptos;
-    QVBoxLayout *verticalLayout_3;
-    QHBoxLayout *cabecera_conceptos;
-    QLabel *lbl_conceptos;
-    QPushButton *btn_sacar_conceptos;
-    QListWidget *lista_conceptos_en_consulta;
-    QFrame *line_3;
     QWidget *widget_reportes;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *cabecera_reportes;
-    QLabel *lbl_reportes;
     QCheckBox *checkbox_tendencia;
-    QCheckBox *checkbox_fuerza;
-    QCheckBox *checkbox_sentimiento;
-    QWidget *widget_secciones;
-    QVBoxLayout *layout_secciones_consulta;
+    QLabel *lbl_mostrar_primeros;
+    QSpinBox *spinbox_tendencias;
+    QLabel *lbl_ordenar_por;
+    QComboBox *combobox_tendencia;
+    QFrame *line_3;
+    QWidget *widget_conceptos;
+    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *cabecera_conceptos;
+    QCheckBox *checkbox_conceptos;
+    QPushButton *btn_sacar_conceptos;
+    QListWidget *lista_conceptos_en_consulta;
     QSpacerItem *espaciador_consulta;
     QWidget *widget_botones;
     QHBoxLayout *layout_botones;
     QPushButton *btn_realizar_consulta;
     QPushButton *btn_cancelar;
-    QProgressBar *progressbar_realizar_consulta;
     QWidget *tab_medios;
     QVBoxLayout *verticalLayout_10;
     QWidget *widget_lista_medios;
@@ -110,14 +109,6 @@ public:
     QLabel *lbl_lista_de_conceptos;
     QPushButton *btn_agregar_conceptos;
     QListWidget *lista_conceptos;
-    QWidget *tab_periodo;
-    QVBoxLayout *verticalLayout_11;
-    QWidget *widget_lista_periodos;
-    QVBoxLayout *verticalLayout_4;
-    QHBoxLayout *cabecera_lista_periodos;
-    QLabel *lbl_lista_de_periodos;
-    QPushButton *btn_setear_periodo;
-    QListWidget *lista_periodos;
 
     void setupUi(QWidget *DialogoConsultas)
     {
@@ -341,6 +332,80 @@ public:
 
         layout_consulta->addWidget(line_2);
 
+        widget_reportes = new QWidget(widget_consulta);
+        widget_reportes->setObjectName(QStringLiteral("widget_reportes"));
+        widget_reportes->setEnabled(true);
+        widget_reportes->setMaximumSize(QSize(16777215, 80));
+        verticalLayout = new QVBoxLayout(widget_reportes);
+        verticalLayout->setSpacing(0);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        cabecera_reportes = new QHBoxLayout();
+        cabecera_reportes->setSpacing(3);
+        cabecera_reportes->setObjectName(QStringLiteral("cabecera_reportes"));
+        checkbox_tendencia = new QCheckBox(widget_reportes);
+        checkbox_tendencia->setObjectName(QStringLiteral("checkbox_tendencia"));
+        checkbox_tendencia->setFont(font1);
+        checkbox_tendencia->setChecked(false);
+        checkbox_tendencia->setAutoRepeat(false);
+        checkbox_tendencia->setTristate(false);
+
+        cabecera_reportes->addWidget(checkbox_tendencia);
+
+        lbl_mostrar_primeros = new QLabel(widget_reportes);
+        lbl_mostrar_primeros->setObjectName(QStringLiteral("lbl_mostrar_primeros"));
+        lbl_mostrar_primeros->setEnabled(true);
+        QSizePolicy sizePolicy2(QSizePolicy::Maximum, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(lbl_mostrar_primeros->sizePolicy().hasHeightForWidth());
+        lbl_mostrar_primeros->setSizePolicy(sizePolicy2);
+
+        cabecera_reportes->addWidget(lbl_mostrar_primeros);
+
+        spinbox_tendencias = new QSpinBox(widget_reportes);
+        spinbox_tendencias->setObjectName(QStringLiteral("spinbox_tendencias"));
+        sizePolicy1.setHeightForWidth(spinbox_tendencias->sizePolicy().hasHeightForWidth());
+        spinbox_tendencias->setSizePolicy(sizePolicy1);
+        spinbox_tendencias->setWrapping(false);
+        spinbox_tendencias->setFrame(true);
+        spinbox_tendencias->setAlignment(Qt::AlignCenter);
+        spinbox_tendencias->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
+        spinbox_tendencias->setProperty("showGroupSeparator", QVariant(false));
+        spinbox_tendencias->setMaximum(100);
+        spinbox_tendencias->setValue(10);
+
+        cabecera_reportes->addWidget(spinbox_tendencias);
+
+        lbl_ordenar_por = new QLabel(widget_reportes);
+        lbl_ordenar_por->setObjectName(QStringLiteral("lbl_ordenar_por"));
+        sizePolicy2.setHeightForWidth(lbl_ordenar_por->sizePolicy().hasHeightForWidth());
+        lbl_ordenar_por->setSizePolicy(sizePolicy2);
+
+        cabecera_reportes->addWidget(lbl_ordenar_por);
+
+        combobox_tendencia = new QComboBox(widget_reportes);
+        combobox_tendencia->setObjectName(QStringLiteral("combobox_tendencia"));
+        combobox_tendencia->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+        combobox_tendencia->setFrame(true);
+        combobox_tendencia->setModelColumn(0);
+
+        cabecera_reportes->addWidget(combobox_tendencia);
+
+
+        verticalLayout->addLayout(cabecera_reportes);
+
+
+        layout_consulta->addWidget(widget_reportes);
+
+        line_3 = new QFrame(widget_consulta);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        layout_consulta->addWidget(line_3);
+
         widget_conceptos = new QWidget(widget_consulta);
         widget_conceptos->setObjectName(QStringLiteral("widget_conceptos"));
         widget_conceptos->setMaximumSize(QSize(16777215, 16777215));
@@ -352,12 +417,16 @@ public:
         cabecera_conceptos = new QHBoxLayout();
         cabecera_conceptos->setSpacing(0);
         cabecera_conceptos->setObjectName(QStringLiteral("cabecera_conceptos"));
-        lbl_conceptos = new QLabel(widget_conceptos);
-        lbl_conceptos->setObjectName(QStringLiteral("lbl_conceptos"));
-        lbl_conceptos->setFont(font1);
-        lbl_conceptos->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
+        checkbox_conceptos = new QCheckBox(widget_conceptos);
+        checkbox_conceptos->setObjectName(QStringLiteral("checkbox_conceptos"));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(checkbox_conceptos->sizePolicy().hasHeightForWidth());
+        checkbox_conceptos->setSizePolicy(sizePolicy3);
+        checkbox_conceptos->setFont(font1);
 
-        cabecera_conceptos->addWidget(lbl_conceptos);
+        cabecera_conceptos->addWidget(checkbox_conceptos);
 
         btn_sacar_conceptos = new QPushButton(widget_conceptos);
         btn_sacar_conceptos->setObjectName(QStringLiteral("btn_sacar_conceptos"));
@@ -382,68 +451,6 @@ public:
 
 
         layout_consulta->addWidget(widget_conceptos);
-
-        line_3 = new QFrame(widget_consulta);
-        line_3->setObjectName(QStringLiteral("line_3"));
-        line_3->setFrameShape(QFrame::HLine);
-        line_3->setFrameShadow(QFrame::Sunken);
-
-        layout_consulta->addWidget(line_3);
-
-        widget_reportes = new QWidget(widget_consulta);
-        widget_reportes->setObjectName(QStringLiteral("widget_reportes"));
-        widget_reportes->setEnabled(true);
-        widget_reportes->setMaximumSize(QSize(16777215, 80));
-        verticalLayout = new QVBoxLayout(widget_reportes);
-        verticalLayout->setSpacing(0);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        cabecera_reportes = new QHBoxLayout();
-        cabecera_reportes->setSpacing(0);
-        cabecera_reportes->setObjectName(QStringLiteral("cabecera_reportes"));
-        lbl_reportes = new QLabel(widget_reportes);
-        lbl_reportes->setObjectName(QStringLiteral("lbl_reportes"));
-        lbl_reportes->setFont(font1);
-        lbl_reportes->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        cabecera_reportes->addWidget(lbl_reportes);
-
-
-        verticalLayout->addLayout(cabecera_reportes);
-
-        checkbox_tendencia = new QCheckBox(widget_reportes);
-        checkbox_tendencia->setObjectName(QStringLiteral("checkbox_tendencia"));
-        checkbox_tendencia->setChecked(true);
-        checkbox_tendencia->setAutoRepeat(false);
-        checkbox_tendencia->setTristate(false);
-
-        verticalLayout->addWidget(checkbox_tendencia);
-
-        checkbox_fuerza = new QCheckBox(widget_reportes);
-        checkbox_fuerza->setObjectName(QStringLiteral("checkbox_fuerza"));
-
-        verticalLayout->addWidget(checkbox_fuerza);
-
-        checkbox_sentimiento = new QCheckBox(widget_reportes);
-        checkbox_sentimiento->setObjectName(QStringLiteral("checkbox_sentimiento"));
-
-        verticalLayout->addWidget(checkbox_sentimiento);
-
-
-        layout_consulta->addWidget(widget_reportes);
-
-        widget_secciones = new QWidget(widget_consulta);
-        widget_secciones->setObjectName(QStringLiteral("widget_secciones"));
-        widget_secciones->setEnabled(false);
-        widget_secciones->setMaximumSize(QSize(16777215, 80));
-        layout_secciones_consulta = new QVBoxLayout(widget_secciones);
-        layout_secciones_consulta->setSpacing(0);
-        layout_secciones_consulta->setContentsMargins(11, 11, 11, 11);
-        layout_secciones_consulta->setObjectName(QStringLiteral("layout_secciones_consulta"));
-        layout_secciones_consulta->setContentsMargins(0, 0, 0, 0);
-
-        layout_consulta->addWidget(widget_secciones);
 
         espaciador_consulta = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -487,19 +494,6 @@ public:
         btn_cancelar->setFont(font5);
 
         layout_botones->addWidget(btn_cancelar);
-
-        progressbar_realizar_consulta = new QProgressBar(widget_botones);
-        progressbar_realizar_consulta->setObjectName(QStringLiteral("progressbar_realizar_consulta"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(progressbar_realizar_consulta->sizePolicy().hasHeightForWidth());
-        progressbar_realizar_consulta->setSizePolicy(sizePolicy2);
-        progressbar_realizar_consulta->setMinimumSize(QSize(200, 0));
-        progressbar_realizar_consulta->setValue(24);
-        progressbar_realizar_consulta->setTextVisible(false);
-
-        layout_botones->addWidget(progressbar_realizar_consulta);
 
 
         layout_tab_consulta->addWidget(widget_botones, 0, Qt::AlignLeft);
@@ -604,54 +598,6 @@ public:
         verticalLayout_9->addWidget(widget_lista_conceptos);
 
         opciones_consulta->addTab(tab_conceptos, QString());
-        tab_periodo = new QWidget();
-        tab_periodo->setObjectName(QStringLiteral("tab_periodo"));
-        tab_periodo->setEnabled(false);
-        verticalLayout_11 = new QVBoxLayout(tab_periodo);
-        verticalLayout_11->setSpacing(0);
-        verticalLayout_11->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
-        verticalLayout_11->setContentsMargins(0, 0, 0, 0);
-        widget_lista_periodos = new QWidget(tab_periodo);
-        widget_lista_periodos->setObjectName(QStringLiteral("widget_lista_periodos"));
-        verticalLayout_4 = new QVBoxLayout(widget_lista_periodos);
-        verticalLayout_4->setSpacing(0);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        cabecera_lista_periodos = new QHBoxLayout();
-        cabecera_lista_periodos->setSpacing(6);
-        cabecera_lista_periodos->setObjectName(QStringLiteral("cabecera_lista_periodos"));
-        lbl_lista_de_periodos = new QLabel(widget_lista_periodos);
-        lbl_lista_de_periodos->setObjectName(QStringLiteral("lbl_lista_de_periodos"));
-        lbl_lista_de_periodos->setFont(font1);
-        lbl_lista_de_periodos->setAlignment(Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft);
-
-        cabecera_lista_periodos->addWidget(lbl_lista_de_periodos);
-
-        btn_setear_periodo = new QPushButton(widget_lista_periodos);
-        btn_setear_periodo->setObjectName(QStringLiteral("btn_setear_periodo"));
-        sizePolicy1.setHeightForWidth(btn_setear_periodo->sizePolicy().hasHeightForWidth());
-        btn_setear_periodo->setSizePolicy(sizePolicy1);
-        btn_setear_periodo->setMinimumSize(QSize(0, 0));
-        btn_setear_periodo->setMaximumSize(QSize(16777215, 16777215));
-        btn_setear_periodo->setFont(font2);
-
-        cabecera_lista_periodos->addWidget(btn_setear_periodo);
-
-
-        verticalLayout_4->addLayout(cabecera_lista_periodos);
-
-        lista_periodos = new QListWidget(widget_lista_periodos);
-        lista_periodos->setObjectName(QStringLiteral("lista_periodos"));
-        lista_periodos->setFont(font6);
-
-        verticalLayout_4->addWidget(lista_periodos);
-
-
-        verticalLayout_11->addWidget(widget_lista_periodos);
-
-        opciones_consulta->addTab(tab_periodo, QString());
 
         verticalLayout_14->addWidget(opciones_consulta);
 
@@ -659,6 +605,7 @@ public:
         retranslateUi(DialogoConsultas);
 
         opciones_consulta->setCurrentIndex(0);
+        combobox_tendencia->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(DialogoConsultas);
@@ -688,12 +635,19 @@ public:
         lbl_etiqueta->setText(QApplication::translate("DialogoConsultas", "Etiqueta", Q_NULLPTR));
         lbl_medios->setText(QApplication::translate("DialogoConsultas", "Medios", Q_NULLPTR));
         btn_sacar_medios->setText(QApplication::translate("DialogoConsultas", "Sacar medios", Q_NULLPTR));
-        lbl_conceptos->setText(QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
+        checkbox_tendencia->setText(QApplication::translate("DialogoConsultas", "Tendencias", Q_NULLPTR));
+        lbl_mostrar_primeros->setText(QApplication::translate("DialogoConsultas", "mostrar primeros:", Q_NULLPTR));
+        spinbox_tendencias->setSuffix(QString());
+        spinbox_tendencias->setPrefix(QString());
+        lbl_ordenar_por->setText(QApplication::translate("DialogoConsultas", "ordendos por:", Q_NULLPTR));
+        combobox_tendencia->clear();
+        combobox_tendencia->insertItems(0, QStringList()
+         << QApplication::translate("DialogoConsultas", "menciones", Q_NULLPTR)
+         << QApplication::translate("DialogoConsultas", "fuerza en noticia", Q_NULLPTR)
+        );
+        combobox_tendencia->setCurrentText(QApplication::translate("DialogoConsultas", "menciones", Q_NULLPTR));
+        checkbox_conceptos->setText(QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
         btn_sacar_conceptos->setText(QApplication::translate("DialogoConsultas", "Sacar conceptos", Q_NULLPTR));
-        lbl_reportes->setText(QApplication::translate("DialogoConsultas", "Reportes", Q_NULLPTR));
-        checkbox_tendencia->setText(QApplication::translate("DialogoConsultas", "Tendencia", Q_NULLPTR));
-        checkbox_fuerza->setText(QApplication::translate("DialogoConsultas", "Fuerza en noticia", Q_NULLPTR));
-        checkbox_sentimiento->setText(QApplication::translate("DialogoConsultas", "Sentimiento", Q_NULLPTR));
         btn_realizar_consulta->setText(QApplication::translate("DialogoConsultas", "Consultar", Q_NULLPTR));
         btn_cancelar->setText(QApplication::translate("DialogoConsultas", "Cancelar", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_consulta), QApplication::translate("DialogoConsultas", "Consulta", Q_NULLPTR));
@@ -703,9 +657,6 @@ public:
         lbl_lista_de_conceptos->setText(QApplication::translate("DialogoConsultas", "Lista de Conceptos", Q_NULLPTR));
         btn_agregar_conceptos->setText(QApplication::translate("DialogoConsultas", "Agregar", Q_NULLPTR));
         opciones_consulta->setTabText(opciones_consulta->indexOf(tab_conceptos), QApplication::translate("DialogoConsultas", "Conceptos", Q_NULLPTR));
-        lbl_lista_de_periodos->setText(QApplication::translate("DialogoConsultas", "Lista de Per\303\255odos", Q_NULLPTR));
-        btn_setear_periodo->setText(QApplication::translate("DialogoConsultas", "Setear", Q_NULLPTR));
-        opciones_consulta->setTabText(opciones_consulta->indexOf(tab_periodo), QApplication::translate("DialogoConsultas", "Per\303\255odo", Q_NULLPTR));
     } // retranslateUi
 
 };

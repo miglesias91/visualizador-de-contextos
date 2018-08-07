@@ -11,6 +11,7 @@
 // utiles
 #include <utiles/include/Fecha.h>
 #include <utiles/include/FuncionesSistemaArchivos.h>
+#include <utiles/include/FuncionesString.h>
 
 // visualizador-de-contexto
 #include <visualizador-de-contexto/include/FabricaMensajes.h>
@@ -86,7 +87,7 @@ void DialogoMediosPortales::agregarPortalALista(modelo::MedioPortalNoticias * me
     std::for_each(subsecciones_portal.begin(), subsecciones_portal.end(), [=, &items_subsecciones, &cantidad_total, &tamanio_total](std::pair<std::string, modelo::subseccion*> nombre_subseccion) {
         std::string texto_item = nombre_subseccion.first + " | " +
             nombre_subseccion.second->fecha_contenido_mas_antiguo().getStringDDMMAAAA("/") + " - " + nombre_subseccion.second->fecha_contenido_mas_reciente().getStringDDMMAAAA("/") + " | " +
-            std::to_string(nombre_subseccion.second->contenidos_analizados()) + " | " + std::to_string(nombre_subseccion.second->tamanio());
+            std::to_string(nombre_subseccion.second->contenidos_analizados()) + " | " + herramientas::utiles::FuncionesString::toString(nombre_subseccion.second->tamanio()/1000,0) + "k";
         QTreeWidgetItem* item_subseccion = new QTreeWidgetItem(QStringList(texto_item.c_str()));
         items_subsecciones.push_back(item_subseccion);
         cantidad_total += nombre_subseccion.second->contenidos_analizados();
@@ -94,7 +95,7 @@ void DialogoMediosPortales::agregarPortalALista(modelo::MedioPortalNoticias * me
     });
 
     std::string texto_item = (medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total));
-    QTreeWidgetItem * item_portal = new QTreeWidgetItem(QStringList((medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total) + " | " + std::to_string(tamanio_total)).c_str()));
+    QTreeWidgetItem * item_portal = new QTreeWidgetItem(QStringList((medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total) + " noticias analizadas | " + herramientas::utiles::FuncionesString::toString(tamanio_total / 1000, 0) + "k caracteres procesados.").c_str()));
     item_portal->addChildren(items_subsecciones);
 
     this->ui->arbol_medios_portales->addTopLevelItem(item_portal);

@@ -17,7 +17,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -46,7 +45,6 @@ public:
     QPushButton *btn_consulta;
     QFrame *line_2;
     QPushButton *btn_analizar_ctx;
-    QProgressBar *bar_analizar_ctx;
     QFrame *line;
     QWidget *widget_area_trabajo;
     QVBoxLayout *layout_area_trabajo;
@@ -1515,24 +1513,6 @@ public:
 
         layout_acciones->addWidget(btn_analizar_ctx);
 
-        bar_analizar_ctx = new QProgressBar(widget_acciones);
-        bar_analizar_ctx->setObjectName(QStringLiteral("bar_analizar_ctx"));
-        bar_analizar_ctx->setEnabled(false);
-        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Maximum);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(bar_analizar_ctx->sizePolicy().hasHeightForWidth());
-        bar_analizar_ctx->setSizePolicy(sizePolicy3);
-        bar_analizar_ctx->setMinimumSize(QSize(0, 0));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Calibri"));
-        bar_analizar_ctx->setFont(font3);
-        bar_analizar_ctx->setValue(0);
-        bar_analizar_ctx->setTextVisible(false);
-        bar_analizar_ctx->setInvertedAppearance(false);
-
-        layout_acciones->addWidget(bar_analizar_ctx);
-
 
         layout_opciones->addWidget(widget_acciones);
 
@@ -1548,11 +1528,11 @@ public:
 
         widget_area_trabajo = new QWidget(widget_central);
         widget_area_trabajo->setObjectName(QStringLiteral("widget_area_trabajo"));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Expanding);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(widget_area_trabajo->sizePolicy().hasHeightForWidth());
-        widget_area_trabajo->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(widget_area_trabajo->sizePolicy().hasHeightForWidth());
+        widget_area_trabajo->setSizePolicy(sizePolicy3);
         widget_area_trabajo->setAutoFillBackground(false);
         layout_area_trabajo = new QVBoxLayout(widget_area_trabajo);
         layout_area_trabajo->setSpacing(0);

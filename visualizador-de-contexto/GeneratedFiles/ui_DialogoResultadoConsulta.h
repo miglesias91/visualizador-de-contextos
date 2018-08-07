@@ -41,6 +41,9 @@ public:
     QWidget *pestania_3;
     QHBoxLayout *layout_pestania_3;
     QLabel *lbl_sin_valores_3;
+    QWidget *pestania_4;
+    QHBoxLayout *layout_pestania_4;
+    QLabel *lbl_sin_valores_4;
     QHBoxLayout *layout_fechas;
     QDateEdit *calendario;
     QSlider *dias;
@@ -162,6 +165,31 @@ public:
         layout_pestania_3->addWidget(lbl_sin_valores_3);
 
         analisis->addTab(pestania_3, QString());
+        pestania_4 = new QWidget();
+        pestania_4->setObjectName(QStringLiteral("pestania_4"));
+        layout_pestania_4 = new QHBoxLayout(pestania_4);
+        layout_pestania_4->setSpacing(0);
+        layout_pestania_4->setContentsMargins(11, 11, 11, 11);
+        layout_pestania_4->setObjectName(QStringLiteral("layout_pestania_4"));
+        layout_pestania_4->setContentsMargins(0, 0, 0, 0);
+        lbl_sin_valores_4 = new QLabel(pestania_4);
+        lbl_sin_valores_4->setObjectName(QStringLiteral("lbl_sin_valores_4"));
+        sizePolicy.setHeightForWidth(lbl_sin_valores_4->sizePolicy().hasHeightForWidth());
+        lbl_sin_valores_4->setSizePolicy(sizePolicy);
+        lbl_sin_valores_4->setFont(font1);
+        lbl_sin_valores_4->setLayoutDirection(Qt::LeftToRight);
+        lbl_sin_valores_4->setAutoFillBackground(false);
+        lbl_sin_valores_4->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        lbl_sin_valores_4->setFrameShape(QFrame::Box);
+        lbl_sin_valores_4->setFrameShadow(QFrame::Plain);
+        lbl_sin_valores_4->setTextFormat(Qt::PlainText);
+        lbl_sin_valores_4->setScaledContents(false);
+        lbl_sin_valores_4->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        lbl_sin_valores_4->setWordWrap(false);
+
+        layout_pestania_4->addWidget(lbl_sin_valores_4);
+
+        analisis->addTab(pestania_4, QString());
 
         verticalLayout->addWidget(analisis);
 
@@ -350,7 +378,7 @@ public:
 
         retranslateUi(DialogoResultadoConsulta);
 
-        analisis->setCurrentIndex(0);
+        analisis->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(DialogoResultadoConsulta);
@@ -365,6 +393,8 @@ public:
         analisis->setTabText(analisis->indexOf(pestania_2), QApplication::translate("DialogoResultadoConsulta", "Sentimiento", Q_NULLPTR));
         lbl_sin_valores_3->setText(QApplication::translate("DialogoResultadoConsulta", "sin valores", Q_NULLPTR));
         analisis->setTabText(analisis->indexOf(pestania_3), QApplication::translate("DialogoResultadoConsulta", "Tendencias", Q_NULLPTR));
+        lbl_sin_valores_4->setText(QApplication::translate("DialogoResultadoConsulta", "sin valores", Q_NULLPTR));
+        analisis->setTabText(analisis->indexOf(pestania_4), QApplication::translate("DialogoResultadoConsulta", "Conceptos", Q_NULLPTR));
         btn_exportar_fecha_actual->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar fecha actual", Q_NULLPTR));
         btn_exportar_todo->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar todo", Q_NULLPTR));
         btn_exportar_rango->setText(QApplication::translate("DialogoResultadoConsulta", "Exportar rango", Q_NULLPTR));

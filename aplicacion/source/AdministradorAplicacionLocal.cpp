@@ -178,7 +178,7 @@ bool AdministradorAplicacionLocal::modificar(visualizador::modelo::IAlmacenable 
 
     almacenamiento::IAlmacenableClaveValor* entidad_a_modificar = new almacenamiento::IAlmacenableClaveValor(clave, grupo, valor);
 
-    bool retorno = this->admin_almacenamiento->almacenar(entidad_a_modificar);
+    bool retorno = this->admin_almacenamiento->modificar(entidad_a_modificar);
 
     if (retorno)
     {

@@ -19,9 +19,9 @@
 visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     : QMainWindow(parent),
     dialogo_terminos(nullptr), dialogo_conceptos(nullptr), dialogo_fechas(nullptr), dialogo_periodos(nullptr), dialogo_consultas(nullptr), dialogo_activo(nullptr),
-    hay_dialogo_abierto(false), spinner(this, false, false)
+    hay_dialogo_abierto(false), dialogo_consulta_abierto(false), spinner(this, false, false)
 {
-	ui.setupUi(this);
+    ui.setupUi(this);
 
     this->conectar_componentes();
 
@@ -37,8 +37,6 @@ visualizadordecontexto::visualizadordecontexto(QWidget *parent)
     this->spinner.setLineLength(3);
     this->spinner.setLineWidth(3);
     this->spinner.setInnerRadius(5);
-
-    this->ui.bar_analizar_ctx->hide();
 }
 
 visualizadordecontexto::~visualizadordecontexto()
@@ -106,14 +104,22 @@ void visualizadordecontexto::abrir_consulta() {
 
     this->guardar_activo();
 
+    if (this->dialogo_consulta_abierto) {  // si esta abierto, entonces solamente tengo que mostrarlo.
+        this->dialogo_consultas->setVisible(true);
+        this->dialogo_consultas->actualizar_listas();
+        return;
+    }
+
     this->dialogo_consultas = new DialogoConsultas(this->ui.widget_area_trabajo);
     this->dialogo_consultas->showMaximized();
     this->ui.layout_ventana_abierta->addWidget(this->dialogo_consultas);
 
     QObject::connect(this->dialogo_consultas, &DialogoConsultas::se_cerro, this, &visualizadordecontexto::sin_dialogo_activo);
+    QObject::connect(this->dialogo_consultas, &DialogoConsultas::se_cerro, this, &visualizadordecontexto::dialogo_consulta_cerrado);
 
     this->hay_dialogo_abierto = true;
     this->dialogo_activo = this->dialogo_consultas;
+    this->dialogo_consulta_abierto = true;
 }
 
 void visualizadordecontexto::abrir_medios_twitter() {
@@ -159,7 +165,9 @@ void visualizadordecontexto::abrir_medios_portales() {
 }
 
 void visualizadordecontexto::guardar_activo() {
-
+    if (this->dialogo_consulta_abierto) {
+        this->dialogo_consultas->setVisible(false);
+    }
     if (this->hay_dialogo_abierto) {
         QMetaObject::invokeMethod(this->dialogo_activo, "guardar");
     }
@@ -172,6 +180,10 @@ void visualizadordecontexto::hay_dialogo_activo() {
 void visualizadordecontexto::sin_dialogo_activo() {
     this->hay_dialogo_abierto = false;
     this->dialogo_activo = nullptr;
+}
+
+void visualizadordecontexto::dialogo_consulta_cerrado() {
+    dialogo_consulta_abierto = false;
 }
 
 void visualizadordecontexto::analizar_ctx() {

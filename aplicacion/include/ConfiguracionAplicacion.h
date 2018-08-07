@@ -62,6 +62,7 @@ public:
     static std::string archivoConfigLog();
 
     static std::string dirABM();
+    static std::string dirConsultas();
 
 protected:
 
@@ -105,6 +106,7 @@ protected:
     static std::string tagArchivoConfigLog();
 
     static std::string tagDirABM();
+    static std::string tagDirConsultas();
 
 private:
 
@@ -150,6 +152,7 @@ private:
     static std::string archivo_config_log;
 
     static std::string dir_abm;
+    static std::string dir_consultas;
 
 	static std::string clave_id_actual;
 };

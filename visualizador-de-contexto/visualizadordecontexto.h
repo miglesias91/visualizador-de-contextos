@@ -48,6 +48,7 @@ private slots:
     void guardar_activo();
     void hay_dialogo_activo();
     void sin_dialogo_activo();
+    void dialogo_consulta_cerrado();
 
 private:
 	Ui::visualizadordecontextoClass ui;
@@ -74,4 +75,5 @@ private:
 
     QWidget * dialogo_activo;
     bool hay_dialogo_abierto;
+    bool dialogo_consulta_abierto;
 };

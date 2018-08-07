@@ -35,5 +35,10 @@
         <file>qdarkstyle/rc/stylesheet-branch-more.png</file>
         <file>qdarkstyle/rc/stylesheet-vline.png</file>
         <file>qdarkstyle/rc/transparent.png</file>
+        <file>qdarkstyle/rc/up_arrow.png</file>
+        <file>qdarkstyle/rc/up_arrow_disabled.png</file>
+        <file>qdarkstyle/rc/undock.png</file>
+        <file>qdarkstyle/rc/Vmovetoolbar.png</file>
+        <file>qdarkstyle/rc/Vsepartoolbar.png</file>
     </qresource>
 </RCC>

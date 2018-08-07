@@ -58,29 +58,19 @@ std::vector<visualizador::modelo::IEntidad*> GestorEntidades::getEntidadesAElimi
     return this->entidades_a_eliminar;
 }
 
-void GestorEntidades::registrar() {
-    herramientas::utiles::Json registro;
-    std::vector<herramientas::utiles::Json*> registros;
-
-    std::for_each(this->entidades_a_almacenar.begin(), this->entidades_a_almacenar.end(), [=](visualizador::modelo::IEntidad * entidad) {
-        herramientas::utiles::Json json_entidad;
-        json_entidad.agregarAtributoValor("id", entidad->getId()->string());
-        json_entidad.agregarAtributoValor("usuario", entidad->getGrupo());
-    });
-}
-
 // SETTERS
 
 // METODOS
-
 bool GestorEntidades::guardarCambios() {
-    this->registrar();
-
     for (this->entidades_it = this->entidades_a_almacenar.begin(); this->entidades_it != this->entidades_a_almacenar.end(); this->entidades_it++)
     {
         visualizador::modelo::IEntidad * entidad_a_almacenar = *this->entidades_it;
-        this->admin_app->almacenar(entidad_a_almacenar);
-        this->admin_app->almacenar(entidad_a_almacenar->getRelaciones());
+        if (false == this->admin_app->almacenar(entidad_a_almacenar)) {  // si devuelve false es porque ya existe, entonces la modifico.
+            this->admin_app->modificar(entidad_a_almacenar);
+        }
+        if (false == this->admin_app->almacenar(entidad_a_almacenar->getRelaciones())) {
+            this->admin_app->modificar(entidad_a_almacenar->getRelaciones());
+        }
         entidad_a_almacenar->vincular();
 
         this->entidades_existentes.push_back(*this->entidades_it);

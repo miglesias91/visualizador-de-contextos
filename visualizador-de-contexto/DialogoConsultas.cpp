@@ -1,9 +1,6 @@
 #include "DialogoConsultas.h"
 #include "ui_DialogoConsultas.h"
 
-// qt
-#include <qcheckbox.h>
-
 // scraping
 #include <scraping/include/GestorMedios.h>
 
@@ -25,7 +22,6 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
 
     this->ui->lbl_etiqueta->setVisible(false);
     this->ui->lineedit_etiqueta_periodo->setVisible(false);
-    this->ui->progressbar_realizar_consulta->setVisible(false);
 
     herramientas::utiles::Fecha actual = herramientas::utiles::Fecha::getFechaActual();
     herramientas::utiles::Fecha desde = actual;
@@ -40,12 +36,14 @@ DialogoConsultas::DialogoConsultas(QWidget *parent)
     this->spinner.setInnerRadius(5);
 
     this->conectar_componentes();
+    this->habilitar_consulta();
+    this->habilitar_tendencias();
+    this->habilitar_conceptos();
 
     this->setAttribute(Qt::WA_DeleteOnClose);
 
     this->cargarListaConceptos();
     this->cargarListaMedios();
-    this->cargarListaPeriodos();
 }
 
 DialogoConsultas::~DialogoConsultas()
@@ -58,13 +56,10 @@ DialogoConsultas::~DialogoConsultas()
     this->descargarLista<modelo::Medio>(this->ui->lista_medios_en_consulta);
     aplicacion::Logger::info("Medios descargados.");
 
-    this->descargarLista<modelo::Periodo>(this->ui->lista_periodos);
-    aplicacion::Logger::info("Periodos descargados.");
-
     delete ui;
 }
 
-void DialogoConsultas::hideEvent(QHideEvent *) {
+void DialogoConsultas::closeEvent(QCloseEvent *) {
     emit se_cerro();
 }
 
@@ -73,7 +68,8 @@ void DialogoConsultas::showEvent(QShowEvent *) {
 }
 
 void DialogoConsultas::guardar() {
-    this->close();
+    //this->close();
+    this->setVisible(false);
 }
 
 void DialogoConsultas::cerrar() {
@@ -81,10 +77,36 @@ void DialogoConsultas::cerrar() {
 }
 
 void DialogoConsultas::habilitar_consulta() {
-    if (this->ui->checkbox_fuerza->isChecked() || this->ui->checkbox_sentimiento->isChecked() || this->ui->checkbox_tendencia->isChecked()) {
+    if (this->ui->checkbox_conceptos->isChecked() || this->ui->checkbox_tendencia->isChecked()) {
         this->ui->btn_realizar_consulta->setEnabled(true);
     } else {
         this->ui->btn_realizar_consulta->setEnabled(false);
+    }
+}
+
+void DialogoConsultas::habilitar_conceptos() {
+    if (this->ui->checkbox_conceptos->isChecked()) {
+        this->ui->lista_conceptos_en_consulta->setEnabled(true);
+        this->ui->btn_sacar_conceptos->setEnabled(true);
+    }
+    else {
+        this->ui->lista_conceptos_en_consulta->setEnabled(false);
+        this->ui->btn_sacar_conceptos->setEnabled(false);
+    }
+}
+
+void DialogoConsultas::habilitar_tendencias() {
+    if (this->ui->checkbox_tendencia->isChecked()) {
+        this->ui->lbl_mostrar_primeros->setEnabled(true);
+        this->ui->spinbox_tendencias->setEnabled(true);
+        this->ui->lbl_ordenar_por->setEnabled(true);
+        this->ui->combobox_tendencia->setEnabled(true);
+    }
+    else {
+        this->ui->lbl_mostrar_primeros->setEnabled(false);
+        this->ui->spinbox_tendencias->setEnabled(false);
+        this->ui->lbl_ordenar_por->setEnabled(false);
+        this->ui->combobox_tendencia->setEnabled(false);
     }
 }
 
@@ -114,29 +136,6 @@ void DialogoConsultas::sacar_conceptos()
     aplicacion::Logger::info(std::to_string(conceptos_seleccionados.size()) + " conceptos sacados de la consulta.");
 
     this->sacarItemsSeleccionados(this->ui->lista_conceptos_en_consulta);
-}
-
-void DialogoConsultas::setear_periodo()
-{
-    // selecciono el 1ero xq ya se que solo puedo haber elegido uno.
-    std::vector<modelo::Periodo*> periodos_seleccionados = this->itemsSeleccionados<modelo::Periodo>(this->ui->lista_periodos);
-
-    if (0 == periodos_seleccionados.size())
-    {// si no se selecciono ninguno entonces salgo.
-        return;
-    }
-
-    modelo::Periodo* periodo_seleccionado = periodos_seleccionados[0];
-
-    std::string etiqueta_fecha = periodo_seleccionado->getEtiqueta();
-    QDate fecha_desde(periodo_seleccionado->getDesde()->getAnio(), periodo_seleccionado->getDesde()->getMes(), periodo_seleccionado->getDesde()->getDia());
-    QDate fecha_hasta(periodo_seleccionado->getHasta()->getAnio(), periodo_seleccionado->getHasta()->getMes(), periodo_seleccionado->getHasta()->getDia());
-
-    aplicacion::Logger::info(periodo_seleccionado->getEtiqueta() + " periodo seteado para la consulta.");
-
-    this->ui->lineedit_etiqueta_periodo->setText(periodo_seleccionado->getEtiqueta().c_str());
-    this->ui->dateedit_desde->setDate(fecha_desde);
-    this->ui->dateedit_hasta->setDate(fecha_hasta);
 }
 
 void DialogoConsultas::resetear_periodo()
@@ -190,7 +189,8 @@ void DialogoConsultas::recuperar_resultados() {
         return;
     }
 
-    if (conceptos_seleccionados.empty() && (this->ui->checkbox_sentimiento->isChecked() || this->ui->checkbox_fuerza->isChecked())) {
+    //if (conceptos_seleccionados.empty() && (this->ui->checkbox_sentimiento->isChecked() || this->ui->checkbox_fuerza->isChecked())) {
+    if (this->ui->checkbox_conceptos->isChecked() && conceptos_seleccionados.empty() ) {
         QMessageBox * informacion_no_hay_conceptos_seleccionados = this->crearInformacionNoHayConceptosSeleccionados();
         informacion_no_hay_conceptos_seleccionados->exec();
 
@@ -232,14 +232,16 @@ void DialogoConsultas::mostrar_resultados() {
 
     aplicacion::Logger::info("Realizando consulta: " + std::to_string(this->resultados_filtrados.size()) + " resultados recuperados para el rango [ " + desde.getStringDDmesAAAA() + " - " + hasta.getStringDDmesAAAA() + " ].");
 
-    QCheckBox checkbox;
-    checkbox.isChecked();
-    DialogoResultadoConsulta::reportes_checkeados reportes_habilitados{
-        this->ui->checkbox_fuerza->isChecked(), this->ui->checkbox_sentimiento->isChecked(), this->ui->checkbox_tendencia->isChecked()
+    info_consulta info{
+        this->ui->checkbox_conceptos->isChecked(),
+        this->ui->checkbox_tendencia->isChecked(),
+        this->ui->spinbox_tendencias->value(),
+        info_consulta::ordenar_por(this->ui->combobox_tendencia->currentIndex())
     };
 
-    this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, this->resultados_filtrados, reportes_habilitados);
-    this->ui->opciones_consulta->addTab(dialogo_resultados, ("consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS()).c_str());
+    this->dialogo_resultados = new DialogoResultadoConsulta(medios_seleccionados, conceptos_seleccionados, this->resultados_filtrados, info);
+    //this->ui->opciones_consulta->addTab(dialogo_resultados, ("consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS()).c_str());
+    this->ui->opciones_consulta->addTab(dialogo_resultados, "consulta");
     this->ui->opciones_consulta->setCurrentWidget(this->dialogo_resultados);
     this->dialogo_resultados->show();
 
@@ -275,35 +277,6 @@ void DialogoConsultas::agregarConceptoALista(visualizador::modelo::Concepto * co
     item->setData(Qt::UserRole, data);
 
     std::string texto_item = aplicacion::Logger::infoLog(concepto);
-
-    item->setText(texto_item.c_str());
-
-    lista->insertItem(0, item);
-}
-
-void DialogoConsultas::cargarListaPeriodos()
-{
-    aplicacion::GestorEntidades gestor;
-    std::vector<modelo::Periodo*> periodos_actuales = gestor.recuperar<modelo::Periodo>();
-    for (std::vector<modelo::Periodo*>::iterator it = periodos_actuales.begin(); it != periodos_actuales.end(); it++)
-    {
-        (*it)->sumarReferencia();
-        this->agregarPeriodoALista(*it, this->ui->lista_periodos);
-    }
-
-    aplicacion::Logger::info(std::to_string(periodos_actuales.size()) + " periodos cargados.");
-
-    // this->ui->lista_periodos->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
-}
-
-void DialogoConsultas::agregarPeriodoALista(visualizador::modelo::Periodo * periodo, QListWidget * lista)
-{
-    QListWidgetItem* item = new QListWidgetItem();
-
-    QVariant data = QVariant::fromValue(periodo);
-    item->setData(Qt::UserRole, data);
-
-    std::string texto_item = aplicacion::Logger::infoLog(periodo);
 
     item->setText(texto_item.c_str());
 
@@ -359,6 +332,53 @@ void DialogoConsultas::agregarMedioALista(visualizador::modelo::Medio * medio, Q
     item->setText(texto_item.c_str());
 
     lista->insertItem(0, item);
+}
+
+void DialogoConsultas::actualizar_listas() {
+    aplicacion::GestorEntidades gestor;
+    std::vector<modelo::Concepto*> conceptos_actuales = gestor.recuperar<modelo::Concepto>();
+
+    std::for_each(conceptos_actuales.begin(), conceptos_actuales.end(), [=](modelo::Concepto* concepto) {
+        // elimino las entidades de la lista
+        modelo::Concepto* concepto_lista = nullptr;
+        uint32_t i = 0;
+        while (i != this->ui->lista_conceptos->count()) {
+
+            concepto_lista = this->ui->lista_conceptos->item(i)->data(Qt::UserRole).value<modelo::Concepto*>();
+
+            if (concepto->getId()->numero() == concepto_lista->getId()->numero()) {
+                delete concepto;
+                return;
+            }
+            i++;
+        }
+
+        i = 0;
+        while (i != this->ui->lista_conceptos_en_consulta->count()) {
+
+            concepto_lista = this->ui->lista_conceptos_en_consulta->item(i)->data(Qt::UserRole).value<modelo::Concepto*>();
+
+            if (concepto->getId()->numero() == concepto_lista->getId()->numero()) {
+                delete concepto;
+                return;
+            }
+            i++;
+        }
+
+        // si no esta en ninguna de las listas de conceptos, entonces lo agrego.
+        concepto->sumarReferencia();
+        QListWidgetItem* item = new QListWidgetItem();
+
+        QVariant data = QVariant::fromValue(concepto);
+        item->setData(Qt::UserRole, data);
+
+        std::string texto_item = aplicacion::Logger::infoLog(concepto);
+
+        item->setText(texto_item.c_str());
+
+        this->ui->lista_conceptos->insertItem(0, item);
+    });
+
 }
 
 // obtener seleccionados de listas
@@ -423,18 +443,16 @@ void DialogoConsultas::conectar_componentes()
     QObject::connect(this->ui->btn_realizar_consulta, &QPushButton::released, this, &DialogoConsultas::recuperar_resultados);
     QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &QWidget::close);
 
-    QObject::connect(this->ui->checkbox_fuerza, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
-    QObject::connect(this->ui->checkbox_sentimiento, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
     QObject::connect(this->ui->checkbox_tendencia, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
+    QObject::connect(this->ui->checkbox_tendencia, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_tendencias);
+    QObject::connect(this->ui->checkbox_conceptos, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_conceptos);
+    QObject::connect(this->ui->checkbox_conceptos, &QCheckBox::stateChanged, this, &DialogoConsultas::habilitar_consulta);
 
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this, &DialogoConsultas::deshabilitar_opciones);
-    //QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, this->ui->progressbar_realizar_consulta, &QProgressBar::show);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::started, &(this->spinner), &WaitingSpinnerWidget::start);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this, &DialogoConsultas::habilitar_opciones);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this, &DialogoConsultas::mostrar_resultados);
-    //QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, this->ui->progressbar_realizar_consulta, &QProgressBar::hide);
     QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::finished, &(this->spinner), &WaitingSpinnerWidget::stop);
-    QObject::connect(&(this->observador_realizar_consulta), &QFutureWatcher<void>::progressValueChanged, this->ui->progressbar_realizar_consulta, &QProgressBar::valueChanged);
 }
 
 void DialogoConsultas::habilitar_opciones() {

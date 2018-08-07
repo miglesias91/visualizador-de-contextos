@@ -1,7 +1,7 @@
 {
     "almacenamiento" :
     {
-        "path_db" : "C:/Users/Usuario/Desktop/visu_20180729/almacenamiento/entidades",
+        "path_db" : "C:/Users/Manuel/Desktop/visu_20180729/almacenamiento/entidades",
         "almacenamiento_local" : true,
         "almacenamiento_distribuido" : false,
         "solo_lectura" : false,

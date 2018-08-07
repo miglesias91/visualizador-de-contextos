@@ -39,9 +39,10 @@ public:
     DialogoConsultas(QWidget *parent = Q_NULLPTR);
     ~DialogoConsultas();
 
-    virtual void hideEvent(QHideEvent * evento);
+    virtual void closeEvent(QCloseEvent * evento);
     virtual void showEvent(QShowEvent * evento);
 
+    void actualizar_listas();
 signals:
 
     void se_cerro();
@@ -51,8 +52,6 @@ private slots:
     void agregar_conceptos();
 
     void sacar_conceptos();
-
-    void setear_periodo();
 
     void agregar_medios();
 
@@ -69,6 +68,8 @@ private slots:
     void cerrar();
 
     void habilitar_consulta();
+    void habilitar_conceptos();
+    void habilitar_tendencias();
 
 private:
     Ui::DialogoConsultas *ui;
@@ -93,9 +94,6 @@ private:
 
     void cargarListaConceptos();
     void agregarConceptoALista(visualizador::modelo::Concepto* concepto, QListWidget * lista);
-
-    void cargarListaPeriodos();
-    void agregarPeriodoALista(visualizador::modelo::Periodo* periodo, QListWidget * lista);
 
     void cargarListaMedios();
     void agregarMedioALista(visualizador::modelo::Medio* medio, QListWidget * lista);

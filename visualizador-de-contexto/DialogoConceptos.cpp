@@ -108,7 +108,7 @@ void DialogoConceptos::concepto_dobleclikeado(QListWidgetItem * item_dobleclikea
 {
     QVariant data = item_dobleclikeado->data(Qt::UserRole);
     modelo::Concepto * concepto_a_modificar = data.value<modelo::Concepto*>();
-    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, &this->gestor_terminos);
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_a_modificar, &this->gestor_terminos, this);
     if (this->dialogo_editar_concepto->exec())
     {
         if (this->gestor_conceptos.existe(concepto_a_modificar))
@@ -136,7 +136,7 @@ void DialogoConceptos::concepto_dobleclikeado(QListWidgetItem * item_dobleclikea
 void DialogoConceptos::nuevo_concepto()
 {
     modelo::Concepto * concepto_nuevo = new modelo::Concepto();
-    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_nuevo, &this->gestor_terminos);
+    this->dialogo_editar_concepto = new DialogoEditarConcepto(concepto_nuevo, &this->gestor_terminos, this);
     if (this->dialogo_editar_concepto->exec())
     {
         if (this->gestor_conceptos.almacenar(concepto_nuevo))
