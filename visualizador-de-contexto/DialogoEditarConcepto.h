@@ -46,6 +46,8 @@ private:
 
     // METODOS INTERNOS
 
+    bool normalizar(std::string * termino);
+
     bool etiquetaModificada();
     bool listaDeTerminosModificada();
 
@@ -54,6 +56,7 @@ private:
     void descargarListaTerminos();
 
     QMessageBox * crearInformacionTerminoExistente();
+    QMessageBox * crearInformacionTerminoInvalido();
     QMessageBox * crearInformacionEtiquetaVacia();
     QMessageBox * crearInformacionListaDeTerminosVacia();
 

@@ -95,7 +95,7 @@ void DialogoMediosPortales::agregarPortalALista(modelo::MedioPortalNoticias * me
     });
 
     std::string texto_item = (medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total));
-    QTreeWidgetItem * item_portal = new QTreeWidgetItem(QStringList((medio_portal_noticias->getEtiqueta() + " | " + std::to_string(cantidad_total) + " noticias analizadas | " + herramientas::utiles::FuncionesString::toString(tamanio_total / 1000, 0) + "k caracteres procesados.").c_str()));
+    QTreeWidgetItem * item_portal = new QTreeWidgetItem(QStringList((medio_portal_noticias->getNombre() + " | " + std::to_string(cantidad_total) + " noticias analizadas | " + herramientas::utiles::FuncionesString::toString(tamanio_total / 1000, 0) + "k caracteres procesados.").c_str()));
     item_portal->addChildren(items_subsecciones);
 
     this->ui->arbol_medios_portales->addTopLevelItem(item_portal);

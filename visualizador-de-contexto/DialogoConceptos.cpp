@@ -246,7 +246,7 @@ std::vector<modelo::Concepto*> DialogoConceptos::conceptosSeleccionados()
 
 QMessageBox * DialogoConceptos::crearInformacionConceptoExistente()
 {
-    std::string texto = u8"El concepto que se quiere agregar ya existe!";
+    std::string texto = u8"El concepto que se quiere agregar ya existe.";
     visualizador::aplicacion::comunicacion::Informacion informacion_concepto_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_concepto_existente, this);
 }
@@ -258,4 +258,5 @@ void DialogoConceptos::conectar_componentes() {
     QObject::connect(this->ui->btn_guardar, &QPushButton::released, this, &DialogoConceptos::actualizar_y_cerrar);
     QObject::connect(this->ui->btn_cancelar, &QPushButton::released, this, &DialogoConceptos::close);
     QObject::connect(this->ui->lista_conceptos, &QListWidget::itemDoubleClicked, this, &DialogoConceptos::concepto_dobleclikeado);
+    QObject::connect(this->ui->lista_conceptos, &QListWidget::itemSelectionChanged, this, &DialogoConceptos::estado_btn_eliminar);
 }

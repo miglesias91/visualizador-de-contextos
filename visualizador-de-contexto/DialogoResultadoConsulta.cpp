@@ -288,6 +288,8 @@ void DialogoResultadoConsulta::completar_tendencias(const std::vector<modelo::Me
 void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado) {
     QTableWidget * tendencia = new QTableWidget(this->ui->pestania_3);
     tendencia->setSortingEnabled(false);
+    tendencia->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
     tendencia->setAlternatingRowColors(true);
     tendencia->setColumnCount(7);
     tendencia->setHorizontalHeaderLabels({ "palabra", "menciones", "porcentaje", "fuerza", "sentimiento", "tipo", "seccion" });
@@ -385,6 +387,7 @@ void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::p
 void DialogoResultadoConsulta::nuevo_arbol_medio(const std::vector<modelo::Concepto*> &conceptos, modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario* resultado) {
     QTreeWidget * arbol = new QTreeWidget(this->ui->pestania_4);
 
+    arbol->setEditTriggers(QAbstractItemView::NoEditTriggers);
     arbol->setColumnCount(7);
     arbol->setHeaderLabels({ "palabra", "menciones", "porcentaje", "fuerza", "sentimiento", "tipo", "seccion" });
     arbol->setAlternatingRowColors(true);

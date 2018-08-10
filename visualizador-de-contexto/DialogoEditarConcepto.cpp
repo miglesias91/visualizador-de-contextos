@@ -1,6 +1,9 @@
 #include "DialogoEditarConcepto.h"
 #include "ui_DialogoEditarConcepto.h"
 
+// utiles
+#include <utiles/include/FuncionesString.h>
+
 DialogoEditarConcepto::DialogoEditarConcepto(visualizador::modelo::Concepto * concepto_a_editar, visualizador::aplicacion::GestorEntidades * gestor_terminos, QWidget *parent)
     : concepto_a_editar(concepto_a_editar), gestor_terminos(gestor_terminos), QDialog(parent)
 {
@@ -123,7 +126,18 @@ void DialogoEditarConcepto::guardar()
 
 void DialogoEditarConcepto::termino_actualizado(QListWidgetItem * item_actualizado)
 {
-    visualizador::modelo::Termino * nuevo_termino = new visualizador::modelo::Termino(item_actualizado->text().toStdString());
+    std::string termino_normalizado = item_actualizado->text().toStdString();
+
+    if (false == this->normalizar(&termino_normalizado)) {
+        QMessageBox * informacion_termino_invalido = this->crearInformacionTerminoInvalido();
+        informacion_termino_invalido->exec();
+        this->ui->lista->blockSignals(true);
+        item_actualizado->setText(QString(this->termino_sin_editar.c_str()));
+        this->ui->lista->blockSignals(false);
+        return;
+    }
+
+    visualizador::modelo::Termino * nuevo_termino = new visualizador::modelo::Termino(termino_normalizado);
 
     if (this->termino_sin_editar == nuevo_termino->getValor())
     {// si se deja el mismo valor, entonces no se hace nada.
@@ -147,7 +161,8 @@ void DialogoEditarConcepto::termino_actualizado(QListWidgetItem * item_actualiza
 
         return;
     }
-    
+    item_actualizado->setText(QString(termino_normalizado.c_str()));
+
     visualizador::modelo::Termino * termino_a_agregar_a_lista = NULL;
 
     visualizador::modelo::Termino * termino_encontrado = this->gestor_terminos->encontrar(nuevo_termino);
@@ -185,6 +200,20 @@ void DialogoEditarConcepto::guardar_termino_sin_editar(QListWidgetItem * item_ac
 }
 
 // METODOS INTERNOS
+
+bool DialogoEditarConcepto::normalizar(std::string * termino) {
+    if (herramientas::utiles::FuncionesString::separar(*termino).size() > 1) {
+        return false;
+    }
+
+    herramientas::utiles::FuncionesString::eliminar_tildes_utf8(termino);
+    herramientas::utiles::FuncionesString::todoMinuscula(*termino);
+    herramientas::utiles::FuncionesString::eliminarSignosYPuntuacion(*termino);
+    herramientas::utiles::FuncionesString::eliminarCaracteresDeControl(*termino);
+    herramientas::utiles::FuncionesString::eliminarOcurrencias(*termino, " ");
+
+    return true;
+}
 
 bool DialogoEditarConcepto::etiquetaModificada()
 {
@@ -252,9 +281,15 @@ void DialogoEditarConcepto::descargarListaTerminos()
 
 QMessageBox * DialogoEditarConcepto::crearInformacionTerminoExistente()
 {
-    std::string texto = u8"El término que se quiere agregar ya existe!";
+    std::string texto = u8"El término que se quiere agregar ya existe.";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_existente(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_existente, this);
+}
+
+QMessageBox * DialogoEditarConcepto::crearInformacionTerminoInvalido() {
+    std::string texto = u8"Imposible crear término con más de una palabra. El término debe ser exactamente de una sola palabra.";
+    visualizador::aplicacion::comunicacion::Informacion informacion_termino_invalido(texto);
+    return comunicacion::FabricaMensajes::fabricar(&informacion_termino_invalido, this);
 }
 
 QMessageBox * DialogoEditarConcepto::crearInformacionEtiquetaVacia()
