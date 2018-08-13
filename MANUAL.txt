@@ -1,0 +1,23 @@
+MANUAL VISUALIZADOR DE CONTEXTO v1.0
+
+0. REQUERIMIENTOS
+- Windows 7 o superior
+- Conexión a internet
+
+1. INSTALACIÓN
+La aplicación es PORTÁTIL (más conocida como "portable", su traudcción al ingles), es decir que NO REQUIERE instalación previa ser utilizada.
+Para comenzar a usarla solo hace falta copiar la carpeta "visu" y pegarla en "C:/".
+NOTA: en caso de tener otro disco distinto a "C" (ya sea "D" o "E" o etc), entonces se debe cambiar la letra "C" en los archivos de configuración:
+visu/config_aplicacion.json
+visu/db_aplicacion_entidades.json
+visu/db_resultados_diarios.json
+scraping/config_db_info_temporal.json
+scraping/config_db_resultados_diarios.json
+scraping/config_scraping.json
+
+2. UTILIZACIÓN
+2.1 Agregar cuenta de Facebook: ir Facebook -> Nueva
+completar los datos requeridos: "etiqueta" representa la descripción de la fanpage de Facebook, "Nombre página" indica el nombre de la página tal como aparece en la URL (www.facebook.com/nombre_de_pagina)
+
+2.2 Agregar cuenta de Twitter: ir Twitter -> Nueva
+completar los datos requeridos: "etiqueta" representa la descripción de la cuenta de Twitter, "Nombre cuenta" indica el nombre de la cuenta tal como aparece en la URL (www.twitter.com/nombre_de_cuenta)
