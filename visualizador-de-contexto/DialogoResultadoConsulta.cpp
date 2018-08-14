@@ -1082,7 +1082,7 @@ void DialogoResultadoConsulta::exportar_rango() {
         herramientas::utiles::csv csv_fechas_tendencia(this->nombres_columnas_csv);
         herramientas::utiles::csv csv_fechas_conceptos(this->nombres_columnas_csv);
 
-        for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i < this->ui->dateedit_hasta->date().toJulianDay(); i++) {
+        for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i <= this->ui->dateedit_hasta->date().toJulianDay(); i++) {
             std::string string_fecha = QDate::fromJulianDay(i).toString("yyyyMMdd").toStdString();
 
             //herramientas::utiles::csv csv_fecha_fuerza_sentimiento({});
@@ -1178,7 +1178,12 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fila_arbol(modelo::Concept
     });
 
     valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(sentimiento.total(), 0).c_str());
-    valores_de_concepto_por_medio.push_back((herramientas::utiles::FuncionesString::toString((fuerza / fuerza_total) * 100, 0) + "%").c_str());
+    if (fuerza_total) {
+        valores_de_concepto_por_medio.push_back((herramientas::utiles::FuncionesString::toString((fuerza / fuerza_total) * 100, 0) + "%").c_str());
+    }
+    else {
+        valores_de_concepto_por_medio.push_back("0%");
+    }
     valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza).c_str());
     valores_de_concepto_por_medio.push_back(sentimiento.informar().c_str());
     valores_de_concepto_por_medio.push_back(this->tipo_medio(medio).c_str());
@@ -1210,7 +1215,12 @@ QTreeWidgetItem * DialogoResultadoConsulta::completar_fila_arbol(modelo::Termino
     }
 
     valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(sentimiento.total(), 0).c_str());
-    valores_de_termino_por_medio.push_back((herramientas::utiles::FuncionesString::toString((fuerza_en_noticia / fuerza_total) * 100, 0) + "%").c_str());
+    if (fuerza_total) {
+        valores_de_termino_por_medio.push_back((herramientas::utiles::FuncionesString::toString((fuerza_en_noticia / fuerza_total) * 100, 0) + "%").c_str());
+    }
+    else {
+        valores_de_termino_por_medio.push_back("0%");
+    }
     valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia).c_str());
     valores_de_termino_por_medio.push_back(sentimiento.informar().c_str());
     valores_de_termino_por_medio.push_back(this->tipo_medio(medio).c_str());
