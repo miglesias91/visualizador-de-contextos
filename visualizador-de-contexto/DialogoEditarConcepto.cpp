@@ -208,7 +208,9 @@ bool DialogoEditarConcepto::normalizar(std::string * termino) {
 
     herramientas::utiles::FuncionesString::eliminar_tildes_utf8(termino);
     herramientas::utiles::FuncionesString::todoMinuscula(*termino);
-    herramientas::utiles::FuncionesString::eliminarSignosYPuntuacion(*termino, { "*" });
+    
+    //herramientas::utiles::FuncionesString::eliminarSignosYPuntuacion(*termino, { "*" });
+    
     herramientas::utiles::FuncionesString::eliminarCaracteresDeControl(*termino);
     herramientas::utiles::FuncionesString::eliminarOcurrencias(*termino, " ");
 

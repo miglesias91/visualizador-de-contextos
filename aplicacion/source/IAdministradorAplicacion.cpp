@@ -6,6 +6,9 @@ using namespace visualizador::aplicacion;
 #include <iostream>
 #include <filesystem>
 
+// utiles
+#include <utiles/include/FuncionesString.h>
+
 // aplicacion
 #include <aplicacion/include/AdministradorAplicacionLocal.h>
 #include <aplicacion/include/ConfiguracionAplicacion.h>
@@ -36,6 +39,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
 
     try
     {
+        aplicacion::Logger::info("leyendo config.");
         ConfiguracionAplicacion::leerConfiguracion(path_configuracion);
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
@@ -44,7 +48,7 @@ void IAdministradorAplicacion::iniciar(std::string path_configuracion)
     }
 
     Logger::iniciar(ConfiguracionAplicacion::archivoConfigLog());
-    Logger::marca("INICIO APP");
+    Logger::info("INICIO APP");
 
     try
     {
@@ -194,12 +198,12 @@ std::string IAdministradorAplicacion::obtener_path_db_mas_reciente(const std::st
 
     std::experimental::filesystem::path path_mas_reciente = path_db;
     herramientas::utiles::Fecha fecha_mas_reciente;
-    for(auto path : std::experimental::filesystem::directory_iterator(path_db.parent_path())) {
-        herramientas::utiles::Fecha fecha_de_creacion = herramientas::utiles::Fecha::parsear(std::experimental::filesystem::last_write_time(path));
+    for(auto entrada_directorio : std::experimental::filesystem::directory_iterator(path_db.parent_path())) {
+        herramientas::utiles::Fecha fecha_de_creacion = herramientas::utiles::Fecha::parsear(std::experimental::filesystem::last_write_time(entrada_directorio));
 
-        if (fecha_mas_reciente < fecha_de_creacion) {
+        if (fecha_mas_reciente < fecha_de_creacion && herramientas::utiles::FuncionesString::empiezaCon(entrada_directorio.path().u8string(), path_db.u8string())) {
             fecha_mas_reciente = fecha_de_creacion;
-            path_mas_reciente = path;
+            path_mas_reciente = entrada_directorio;
         }
     }
 

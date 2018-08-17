@@ -1,6 +1,9 @@
 #include "visualizadordecontexto.h"
 #include <QtWidgets/QApplication>
 
+// utiles
+#include <log/include/AdministradorLog.h>
+
 // medios
 #include <noticias/include/config.h>
 
@@ -22,6 +25,9 @@ using namespace visualizador;
 
 int main(int argc, char *argv[])
 {
+    aplicacion::Logger::iniciar("log_aplicacion.json");
+    aplicacion::Logger::info("INICIO APP");
+
     // INIT APP
     try
     {
@@ -30,7 +36,6 @@ int main(int argc, char *argv[])
         aplicacion::IAdministradorAplicacion::getInstanciaAdminEntidades()->recuperarIDActual();
 
         aplicacion::IAdministradorAplicacion::getInstanciaAdminResultados()->abrirBD();
-        //aplicacion::IAdministradorAplicacion::getInstanciaAdminResultados()->recuperarIDActual();
     }
     catch (herramientas::utiles::excepciones::Excepcion & e)
     {
@@ -40,7 +45,6 @@ int main(int argc, char *argv[])
     // INIT INFO SCRAPING
     try
     {
-        //scraping::IAdministradorScraping::iniciar("config_scraping.json");
         scraping::ConfiguracionScraping::leerConfiguracion(aplicacion::ConfiguracionAplicacion::pathConfiguracionScraping());
         medios::noticias::config::levantar(aplicacion::ConfiguracionAplicacion::pathConfiguracionNoticias());
     }
@@ -51,18 +55,6 @@ int main(int argc, char *argv[])
 
     // LANZAMIENTO INTERFAZ QT
 	QApplication qt_app(argc, argv);
-    //QFile f("qdarkstyle/style.qss");
-    //if (!f.exists())
-    //{
-    //    qDebug("No se encontro el archivo de estilos.\n");
-    //}
-    //else
-    //{
-    //    f.open(QFile::ReadOnly | QFile::Text);
-    //    QTextStream ts(&f);
-    //    qt_app.setStyleSheet(ts.readAll());
-    //}
-
     visualizadordecontexto * visu = new visualizadordecontexto();
     visu->show();
 	int retorno = qt_app.exec();

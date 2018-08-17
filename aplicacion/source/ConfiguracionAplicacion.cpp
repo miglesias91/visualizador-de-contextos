@@ -63,6 +63,9 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
 
     if (false == archivo.good())
     {
+        std::ofstream error("error.txt");
+        error << "no se puede abrir el archivo de config: " + path_archivo_configuracion + ".";
+        error.flush();
         throw herramientas::utiles::excepciones::ImposibleAbrirArchivo(path_archivo_configuracion);
     }
 
@@ -122,6 +125,10 @@ void ConfiguracionAplicacion::leerConfiguracion(std::string path_archivo_configu
     {
         delete config_app_json;
         delete config_json;
+
+        std::ofstream error("error.txt");
+        error << "error abriendo archivo de config.";
+        error.flush();
 
         throw;
     }
