@@ -202,15 +202,20 @@ void DialogoEditarConcepto::guardar_termino_sin_editar(QListWidgetItem * item_ac
 // METODOS INTERNOS
 
 bool DialogoEditarConcepto::normalizar(std::string * termino) {
-    if (herramientas::utiles::FuncionesString::separar(*termino).size() > 1) {
-        return false;
-    }
+
+    std::string termino_original = *termino;
 
     herramientas::utiles::FuncionesString::eliminar_tildes_utf8(termino);
     herramientas::utiles::FuncionesString::todoMinuscula(*termino);
     herramientas::utiles::FuncionesString::eliminarSignosYPuntuacion(*termino, { "*" });
     herramientas::utiles::FuncionesString::eliminarCaracteresDeControl(*termino);
-    herramientas::utiles::FuncionesString::eliminarOcurrencias(*termino, " ");
+    herramientas::utiles::FuncionesString::eliminarEspaciosRedundantes(*termino);
+    herramientas::utiles::FuncionesString::recortar(termino);
+
+    if (herramientas::utiles::FuncionesString::separar(*termino).size() > 3) {
+        *termino = termino_original;
+        return false;
+    }
 
     return true;
 }

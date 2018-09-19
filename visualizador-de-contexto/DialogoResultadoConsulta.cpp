@@ -125,166 +125,6 @@ void DialogoResultadoConsulta::completar_tendencias(const std::vector<modelo::Me
 	});
 }
 
-//void DialogoResultadoConsulta::completar_arboles(const std::vector<modelo::Medio*>& medios, const std::vector<modelo::Concepto*>& conceptos, const std::vector<scraping::preparacion::ResultadoAnalisisDiario*>& resultados) {
-//    
-//    // y paso los resultados a la tabla.
-//    std::for_each(resultados.begin(), resultados.end(),
-//        [this, &conceptos, &medios](scraping::preparacion::ResultadoAnalisisDiario * resultado)
-//    {
-//        herramientas::utiles::ID * id_resultado = resultado->getId();
-//
-//        // lleno los datos de los arboles
-//        herramientas::utiles::Fecha fecha_arbol = herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(id_resultado->string());
-//
-//        QTreeWidget * sentimiento = this->nuevo_arbol_sentimiento(id_resultado->numero(), medios);
-//        QTreeWidget * fuerza_en_noticia = this->nuevo_arbol_fuerza_en_noticia(id_resultado->numero(), medios);
-//
-//        std::for_each(conceptos.begin(), conceptos.end(),
-//            [&resultado,
-//            &sentimiento,
-//            &fuerza_en_noticia,
-//            &medios,
-//            this]
-//        (modelo::Concepto * concepto)
-//        {
-//            QTreeWidgetItem * item_concepto_sentimiento = this->completar_sentimiento(concepto, medios, resultado);
-//            QTreeWidgetItem * item_concepto_fuerza_en_noticia = this->completar_fuerza_en_noticia(concepto, medios, resultado);
-//
-//            std::vector<modelo::Termino*> terminos = concepto->getTerminos();
-//            std::for_each(terminos.begin(), terminos.end(),
-//                [&resultado,
-//                &medios,
-//                &item_concepto_sentimiento,
-//                &item_concepto_fuerza_en_noticia,
-//                this](modelo::Termino * termino)
-//            {
-//                QTreeWidgetItem * item_termino_sentimiento = this->completar_sentimiento(termino, medios, resultado);
-//                QTreeWidgetItem * item_termino_fuerza_en_noticia = this->completar_fuerza_en_noticia(termino, medios, resultado);
-//
-//                item_concepto_sentimiento->addChild(item_termino_sentimiento);
-//                item_concepto_fuerza_en_noticia->addChild(item_termino_fuerza_en_noticia);
-//            });
-//
-//            sentimiento->addTopLevelItem(item_concepto_sentimiento);
-//            fuerza_en_noticia->addTopLevelItem(item_concepto_fuerza_en_noticia);
-//        });
-//    });
-//}
-
-//QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultados)
-//{
-//    std::vector<modelo::Termino*> terminos = concepto->getTerminos();
-//
-//    QStringList valores_de_concepto_por_medio(concepto->getEtiqueta().c_str());
-//
-//    std::for_each(medios.begin(), medios.end(),
-//        [&resultados, &terminos, &valores_de_concepto_por_medio](modelo::Medio * medio)
-//    {
-//        scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento_de_concepto_en_medio;
-//
-//        std::for_each(terminos.begin(), terminos.end(),
-//            [&resultados, &medio, &sentimiento_de_concepto_en_medio](modelo::Termino * termino)
-//        {
-//            std::string expresion = termino->getValor();
-//            unsigned long long int id_medio = medio->getId()->numero();
-//
-//            scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-//
-//            if (resultado_medio) {
-//                scraping::analisis::tecnicas::ResultadoSentimiento resultado;
-//                resultado_medio->sentimiento_de_categoria(&resultado, medio->seccion());
-//                sentimiento_de_concepto_en_medio += resultado.valores(expresion);
-//            }
-//        });
-//
-//        valores_de_concepto_por_medio.push_back(sentimiento_de_concepto_en_medio.informar().c_str());
-//    });
-//
-//    return new QTreeWidgetItem(valores_de_concepto_por_medio);
-//}
-
-//QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::Concepto * concepto, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultados)
-//{
-//    std::vector<modelo::Termino*> terminos = concepto->getTerminos();
-//
-//    QStringList valores_de_concepto_por_medio(concepto->getEtiqueta().c_str());
-//
-//    std::for_each(medios.begin(), medios.end(),
-//        [&resultados, &terminos, &valores_de_concepto_por_medio](modelo::Medio * medio)
-//    {
-//        double fuerza_en_noticia_de_concepto_en_medio = 0.0f;
-//
-//        std::for_each(terminos.begin(), terminos.end(),
-//            [&resultados, &medio, &fuerza_en_noticia_de_concepto_en_medio](modelo::Termino * termino)
-//        {
-//            std::string expresion = termino->getValor();
-//            unsigned long long int id_medio = medio->getId()->numero();
-//
-//            scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-//
-//            if (resultado_medio) {
-//                scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado;
-//                resultado_medio->fuerza_en_noticia_de_categoria(&resultado, medio->seccion());
-//                fuerza_en_noticia_de_concepto_en_medio += resultado.getFuerza(expresion);
-//            }
-//        });
-//
-//        valores_de_concepto_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia_de_concepto_en_medio).c_str());
-//    });
-//
-//    return new QTreeWidgetItem(valores_de_concepto_por_medio);
-//}
-
-//QTreeWidgetItem * DialogoResultadoConsulta::completar_sentimiento(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultados)
-//{
-//    QStringList valores_de_termino_por_medio(termino->getValor().c_str());
-//
-//    std::for_each(medios.begin(), medios.end(),
-//        [&resultados, &termino, &valores_de_termino_por_medio](modelo::Medio * medio)
-//    {
-//        std::string expresion = termino->getValor();
-//        unsigned long long int id_medio = medio->getId()->numero();
-//
-//        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-//
-//        scraping::analisis::tecnicas::ResultadoSentimiento::sentimiento sentimiento_de_termino_en_medio;
-//        if (resultado_medio) {
-//            scraping::analisis::tecnicas::ResultadoSentimiento resultado;
-//            resultado_medio->sentimiento_de_categoria(&resultado, medio->seccion());
-//            sentimiento_de_termino_en_medio = resultado.valores(expresion);
-//        }
-//
-//        valores_de_termino_por_medio.push_back(sentimiento_de_termino_en_medio.informar().c_str());
-//    });
-//
-//    return new QTreeWidgetItem(valores_de_termino_por_medio);
-//}
-//
-//QTreeWidgetItem * DialogoResultadoConsulta::completar_fuerza_en_noticia(modelo::Termino * termino, std::vector<modelo::Medio*> medios, scraping::preparacion::ResultadoAnalisisDiario * resultados)
-//{
-//    QStringList valores_de_termino_por_medio(termino->getValor().c_str());
-//
-//    std::for_each(medios.begin(), medios.end(),
-//        [&resultados, &termino, &valores_de_termino_por_medio](modelo::Medio * medio)
-//    {
-//        std::string expresion = termino->getValor();
-//        unsigned long long int id_medio = medio->getId()->numero();
-//
-//        scraping::preparacion::ResultadoAnalisisMedio * resultado_medio = resultados->getResultadoMedio(id_medio);
-//
-//        double fuerza_en_noticia_de_termino_en_medio = 0.0f;
-//        if (resultado_medio) {
-//            scraping::analisis::tecnicas::ResultadoFuerzaEnNoticia resultado;
-//            resultado_medio->fuerza_en_noticia_de_categoria(&resultado, medio->seccion());
-//            fuerza_en_noticia_de_termino_en_medio = resultado.getFuerza(expresion);
-//        }
-//
-//        valores_de_termino_por_medio.push_back(herramientas::utiles::FuncionesString::toString(fuerza_en_noticia_de_termino_en_medio).c_str());
-//    });
-//
-//    return new QTreeWidgetItem(valores_de_termino_por_medio);
-//}
-
 void DialogoResultadoConsulta::nueva_tendencia(modelo::Medio* medio, scraping::preparacion::ResultadoAnalisisDiario * resultado) {
     QTableWidget * tendencia = new QTableWidget(this->ui->pestania_3);
     tendencia->setSortingEnabled(false);
@@ -446,85 +286,7 @@ void DialogoResultadoConsulta::nuevo_arbol_medio(const std::vector<modelo::Conce
     (&this->arboles_resultados_por_conceptos[resultado->getId()->numero()])->push_back(std::make_pair(medio->getNombre(), arbol));
 }
 
-//QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_sentimiento(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios)
-//{
-//    QTreeWidget * sentimiento = new QTreeWidget(this->ui->pestania_2);
-//
-//    QObject::connect(sentimiento, &QTreeWidget::itemCollapsed, this, &DialogoResultadoConsulta::colapsar_sentimiento);
-//    QObject::connect(sentimiento, &QTreeWidget::itemExpanded, this, &DialogoResultadoConsulta::expandir_sentimiento);
-//
-//    sentimiento->move(this->ui->lbl_sin_valores_2->pos());
-//    this->ui->layout_pestania_2->addWidget(sentimiento);
-//
-//    sentimiento->setColumnCount((medios.size() + 1));
-//
-//    QStringList etiquetas_medios(herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(std::to_string(fecha)).getStringDDmesAAAA(" ").c_str());
-//    std::for_each(medios.begin(), medios.end(),
-//        [=, &etiquetas_medios, &sentimiento](modelo::Medio * medio) {
-//        sentimiento->model()->setHeaderData(etiquetas_medios.size(), Qt::Horizontal, QVariant::fromValue(QIcon(this->path_icono(medio).c_str())), Qt::DecorationRole);
-//        etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
-//    });
-//
-//    sentimiento->setHeaderLabels(etiquetas_medios);
-//    sentimiento->setSortingEnabled(true);
-//    sentimiento->setVisible(false);
-//    sentimiento->setSelectionMode(QAbstractItemView::SelectionMode::ContiguousSelection);
-//
-//    this->sentimientos[fecha] = sentimiento;
-//
-//    return sentimiento;
-//}
-//
-//QTreeWidget * DialogoResultadoConsulta::nuevo_arbol_fuerza_en_noticia(const unsigned long long int & fecha, const std::vector<modelo::Medio*> & medios)
-//{
-//    QTreeWidget * fuerza_en_noticia = new QTreeWidget(this->ui->pestania_1);
-//
-//    QObject::connect(fuerza_en_noticia, &QTreeWidget::itemCollapsed, this, &DialogoResultadoConsulta::colapsar_fuerza_en_noticia);
-//    QObject::connect(fuerza_en_noticia, &QTreeWidget::itemExpanded, this, &DialogoResultadoConsulta::expandir_fuerza_en_noticia);
-//
-//    fuerza_en_noticia->move(this->ui->lbl_sin_valores_1->pos());
-//    this->ui->layout_pestania_1->addWidget(fuerza_en_noticia);
-//
-//    fuerza_en_noticia->setColumnCount(medios.size() + 1);
-//
-//    QStringList etiquetas_medios(herramientas::utiles::Fecha::parsearFormatoAAAAMMDD(std::to_string(fecha)).getStringDDmesAAAA(" ").c_str());
-//    std::for_each(medios.begin(), medios.end(),
-//        [=, &etiquetas_medios, &fuerza_en_noticia](modelo::Medio * medio) {
-//        fuerza_en_noticia->model()->setHeaderData(etiquetas_medios.size(), Qt::Horizontal, QVariant::fromValue(QIcon(this->path_icono(medio).c_str())), Qt::DecorationRole);
-//        etiquetas_medios.push_back(QString(medio->getNombre().c_str()));
-//    });
-//
-//    fuerza_en_noticia->setHeaderLabels(etiquetas_medios);
-//    fuerza_en_noticia->setSortingEnabled(true);
-//    fuerza_en_noticia->setVisible(false);
-//    fuerza_en_noticia->setSelectionMode(QAbstractItemView::SelectionMode::ContiguousSelection);
-//
-//    this->fuerzas_en_noticia[fecha] = fuerza_en_noticia;
-//
-//    return fuerza_en_noticia;
-//}
-
 void DialogoResultadoConsulta::mostrar_resultado(int fecha) {
-
-    //if (this->fuerzas_en_noticia.count(fecha)) {
-    //    this->fuerzas_en_noticia[fecha]->setVisible(true);
-    //    this->fuerzas_en_noticia[fecha]->raise();
-    //    this->ui->lbl_sin_valores_1->setVisible(false);
-    //}
-    //else {
-    //    this->ui->lbl_sin_valores_1->setVisible(true);
-    //    this->ui->lbl_sin_valores_1->raise();
-    //}
-
-    //if (this->sentimientos.count(fecha)) {
-    //    this->sentimientos[fecha]->setVisible(true);
-    //    this->sentimientos[fecha]->raise();
-    //    this->ui->lbl_sin_valores_2->setVisible(false);
-    //}
-    //else {
-    //    this->ui->lbl_sin_valores_2->setVisible(true);
-    //    this->ui->lbl_sin_valores_2->raise();
-    //}
 
     if (this->tendencias.count(fecha)) {
         std::for_each(this->tendencias[fecha].begin(), this->tendencias[fecha].end(), [=](QWidget * widget_tendencia) {
@@ -552,14 +314,6 @@ void DialogoResultadoConsulta::mostrar_resultado(int fecha) {
 }
 
 void DialogoResultadoConsulta::ocultar_resultado(int fecha) {
-
-    //if (this->fuerzas_en_noticia.count(fecha)) {
-    //    this->fuerzas_en_noticia[fecha]->setVisible(false);
-    //}
-
-    //if (this->sentimientos.count(fecha)) {
-    //    this->sentimientos[fecha]->setVisible(false);
-    //}
 
     if (this->tendencias.count(fecha)) {
         std::for_each(this->tendencias[fecha].begin(), this->tendencias[fecha].end(), [=](QWidget * widget_tendencia) {
@@ -771,58 +525,6 @@ bool DialogoResultadoConsulta::fecha_conceptos_a_csv(int fecha, herramientas::ut
         return true;
 }
 
-//bool DialogoResultadoConsulta::fecha_fuerza_sentimiento_a_csv(int fecha, herramientas::utiles::csv * doc) {
-//    if (0 == this->fuerzas_en_noticia.count(fecha)) { // si no existe la fecha, devuelvo false.
-//        return false;
-//    }
-//
-//    QTreeWidget * fuerza_en_noticia = this->fuerzas_en_noticia[fecha];
-//    QTreeWidget * sentimiento = this->sentimientos[fecha];
-//
-//    int cantidad_de_columnas = fuerza_en_noticia->columnCount();
-//    for (unsigned int i_medios = 1; i_medios < cantidad_de_columnas; i_medios++) {  // itero medios/columnas
-//        std::string nombre_medio = fuerza_en_noticia->headerItem()->text(i_medios).toStdString();
-//
-//        int cantidad_de_conceptos = fuerza_en_noticia->topLevelItemCount();
-//        for (unsigned int i_conceptos = 0; i_conceptos < cantidad_de_conceptos; i_conceptos++) {  // itero conceptos/top level items
-//
-//            std::string nombre_concepto = fuerza_en_noticia->topLevelItem(i_conceptos)->text(0).toStdString();
-//            std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->text(i_medios).toStdString();
-//
-//            std::string string_sentimiento_concepto = sentimiento->topLevelItem(i_conceptos)->text(i_medios).toStdString();
-//            herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_concepto, "+");
-//            herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_concepto, "-");
-//            herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_concepto, "n");
-//
-//            std::vector<std::string> positividad_negatividad_neutralidad_concepto = herramientas::utiles::FuncionesString::separar(string_sentimiento_concepto);
-//            std::string positividad_concepto = positividad_negatividad_neutralidad_concepto[0];
-//            std::string negatividad_concepto = positividad_negatividad_neutralidad_concepto[1];
-//            std::string neutralidad_concepto = positividad_negatividad_neutralidad_concepto[2];
-//
-//            doc->agregar( {nombre_medio, nombre_concepto, "1", fuerza_en_noticia_valor_concepto_en_medio, positividad_concepto, negatividad_concepto, neutralidad_concepto, std::to_string(fecha)} );
-//
-//            int cantidad_de_terminos = fuerza_en_noticia->topLevelItem(i_conceptos)->childCount();
-//            for (unsigned int i_terminos = 0; i_terminos < cantidad_de_terminos; i_terminos++) {  // itero terminos
-//
-//                std::string nombre_termino = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(0).toStdString();
-//                std::string fuerza_en_noticia_valor_concepto_en_medio = fuerza_en_noticia->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
-//                std::string string_sentimiento_termino = sentimiento->topLevelItem(i_conceptos)->child(i_terminos)->text(i_medios).toStdString();
-//                herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_termino, "+");
-//                herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_termino, "-");
-//                herramientas::utiles::FuncionesString::eliminarOcurrencias(string_sentimiento_termino, "n");
-//
-//                std::vector<std::string> positividad_negatividad_neutralidad_termino = herramientas::utiles::FuncionesString::separar(string_sentimiento_termino);
-//                std::string positividad_termino = positividad_negatividad_neutralidad_termino[0];
-//                std::string negatividad_termino = positividad_negatividad_neutralidad_termino[1];
-//                std::string neutralidad_termino = positividad_negatividad_neutralidad_termino[2];
-//                doc->agregar({ nombre_medio, nombre_termino, "0", fuerza_en_noticia_valor_concepto_en_medio, positividad_concepto, negatividad_concepto, neutralidad_concepto, std::to_string(fecha) });
-//            }
-//        }
-//    }
-//
-//    return true;
-//}
-
 herramientas::utiles::Json * DialogoResultadoConsulta::fecha_a_json(int fecha) {
 
     if (0 == this->fuerzas_en_noticia.count(fecha)) { // si no existe la fecha, devuelvo false.
@@ -952,29 +654,7 @@ void DialogoResultadoConsulta::exportar_actual() {
 
     QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
 
-        //std::string string_fecha_actual = this->fecha_actual.getStringAAAAMMDD();
-
-        //herramientas::utiles::Json json_consulta;
-
-        //herramientas::utiles::Json * json_fecha_actual = this->fecha_a_json(std::stoi(string_fecha_actual));
-
-        //std::vector<herramientas::utiles::Json*> json_fechas = { json_fecha_actual };
-
-        //json_consulta.agregarAtributoArray("fechas", json_fechas);
-
-        //std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-        //herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
-
-        //std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
-
         std::string string_fecha_actual = this->fecha_actual.getStringAAAAMMDD();
-
-        //herramientas::utiles::csv csv_fecha_fuerza_sentimiento(this->nombres_columnas_csv);
-        //if (this->fecha_fuerza_sentimiento_a_csv(std::stoi(string_fecha_actual), &csv_fecha_fuerza_sentimiento)) {
-        //    std::string path_exportacion = "fuerza_y_sentimiento_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
-        //    std::ofstream salida(path_exportacion);
-        //    csv_fecha_fuerza_sentimiento.exportar(salida);
-        //}
         std::string string_fecha_y_hora_actual = herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS();
 
         herramientas::utiles::csv csv_fecha_tendencia(this->nombres_columnas_csv);
@@ -998,25 +678,6 @@ void DialogoResultadoConsulta::exportar_actual() {
 void DialogoResultadoConsulta::exportar_todo() {
 
     QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
-
-        //herramientas::utiles::Json json_consulta;
-
-        //std::vector<herramientas::utiles::Json*> json_fechas;
-        //std::for_each(this->fuerzas_en_noticia.begin(), this->fuerzas_en_noticia.end(),
-        //    [this, &json_fechas](std::pair<unsigned long long int, QTreeWidget*> fecha_arbol) {
-
-        //    herramientas::utiles::Json * json_fecha = this->fecha_a_json(fecha_arbol.first);
-        //    json_fechas.push_back(json_fecha);
-        //});
-
-        //json_consulta.agregarAtributoArray("fechas", json_fechas);
-
-        //std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-        //herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
-
-        //std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
-
-        //herramientas::utiles::csv csv_fechas_fuerza_sentimiento(this->nombres_columnas_csv);
         std::string string_fecha_actual = herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS();
 
         herramientas::utiles::csv csv_fechas_tendencia(this->nombres_columnas_csv);
@@ -1057,38 +718,11 @@ void DialogoResultadoConsulta::exportar_rango() {
 
     QFuture<void> tarea_exportacion = QtConcurrent::run([this]() {
 
-        //herramientas::utiles::Json json_consulta;
-
-        //std::vector<herramientas::utiles::Json*> json_fechas;
-
-        //for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i < this->ui->dateedit_hasta->date().toJulianDay(); i++) {
-        //    std::string string_fecha = QDate::fromJulianDay(i).toString("yyyyMMdd").toStdString();
-
-        //    herramientas::utiles::Json * json_fecha = this->fecha_a_json(std::stoi(string_fecha));
-
-        //    if (json_fecha) {
-        //        json_fechas.push_back(json_fecha);
-        //    }
-        //}
-
-        //json_consulta.agregarAtributoArray("fechas", json_fechas);
-
-        //std::string path_exportacion = "consulta_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".json";
-        //herramientas::utiles::FuncionesSistemaArchivos::escribir(path_exportacion, json_consulta.jsonStringLindo());
-
-        //std::for_each(json_fechas.begin(), json_fechas.end(), [](herramientas::utiles::Json * json_fecha) { delete json_fecha; });
-
-        //herramientas::utiles::csv csv_fechas_fuerza_sentimiento(this->nombres_columnas_csv);
         herramientas::utiles::csv csv_fechas_tendencia(this->nombres_columnas_csv);
         herramientas::utiles::csv csv_fechas_conceptos(this->nombres_columnas_csv);
 
         for (unsigned int i = this->ui->dateedit_desde->date().toJulianDay(); i <= this->ui->dateedit_hasta->date().toJulianDay(); i++) {
             std::string string_fecha = QDate::fromJulianDay(i).toString("yyyyMMdd").toStdString();
-
-            //herramientas::utiles::csv csv_fecha_fuerza_sentimiento({});
-            //if (this->fecha_fuerza_sentimiento_a_csv(std::stoi(string_fecha), &csv_fecha_fuerza_sentimiento)) {
-            //    csv_fechas_fuerza_sentimiento += csv_fecha_fuerza_sentimiento;
-            //}
 
             herramientas::utiles::csv csv_fecha_tendencia({});
             if (this->fecha_tendencia_a_csv(std::stoi(string_fecha), &csv_fecha_tendencia)) {
@@ -1100,12 +734,6 @@ void DialogoResultadoConsulta::exportar_rango() {
                 csv_fechas_conceptos += csv_fecha_conceptos;
             }
         }
-
-        //if (csv_fechas_fuerza_sentimiento.filas().size()) {
-        //    std::string path_exportacion = "fuerza_y_sentimiento_" + herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS() + ".csv";
-        //    std::ofstream salida(path_exportacion);
-        //    csv_fechas_fuerza_sentimiento.exportar(salida);
-        //}
 
         std::string string_fecha_actual = herramientas::utiles::Fecha::getFechaActual().getStringAAAAMMDDHHmmSS();
         if (csv_fechas_tendencia.filas().size()) {
