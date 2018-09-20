@@ -292,7 +292,7 @@ QMessageBox * DialogoEditarConcepto::crearInformacionTerminoExistente()
 }
 
 QMessageBox * DialogoEditarConcepto::crearInformacionTerminoInvalido() {
-    std::string texto = u8"Imposible crear término con más de una palabra. El término debe ser exactamente de una sola palabra.";
+    std::string texto = u8"Imposible crear término con más de tres palabras. Cada término contiene una, dos o tres palabras como máximo.";
     visualizador::aplicacion::comunicacion::Informacion informacion_termino_invalido(texto);
     return comunicacion::FabricaMensajes::fabricar(&informacion_termino_invalido, this);
 }
